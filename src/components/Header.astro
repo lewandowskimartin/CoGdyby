@@ -1,11 +1,14 @@
 ---
-import { EA, eaPrice } from '../config/earlyAccess';
+import { EA, eaPrice, eaPhase } from '../config/earlyAccess';
 import { PACK_CONFIG } from '../config/pack';
 
 // On the course page the header CTA sells the course (dark, so it reads as a different product
 // from the terracotta pack button); everywhere else it's the £14.99 pack.
 const onCourse = Astro.url.pathname.replace(/\/$/, '') === EA.URL;
-const coursePrice = eaPrice();
+const coursePhase = eaPhase();
+const coursePrice = eaPrice(coursePhase);
+// Show the course price only while that price is actually on sale.
+const courseOnSale = coursePhase !== 'off';
 ---
 <a class="skip-link" href="#main">Przejdź do treści</a>
 <header class="site-header">
@@ -26,7 +29,7 @@ const coursePrice = eaPrice();
       <li><a href="/#organisations" data-org-cta="header">Dla organizacji</a></li>
       <li><a href="/blog/">Poradniki</a></li>
     </ul>
-    {onCourse ? (
+    {onCourse && courseOnSale ? (
       <a class="price price--course" href="#offer" data-ea-cta="header-price"><span class="price-label">Zobacz kurs</span><span class="price-sep"> · </span><span class="price-amount">{coursePrice}</span></a>
     ) : (
       <a class="price" href="/#get" data-pack-cta="header-price"><span class="price-label">Kup pakiet</span><span class="price-sep"> · </span><span class="price-amount">{PACK_CONFIG.PRICE}</span></a>

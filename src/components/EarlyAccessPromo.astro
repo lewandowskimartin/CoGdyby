@@ -48,7 +48,7 @@ const now = phase === "launch" ? copy.lp : phase === "early-bird" ? copy.eb : co
   <div class="ea-guide" data-ea-close={EA.CLOSE_ISO}>
     <span class="ea-eyebrow">Wczesny dostęp · dla pierwszych {EA.SEAT_CAP} rodzin</span>
     <p class="ea-guide-head">{topic ? `Poradnik o ${topic} to dobry początek. Resztę domu przygotujesz krok po kroku.` : "Chcesz przygotować cały dom, krok po kroku?"}</p>
-    <p class="ea-guide-body">W kursie <strong>„{EA.NAME}”</strong> co tydzień zajmujesz się jednym tematem: wodą, ciepłem, jedzeniem, łącznością i planem dla rodziny. We wczesnym dostępie {EA.PRICE}{" "}<s>{EA.LIST_PRICE}</s>, zapisy do {EA.CLOSE_LABEL}.</p>
+    <p class="ea-guide-body">W kursie <strong>„{EA.NAME}”</strong> co tydzień zajmujesz się jednym tematem: wodą, ciepłem, jedzeniem, łącznością i planem dla rodziny. We wczesnym dostępie {EA.PRICE} (po premierze {EA.LIST_PRICE}), zapisy do {EA.CLOSE_LABEL}.</p>
     <a class="ea-link" href={eaHref(`guide-${slug ?? "post"}`)} data-ea-cta={`guide-${slug ?? "post"}`}>Zobacz kurs{" "}<span aria-hidden="true">→</span></a>
   </div>
 )}
@@ -56,7 +56,7 @@ const now = phase === "launch" ? copy.lp : phase === "early-bird" ? copy.eb : co
 {show && variant === "card" && (
   <div class="ea-card" data-ea-close={EA.CLOSE_ISO}>
     <p class="ea-card-head">Wolisz przejść przez to z przewodnikiem?</p>
-    <p class="ea-card-body">„{EA.NAME}” to 30-dniowy kurs, w którym przygotowujesz dom po jednym kroku w tygodniu. Dla pierwszych {EA.SEAT_CAP} rodzin {EA.PRICE}{" "}<s>{EA.LIST_PRICE}</s>, zapisy do {EA.CLOSE_SHORT}.</p>
+    <p class="ea-card-body">„{EA.NAME}” to 30-dniowy kurs, w którym przygotowujesz dom po jednym kroku w tygodniu. Dla pierwszych {EA.SEAT_CAP} rodzin {EA.PRICE} (po premierze {EA.LIST_PRICE}), zapisy do {EA.CLOSE_SHORT}.</p>
     <a class="ea-link" href={eaHref("home")} data-ea-cta="home">Zobacz kurs{" "}<span aria-hidden="true">→</span></a>
   </div>
 )}
@@ -67,7 +67,7 @@ const now = phase === "launch" ? copy.lp : phase === "early-bird" ? copy.eb : co
   </p>
 )}
 
-{EA.ENABLED && variant === "results" && (
+{phase !== "off" && variant === "results" && (
   <div
     class="q-card q-course"
     data-ea-results

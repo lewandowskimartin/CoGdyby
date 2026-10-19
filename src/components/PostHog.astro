@@ -2,6 +2,9 @@
 // Optional product analytics. Renders nothing unless PUBLIC_POSTHOG_KEY is set.
 // Cookieless: nothing is stored on the visitor's device. Requires "Cookieless server hash mode"
 // switched on in PostHog > Project settings > Web analytics.
+// Consent-gated on cogdyby.pl: cookieless hashing still reads browser data, which the EDPB treats
+// as falling under art. 5(3) ePrivacy (PL: art. 399 Prawa komunikacji elektronicznej), so PostHog
+// starts only after the visitor accepts analytics (CookieConsent fires 'cg:analytics-consent').
 const key = import.meta.env.PUBLIC_POSTHOG_KEY;
 const host = import.meta.env.PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com';
 ---
@@ -13,7 +16,9 @@ const host = import.meta.env.PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com';
 {key && (
   <script>
     const cfg = window.__phConfig;
-    if (cfg) {
+    const start = () => {
+      if (!cfg || window.__phStarted) return;
+      window.__phStarted = true;
       import('posthog-js').then(({ default: posthog }) => {
         posthog.init(cfg.key, {
           api_host: cfg.host,
@@ -39,6 +44,8 @@ const host = import.meta.env.PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com';
         window.posthog = posthog;
         window.dispatchEvent(new Event('posthog:ready'));
       });
-    }
+    };
+    if (window.__cgAnalyticsConsent) start();
+    else window.addEventListener('cg:analytics-consent', start, { once: true });
   </script>
 )}

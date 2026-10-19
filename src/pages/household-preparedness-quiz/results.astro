@@ -4,7 +4,7 @@ import PostHog from '../../components/PostHog.astro';
 import { QUIZ_PATH, EMAIL_FORM, PACK, TIERS, MANAGE, AREAS_HEADING } from '../../data/quiz.js';
 import PreparednessGauge from '../../components/PreparednessGauge.astro';
 import EarlyAccessPromo from '../../components/EarlyAccessPromo.astro';
-import { EA } from '../../config/earlyAccess';
+import { EA, eaPhase } from '../../config/earlyAccess';
 import '../../styles/quiz.css';
 
 const title = 'Twój wynik w quizie gotowości domu | Co gdyby';
@@ -86,7 +86,7 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
         <section class="q-tier" data-tier="longer" hidden>
           <h3 class="q-tier__head">{tier.longer.label} <span class="q-tier__note">{tier.longer.note}</span></h3>
           <ul class="q-tier__list" data-tier-list></ul>
-          {EA.ENABLED && (
+          {eaPhase() !== 'off' && (
             <p class="q-tier__cta">Kurs „{EA.NAME}” przeprowadzi Cię przez cały plan, jeden krok w tygodniu. <a href="/early-access/" data-ea-cta="quiz-tier-longer">Zobacz kurs</a></p>
           )}
         </section>

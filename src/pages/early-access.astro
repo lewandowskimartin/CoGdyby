@@ -3,29 +3,44 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Photo from "../components/Photo.astro";
 
 // All cohort settings (price, close date, seats, checkout link) live in src/config/earlyAccess.ts
-import { EA, EARLY_BIRD } from "../config/earlyAccess";
-const PAYHIP_EARLY_ACCESS_URL = EA.CHECKOUT_URL;
-const { SEAT_CAP, SEATS_REMAINING, SHOW_SEAT_COUNTER, LIST_PRICE, REFUND_DAYS, COURSE_OPEN_LABEL } = EA;
-const CLOSE_DATE_LABEL = EA.CLOSE_LABEL;
+import { EA, EARLY_BIRD, eaPhase, eaPrice, eaCheckout, eaSeatsLeft } from "../config/earlyAccess";
+const { SHOW_SEAT_COUNTER, LIST_PRICE, REFUND_DAYS, COURSE_OPEN_LABEL } = EA;
+
+// What is actually on sale decides every price, seat and deadline claim on this page.
+// "off" (no Payhip link yet, sold out, or switched off) = no prices, seats or deadlines at all.
+const phase = eaPhase();
+const open = phase !== "off";
+const isEA = phase === "early-access";
+const isEB = phase === "early-bird";
+const price = eaPrice(phase);
+const seatsLeft = eaSeatsLeft(phase);
+const tierCap = isEA ? EA.SEAT_CAP : isEB ? EARLY_BIRD.SEAT_CAP : null;
+const tierClose = isEA ? EA.CLOSE_LABEL : isEB ? EARLY_BIRD.CLOSE_LABEL : null;
+const PAYHIP_EARLY_ACCESS_URL = eaCheckout(phase) || "mailto:kontakt@cogdyby.pl?subject=Powiadom%20mnie%20o%20starcie%20kursu";
+const ctaLabel = open ? `Zapisuję się za ${price}` : "Powiadom mnie o starcie zapisów";
 const G = "https://www.gov.pl/poradnikbezpieczenstwa";
 
 const title = `Kurs „${EA.NAME}”: przygotuj dom na sytuacje kryzysowe w 30 dni | Co gdyby`;
-const description = `30-dniowy kurs krok po kroku: woda, ciepło, jedzenie, łączność i plan dla rodziny. Wczesny dostęp dla pierwszych ${EA.SEAT_CAP} rodzin za ${EA.PRICE} (po premierze ${EA.LIST_PRICE}), ${EA.REFUND_DAYS} dni na zwrot pieniędzy.`;
+const description = isEA
+  ? `30-dniowy kurs krok po kroku: woda, ciepło, jedzenie, łączność i plan dla rodziny. Wczesny dostęp dla pierwszych ${EA.SEAT_CAP} rodzin za ${EA.PRICE} (po premierze ${EA.LIST_PRICE}), ${EA.REFUND_DAYS} dni na zwrot pieniędzy.`
+  : `30-dniowy kurs krok po kroku: woda, ciepło, jedzenie, łączność i plan dla rodziny. Jeden krótki krok w tygodniu, ${EA.REFUND_DAYS} dni na zwrot pieniędzy.`;
 ---
 <BaseLayout title={title} description={description}>
 <main id="main">
 
   <!-- HERO -->
   <section class="page" style="padding-bottom: 8px;">
-    <span class="eyebrow">Kurs „{EA.NAME}” &middot; wczesny dostęp dla pierwszych 30 rodzin</span>
+    <span class="eyebrow">Kurs „{EA.NAME}”{isEA && <> &middot; wczesny dostęp dla pierwszych {EA.SEAT_CAP} rodzin</>}{!open && <> &middot; w przygotowaniu</>}</span>
     <h1>W 30 dni przygotujesz dom <span style="color: var(--action);">na przerwę w prądzie, wichurę czy brak wody</span></h1>
     <p class="page-sub"><strong>„{EA.NAME}”</strong> to spokojny kurs krok po kroku dla zwykłych, zapracowanych rodzin. Co tydzień jedno zadanie, które łatwo zmieścić w normalnym tygodniu.</p>
     <div class="hero-actions" style="margin: 28px 0 14px;">
-      <a class="btn btn-primary" href={PAYHIP_EARLY_ACCESS_URL} data-ea-checkout="hero">Zapisuję się za {EA.PRICE}</a>
-      <span class="price-anchor" style="font-family: var(--body); font-weight: 600; font-size: 15.5px; color: var(--muted);">po premierze <s>{LIST_PRICE}</s></span>
+      <a class="btn btn-primary" href={PAYHIP_EARLY_ACCESS_URL} data-ea-checkout="hero">{ctaLabel}</a>
+      {(isEA || isEB) && <span class="price-anchor" style="font-family: var(--body); font-weight: 600; font-size: 15.5px; color: var(--muted);">po premierze {LIST_PRICE}</span>}
     </div>
-    <p class="page-sub" style="font-size: 14px; color: var(--muted);">{SEAT_CAP} miejsc · dla polskich domów · {REFUND_DAYS} dni na zwrot pieniędzy · prowadzi Depthia</p>
-    <p class="page-sub" style="font-size: 13px; color: var(--muted);">Zapisy trwają do {CLOSE_DATE_LABEL}.</p>
+    {open
+      ? <p class="page-sub" style="font-size: 14px; color: var(--muted);">{tierCap && `${tierCap} miejsc w tej cenie · `}dla polskich domów · {REFUND_DAYS} dni na zwrot pieniędzy · prowadzi Depthia</p>
+      : <p class="page-sub" style="font-size: 14px; color: var(--muted);">Zapisy jeszcze nie ruszyły. Napisz do nas, a damy znać, gdy wystartują.</p>}
+    {tierClose && <p class="page-sub" style="font-size: 13px; color: var(--muted);">Ta cena obowiązuje do {tierClose} (czasu polskiego).</p>}
   </section>
 
   <!-- PHOTO BAND — the outcome -->
@@ -101,7 +116,7 @@ const description = `30-dniowy kurs krok po kroku: woda, ciepło, jedzenie, łą
     <div class="section-inner">
       <div class="template-upsell">
         <h2>Program: pięć krótkich modułów</h2>
-        <p>Jeden moduł w tygodniu. Pierwsze 30 rodzin dostaje kurs przed premierą i pomaga nam dopracować wersję publiczną.</p>
+        <p>Jeden moduł w tygodniu.{isEA && ` Pierwsze ${EA.SEAT_CAP} rodzin dostaje kurs przed premierą i pomaga nam dopracować wersję publiczną.`}</p>
         <div class="upsell-grid">
           <div class="upsell-item">
             <div class="upsell-num">Tydzień 0</div>
@@ -146,16 +161,19 @@ const description = `30-dniowy kurs krok po kroku: woda, ciepło, jedzenie, łą
     </div>
   </section>
 
+  {isEA && (
   <!-- TRUST -->
   <section class="section">
     <div class="section-inner">
       <div class="objection">
         <h2>Skąd cena {EA.PRICE} we wczesnym dostępie?</h2>
-        <p>Pierwsze 30 rodzin dostaje najniższą cenę, jaką kiedykolwiek będzie miał ten kurs. W zamian prosimy o szczere uwagi, dzięki którym dopracujemy wersję publiczną. Liczba miejsc i data zamknięcia zapisów są prawdziwe, a jeśli kurs się nie sprawdzi, przez {REFUND_DAYS} dni możesz poprosić o zwrot pieniędzy.</p>
+        <p>Pierwsze 30 rodzin płaci najniższą cenę z cennika poniżej. W zamian prosimy o szczere uwagi, dzięki którym dopracujemy wersję publiczną. Liczba miejsc i data zamknięcia zapisów są prawdziwe. Masz też ustawowe 14 dni na odstąpienie od zakupu, a jeśli kurs się nie sprawdzi, przez {REFUND_DAYS} dni od jego startu możesz poprosić o zwrot pieniędzy.</p>
       </div>
     </div>
   </section>
+  )}
 
+  {open && (
   <!-- THE OFFER -->
   <section class="section" id="offer">
     <div class="section-inner">
@@ -172,16 +190,16 @@ const description = `30-dniowy kurs krok po kroku: woda, ciepło, jedzenie, łą
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td class="highlight">Wczesny dostęp dla pierwszych 30 rodzin</td>
+              {isEA && <tr>
+                <td class="highlight">Wczesny dostęp dla pierwszych {EA.SEAT_CAP} rodzin</td>
                 <td class="highlight">{EA.PRICE}</td>
-                <td class="highlight">Do {CLOSE_DATE_LABEL} · {SEAT_CAP} miejsc</td>
-              </tr>
-              <tr>
-                <td>Cena promocyjna</td>
-                <td>{EARLY_BIRD.PRICE}</td>
-                <td>Do {EARLY_BIRD.CLOSE_LABEL} · {EARLY_BIRD.SEAT_CAP} miejsc</td>
-              </tr>
+                <td class="highlight">Do {EA.CLOSE_LABEL} · {EA.SEAT_CAP} miejsc</td>
+              </tr>}
+              {(isEA || isEB) && <tr>
+                <td class={isEB ? "highlight" : undefined}>Cena promocyjna</td>
+                <td class={isEB ? "highlight" : undefined}>{EARLY_BIRD.PRICE}</td>
+                <td class={isEB ? "highlight" : undefined}>Do {EARLY_BIRD.CLOSE_LABEL} · {EARLY_BIRD.SEAT_CAP} miejsc</td>
+              </tr>}
               <tr class="list-row">
                 <td style="color: #AD4C28; font-weight: 600;">Cena regularna</td>
                 <td style="color: #AD4C28; font-weight: 600;">{LIST_PRICE}</td>
@@ -199,19 +217,20 @@ const description = `30-dniowy kurs krok po kroku: woda, ciepło, jedzenie, łą
           <li>{REFUND_DAYS} dni na zwrot pieniędzy, liczone od dnia startu kursu</li>
         </ul>
         <div class="hero-actions" style="justify-content:center; margin-top: 28px;">
-          <a class="btn btn-primary" href={PAYHIP_EARLY_ACCESS_URL} data-ea-checkout="offer">Zapisuję się za {EA.PRICE}</a>
+          <a class="btn btn-primary" href={PAYHIP_EARLY_ACCESS_URL} data-ea-checkout="offer">{ctaLabel}</a>
         </div>
-        <p class="reassurance" style="text-align:center;">{SHOW_SEAT_COUNTER ? <><span class="placeholder">Wolne miejsca: {SEATS_REMAINING} z {SEAT_CAP}</span> · </> : `${SEAT_CAP} miejsc · `}zapisy do {CLOSE_DATE_LABEL}</p>
+        {tierCap && <p class="reassurance" style="text-align:center;">{SHOW_SEAT_COUNTER ? `Wolne miejsca w tej cenie: ${seatsLeft} z ${tierCap}` : `${tierCap} miejsc w tej cenie`} · do {tierClose}</p>}
       </div>
     </div>
   </section>
+  )}
 
   <!-- GUARANTEE -->
   <section class="faq-cta" style="padding-top: 0;">
     <div class="box" style="flex-direction: column; text-align: center; gap: 10px;">
       <p style="font-size: 22px;">{REFUND_DAYS} dni na zwrot pieniędzy</p>
       <p style="margin:0; font-family: var(--body); font-weight: 400; font-size: 16px; line-height: 1.65; color: var(--ink-soft); max-width: 560px;">
-        Korzystaj z kursu przez {REFUND_DAYS} dni od jego startu. Jeśli uznasz, że nie był wart {EA.PRICE}, napisz na <a href="mailto:kontakt@cogdyby.pl">kontakt@cogdyby.pl</a>, a oddamy całą kwotę. Bez formularzy i bez tłumaczenia się.
+        Korzystaj z kursu przez {REFUND_DAYS} dni od jego startu. Jeśli uznasz, że nie był wart swojej ceny, napisz na <a href="mailto:kontakt@cogdyby.pl">kontakt@cogdyby.pl</a>, a oddamy całą kwotę. Bez formularzy i bez tłumaczenia się.
       </p>
     </div>
   </section>
@@ -222,7 +241,7 @@ const description = `30-dniowy kurs krok po kroku: woda, ciepło, jedzenie, łą
       <h2>Pytania</h2>
       <div class="faq-item">
         <h3>Kiedy startuje kurs?</h3>
-        <p>{COURSE_OPEN_LABEL}. Rodziny z wczesnego dostępu zaczynają jako pierwsze, przed publiczną premierą. W dniu startu dostaniesz maila.</p>
+        <p>{open ? `${COURSE_OPEN_LABEL}. W dniu startu dostaniesz maila z dostępem.` : "Termin startu podamy, gdy otworzymy zapisy. Jeśli chcesz, napisz do nas, a damy znać."}</p>
       </div>
       <div class="faq-item">
         <h3>A jeśli nie zdążę w 30 dni?</h3>
@@ -242,7 +261,7 @@ const description = `30-dniowy kurs krok po kroku: woda, ciepło, jedzenie, łą
       </div>
       <div class="faq-item">
         <h3>Jak działa zwrot?</h3>
-        <p>Masz {REFUND_DAYS} dni od startu kursu. Wystarczy jeden mail. Szczegóły są w ramce powyżej.</p>
+        <p>Masz {REFUND_DAYS} dni od startu kursu. Wystarczy jeden mail. Niezależnie od tego przez 14 dni od zakupu możesz odstąpić od umowy bez podania przyczyny. Szczegóły znajdziesz w <a href="/terms/#odstapienie">regulaminie</a>.</p>
       </div>
       <div class="faq-item">
         <h3>Kto prowadzi kurs?</h3>
@@ -269,12 +288,12 @@ const description = `30-dniowy kurs krok po kroku: woda, ciepło, jedzenie, łą
   <!-- FINAL CTA -->
   <section class="final">
     <div class="final-inner">
-      <h2>Wczesny dostęp do {CLOSE_DATE_LABEL}</h2>
-      <p>Potem kurs kosztuje {EARLY_BIRD.PRICE} do {EARLY_BIRD.CLOSE_LABEL}, a następnie {LIST_PRICE}.</p>
+      <h2>{isEA ? `Wczesny dostęp do ${EA.CLOSE_LABEL}` : isEB ? `Cena promocyjna do ${EARLY_BIRD.CLOSE_LABEL}` : open ? "Zapisy są otwarte" : "Kurs jest w przygotowaniu"}</h2>
+      <p>{isEA ? `Potem kurs kosztuje ${EARLY_BIRD.PRICE} do ${EARLY_BIRD.CLOSE_LABEL}, a następnie ${LIST_PRICE}.` : isEB ? `Potem kurs kosztuje ${LIST_PRICE}.` : open ? "Jeden krótki krok w tygodniu, w Twoim tempie." : "Napisz do nas, a damy znać, gdy otworzymy zapisy."}</p>
       <div class="final-actions">
-        <a class="btn btn-primary" href={PAYHIP_EARLY_ACCESS_URL} data-ea-checkout="final">Zapisuję się za {EA.PRICE}</a>
+        <a class="btn btn-primary" href={PAYHIP_EARLY_ACCESS_URL} data-ea-checkout="final">{ctaLabel}</a>
       </div>
-      <p class="reassurance">{SEAT_CAP} miejsc · {REFUND_DAYS} dni na zwrot pieniędzy · potwierdzenie od razu na maila</p>
+      {open && <p class="reassurance">{tierCap && `${tierCap} miejsc w tej cenie · `}{REFUND_DAYS} dni na zwrot pieniędzy · potwierdzenie od razu na maila</p>}
     </div>
   </section>
 

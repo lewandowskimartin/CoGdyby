@@ -5,10 +5,18 @@
 
 import { SCENARIOS, KIT_PATH } from '../../data/kit.js';
 import { PACK_CONFIG } from '../../config/pack.ts';
-import { EA } from '../../config/earlyAccess.ts';
+import { EA, EARLY_BIRD, eaPhase } from '../../config/earlyAccess.ts';
+
+// The course card states a price only while that price is actually on sale.
+const EA_PHASE = eaPhase();
+const EA_CHIP =
+  EA_PHASE === 'early-access' ? { label: EA.PRICE, caption: `Wczesny dostęp · potem ${EA.LIST_PRICE}`, variant: 'ink' }
+  : EA_PHASE === 'early-bird' ? { label: EARLY_BIRD.PRICE, caption: `Cena promocyjna · potem ${EA.LIST_PRICE}`, variant: 'ink' }
+  : EA_PHASE === 'launch' ? { label: EA.LIST_PRICE, caption: 'Zapisy otwarte', variant: 'ink' }
+  : { label: 'Wkrótce', caption: 'Kurs w przygotowaniu', variant: 'outline' };
 
 const PACK_CHIP = { label: PACK_CONFIG.PRICE, caption: 'Natychmiastowe pobranie', variant: 'accent' };
-const FREE_CHIP = { label: 'Za darmo', caption: 'Bez e-maila', variant: 'outline' };
+const FREE_CHIP = { label: 'Za darmo', caption: 'Karta na lodówkę', variant: 'outline' };
 const GUIDE_CHIP = { label: 'Poradnik', caption: 'Za darmo', variant: 'outline' };
 const KIT_CHIP = { label: 'Bezpłatnie', caption: 'Bez zapisu', variant: 'outline' };
 
@@ -51,10 +59,10 @@ export const STATIC_PAGES = {
   },
 
   'early-access': {
-    eyebrow: 'Gotowi w 30 dni · Wczesny dostęp',
+    eyebrow: EA_PHASE === 'early-access' ? 'Gotowi w 30 dni · Wczesny dostęp' : 'Kurs „Gotowi w 30 dni”',
     headline: 'W 30 dni przygotujesz dom na sytuacje kryzysowe',
-    sub: 'Spokojny kurs krok po kroku dla polskich rodzin. Wczesny dostęp dla pierwszych 30 rodzin.',
-    chip: { label: EA.PRICE, caption: `Wczesny dostęp · potem ${EA.LIST_PRICE}`, variant: 'ink' },
+    sub: 'Spokojny kurs krok po kroku dla polskich rodzin, jeden krótki krok w tygodniu.',
+    chip: EA_CHIP,
   },
 
   'household-preparedness-quiz': {

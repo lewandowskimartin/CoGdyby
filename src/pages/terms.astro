@@ -1,60 +1,132 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { PACK_CONFIG } from '../config/pack';
-const updated = 'wrzesień 2026';
+import { EA, EARLY_BIRD, eaPhase } from '../config/earlyAccess';
+import { SELLER } from '../config/seller';
+const updated = 'październik 2026';
+const mail = `mailto:${SELLER.EMAIL}`;
+// Course prices, seats and dates appear only once the course is actually on sale.
+const courseOpen = eaPhase() !== 'off';
+const courseStart = courseOpen ? EA.COURSE_OPEN_LABEL : 'w dniu startu podanym na stronie kursu przed zakupem';
 ---
 <BaseLayout
-  title="Regulamin | Co gdyby"
-  description="Regulamin sprzedaży i korzystania z pakietu domowego planu na sytuacje kryzysowe Co gdyby.">
+  title="Regulamin sklepu i serwisu | Co gdyby"
+  description="Regulamin Co gdyby: kto sprzedaje, jak kupić pakiet i kurs, ceny, prawo odstąpienia od umowy, reklamacje i wzór formularza odstąpienia.">
   <main id="main">
     <div class="page">
       <span class="eyebrow">Co gdyby</span>
       <h1>Regulamin</h1>
-      <p class="page-sub">Warunki, na jakich sprzedajemy pakiet i na jakich korzystasz z tej strony.</p>
+      <p class="page-sub">Zasady korzystania z serwisu cogdyby.pl oraz zakupu pakietu i kursu.</p>
       <p class="updated">Ostatnia aktualizacja: {updated}</p>
 
       <div class="legal">
-        {/* TODO(Martin): potwierdź dane sprzedawcy dla rynku PL (pełna nazwa, NIP/REGON,
-            adres, kraj siedziby) oraz prawo właściwe. Poniżej: Depthia + prawo polskie. */}
-        <h2>1. Kim jesteśmy</h2>
-        <p>Serwis cogdyby.pl prowadzi Marcin Lewandowski, działający jako <a href="https://depthia.com">Depthia</a>. Co gdyby jest produktem Depthia.</p>
-        <p>Kontakt: <a href="mailto:kontakt@cogdyby.pl">kontakt@cogdyby.pl</a>.</p>
-        <p>Co gdyby to niezależny produkt. <strong>Nie</strong> jesteśmy powiązani z administracją publiczną ani przez nią wspierani i nie jesteśmy jej częścią.</p>
+        <h2>1. Sprzedawca i usługodawca</h2>
+        <p>Serwis cogdyby.pl prowadzi i sprzedaje w nim produkty <strong>{SELLER.NAME}</strong>, przedsiębiorca jednoosobowy (ang. <em>sole trader</em>) działający pod nazwą <strong>{SELLER.TRADING_NAME}</strong>, z siedzibą w Wielkiej Brytanii. Przedsiębiorca jest zarejestrowany w brytyjskim urzędzie skarbowym HM Revenue &amp; Customs jako osoba samozatrudniona. W Wielkiej Brytanii nie prowadzi się publicznego rejestru takich przedsiębiorców, dlatego nie posiada on numeru NIP, REGON ani wpisu do CEIDG. Numer rejestracji w brytyjskim organie ochrony danych (ICO): {SELLER.ICO}.</p>
+        <ul>
+          {SELLER.ADDRESS && <li>Adres: {SELLER.ADDRESS}</li>}
+          <li>E-mail: <a href={mail}>{SELLER.EMAIL}</a></li>
+          {SELLER.PHONE && <li>Telefon: {SELLER.PHONE} (koszt połączenia według taryfy Twojego operatora)</li>}
+        </ul>
+        <p>Pod tym samym adresem e-mail przyjmujemy reklamacje i oświadczenia o odstąpieniu od umowy. Odpowiadamy po polsku.</p>
+        <p>Co gdyby to niezależny projekt. <strong>Nie</strong> jesteśmy powiązani z administracją publiczną ani przez nią wspierani i nie jesteśmy jej częścią.</p>
 
-        <h2>2. Produkt</h2>
-        <p>Sprzedajemy cyfrowy pakiet „Domowy plan na sytuacje kryzysowe”: zestaw stron PDF do wydrukowania i wypełnienia. Pakiet jest przeznaczony do użytku w Twoim gospodarstwie domowym.</p>
+        <h2>2. Słowniczek</h2>
+        <ul>
+          <li><strong>Konsument</strong> to osoba fizyczna, która kupuje u nas w celu niezwiązanym bezpośrednio z działalnością gospodarczą lub zawodową. Przepisy o konsumentach stosujemy też do osoby fizycznej prowadzącej działalność gospodarczą, jeśli umowa nie ma dla niej charakteru zawodowego.</li>
+          <li><strong>Pakiet</strong> to plik PDF „Domowy plan na sytuacje kryzysowe” do pobrania i wydrukowania.</li>
+          <li><strong>Kurs</strong> to kurs online „{EA.NAME}”, udostępniany w przeglądarce i e-mailem.</li>
+          <li><strong>Payhip</strong> to Payhip Ltd, zewnętrzny serwis sprzedaży, przez który przyjmujemy płatności i udostępniamy pliki.</li>
+        </ul>
 
-        <h2>3. Licencja i dozwolone użycie</h2>
-        <p>Kupując pakiet, udzielamy Ci osobistej, niewyłącznej i nieprzenoszalnej licencji na pobranie go i wydrukowanie tylu kopii, ile potrzeba w Twoim domu. Nie wolno Ci odsprzedawać, rozpowszechniać, sublicencjonować ani udostępniać plików, ani wykorzystywać ich do celów komercyjnych bez naszej pisemnej zgody. (Organizacje, które chcą wersji pod własną marką lub na licencji, prosimy o <a href="/#organisations" data-org-cta="terms">kontakt</a>.)</p>
+        <h2>3. Bezpłatne usługi w serwisie</h2>
+        <p>W serwisie bezpłatnie udostępniamy: poradniki, quiz gotowości, kalkulator zapasów, bezpłatną kartę na lodówkę wysyłaną e-mailem i newsletter. Umowa o korzystanie z poradników, quizu i kalkulatora zawiera się z chwilą otwarcia strony i kończy, gdy ją zamkniesz. Umowa o kartę i newsletter zawiera się, gdy podasz adres e-mail i potwierdzisz zapis. Z newslettera możesz zrezygnować w każdej chwili, klikając link w dowolnej wiadomości albo pisząc do nas.</p>
+        <p>Wymagania techniczne: urządzenie z dostępem do internetu, aktualna przeglądarka internetowa z włączoną obsługą JavaScriptu oraz, dla karty i newslettera, aktywny adres e-mail. Korzystając z serwisu, nie wolno przekazywać nam treści o charakterze bezprawnym.</p>
 
-        <h2>4. Cena i płatność</h2>
-        <p>Pakiet kosztuje {PACK_CONFIG.PRICE} i jest płatny jednorazowo. Cena widoczna przy kasie to cena, którą płacisz. Płatność obsługuje nasz dostawca płatności, Payhip, który pobiera i odprowadza VAT (UE) w naszym imieniu; płatności kartą obsługują procesorzy Payhip, Stripe i PayPal. Nie otrzymujemy ani nie przechowujemy danych Twojej karty.</p>
+        <h2>4. Produkty i ceny</h2>
+        <ul>
+          <li><strong>Pakiet</strong>: {PACK_CONFIG.PRICE}. 12 stron PDF w formacie A4.</li>
+          {courseOpen
+            ? <li><strong>Kurs „{EA.NAME}”</strong>: we wczesnym dostępie {EA.PRICE} (do {EA.CLOSE_LABEL}, liczba miejsc: {EA.SEAT_CAP}), następnie {EARLY_BIRD.PRICE} (do {EARLY_BIRD.CLOSE_LABEL}, liczba miejsc: {EARLY_BIRD.SEAT_CAP}), potem {EA.LIST_PRICE}. Terminy liczymy według czasu polskiego. Gdy miejsca w danej cenie się wyczerpią, sprzedaż w tej cenie kończy się wcześniej. Kurs startuje {EA.COURSE_OPEN_LABEL}.</li>
+            : <li><strong>Kurs „{EA.NAME}”</strong>: zapisy jeszcze nie ruszyły. Cenę, liczbę miejsc i terminy podamy tutaj i na stronie kursu, zanim otworzymy sprzedaż.</li>}
+        </ul>
+        <p>Wszystkie ceny są cenami brutto w złotych polskich i zawierają podatek VAT. Płacisz jednorazowo, bez abonamentu i bez kosztów dostawy. Cena, którą widzisz w Payhip przed zapłatą, jest ceną ostateczną. Cen nie personalizujemy na podstawie zautomatyzowanego podejmowania decyzji.</p>
 
-        <h2>5. Dostawa i prawo odstąpienia</h2>
-        <p>Pakiet jest dostarczany od razu jako plik do pobrania. Kupując, zgadzasz się na natychmiastowy dostęp i przyjmujesz do wiadomości, że tracisz 14-dniowe prawo odstąpienia od umowy przewidziane w ustawie o prawach konsumenta z chwilą rozpoczęcia pobierania (art. 38 ust. 1 pkt 13 tej ustawy, dotyczący treści cyfrowych dostarczanych za Twoją wyraźną zgodą).</p>
-        <p>Nie wpływa to na Twoje uprawnienia ustawowe. Zgodnie z przepisami o treściach cyfrowych pakiet musi być zgodny z umową, czyli z opisem, odpowiedniej jakości i przydatny do celu. Jeśli pliki są uszkodzone, nie otwierają się lub nie odpowiadają opisowi, napisz do nas. Naprawimy problem, wyślemy nowe pliki albo zwrócimy pieniądze, zgodnie z Twoimi uprawnieniami.</p>
+        <h2>5. Jak zawierasz umowę i płacisz</h2>
+        <p>Umowę zawierasz, klikając przycisk zakupu na stronie, a następnie składając i opłacając zamówienie w Payhip. Płatność obsługuje Payhip (karty płatnicze przez Stripe, a także PayPal). Na potrzeby podatku VAT Payhip występuje jako odsprzedawca (ang. <em>reseller</em>): to on nalicza i odprowadza VAT od sprzedaży konsumentom w Unii Europejskiej. Za produkt i wykonanie umowy odpowiadamy my. Nie otrzymujemy ani nie przechowujemy danych Twojej karty.</p>
+        <p>Po zakupie dostajesz e-mailem potwierdzenie zawarcia umowy z jej treścią. Ten regulamin możesz zapisać lub wydrukować przed zakupem. Na prośbę wyślemy Ci go też e-mailem jako plik PDF.</p>
 
-        <h2>6. Zwroty</h2>
-        <p>Pakiet jest dostarczany od razu, dlatego po pobraniu plików nie zwracamy pieniędzy z powodu zmiany zdania (zob. punkt 5). Jeśli jednak coś jest nie tak z plikami, napisz na <a href="mailto:kontakt@cogdyby.pl">kontakt@cogdyby.pl</a>, a to naprawimy. Zwroty, gdy są należne, realizowane są przez Payhip.</p>
+        <h2>6. Dostarczenie</h2>
+        <ul>
+          <li><strong>Pakiet</strong> otrzymujesz od razu po opłaceniu zamówienia: link do pobrania pojawia się na ekranie i przychodzi e-mailem.</li>
+          <li><strong>Kurs</strong> udostępniamy w dniu startu ({courseStart}). Dostęp i instrukcje wysyłamy e-mailem. Dostęp do kursu nie wygasa. Gdybyśmy kiedyś zamknęli kurs, uprzedzimy o tym co najmniej 90 dni wcześniej i udostępnimy materiały do pobrania.</li>
+          <li>Jeśli kurs z naszej winy nie wystartuje w zapowiedzianym terminie, możesz od umowy odstąpić, a my zwrócimy całą zapłaconą kwotę.</li>
+        </ul>
 
-        <h2>7. Własność intelektualna</h2>
-        <p>Projekt, układ i oryginalne teksty pakietu oraz tej strony stanowią naszą własność intelektualną. Informacje publiczne z serwisu gov.pl, w tym z Poradnika bezpieczeństwa przygotowanego przez MON, MSWiA i RCB, wykorzystujemy zgodnie z warunkami ich udostępniania.</p>
+        <h2>7. Funkcjonalność i wymagania techniczne produktów</h2>
+        <p>Pakiet to plik PDF. Do otwarcia wystarczy dowolny czytnik PDF (np. wbudowany w przeglądarkę), a do wydruku zwykła drukarka i papier A4. Kurs wymaga dostępu do internetu, aktualnej przeglądarki i adresu e-mail. Plików nie zabezpieczamy technicznie (bez DRM). Produkty działają na komputerach, tabletach i telefonach.</p>
 
-        <h2>8. Czym jest pakiet, a czym nie jest</h2>
-        <p>Pakiet zawiera ogólne informacje, które pomagają przygotować dom z wyprzedzeniem. Opiera się na zaleceniach rządowego <a href="https://www.gov.pl/poradnikbezpieczenstwa">Poradnika bezpieczeństwa</a>. <strong>Nie</strong> jest zindywidualizowaną instrukcją kryzysową, poradą medyczną ani profesjonalnym doradztwem i nie gwarantuje żadnego konkretnego wyniku ani Twojego bezpieczeństwa. W prawdziwej sytuacji zawsze w pierwszej kolejności stosuj się do poleceń służb i oficjalnych komunikatów. Za sposób korzystania z pakietu odpowiadasz Ty.</p>
+        <h2>8. Licencja</h2>
+        <p>Kupując pakiet lub kurs, otrzymujesz niewyłączną, nieprzenoszalną licencję do użytku osobistego w Twoim gospodarstwie domowym. Możesz drukować tyle kopii, ile potrzeba w domu i dla najbliższej rodziny. Nie wolno odsprzedawać, rozpowszechniać ani publicznie udostępniać plików bez naszej pisemnej zgody. Organizacje, które chcą wersji pod własną marką, zapraszamy do <a href="/#organisations" data-org-cta="terms">kontaktu</a>.</p>
 
-        <h2>9. Nasza odpowiedzialność</h2>
-        <p>Dostarczamy pakiet z należytą starannością. W zakresie dozwolonym przez prawo nie ponosimy odpowiedzialności za jakiekolwiek straty lub szkody wynikające z korzystania lub niemożności korzystania z pakietu lub tej strony. Żadne postanowienie tego regulaminu nie ogranicza ani nie wyłącza odpowiedzialności, której zgodnie z prawem nie można ograniczyć ani wyłączyć. Nie narusza to Twoich ustawowych uprawnień konsumenta.</p>
+        <h2 id="odstapienie">9. Prawo odstąpienia od umowy</h2>
+        <p>Jako konsument możesz odstąpić od umowy zawartej na odległość w ciągu <strong>14 dni</strong> bez podawania przyczyny. Termin liczy się od dnia zawarcia umowy. Wystarczy, że przed jego upływem wyślesz nam oświadczenie, np. e-mailem na <a href={mail}>{SELLER.EMAIL}</a>. Możesz skorzystać ze <a href="#formularz">wzoru formularza</a> poniżej, ale nie musisz. Potwierdzimy otrzymanie oświadczenia e-mailem.</p>
+        <p><strong>Pakiet (treść cyfrowa do pobrania).</strong> Prawo odstąpienia nie przysługuje, jeśli przed zakupem wyraźnie zgodzisz się na natychmiastowe dostarczenie pliku, przyjmiesz do wiadomości, że tracisz w ten sposób prawo odstąpienia, a my potwierdzimy to w e-mailu z potwierdzeniem zakupu (art. 38 ust. 1 pkt 13 ustawy o prawach konsumenta). O tę zgodę prosimy w formularzu zamówienia. Jeśli jej nie wyrazisz albo nie dostaniesz od nas potwierdzenia, prawo odstąpienia przez 14 dni zachowujesz.</p>
+        <p><strong>Kurs.</strong> Przez 14 dni od zakupu możesz odstąpić od umowy bez podawania przyczyny, także jeśli w tym czasie kurs już wystartuje. Niezależnie od tego oferujemy dobrowolną gwarancję opisaną w punkcie 10.</p>
+        <p><strong>Zwrot pieniędzy.</strong> Po skutecznym odstąpieniu zwracamy wszystkie płatności w ciągu 14 dni od otrzymania oświadczenia, tą samą metodą płatności, której użyto przy zakupie, chyba że wyraźnie zgodzisz się na inną. Nie ponosisz żadnych kosztów zwrotu.</p>
 
-        <h2>10. Zmiany</h2>
-        <p>Od czasu do czasu możemy aktualizować ten regulamin. Obowiązuje wersja opublikowana tutaj w chwili zakupu. Data ostatniej aktualizacji u góry strony pokazuje, kiedy wprowadziliśmy ostatnie zmiany.</p>
+        <h2>10. Gwarancja zwrotu pieniędzy za kurs</h2>
+        <p>Oprócz praw ustawowych dajemy {EA.REFUND_DAYS} dni na zwrot pieniędzy za kurs, liczone od dnia jego startu. Jeśli uznasz, że kurs nie jest dla Ciebie, napisz na <a href={mail}>{SELLER.EMAIL}</a> w tym terminie, a zwrócimy całą kwotę. Nie musisz podawać przyczyny. Ta gwarancja nie ogranicza Twoich praw wynikających z przepisów.</p>
 
-        <h2>11. Prawo właściwe</h2>
-        <p>Regulamin podlega prawu polskiemu. Niniejsze postanowienie nie pozbawia Cię ochrony przyznanej Ci bezwzględnie obowiązującymi przepisami prawa kraju Twojego miejsca zwykłego pobytu.</p>
+        <h2>11. Zgodność z umową i reklamacje</h2>
+        <p>Odpowiadamy za to, żeby pakiet i kurs były zgodne z umową, zgodnie z przepisami o treściach i usługach cyfrowych (rozdział 5b ustawy o prawach konsumenta). Jeśli plik się nie otwiera, jest uszkodzony, niekompletny albo nie odpowiada opisowi, albo kurs nie działa, złóż reklamację e-mailem na <a href={mail}>{SELLER.EMAIL}</a>. Napisz, czego dotyczy problem, podaj adres e-mail użyty przy zakupie i, jeśli możesz, numer zamówienia.</p>
+        <p>Na reklamację odpowiemy w ciągu 14 dni. W pierwszej kolejności doprowadzimy produkt do zgodności z umową, np. wyślemy poprawny plik. Jeśli to niemożliwe albo nie zrobimy tego w rozsądnym czasie, możesz żądać obniżenia ceny albo odstąpić od umowy, a my zwrócimy pieniądze.</p>
 
-        <h2>12. Kontakt</h2>
-        <p>Pytania dotyczące tego regulaminu: <a href="mailto:kontakt@cogdyby.pl">kontakt@cogdyby.pl</a>.</p>
+        <h2>12. Czym jest pakiet, a czym nie jest</h2>
+        <p>Pakiet i kurs zawierają ogólne informacje, które pomagają przygotować dom z wyprzedzeniem. Opierają się na zaleceniach rządowego <a href="https://www.gov.pl/poradnikbezpieczenstwa">Poradnika bezpieczeństwa</a>. Nie są zindywidualizowaną instrukcją na konkretną sytuację, poradą medyczną ani profesjonalnym doradztwem. W razie zagrożenia zawsze stosuj się do poleceń służb i oficjalnych komunikatów.</p>
+
+        <h2>13. Odpowiedzialność</h2>
+        <p>Dokładamy staranności, żeby treści były rzetelne i aktualne. Nic w tym regulaminie nie wyłącza ani nie ogranicza naszej odpowiedzialności wobec konsumentów w zakresie, w jakim przepisy na to nie pozwalają, ani Twoich praw ustawowych.</p>
+
+        <h2>14. Linki partnerskie</h2>
+        <p>Niektóre linki do produktów w poradnikach i w kalkulatorze zapasów to linki partnerskie (m.in. z programu Amazon). Jeśli coś przez nie kupisz, możemy otrzymać prowizję. Cena dla Ciebie się nie zmienia. Umowę zakupu zawierasz wtedy ze sprzedawcą tego produktu, a nie z nami.</p>
+
+        <h2>15. Własność intelektualna</h2>
+        <p>Projekt, układ i oryginalne teksty pakietu, kursu i serwisu są chronione prawem autorskim. Informacje publiczne z serwisu gov.pl, w tym z Poradnika bezpieczeństwa przygotowanego przez MON, MSWiA i RCB, wykorzystujemy zgodnie z warunkami ich udostępniania.</p>
+
+        <h2>16. Spory i prawo właściwe</h2>
+        <p>Do umów z konsumentami stosujemy prawo polskie. Nie pozbawia to Cię ochrony, jaką dają Ci bezwzględnie obowiązujące przepisy kraju Twojego zwykłego pobytu. Spór możesz skierować do sądu właściwego dla Twojego miejsca zamieszkania.</p>
+        <p>Zanim pójdziesz do sądu, napisz do nas, na pewno postaramy się pomóc. Bezpłatnej pomocy udzielają też miejscy i powiatowi rzecznicy konsumentów oraz organizacje konsumenckie. Informacje o pozasądowych sposobach rozwiązywania sporów znajdziesz na stronie <a href="https://prawakonsumenta.uokik.gov.pl/" rel="nofollow">prawakonsumenta.uokik.gov.pl</a>. Udział w postępowaniu pozasądowym jest dobrowolny dla obu stron.</p>
+
+        <h2>17. Dane osobowe</h2>
+        <p>Zasady przetwarzania danych opisuje <a href="/privacy/">polityka prywatności</a>.</p>
+
+        <h2>18. Zmiany regulaminu</h2>
+        <p>Regulamin możemy zmienić z ważnych powodów, np. zmiany przepisów lub oferty. Do zakupu stosujemy wersję obowiązującą w chwili złożenia zamówienia. O zmianach dotyczących newslettera uprzedzimy e-mailem co najmniej 14 dni wcześniej. Jeśli się nie zgadzasz, możesz się wypisać.</p>
+
+        <h2 id="formularz">Załącznik: wzór formularza odstąpienia od umowy</h2>
+        <p>(formularz należy wypełnić i odesłać tylko w przypadku chęci odstąpienia od umowy)</p>
+        <div class="legal-form">
+          <p>Adresat: {SELLER.NAME} ({SELLER.TRADING_NAME}){SELLER.ADDRESS && `, ${SELLER.ADDRESS}`}, e-mail: {SELLER.EMAIL}</p>
+          <p>Ja/My(*) niniejszym informuję/informujemy(*) o moim/naszym odstąpieniu od umowy dostarczenia następujących treści cyfrowych / usługi cyfrowej(*): ……………………………</p>
+          <p>Data zawarcia umowy: ……………………… Numer zamówienia (jeśli znasz): ………………………</p>
+          <p>Imię i nazwisko konsumenta(-ów): ………………………</p>
+          <p>Adres konsumenta(-ów): ………………………</p>
+          <p>Adres e-mail użyty przy zakupie: ………………………</p>
+          <p>Podpis konsumenta(-ów) (tylko jeżeli formularz jest przesyłany w wersji papierowej): ………………………</p>
+          <p>Data: ………………………</p>
+          <p>(*) Niepotrzebne skreślić.</p>
+        </div>
       </div>
     </div>
   </main>
 </BaseLayout>
+
+<style>
+  .legal-form {
+    border: 1px solid var(--line, rgba(0, 0, 0, 0.15));
+    border-radius: 10px;
+    padding: 18px 20px;
+    margin-top: 12px;
+  }
+  .legal-form p { margin: 0 0 10px; }
+</style>

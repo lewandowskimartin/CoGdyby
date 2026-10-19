@@ -1,6 +1,7 @@
 ---
 import EarlyAccessPromo from './EarlyAccessPromo.astro';
 import { publishedAreas } from '../lib/local.js';
+import { SELLER } from '../config/seller';
 const year = new Date().getFullYear();
 // Link to /local/ only once an area page is built (drafts count in dev only).
 const hasLocal = (await publishedAreas()).length > 0;
@@ -48,6 +49,7 @@ const hasLocal = (await publishedAreas()).length > 0;
   </div>
   <div class="footer-legal">
     <span>© {year} Co gdyby. Niezależny projekt, niezwiązany z administracją publiczną.</span>
+    <span>Sprzedawca: {SELLER.NAME}, działający jako {SELLER.TRADING_NAME}, {SELLER.ADDRESS || SELLER.COUNTRY} · <a href={`mailto:${SELLER.EMAIL}`}>{SELLER.EMAIL}</a></span>
     <span>Korzystamy z informacji publicznych z rządowego Poradnika bezpieczeństwa i serwisów gov.pl.</span>
     <span>Niektóre linki do produktów to linki partnerskie (m.in. program Amazon). Jeśli coś przez nie kupisz, możemy dostać niewielką prowizję. Cena dla Ciebie się nie zmienia.</span>
   </div>

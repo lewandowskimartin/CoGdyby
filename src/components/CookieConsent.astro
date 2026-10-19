@@ -166,6 +166,9 @@ const CLARITY_ID = 'yeywqy79hm';
 
   function loadAnalytics() {
     if (hasGPC()) return; // Global Privacy Control = opt-out; never load.
+    // Tell consent-gated scripts (PostHog) they may start. The flag covers scripts that run later.
+    window.__cgAnalyticsConsent = true;
+    window.dispatchEvent(new Event('cg:analytics-consent'));
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted' });
