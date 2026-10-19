@@ -1,0 +1,129 @@
+draft: false
+name: "Śląsk"
+searchName: "Śląsk"
+answer: "Na Śląsku, w gęsto zabudowanej aglomeracji, najważniejsze są wichury i przerwy w prądzie, powódź na południu województwa oraz upały w mieście. Dom przygotujesz w kilku krokach opisanych niżej."
+description: "Wichury, awarie prądu w blokach, powódź na południu i upały w miastach Śląska. Operatorzy, numery alarmowe i plan na 30 minut dla domu."
+lrf:
+  name: "Śląski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-slaski"
+  source:
+    url: "https://www.gov.pl/web/uw-slaski"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Śląski Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa śląskiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-slaski"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-slaski"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Wichury nad aglomeracją"
+    rating: "Wysokie"
+    atHome: "W gęstej zabudowie od Gliwic po Sosnowiec jedna wichura potrafi odciąć prąd w kilku miastach jednocześnie."
+    firstAction: "Przy ostrzeżeniu IMGW zdejmij luźne rzeczy z balkonu i naładuj telefony oraz power banki."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (wiatr), Śląsk"
+  - name: "Awaria prądu w blokach"
+    rating: "Wysokie"
+    atHome: "W wysokim bloku awaria prądu to brak windy, a często też wody na wyższych piętrach, bo pompy przestają działać."
+    firstAction: "Jeśli mieszkasz na wysokim piętrze, trzymaj w mieszkaniu latarkę i zapas wody. Awarię zgłosisz pod 991."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie i wyłączenia, Tauron, Śląsk"
+  - name: "Powódź na południu województwa"
+    rating: "Wysokie"
+    atHome: "Po ulewach w Beskidach górna Wisła i dopływy Odry wzbierają i zalewają miejscowości na południu województwa."
+    firstAction: "Sprawdź swoją miejscowość w Hydroportalu ISOK i ustalcie, dokąd przenosicie sprzęt i dokumenty."
+    source:
+      url: "https://isok.gov.pl/hydroportal.html"
+      manual: true
+      checked: 2026-10-19
+      title: "Mapy zagrożenia powodziowego (ISOK), Śląsk"
+  - name: "Upał i smog w mieście"
+    rating: "Wysokie"
+    atHome: "Nagrzane miasta nie stygną w nocy, a w upalne dni pogarsza się jakość powietrza. To szczególnie trudne dla seniorów i małych dzieci."
+    firstAction: "W upalne dni zasłaniaj okna, pamiętaj o piciu wody i zaglądaj do starszych sąsiadów z bloku."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (upały), Śląsk"
+  - name: "Mróz i śnieżyce"
+    rating: "Średnie"
+    atHome: "Gołoledź potrafi sparaliżować komunikację w aglomeracji, a mróz mocno obciąża ogrzewanie w starych kamienicach."
+    firstAction: "Przed zimą zrób zapas jedzenia na dni, gdy tramwaje i autobusy jeżdżą z dużymi opóźnieniami."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (śnieg, mróz), Śląsk"
+power:
+  - operator: "Tauron Dystrybucja"
+    register: "zgłoszenie u Tauron Dystrybucja osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://www.tauron-dystrybucja.pl/"
+    phone: "991"
+    source:
+      url: "https://www.tauron-dystrybucja.pl/"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "Górnośląskie Przedsiębiorstwo Wodociągów"
+    covers: "aglomeracja górnośląska i okoliczne gminy"
+    url: "https://www.gpw.katowice.pl/"
+    phone: "994"
+    source:
+      url: "https://www.gpw.katowice.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Powódź tysiąclecia"
+    date: "Lipiec 1997"
+    summary: "Katastrofalna powódź dotknęła południe województwa, m.in. tereny nad górną Wisłą i Odrą. Wielu mieszkańców zostało bez prądu i wody."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Pow%C3%B3d%C5%BA_tysi%C4%85clecia"
+      manual: true
+      checked: 2026-10-19
+      title: "Powódź tysiąclecia (1997), Śląsk"
+  - name: "Orkany zimowe"
+    date: "Luty 2022"
+    summary: "Seria orkanów zerwała linie energetyczne w wielu regionach. W całym kraju bez prądu było ponad milion odbiorców, również na Śląsku."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Cyklony_Dudley,_Eunice_i_Franklin"
+      manual: true
+      checked: 2026-10-19
+      title: "Orkany, luty 2022, Śląsk"
+councils:
+  text: "miasta aglomeracji i starostwa powiatowe mają własne wydziały zarządzania kryzysowego."
+  source:
+    url: "https://www.gov.pl/web/uw-slaski"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miasta Katowice"
+    url: "https://www.katowice.eu/"
+  - label: "Śląski Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-slaski"
+radio:
+  text: "Radio Katowice podaje informacje również wtedy, gdy nie ma prądu ani internetu"
+  source:
+    url: "https://radio.katowice.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [storm, power, flood, heat, cold]
+planNotes:
+  storm: "W aglomeracji jedna wichura może odciąć prąd w kilku miastach, więc ostrzeżenia IMGW warto traktować poważnie."
+  power: "W wysokim bloku awaria to brak windy i czasem wody. Trzymaj zapas w mieszkaniu, a awarię zgłoś pod 991."
+  flood: "Na południu województwa wzbierają górna Wisła i dopływy Odry. Sprawdź, czy Twój dom leży na terenie zalewowym."
+  heat: "W nagrzanym mieście upał jest bardziej męczący. Wietrz rano i wieczorem, a w południe trzymaj okna zamknięte."
+  cold: "Gołoledź utrudnia dojazd, więc zapas jedzenia i leków na kilka dni bardzo się przydaje."
+lastChecked: 2026-10-19
+watch: []

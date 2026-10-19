@@ -1,0 +1,158 @@
+# Nottinghamshire: facts and copy for /local/nottinghamshire/ (template: src/pages/local/[area].astro).
+# Every `source` holds the exact words on its page; `npm run check:sources -- --area nottinghamshire`
+# confirms they're still there. answer, description, atHome, firstAction and planNotes are our own
+# words, but they must agree with the sourced facts.
+# TODO(Martin): the register's likelihood scores sit in the risk matrix on p.11 and don't survive
+# text extraction, so only impact scores are shown. Read them by eye and add `likelihood:` if wanted.
+# A short first-hand note from you (firstHandNote) would also go well here.
+
+draft: true
+
+name: Nottinghamshire
+
+answer: Nottinghamshire's 2025 risk register gives its highest impact scores to losing power, water or gas and to a pandemic, with flooding from the Trent and its tributaries close behind.
+description: What the Nottingham and Nottinghamshire risk register means for your home, who to call in a power cut or flood, and a 30-minute plan.
+
+lrf:
+  name: Nottingham and Nottinghamshire Local Resilience Forum
+  url: https://www.nottinghamshire.police.uk/police-forces/nottinghamshire-police/areas/about-us/about-us/additional-services/nottinghamshire-local-resilience-forum-lrf/
+  email: localresilienceforum@notts-fire.gov.uk
+  source:
+    url: https://www.gov.uk/guidance/local-resilience-forums-contact-details
+    quote: localresilienceforum@notts-fire.gov.uk
+    checked: 2026-10-15
+
+register:
+  title: Nottingham and Nottinghamshire Community Risk Register
+  edition: Version 8.0, 2025
+  url: https://www.nottinghamcity.gov.uk/media/sybbyfav/nottingham-nottinghamshire-community-risk-register-v901-november-2025.pdf
+  system: scores
+  source: &register
+    url: https://www.nottinghamcity.gov.uk/media/sybbyfav/nottingham-nottinghamshire-community-risk-register-v901-november-2025.pdf
+    quote: version 8.0 of the Community Risk Register
+    checked: 2026-10-15
+
+risks:
+  - name: Loss of power, water, gas or phone lines
+    rating: Impact 5 of 5
+    impact: 5
+    page: 12
+    atHome: Several services can fail at once, and getting all of them back can take days.
+    firstAction: If anyone at home relies on electricity for their health, join the Priority Services Register.
+    source:
+      <<: *register
+      quote: Loss of Critical Infrastructure
+  - name: River flooding
+    rating: Impact 4 of 5
+    impact: 4
+    page: 16
+    atHome: The Trent and its tributaries can rise for days after heavy rain upstream, reaching homes in riverside towns and villages.
+    firstAction: Check your address on the long-term flood risk map, then sign up for warnings.
+    source:
+      <<: *register
+      quote: Flooding (Rivers)
+  - name: Low temperatures and snow
+    rating: Impact 3 of 5
+    impact: 3
+    page: 24
+    atHome: Icy side roads and pavements can keep older neighbours indoors and stop home visits.
+    firstAction: Keep a week of regular medicines in and plan one room to keep warm.
+    source:
+      <<: *register
+      quote: 'Extreme Weather: Low Temperatures and Snow'
+  - name: Heatwave
+    rating: Impact 3 of 5
+    impact: 3
+    page: 22
+    atHome: Upstairs rooms and loft conversions can stay hot right through the night.
+    firstAction: Work out which room stays coolest, and shade sunny windows from late morning.
+    source:
+      <<: *register
+      quote: 'Extreme Weather: Heatwave'
+  - name: Pandemic
+    rating: Impact 5 of 5
+    impact: 5
+    page: 14
+    atHome: Schools and workplaces can close, and you may need to stay home for weeks.
+    firstAction: Keep two weeks of regular medicines and household basics.
+    source:
+      <<: *register
+      quote: Pandemic
+
+power:
+  - operator: National Grid Electricity Distribution
+    register: Priority Services Register
+    url: https://customer.nationalgrid.co.uk/advice-and-guidance/priority-services/priority-services-register
+    source:
+      url: https://customer.nationalgrid.co.uk/advice-and-guidance/priority-services/priority-services-register
+      quote: Priority services registration form
+      checked: 2026-10-15
+
+water:
+  - company: Severn Trent
+    covers: most of the county
+    url: https://www.stwater.co.uk/help-and-contact/priority-services/
+    source:
+      url: https://www.stwater.co.uk/help-and-contact/priority-services/
+      quote: The Priority Services Register is a list of our customers who need a bit of extra help
+      checked: 2026-10-15
+  - company: Anglian Water
+    covers: much of Bassetlaw, in the north of the county
+    url: https://www.anglianwater.co.uk/help-and-advice/extra-support/priority-services/
+    source:
+      url: https://www.anglianwater.co.uk/help-and-advice/extra-support/priority-services/
+      quote: Priority services register
+      checked: 2026-10-15
+
+pastEvents:
+  - name: Storm Babet
+    date: October 2023
+    summary: The county council verified internal flooding at 1,259 properties and businesses in 92 communities.
+    source:
+      url: https://nottstv.com/more-than-1200-homes-and-businesses-suffered-internal-flooding-after-storm-babet/
+      quote: 1,259 properties and businesses in 92 communities
+      checked: 2026-10-15
+  - name: Storm Henk
+    date: January 2024
+    summary: Just three months later, more than 570 properties in Nottinghamshire flooded.
+    source:
+      <<: *register
+      quote: More than 570 properties were flooded in Nottinghamshire
+
+councils:
+  text: Nottingham City Council, Nottinghamshire County Council, and Ashfield, Bassetlaw, Broxtowe, Gedling, Mansfield, Newark and Sherwood and Rushcliffe councils.
+  source:
+    url: https://www.nottinghamshire.police.uk/police-forces/nottinghamshire-police/areas/about-us/about-us/additional-services/nottinghamshire-local-resilience-forum-lrf/
+    quote: [Bassetlaw District Council, Rushcliffe Borough Council]
+    checked: 2026-10-15
+
+councilPages:
+  - label: Nottinghamshire County Council emergency planning
+    url: https://www.nottinghamshire.gov.uk/planning-and-environment/emergencies-and-disruption/our-role-in-emergency-planning
+  - label: Nottingham City Council emergency planning
+    url: https://www.nottinghamcity.gov.uk/information-for-residents/community/emergency-planning-in-nottingham/
+
+radio:
+  text: BBC Radio Nottingham
+  source:
+    url: https://en.wikipedia.org/wiki/BBC_Radio_Nottingham
+    quote: BBC Radio Nottingham
+    checked: 2026-10-15
+
+planOrder: [power, flood, water, cold, heat]
+planNotes:
+  power: National Grid Electricity Distribution runs the network here. Its free Priority Services Register can warn you before planned cuts and prioritise you in long ones.
+  flood: Storm Babet flooded homes in 92 Nottinghamshire communities. If you live near the Trent or one of its tributaries, add warnings for that river as well as your own address.
+  water: Most homes are on Severn Trent, and much of Bassetlaw is on Anglian Water. Both run a free priority services register for bottled water deliveries.
+  cold: Side streets and village roads are usually the last to be gritted, so plan as if you can't drive for a few days.
+  heat: Loft conversions and top-floor flats get hottest. If someone you know lives in one on their own, plan to ring them each day of a heatwave.
+
+lastChecked: 2026-10-15
+
+watch:
+  # The LRF page links the current register; a new edition arrives as a new PDF link.
+  - kind: links
+    url: https://www.nottinghamshire.police.uk/police-forces/nottinghamshire-police/areas/about-us/about-us/additional-services/nottinghamshire-local-resilience-forum-lrf/
+    match: community risk register
+    known:
+      - https://www.nottinghamcity.gov.uk/media/sybbyfav/nottingham-nottinghamshire-community-risk-register-v901-november-2025.pdf

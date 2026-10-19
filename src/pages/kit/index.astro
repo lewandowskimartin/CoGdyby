@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostHog from '../../components/PostHog.astro';
+import KitBuilder from '../../components/KitBuilder.astro';
+import { SCENARIOS, DEFAULT_SCENARIO } from '../../data/kit.js';
+import '../../styles/quiz.css';
+import '../../styles/kit.css';
+
+const scenario = SCENARIOS.find((s) => s.id === DEFAULT_SCENARIO);
+const others = SCENARIOS.filter((s) => s.id !== DEFAULT_SCENARIO);
+---
+<BaseLayout title={`${scenario.seoTitle} | Co gdyby`} description={scenario.seoDescription}>
+  <PostHog slot="head" />
+  <main id="main">
+    <section class="quiz kit-page">
+      <span class="eyebrow">Kalkulator zapasów · 3 kroki</span>
+      <h1>{scenario.h1}</h1>
+      <p class="q-lede">Trzy krótkie kroki i dostajesz listę dopasowaną do Twojego domu, z policzoną ilością wody i jedzenia. Bez zakładania konta i bez zapisywania danych.</p>
+      <KitBuilder scenario={scenario.id} />
+      {scenario.intro && (
+        <section class="kit-intro">
+          <h2>{scenario.intro.heading.split(/(\S+-\S+)/).map((part, i) => (i % 2 ? <span class="kit-keep">{part}</span> : part))}</h2>
+          {scenario.intro.paragraphs.map((para) => <p>{para}</p>)}
+        </section>
+      )}
+      {scenario.guide && (
+        <p class="kit-guide-link">Więcej w poradniku: <a href={scenario.guide}>{scenario.guideLabel}</a></p>
+      )}
+      <nav class="kit-more" aria-label="Inne zestawy">
+        <h2>Listy na konkretne sytuacje</h2>
+        <ul>
+          {others.map((s) => (
+            <li><a href={`/kit/${s.slug}/`}>{s.navLabel}</a></li>
+          ))}
+        </ul>
+      </nav>
+    </section>
+  </main>
+</BaseLayout>
+
+<style>
+  .kit-intro { max-width: 720px; margin-top: 56px; }
+  .kit-intro h2 { font-size: 25px; text-wrap: balance; }
+  .kit-keep { white-space: nowrap; } /* don't break "72-hour" at its hyphen */
+  .kit-intro p { font-size: 16.5px; line-height: 1.65; color: var(--ink-soft); text-wrap: pretty; }
+  .kit-guide-link { margin-top: 40px; font-size: 16px; }
+  .kit-more { margin-top: 56px; }
+  .kit-more h2 { font-size: 21px; }
+  .kit-more ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+  .kit-more a { font-size: 16px; }
+</style>

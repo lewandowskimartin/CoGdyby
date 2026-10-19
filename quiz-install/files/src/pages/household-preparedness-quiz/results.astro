@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostHog from '../../components/PostHog.astro';
+import { QUIZ_PATH, EMAIL_FORM } from '../../data/quiz.js';
+import '../../styles/quiz.css';
+
+const title = 'Your household preparedness score — Prepared at Home';
+---
+<BaseLayout title={title} description="Your preparedness score, your top gaps and a free fix for each.">
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, follow" />
+    <PostHog />
+  </Fragment>
+  <main id="main">
+  <section class="quiz" data-results>
+    <!-- Shown when ?a= is missing or invalid -->
+    <div data-results-error hidden>
+      <h1>We couldn’t read these results</h1>
+      <p>The link may be incomplete. Take the quiz again to get your score. It takes about 2 minutes.</p>
+      <p><a class="btn btn-accent" href={QUIZ_PATH}>Take the quiz</a></p>
+    </div>
+
+    <noscript>
+      <h1>Your score</h1>
+      <p>Your results need JavaScript to show. <a href="/free-emergency-plan-template">Download the free fridge card</a> instead.</p>
+    </noscript>
+
+    <div data-results-body hidden>
+      <span class="eyebrow">Your result</span>
+      <h1>Your household preparedness score</h1>
+      <p class="q-score"><span class="q-score__num" data-score></span><span class="q-score__of">out of 100</span></p>
+      <p class="q-band" data-band></p>
+      <p data-summary></p>
+      <p class="q-muted"><span data-benchmark></span> <a data-benchmark-link rel="noopener">Source: GOV.UK</a></p>
+
+      <h2 data-gaps-heading>Your top gaps</h2>
+      <ol class="q-gaps" data-gaps></ol>
+      <p data-no-gaps hidden>No gaps to show. You answered yes to every question.</p>
+
+      <h2>Worth knowing</h2>
+      <ul class="q-list">
+        <li>In a power cut, call <strong>105</strong> (England, Scotland and Wales). In Northern Ireland, call <strong>03457 643643</strong>.</li>
+        <li>If you smell gas, call <strong>0800 111 999</strong>.</li>
+        <li>If anyone at home needs extra help in an emergency, they can join the free <a href="https://www.ofgem.gov.uk/information-consumers/energy-advice-households/join-your-suppliers-priority-services-register" rel="noopener">Priority Services Register</a> with your energy supplier and network operator.</li>
+      </ul>
+
+      <div class="q-cta q-card">
+        <h2 data-cta-heading>Put your plan on paper</h2>
+        <p data-cta-text></p>
+        <div class="q-actions">
+          <a class="btn btn-accent" data-cta-link></a>
+          <a class="btn btn-outline" href={QUIZ_PATH}>Retake the quiz</a>
+        </div>
+      </div>
+
+      {EMAIL_FORM.action && (
+        <form class="q-card q-email" method="post" action={EMAIL_FORM.action} data-email-form>
+          <h2>Email me my results</h2>
+          <p>We’ll send you a link back to this page.</p>
+          <label class="q-field">Email address
+            <input type="email" name="fields[email]" autocomplete="email" required />
+          </label>
+          <label class="q-check">
+            <input type="checkbox" data-consent />
+            <span>Also send me preparedness tips and offers, including the Prepared at Home pack. Unsubscribe any time.</span>
+          </label>
+          <input type="hidden" name="fields[quiz_band]" data-field="band" />
+          <input type="hidden" name="fields[quiz_weakest]" data-field="weakest" />
+          <input type="hidden" name="fields[quiz_url]" data-field="url" />
+          <input type="hidden" name="fields[marketing_consent]" data-field="consent" value="no" />
+          <button type="submit" class="btn btn-primary">Email my results</button>
+          <p class="q-muted" style="margin-top:0.75rem">See our <a href="/privacy">privacy notice</a>. Your quiz answers are not sent, only your score band, weakest area and results link.</p>
+        </form>
+      )}
+
+      <p class="q-muted" style="margin-top:2rem">
+        GOV.UK also offers a <a href="https://prepare.campaign.gov.uk/get-prepared-for-emergencies/" rel="noopener">free household emergency plan</a>. A quick self-check, not a safety assessment.
+      </p>
+    </div>
+  </section>
+  </main>
+</BaseLayout>
+
+<script>
+  import { parseAnswers, scoreAnswers } from '../../lib/quizScore.js';
+  import { PACK, AREAS, BENCHMARK } from '../../data/quiz.js';
+  import { track } from '../../lib/track.js';
+
+  const $ = (sel) => document.querySelector(sel);
+  const answers = parseAnswers(new URLSearchParams(location.search).get('a'));
+
+  if (!answers) {
+    $('[data-results-error]').hidden = false;
+    track('quiz_results_invalid');
+  } else {
+    const r = scoreAnswers(answers);
+    $('[data-score]').textContent = String(r.total);
+    $('[data-band]').textContent = r.band.label;
+    $('[data-summary]').textContent = r.band.summary;
+    $('[data-benchmark]').textContent = BENCHMARK.text;
+    $('[data-benchmark-link]').href = BENCHMARK.url;
+
+    const list = $('[data-gaps]');
+    if (r.gaps.length === 0) {
+      list.hidden = true;
+      $('[data-gaps-heading]').hidden = true;
+      $('[data-no-gaps]').hidden = false;
+    }
+    const areaLabel = Object.fromEntries(AREAS.map((a) => [a.id, a.label]));
+    for (const g of r.gaps) {
+      const li = document.createElement('li');
+      li.className = 'q-card q-gap';
+      const h = document.createElement('h3');
+      h.textContent = g.gap;
+      const area = document.createElement('p');
+      area.className = 'q-area';
+      area.textContent = areaLabel[g.area];
+      const fix = document.createElement('p');
+      fix.className = 'q-fix';
+      fix.textContent = `Free fix: ${g.fix}`;
+      li.append(h, area, fix);
+      if (g.packPage) {
+        const pack = document.createElement('p');
+        pack.className = 'q-pack';
+        pack.textContent = `Covered in the pack: ${g.packPage}`;
+        li.append(pack);
+      }
+      list.append(li);
+    }
+
+    const link = $('[data-cta-link]');
+    if (PACK.live && PACK.url) {
+      $('[data-cta-text]').textContent = r.band.cta;
+      link.textContent = `Get the pack — ${PACK.price}`;
+      link.href = PACK.url;
+    } else {
+      $('[data-cta-heading]').textContent = 'Start with the fridge card';
+      $('[data-cta-text]').textContent = 'A free printable card with the numbers your household needs in an emergency.';
+      link.textContent = PACK.fallbackLabel;
+      link.href = PACK.fallbackUrl;
+    }
+    link.addEventListener('click', () =>
+      track(PACK.live ? 'pack_clicked' : 'fridge_card_clicked', { band: r.band.id }, { beacon: true })
+    );
+
+    const emailForm = $('[data-email-form]');
+    if (emailForm) {
+      emailForm.querySelector('[data-field="band"]').value = r.band.id;
+      emailForm.querySelector('[data-field="weakest"]').value = r.weakest ?? '';
+      emailForm.querySelector('[data-field="url"]').value = location.origin + location.pathname + '?a=' + answers.join('');
+      const consent = emailForm.querySelector('[data-consent]');
+      const consentField = emailForm.querySelector('[data-field="consent"]');
+      consent.addEventListener('change', () => (consentField.value = consent.checked ? 'yes' : 'no'));
+      emailForm.addEventListener('submit', () =>
+        track('quiz_email_submitted', { band: r.band.id, marketing_consent: consent.checked }, { beacon: true })
+      );
+    }
+
+    $('[data-results-body]').hidden = false;
+    track('quiz_results_viewed', { score: r.total, band: r.band.id, weakest: r.weakest ?? 'none' });
+  }
+</script>

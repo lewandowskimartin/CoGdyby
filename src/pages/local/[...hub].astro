@@ -1,0 +1,61 @@
+---
+// The /local/ hub: how the local guides are made, and the list of areas.
+// A rest route rather than index.astro so the hub is only built when at least one area page
+// is (drafts are dev-only, see src/lib/local.js). Until then /local/ doesn't exist in production.
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { publishedAreas, fmtDate } from '../../lib/local.js';
+import { localHref, NOT_AFFILIATED, CORRECTIONS_EMAIL } from '../../data/local.js';
+
+export async function getStaticPaths() {
+  const areas = await publishedAreas();
+  return areas.length ? [{ params: { hub: undefined }, props: { areas } }] : [];
+}
+
+const { areas } = Astro.props;
+const anyDraft = areas.some((a) => a.data.draft);
+---
+<BaseLayout
+  title="Plan na kryzys dla Twojego województwa: lokalne zagrożenia | Co gdyby"
+  description="Lokalne zagrożenia, kontakty do operatorów prądu i wody oraz plan na 30 minut dla domu. Poradniki dla wszystkich 16 województw.">
+  {anyDraft && <meta name="robots" content="noindex" slot="head" />}
+  <main id="main" class="section">
+    <div class="section-inner">
+      <div class="section-head">
+        <h1>Poradniki lokalne</h1>
+        <span class="fig">16 województw, jeden plan dla domu</span>
+      </div>
+      <p class="hub-lede">Za zarządzanie kryzysowe w Polsce odpowiadają wojewódzkie, powiatowe i gminne centra zarządzania kryzysowego, razem ze służbami i dostawcami prądu i wody. Te poradniki pokazują, jakie zagrożenia są typowe dla Twojego regionu i od czego zacząć przygotowanie domu.</p>
+
+      <section class="hub-group" aria-labelledby="areas-h">
+        <h2 id="areas-h">Regiony</h2>
+        <ul class="post-list">
+          {areas.map((a) => (
+            <li>
+              <a href={localHref(a.id)}>
+                <span class="p-date">Sprawdzono {fmtDate(a.data.lastChecked)}{a.data.draft ? ' · wersja robocza' : ''}</span>
+                <h3>Plan na kryzys: {a.data.name}</h3>
+                <p>{a.data.answer}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section class="hub-group hub-method" aria-labelledby="method-h">
+        <h2 id="method-h">Jak powstają te poradniki</h2>
+        <p>Każdy poradnik zaczyna się od zagrożeń typowych dla regionu. Dalej są lokalni operatorzy prądu i wody, ważne zdarzenia z przeszłości i kontakty. Przy każdym fakcie podajemy źródło i datę sprawdzenia.</p>
+        <p>Widzisz coś nieaktualnego? Napisz na <a href={`mailto:${CORRECTIONS_EMAIL}`}>{CORRECTIONS_EMAIL}</a>.</p>
+        <p class="hub-note">{NOT_AFFILIATED}</p>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .hub-lede { max-width: 620px; margin: -20px 0 8px; font-size: 16.5px; line-height: 1.6; color: var(--ink-soft); text-wrap: pretty; }
+  .hub-group { margin-top: 56px; }
+  .hub-group h2 { font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .14em; color: #AD4C28; margin: 0 0 4px; }
+  .hub-method p { max-width: 620px; font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin: 12px 0 0; text-wrap: pretty; }
+  .hub-method a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
+  .hub-method .hub-note { font-size: 14px; color: var(--muted); }
+</style>

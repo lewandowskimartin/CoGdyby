@@ -1,0 +1,129 @@
+draft: false
+name: "Świętokrzyskie"
+searchName: "Świętokrzyskie"
+answer: "W Świętokrzyskiem najgroźniejsza jest powódź nad Wisłą, a obok niej nawałnice z gradem i susza. Dom przygotujesz w kilku krokach opisanych niżej."
+description: "Powódź nad Wisłą, nawałnice, susza i wichury w świętokrzyskim. Operatorzy, numery alarmowe i plan na 30 minut dla domu."
+lrf:
+  name: "Świętokrzyski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-swietokrzyski"
+  source:
+    url: "https://www.gov.pl/web/uw-swietokrzyski"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Świętokrzyski Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa świętokrzyskiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-swietokrzyski"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-swietokrzyski"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Powódź pod Sandomierzem"
+    rating: "Bardzo wysokie"
+    atHome: "W 2010 roku Wisła zalała Sandomierz i okolice dwa razy w ciągu kilku tygodni."
+    firstAction: "Jeśli mieszkasz w dolinie Wisły lub Nidy, sprawdź mapę w Hydroportalu ISOK i trzymaj najcenniejsze rzeczy wyżej."
+    source:
+      url: "https://isok.gov.pl/hydroportal.html"
+      manual: true
+      checked: 2026-10-19
+      title: "Mapy zagrożenia powodziowego (ISOK), Świętokrzyskie"
+  - name: "Nawałnice z gradem"
+    rating: "Wysokie"
+    atHome: "Letnie burze z gradem niszczą sady i dachy oraz zrywają napowietrzne linie energetyczne."
+    firstAction: "Gdy IMGW ostrzega przed burzą, wstaw samochód pod dach i naładuj telefony, zanim zacznie padać."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia meteorologiczne IMGW, Świętokrzyskie"
+  - name: "Susza"
+    rating: "Wysokie"
+    atHome: "Lekkie gleby szybko wysychają, a przy niskim stanie Nidy i Kamiennej gminy ograniczają pobór wody."
+    firstAction: "Przy zakazie podlewania korzystaj z deszczówki i miej w domu zapas wody do picia."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Monitoring suszy IMGW, Świętokrzyskie"
+  - name: "Wichury"
+    rating: "Wysokie"
+    atHome: "Silny wiatr w Górach Świętokrzyskich przewraca drzewa, a wsie zostają bez prądu na wiele godzin."
+    firstAction: "Po ostrzeżeniu IMGW zabezpiecz podwórko i przygotuj latarkę oraz power bank na wieczór."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (wiatr), Świętokrzyskie"
+  - name: "Mróz i śnieżyce"
+    rating: "Średnie"
+    atHome: "W pagórkowatym terenie gołoledź i zaspy utrudniają dojazd, a mróz obciąża ogrzewanie."
+    firstAction: "Jesienią zaizoluj rury i miej w domu jedzenie na czas, gdy śnieg zablokuje drogi."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (śnieg, mróz), Świętokrzyskie"
+power:
+  - operator: "PGE Dystrybucja"
+    register: "zgłoszenie u PGE Dystrybucja osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://www.gkpge.pl/dystrybucja"
+    phone: "991"
+    source:
+      url: "https://www.gkpge.pl/dystrybucja"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "Wodociągi Kieleckie"
+    covers: "Kielce i okoliczne gminy"
+    url: "https://www.wodkiel.com.pl/"
+    phone: "994"
+    source:
+      url: "https://www.wodkiel.com.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Powódź w Sandomierzu"
+    date: "Maj i czerwiec 2010"
+    summary: "Wisła dwa razy w ciągu kilku tygodni zalała Sandomierz i okoliczne miejscowości. Zniszczyła domy, a mieszkańcy zostali bez prądu i wody pitnej."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Pow%C3%B3d%C5%BA_w_Polsce_(2010)"
+      manual: true
+      checked: 2026-10-19
+      title: "Powódź w Polsce (2010), Świętokrzyskie"
+  - name: "Nawałnice i susza"
+    date: "Lato 2019"
+    summary: "Długa susza obniżyła poziom wód w regionie, a gwałtowne burze spowodowały lokalne szkody."
+    source:
+      url: "https://www.gov.pl/web/rcb"
+      manual: true
+      checked: 2026-10-19
+      title: "Susza i nawałnice, RCB, Świętokrzyskie"
+councils:
+  text: "w Kielcach kryzysami zajmuje się urząd miasta, a w mniejszych miejscowościach urzędy gmin i starostwa."
+  source:
+    url: "https://www.gov.pl/web/uw-swietokrzyski"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miasta Kielce"
+    url: "https://www.kielce.eu/"
+  - label: "Świętokrzyski Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-swietokrzyski"
+radio:
+  text: "Radio Kielce podaje komunikaty, które usłyszysz w radiu na baterie, gdy nie działa sieć komórkowa"
+  source:
+    url: "https://radio.kielce.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [flood, storm, water, power, cold]
+planNotes:
+  flood: "Pod Sandomierzem woda potrafi wrócić kilka razy w jednym roku. Sprawdź swoją okolicę na mapie i trzymaj cenne rzeczy wyżej."
+  storm: "Burze z gradem przychodzą szybko, dlatego latem warto codziennie zerknąć na ostrzeżenia IMGW."
+  water: "Latem gminy mogą ograniczać pobór wody. W Kielcach awarię zgłosisz pod 994."
+  power: "Po wichurze wsie potrafią na wiele godzin zostać bez prądu."
+  cold: "Zaizoluj instalację wodną i trzymaj zapasy na wypadek zasypanych dróg."
+lastChecked: 2026-10-19
+watch: []

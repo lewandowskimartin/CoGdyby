@@ -1,0 +1,129 @@
+draft: false
+name: "Lubuskie"
+searchName: "Lubuskie"
+answer: "W Lubuskiem najważniejsze są pożary lasów, wichury i powódź na Odrze. Poniżej opisujemy, co to oznacza dla domu i jak się przygotować."
+description: "Pożary lasów, wichury, powódź na Odrze i susza w województwie lubuskim. Operatorzy, numery alarmowe i plan na 30 minut dla domu."
+lrf:
+  name: "Lubuski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-lubuski"
+  source:
+    url: "https://www.gov.pl/web/uw-lubuski"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Lubuski Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa lubuskiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-lubuski"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-lubuski"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Pożary rozległych borów"
+    rating: "Wysokie"
+    atHome: "Lubuskie to jeden z najbardziej zalesionych regionów kraju. W czasie suszy ogień w borach szybko się rozprzestrzenia i może zagrozić pobliskim wsiom."
+    firstAction: "Przy wysokim zagrożeniu pożarowym nie rozpalaj ognia w lesie ani obok niego, sprawdzaj komunikaty nadleśnictwa i znaj drogę wyjazdu z osady."
+    source:
+      url: "https://www.gov.pl/web/rcb"
+      manual: true
+      checked: 2026-10-19
+      title: "Zagrożenie pożarowe lasów, RCB, Lubuskie"
+  - name: "Wichury w lasach"
+    rating: "Wysokie"
+    atHome: "Silny wiatr przewraca drzewa w dużych kompleksach leśnych. Blokują one drogi i zrywają linie prowadzące do leśnych osad."
+    firstAction: "Po ostrzeżeniu IMGW nie jedź przez las, zabezpiecz podwórko i przygotuj latarki na wieczór bez prądu."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (wiatr), Lubuskie"
+  - name: "Powódź na Odrze i Warcie"
+    rating: "Wysokie"
+    atHome: "Wezbrania Odry i Warty zagrażają m.in. Nowej Soli i Krosnu Odrzańskiemu. Fala z 1997 roku dotarła głęboko w region."
+    firstAction: "Jeśli mieszkasz w dolinie Odry lub Warty, sprawdź mapę w Hydroportalu ISOK i przygotuj listę rzeczy do przeniesienia wyżej."
+    source:
+      url: "https://isok.gov.pl/hydroportal.html"
+      manual: true
+      checked: 2026-10-19
+      title: "Mapy zagrożenia powodziowego (ISOK), Lubuskie"
+  - name: "Susza"
+    rating: "Wysokie"
+    atHome: "Piaszczyste gleby i małe opady sprawiają, że region szybko wysycha. Spada poziom rzek, a ryzyko pożarów rośnie."
+    firstAction: "Latem oszczędzaj wodę z kranu i miej w domu kilka zgrzewek wody pitnej."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Monitoring suszy IMGW, Lubuskie"
+  - name: "Upały"
+    rating: "Średnie"
+    atHome: "Upały nagrzewają domy i zwiększają ryzyko pożarów traw i lasów."
+    firstAction: "W upał zasłaniaj okna w dzień, pamiętaj o piciu wody i nie pal ogniska ani grilla na suchej trawie."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (upały), Lubuskie"
+power:
+  - operator: "Enea Operator"
+    register: "zgłoszenie u Enea Operator osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://www.operator.enea.pl/"
+    phone: "991"
+    source:
+      url: "https://www.operator.enea.pl/"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "Zielonogórskie Wodociągi i Kanalizacja"
+    covers: "Zielona Góra i okoliczne gminy"
+    url: "https://www.zwik.zgora.pl/"
+    phone: "994"
+    source:
+      url: "https://www.zwik.zgora.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Powódź na Odrze"
+    date: "Lipiec 1997"
+    summary: "Fala kulminacyjna na Odrze zagroziła nadrzecznym miejscowościom, m.in. Nowej Soli i Krosnu Odrzańskiemu. Mieszkańcy umacniali wały, a część z nich ewakuowano."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Pow%C3%B3d%C5%BA_tysi%C4%85clecia"
+      manual: true
+      checked: 2026-10-19
+      title: "Powódź 1997 (Odra), Lubuskie"
+  - name: "Pożary lasów podczas suszy"
+    date: "Lato 2019"
+    summary: "Przez długą suszę zagrożenie pożarowe w lasach regionu przez wiele tygodni było bardzo wysokie. Wybuchało wiele pożarów, a nadleśnictwa wprowadzały zakazy wstępu do lasu."
+    source:
+      url: "https://www.gov.pl/web/rcb"
+      manual: true
+      checked: 2026-10-19
+      title: "Zagrożenie pożarowe, RCB, Lubuskie"
+councils:
+  text: "zarządzaniem kryzysowym zajmują się urzędy gmin i starostwa powiatowe."
+  source:
+    url: "https://www.gov.pl/web/uw-lubuski"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miasta Zielona Góra"
+    url: "https://www.zielona-gora.pl/"
+  - label: "Lubuski Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-lubuski"
+radio:
+  text: "Radio Zachód podaje informacje na bieżąco, także gdy nie działa prąd ani sieć komórkowa"
+  source:
+    url: "https://www.zachod.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [storm, power, flood, water, heat]
+planNotes:
+  storm: "W borach wiatr łamie drzewa, które blokują drogi. Po ostrzeżeniu IMGW lepiej odłożyć wyjazd."
+  power: "W leśnych osadach prąd wraca wolniej. Awarię zgłosisz pod 991, a mapę awarii znajdziesz u Enei."
+  flood: "Odra i Warta zagrażają nadrzecznym miastom. Sprawdź swoją okolicę na mapie zagrożenia powodziowego."
+  water: "W czasie suszy gminy mogą ograniczać pobór wody. W Zielonej Górze awarię zgłosisz pod 994."
+  heat: "W upał uważaj na ogień przy suchej trawie i chroń mieszkanie przed nagrzaniem."
+lastChecked: 2026-10-19
+watch: []

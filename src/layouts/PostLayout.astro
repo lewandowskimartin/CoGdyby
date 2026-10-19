@@ -1,0 +1,102 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import EarlyAccessPromo from '../components/EarlyAccessPromo.astro';
+import QuizCta from '../components/QuizCta.astro';
+import KitCta from '../components/KitCta.astro';
+import { POST_KITS } from '../data/kit.js';
+import { RELATED, guideHref } from '../data/related.js';
+import { PACK_CONFIG } from '../config/pack';
+import { getCollection } from 'astro:content';
+
+const { title, description, pubDate, updatedDate } = Astro.props;
+const slug = Astro.url.pathname.replace(/\/$/, '').split('/').pop();
+
+// One kit CTA per guide. A guide listed in POST_KITS with inline: false has no {% kitcta %}
+// tag in its body, so its end-of-post box becomes the kit builder instead of the quiz.
+// Guides with inline: true already carry the tag mid-article and keep the quiz box here.
+const postKit = POST_KITS[slug];
+const endCta = postKit && !postKit.inline ? 'kit' : 'quiz';
+
+// Three related guides from data/related.js, in the order listed there.
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const related = (RELATED[slug] ?? []).map((id) => posts.find((p) => p.id === id)).filter(Boolean);
+
+const fmt = (d) =>
+  d.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  ...(updatedDate ? { dateModified: updatedDate.toISOString() } : {}),
+  author: { '@type': 'Organization', name: 'Co gdyby' },
+  publisher: { '@type': 'Organization', name: 'Co gdyby' },
+  mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).toString(),
+};
+
+const crumbsLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Strona główna', item: new URL('/', Astro.site).toString() },
+    { '@type': 'ListItem', position: 2, name: 'Poradniki', item: new URL('/blog/', Astro.site).toString() },
+    { '@type': 'ListItem', position: 3, name: title },
+  ],
+};
+---
+<BaseLayout title={`${title} | Co gdyby`} description={description} type="article">
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(crumbsLd)} slot="head" />
+
+  <main id="main">
+    <div class="article">
+      <nav class="eyebrow crumbs" aria-label="Nawigacja okruszkowa"><a href="/">Co gdyby</a> · <a href="/blog/">Poradniki</a></nav>
+      <h1>{title}</h1>
+      <p class="article-meta">
+        {fmt(pubDate)}{updatedDate ? ` · aktualizacja ${fmt(updatedDate)}` : ''}
+      </p>
+      <div class="prose">
+        <slot />
+      </div>
+    </div>
+
+    {endCta === 'kit'
+      ? <KitCta variant="article" scenario={postKit.scenario} title={postKit.title} location={`guide-end-${slug}`} />
+      : <QuizCta />}
+
+    <div class="article-cta">
+      <div class="box">
+        <p>Cały rodzinny plan awaryjny na 12 stronach do wydruku.</p>
+        <a class="btn btn-primary" href="/#get" data-pack-cta="guide">Kup pakiet za {PACK_CONFIG.PRICE}</a>
+      </div>
+      <EarlyAccessPromo variant="guide" slug={slug} />
+    </div>
+
+    {related.length > 0 && (
+      <nav class="related" aria-labelledby="related-h">
+        <h2 id="related-h">Powiązane poradniki</h2>
+        <ul class="post-list">
+          {related.map((p) => (
+            <li><a href={guideHref(p.id)} data-related-guide={p.id}><h3>{p.data.title}</h3></a></li>
+          ))}
+        </ul>
+        <a class="btn-ghost related-all" href="/blog/">Wszystkie poradniki</a>
+      </nav>
+    )}
+  </main>
+</BaseLayout>
+
+<style>
+  /* Breadcrumb keeps the eyebrow look; only the hover says it's a link. */
+  .crumbs a { color: inherit; text-decoration: none; }
+  .crumbs a:hover { text-decoration: underline; text-underline-offset: 3px; }
+  /* Sits under the pack box, in the same 720px column. Titles only, so it reads as
+     "keep reading" without competing with the pack CTA above it. */
+  .related { max-width: 720px; margin: -24px auto 0; padding: 0 var(--pad) 72px; }
+  .related h2 { font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .14em; color: #AD4C28; margin: 0 0 4px; }
+  .related .post-list a { padding: 20px 0; }
+  .related .post-list h3 { font-size: 21px; margin: 0; text-wrap: balance; }
+  .related-all { margin-top: 12px; }
+</style>

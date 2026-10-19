@@ -1,0 +1,76 @@
+---
+// MailerLite embedded form: "Send me the fridge card" (account 2618530, form iYgA9K).
+// Fields, marketing permissions, colours and the success message are all managed in
+// MailerLite (Forms → Embedded forms), so the site stays in sync with the form settings.
+// The universal script only loads on pages that use this component.
+//
+// The embed is a third-party script, and ad/tracker blockers often stop it, which used to
+// leave an empty box. So: a quiet "loading" line while it loads, and if no form has appeared
+// after a few seconds, an email fallback so the visitor can still get the card.
+---
+<div class="ml-embed-wrapper" data-ml-wrapper>
+  <div class="ml-embedded" data-form="iYgA9K"></div>
+  <p class="ml-loading" data-ml-loading>Ładowanie formularza zapisu…</p>
+  <div class="ml-fallback" data-ml-fallback hidden>
+    <p>Formularz się nie załadował. Zwykle blokuje go wtyczka do blokowania reklam. Napisz do nas, a wyślemy Ci kartę na lodówkę mailem.</p>
+    <a class="btn btn-primary" href="mailto:kontakt@cogdyby.pl?subject=Poproszę%20o%20darmową%20kartę%20na%20lodówkę">Poproś o kartę mailem</a>
+  </div>
+  <noscript>
+    <p class="ml-noscript">Formularz zapisu wymaga JavaScriptu. Możesz też napisać na <a href="mailto:kontakt@cogdyby.pl">kontakt@cogdyby.pl</a>, a wyślemy Ci kartę na lodówkę.</p>
+  </noscript>
+</div>
+
+<!-- MailerLite Universal -->
+<script is:inline>
+  (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+  .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+  n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+  (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+  ml('account', '2618530');
+</script>
+<!-- End MailerLite Universal -->
+
+<script>
+  // Swap the loading line for the email fallback if the embed never renders.
+  const wrapper = document.querySelector<HTMLElement>('[data-ml-wrapper]');
+  if (wrapper) {
+    const embed = wrapper.querySelector('.ml-embedded');
+    const loading = wrapper.querySelector<HTMLElement>('[data-ml-loading]');
+    const fallback = wrapper.querySelector<HTMLElement>('[data-ml-fallback]');
+    const rendered = () => !!embed && embed.children.length > 0;
+    const started = performance.now();
+    const check = () => {
+      if (rendered()) { if (loading) loading.hidden = true; return; }
+      if (performance.now() - started < 5000) { setTimeout(check, 250); return; }
+      if (loading) loading.hidden = true;
+      if (fallback) fallback.hidden = false;
+      wrapper.classList.add('is-fallback');
+    };
+    check();
+  }
+</script>
+
+<style is:global>
+  /* Light-touch overrides so the MailerLite form uses the site's fonts.
+     Colours come from the form's Design settings in MailerLite. */
+  .ml-embed-wrapper { min-height: 220px; }
+  .ml-embed-wrapper.is-fallback { min-height: 0; }
+  .ml-embed-wrapper .ml-form-embedContainer,
+  .ml-embed-wrapper .ml-form-embedWrapper { width: 100% !important; max-width: 100% !important; }
+  .ml-embed-wrapper .ml-form-embedWrapper { background-color: transparent !important; }
+  .ml-embed-wrapper .ml-form-embedBody,
+  .ml-embed-wrapper .ml-form-successBody { padding: 0 !important; }
+  .ml-embed-wrapper p,
+  .ml-embed-wrapper label,
+  .ml-embed-wrapper input,
+  .ml-embed-wrapper button { font-family: var(--body) !important; }
+  /* 16px inputs: anything smaller makes iOS zoom the page on focus */
+  .ml-embed-wrapper input[type="email"],
+  .ml-embed-wrapper input[type="text"] { font-size: 16px !important; }
+  .ml-embed-wrapper h4 { font-family: var(--disp) !important; font-weight: 500 !important; }
+  .ml-embed-wrapper .ml-form-embedPermissions p a { text-decoration: underline !important; }
+  .ml-noscript { font-size: 14px; color: var(--ink-soft); }
+  .ml-loading { margin: 0; font-size: 14px; color: var(--muted); }
+  .ml-fallback p { margin: 0 0 16px; font-size: 15px; line-height: 1.6; color: var(--ink-soft); }
+  .ml-fallback .btn { width: 100%; }
+</style>

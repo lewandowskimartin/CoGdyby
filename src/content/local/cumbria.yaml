@@ -1,0 +1,166 @@
+# Cumbria: facts and copy for /local/cumbria/ (template: src/pages/local/[area].astro).
+# Every `source` holds the exact words on its page; `npm run check:sources -- --area cumbria`
+# confirms they're still there. answer, description, atHome, firstAction and planNotes are our
+# own words (no source needed), but they must agree with the sourced facts.
+
+# Draft: shows in `npm run dev`, left out of the production build. Set to false to publish.
+draft: true
+
+name: Cumbria
+
+answer: Cumbria's risk register, reviewed in September 2026, rates river flooding and a national power outage as very high risks for the county.
+description: What Cumbria's community risk register means for your home, who to call in a flood or power cut, and a 30-minute plan in the right order.
+
+lrf:
+  name: Cumbria Local Resilience Forum
+  url: https://cumbriaprepared.org.uk/homepage
+  email: crf.secretariat@westmorlandandfurness.gov.uk
+  source:
+    url: https://www.gov.uk/guidance/local-resilience-forums-contact-details
+    quote: crf.secretariat@westmorlandandfurness.gov.uk
+    checked: 2026-10-14
+
+register:
+  title: Cumbria Community Risk Register (public version)
+  edition: Reviewed 28 September 2026
+  url: https://cumbriaprepared.org.uk/sites/default/files/13850690/2026-10/Cumbria%20Community%20Risk%20Register%20Public%20Version%20%282%29.pdf
+  system: labels
+  source:
+    url: https://cumbriaprepared.org.uk/sites/default/files/13850690/2026-10/Cumbria%20Community%20Risk%20Register%20Public%20Version%20%282%29.pdf
+    quote: Reviewed 28th September 2026
+    checked: 2026-10-14
+
+risks:
+  - name: River flooding
+    rating: Very high
+    likelihood: 3
+    impact: 4
+    atHome: Rivers can rise fast after heavy rain on the fells, and water can reach homes within hours.
+    firstAction: Sign up for flood warnings for your postcode.
+    source: &register
+      url: https://cumbriaprepared.org.uk/sites/default/files/13850690/2026-10/Cumbria%20Community%20Risk%20Register%20Public%20Version%20%282%29.pdf
+      quote: Fluvial flooding
+      checked: 2026-10-14
+  - name: National power outage
+    rating: Very high
+    likelihood: 3
+    impact: 5
+    atHome: Lights, heating controls, phones and card payments can all stop at once, possibly for days.
+    firstAction: Keep a torch, radio and charged power bank where you can find them in the dark.
+    source:
+      <<: *register
+      quote: National power outage
+  - name: Localised surface water flooding
+    rating: High
+    likelihood: 3
+    impact: 3
+    atHome: Heavy downpours can overwhelm drains and flood streets and ground floors away from any river.
+    firstAction: Know where your stopcock and electricity switch-off are.
+    source:
+      <<: *register
+      quote: Localised Surface Water Flooding
+  - name: Low temperatures and snow
+    rating: High
+    likelihood: 3
+    impact: 3
+    atHome: Roads close, deliveries stop and older neighbours can be cut off.
+    firstAction: Plan one warm room and keep three days of food that needs no cooking.
+    source:
+      <<: *register
+      quote: Low temperatures and snow
+  - name: Reservoir or dam collapse
+    rating: High
+    likelihood: 2
+    impact: 4
+    atHome: Very unlikely, but homes below a reservoir would have little warning.
+    firstAction: Check your address on the long-term flood risk service, which includes reservoirs.
+    source:
+      <<: *register
+      quote: Reservoir/Dam Collapse
+  - name: Storms
+    rating: Medium
+    likelihood: 3
+    impact: 2
+    atHome: Fallen trees bring down power lines and block roads, especially in rural valleys.
+    firstAction: Charge everything and secure loose items when a named storm is forecast.
+    source:
+      <<: *register
+      quote: Storms
+
+power:
+  - operator: SP Electricity North West
+    register: Extra Care register
+    url: https://www.enwl.co.uk/power-cuts/extra-care/
+    note: It was called Electricity North West until August 2025.
+    source:
+      url: https://www.enwl.co.uk/power-cuts/extra-care/
+      quote: Extra Care
+      checked: 2026-10-14
+
+water:
+  - company: United Utilities
+    url: https://www.unitedutilities.com/help-and-support/priority-services/
+    phone: 0345 072 6093
+    note: Registering with United Utilities also adds you to the electricity network's register.
+    source:
+      url: https://www.unitedutilities.com/help-and-support/priority-services/
+      quote: 0345 072 6093
+      checked: 2026-10-14
+
+pastEvents:
+  - name: Storm Desmond
+    date: 5–6 December 2015
+    summary: A UK record 341.4 mm of rain fell in 24 hours at Honister Pass.
+    source:
+      # The Met Office storm page (weather.metoffice.gov.uk) answers scripts with HTTP 404, so this
+      # cites the Met Office blog. The "5,200 homes flooded" figure is on the storm page only; add it
+      # back if a source the checker can reach confirms it.
+      url: https://www.metoffice.gov.uk/blog/2015/did-climate-change-have-an-impact-on-storm-desmond
+      quote: 341.4mm of rainfall
+      checked: 2026-10-14
+  - name: Storm Desmond power cuts
+    date: December 2015
+    summary: Flooded substations in Carlisle and across Cumbria cut power to 13,000 people.
+    source:
+      url: https://www.enwl.co.uk/about-us/news/latest-news-and-views/2020/Five-years-on-from-Storm-Desmond-North-West-power-network-stronger-than-ever/
+      quote: '13,000'
+      checked: 2026-10-14
+
+councils:
+  text: Cumberland Council and Westmorland and Furness Council.
+  source:
+    url: https://cumbriaprepared.org.uk/homepage
+    quote: both Unitary Authorities in Cumbria
+    checked: 2026-10-14
+
+councilPages:
+  - label: Westmorland and Furness Council emergency planning
+    url: https://www.westmorlandandfurness.gov.uk/your-environment/emergency-planning/how-we-plan-emergencies
+  - label: Cumberland Council emergency planning
+    url: https://www.cumberland.gov.uk/your-environment/your-community/community-safety/emergencies/how-we-plan-emergencies
+
+radio:
+  text: BBC Radio Cumbria
+  source:
+    url: https://en.wikipedia.org/wiki/BBC_Radio_Cumbria
+    quote: BBC Radio Cumbria
+    checked: 2026-10-14
+
+planOrder: [flood, power, cold, evacuation, water]
+planNotes:
+  flood: Rivers fed by the fells can rise within hours of heavy rain. Add warnings for any river you cross on the school run or the way to work, as well as your own.
+  power: SP Electricity North West runs the network here. If anyone at home relies on power for their health, join its free Extra Care register.
+  cold: Snow and ice can close fell roads and stop deliveries, so plan for three days without going out.
+  evacuation: Pick somewhere on higher ground you could stay, such as friends or family, in case a flood warning tells you to leave.
+  water: United Utilities supplies water here. Joining its priority services register also puts you on the electricity network's register.
+
+lastChecked: 2026-10-14
+
+watch:
+  # New register editions get linked from this page (the 2026 edition moved here from the
+  # Westmorland and Furness site).
+  - kind: links
+    url: https://cumbriaprepared.org.uk/hazards-and-threats-cumbria
+    match: risk register
+    known:
+      - https://cumbriaprepared.org.uk/sites/default/files/13850690/2026-10/Cumbria%20Community%20Risk%20Register%20Public%20Version%20%282%29.pdf

@@ -1,0 +1,129 @@
+draft: false
+name: "Warmia i Mazury"
+searchName: "Warmia i Mazury"
+answer: "Na Warmii i Mazurach najważniejsze są mroźne, śnieżne zimy, nawałnice łamiące lasy i długie przerwy w prądzie. Sprawdź, jak krok po kroku przygotować dom."
+description: "Mróz, śnieżyce, nawałnice, przerwy w prądzie i podtopienia na Warmii i Mazurach. Operatorzy, numery alarmowe i plan na 30 minut dla domu."
+lrf:
+  name: "Warmińsko-Mazurski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-warminsko-mazurski"
+  source:
+    url: "https://www.gov.pl/web/uw-warminsko-mazurski"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Warmińsko-Mazurski Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa warmińsko-mazurskiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-warminsko-mazurski"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-warminsko-mazurski"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Mroźne, śnieżne zimy"
+    rating: "Wysokie"
+    atHome: "Zima na pojezierzu jest długa, a zaspy potrafią na kilka dni odciąć wsie w okolicach Puszczy Piskiej."
+    firstAction: "Opał, jedzenie i leki zgromadź jesienią, a rury w nieogrzewanych pomieszczeniach zaizoluj przed mrozem."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (śnieg, mróz), Warmia i Mazury"
+  - name: "Wichury i nawałnice"
+    rating: "Wysokie"
+    atHome: "Nawałnice z sierpnia 2017 roku połamały duże obszary lasów, a silny wiatr wciąż zrywa linie prowadzące do leśnych osad."
+    firstAction: "Latem, zwłaszcza na wakacjach nad jeziorem, sprawdzaj ostrzeżenia IMGW i nie zostawajcie w lesie ani na wodzie, gdy nadchodzi burza."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia meteorologiczne IMGW, Warmia i Mazury"
+  - name: "Długie przerwy w prądzie"
+    rating: "Wysokie"
+    atHome: "Domy są tu rozrzucone wśród lasów i jezior, więc naprawa zerwanej linii często trwa długo."
+    firstAction: "Latarkę, power bank i radio trzymaj w jednym miejscu. Awarię zgłosisz pod numerem 991, a jej zasięg sprawdzisz u Energi Operator."
+    source:
+      url: "https://energa-operator.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie, Energa Operator, Warmia i Mazury"
+  - name: "Susza i niskie stany jezior"
+    rating: "Średnie"
+    atHome: "Gdy długo nie pada, spada poziom jezior i wód gruntowych, a niektóre gminy ograniczają pobór wody."
+    firstAction: "Latem podlewaj ogród deszczówką i trzymaj w domu kilka zgrzewek wody pitnej."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Monitoring suszy IMGW, Warmia i Mazury"
+  - name: "Podtopienia"
+    rating: "Średnie"
+    atHome: "Roztopy i ulewy podnoszą poziom rzek i jezior, a woda zalewa nisko położone działki."
+    firstAction: "Po długich opadach sprawdzaj, czy woda nie podchodzi pod dom. Gmina zwykle wydaje worki z piaskiem."
+    source:
+      url: "https://isok.gov.pl/hydroportal.html"
+      manual: true
+      checked: 2026-10-19
+      title: "Mapy zagrożenia powodziowego (ISOK), Warmia i Mazury"
+power:
+  - operator: "Energa Operator"
+    register: "zgłoszenie u Energa Operator osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://energa-operator.pl/"
+    phone: "991"
+    source:
+      url: "https://energa-operator.pl/"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "PWiK Olsztyn"
+    covers: "Olsztyn i okoliczne gminy"
+    url: "https://www.pwik.olsztyn.pl/"
+    phone: "994"
+    source:
+      url: "https://www.pwik.olsztyn.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Nawałnice stulecia"
+    date: "Sierpień 2017"
+    summary: "Gwałtowne nawałnice połamały lasy na Warmii i Mazurach. Dziesiątki tysięcy domów zostały bez prądu, niektóre na wiele dni."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Nawa%C5%82nice_w_Polsce_(2017)"
+      manual: true
+      checked: 2026-10-19
+      title: "Nawałnice w Polsce (2017), Warmia i Mazury"
+  - name: "Obfite śnieżyce"
+    date: "Zima 2010"
+    summary: "Intensywne opady śniegu i zamiecie odcięły wiejskie miejscowości i sparaliżowały ruch na drogach."
+    source:
+      url: "https://www.gov.pl/web/rcb"
+      manual: true
+      checked: 2026-10-19
+      title: "Śnieżyce, komunikaty RCB, Warmia i Mazury"
+councils:
+  text: "Urząd Miasta Olsztyna i starostwa powiatowe prowadzą zarządzanie kryzysowe na swoim terenie."
+  source:
+    url: "https://www.gov.pl/web/uw-warminsko-mazurski"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miasta Olsztyna"
+    url: "https://olsztyn.eu/"
+  - label: "Warmińsko-Mazurski Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-warminsko-mazurski"
+radio:
+  text: "Radio Olsztyn dociera na UKF także do oddalonych wsi, gdy zabraknie prądu i zasięgu"
+  source:
+    url: "https://radioolsztyn.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [cold, storm, power, water, flood]
+planNotes:
+  cold: "Zimą wsie na pojezierzu bywają odcięte przez kilka dni, więc opał, zapasy i izolację rur przygotuj jesienią."
+  storm: "Letnie burze potrafią łamać całe połacie lasu. Ostrzeżeń IMGW nie warto lekceważyć, zwłaszcza na wakacjach."
+  power: "Wśród lasów i jezior naprawa linii trwa długo. Awarię zgłosisz pod 991."
+  water: "W Olsztynie awarię wodociągu zgłosisz pod 994."
+  flood: "Po roztopach woda podchodzi pod nisko położone domy. Ustal, co przeniesiecie wyżej, i gdzie gmina wydaje worki z piaskiem."
+lastChecked: 2026-10-19
+watch: []

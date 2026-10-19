@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Quiz from '../../components/Quiz.astro';
+import PostHog from '../../components/PostHog.astro';
+import '../../styles/quiz.css';
+
+const title = 'Quiz: jak przygotowany jest Twój dom na sytuacje kryzysowe? | Co gdyby';
+const description =
+  '10 krótkich pytań i 2 minuty. Dostajesz wynik w skali 0–100, trzy najważniejsze braki i bezpłatny sposób na każdy z nich. Na podstawie rządowego Poradnika bezpieczeństwa.';
+---
+<BaseLayout title={title} description={description}>
+  <PostHog slot="head" />
+  <main id="main">
+    <section class="quiz">
+      <span class="eyebrow">Quiz gotowości · 2 minuty</span>
+      <h1>Jak przygotowany jest Twój dom?</h1>
+      <Quiz />
+      <p class="q-muted" style="margin-top:32px">
+        Quiz to szybka samoocena, a nie profesjonalny audyt bezpieczeństwa. Co gdyby to niezależny projekt, niezwiązany z administracją publiczną.
+      </p>
+    </section>
+  </main>
+</BaseLayout>

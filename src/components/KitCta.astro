@@ -1,0 +1,114 @@
+---
+// Kit builder prompt. Three placements, one component:
+// - "inline"  : mid-article, dropped into a guide with {% kitcta scenario="power-cut" /%}.
+//               Used on guides that keep the quiz box at the end (see POST_KITS in data/kit.js).
+// - "article" : the end-of-guide box, replacing QuizCta on supplies-intent guides. Reuses .article-cta.
+// - "band"    : a section band on landing pages. Reuses .quiz-band, so it matches QuizCta exactly.
+// data-kit-cta feeds the kit_cta_clicked event (BaseLayout.astro), so placements can be compared.
+import { SCENARIOS, DEFAULT_SCENARIO, kitHref } from '../data/kit.js';
+
+const {
+  variant = 'article',
+  scenario = DEFAULT_SCENARIO,
+  location = 'article',
+  params = '',
+  eyebrow = 'Bezpłatny kalkulator',
+  title,
+  text,
+  cta,
+  note = 'Bezpłatnie · bez zapisu · do wydruku lub na maila',
+} = Astro.props;
+
+const entry = SCENARIOS.find((s) => s.id === scenario) ?? SCENARIOS.find((s) => s.id === DEFAULT_SCENARIO);
+const href = kitHref(entry.id, params);
+
+const defaults = {
+  title: entry.id === DEFAULT_SCENARIO ? 'Jakie zapasy są potrzebne w Twoim domu?' : `${entry.label}: co przygotować?`,
+  text: `Wpisz, kto mieszka w domu, a policzymy wodę, jedzenie i pozostałe zapasy. W trzech krokach dostaniesz gotową listę do wydrukowania, odhaczania lub wysłania na maila.`,
+  cta: entry.id === DEFAULT_SCENARIO ? 'Policz zapasy dla mojego domu' : `Przygotuj ${entry.listNoun}`,
+};
+const h = title ?? defaults.title;
+const t = text ?? defaults.text;
+const c = cta ?? defaults.cta;
+---
+{variant === 'band' && (
+  <section class="quiz-band" aria-labelledby={`kit-band-${location}`}>
+    <div class="quiz-band-inner">
+      <div class="quiz-band-copy">
+        <span class="eyebrow">{eyebrow}</span>
+        <h2 id={`kit-band-${location}`}>{h}</h2>
+        <p>{t}</p>
+      </div>
+      <div class="quiz-band-action">
+        <a class="btn btn-outline" href={href} data-kit-cta={location}>{c}</a>
+        <span class="quiz-band-note">{note}</span>
+      </div>
+    </div>
+  </section>
+)}
+
+{variant === 'article' && (
+  <div class="article-cta" style="padding-bottom:0">
+    <div class="box">
+      <p>{h}</p>
+      <a class="btn btn-outline" href={href} data-kit-cta={location}>{c}</a>
+    </div>
+  </div>
+)}
+
+{variant === 'inline' && (
+  <aside class="kit-inline" aria-label="Kreator zestawu awaryjnego">
+    <p class="kit-inline__eyebrow">{eyebrow}</p>
+    <p class="kit-inline__title">{h}</p>
+    <p class="kit-inline__text">{t}</p>
+    <a class="btn btn-accent kit-inline__btn" href={href} data-kit-cta={location}>{c}</a>
+    <p class="kit-inline__note">{note}</p>
+  </aside>
+)}
+
+<style>
+  /* Sits inside .prose on a guide, so it has to break the column without shouting.
+     A left rule and the page's panel tone, rather than another full card. */
+  .kit-inline {
+    margin: 36px 0;
+    padding: 22px 24px;
+    background: var(--panel);
+    border: 1px solid var(--hair);
+    border-left: 3px solid #AD4C28;
+    border-radius: var(--r-sm);
+  }
+  .kit-inline p { margin: 0; }
+  .kit-inline__eyebrow {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #AD4C28;
+    margin-bottom: 8px !important;
+  }
+  .kit-inline__title {
+    font-family: var(--disp);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin-bottom: 8px !important;
+  }
+  .kit-inline__text {
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--ink-soft);
+    text-wrap: pretty;
+    margin-bottom: 16px !important;
+  }
+  .kit-inline__note {
+    margin-top: 10px !important;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  /* .prose a { color: var(--ink) } outranks .btn-accent inside a guide, so the button has to
+     state its own colour or it renders dark-on-terracotta. Hover too: .prose a:hover is (0,2,1). */
+  .kit-inline__btn,
+  .kit-inline__btn:hover { color: #fff; text-decoration: none; }
+</style>

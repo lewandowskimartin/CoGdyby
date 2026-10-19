@@ -1,0 +1,26 @@
+---
+// Renders links inside Markdoc blog posts.
+// - Internal links (same site, anchors, mailto): rendered as-is.
+// - External links: open in a new tab with rel="noopener noreferrer".
+// - Amazon links: additionally marked rel="sponsored nofollow ..." so search
+//   engines see them as paid/affiliate, per Google's link-attribution guidance.
+const { href = '', title } = Astro.props;
+
+let host = '';
+try {
+  host = new URL(href, 'https://cogdyby.pl').hostname.toLowerCase();
+} catch {
+  host = '';
+}
+
+const isHttp = /^https?:\/\//i.test(href);
+const isInternal = host === 'cogdyby.pl' || host.endsWith('.cogdyby.pl');
+const external = isHttp && !isInternal;
+const isAmazon = /(^|\.)amazon\.[a-z.]+$/.test(host) || host === 'amzn.to';
+
+const target = external ? '_blank' : undefined;
+const rel = external
+  ? (isAmazon ? 'sponsored nofollow noopener noreferrer' : 'noopener noreferrer')
+  : undefined;
+---
+<a href={href} title={title} target={target} rel={rel}><slot /></a>

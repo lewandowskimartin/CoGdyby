@@ -1,0 +1,21 @@
+# llms.txt for Prepared at Home
+# https://llms.txt/about
+
+User-Agent: *
+Allow: /
+
+# Main entry points
+URL: https://preparedathome.co.uk/
+Description: UK household emergency plan tool and guides
+Language: en
+
+# Primary guides
+URL: https://preparedathome.co.uk/blog/
+Description: Practical emergency preparedness guides
+URL: https://preparedathome.co.uk/kit/
+Description: Emergency kit builder tools
+URL: https://preparedathome.co.uk/household-preparedness-quiz/
+Description: Preparedness assessment quiz
+
+# Contact
+Email: info@marcinlewandowski.com

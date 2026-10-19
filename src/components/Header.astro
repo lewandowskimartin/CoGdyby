@@ -1,0 +1,78 @@
+---
+import { EA, eaPrice } from '../config/earlyAccess';
+import { PACK_CONFIG } from '../config/pack';
+
+// On the course page the header CTA sells the course (dark, so it reads as a different product
+// from the terracotta pack button); everywhere else it's the £14.99 pack.
+const onCourse = Astro.url.pathname.replace(/\/$/, '') === EA.URL;
+const coursePrice = eaPrice();
+---
+<a class="skip-link" href="#main">Przejdź do treści</a>
+<header class="site-header">
+  <a class="brand" href="/" aria-label="Co gdyby — strona główna">
+    <img src="/img/pah-logo.svg" alt="Co gdyby" width="201" height="26" class="brand-logo" />
+  </a>
+  <nav class="nav" aria-label="Menu główne">
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Otwórz menu">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+    </button>
+    <ul class="nav-links" id="nav-menu">
+      <li><a href="/#pack" data-pack-cta="header-nav">Pakiet</a></li>
+      <li><a href="/free-emergency-plan-template/">Darmowa karta</a></li>
+      <li><a href="/household-preparedness-quiz/" data-quiz-cta="nav">Quiz</a></li>
+      <li><a href="/kit/" data-kit-cta="nav">Kalkulator zapasów</a></li>
+      <li><a href="/#organisations" data-org-cta="header">Dla organizacji</a></li>
+      <li><a href="/blog/">Poradniki</a></li>
+    </ul>
+    {onCourse ? (
+      <a class="price price--course" href="#offer" data-ea-cta="header-price"><span class="price-label">Zobacz kurs</span><span class="price-sep"> · </span><span class="price-amount">{coursePrice}</span></a>
+    ) : (
+      <a class="price" href="/#get" data-pack-cta="header-price"><span class="price-label">Kup pakiet</span><span class="price-sep"> · </span><span class="price-amount">{PACK_CONFIG.PRICE}</span></a>
+    )}
+  </nav>
+</header>
+<script>
+  // Publish the sticky chrome's heights as CSS variables (global.css):
+  //   --header-h  the header that stays pinned (drives scroll-padding-top for anchors)
+  //   --ea-h      the Early Access bar above it (phones let it scroll away: top = -bar)
+  // Re-measured on resize and when the bar is dismissed (it shrinks .site-top).
+  const top = document.querySelector<HTMLElement>('.site-top');
+  const header = document.querySelector<HTMLElement>('.site-header');
+  if (top && header) {
+    const root = document.documentElement.style;
+    const measure = () => {
+      root.setProperty('--header-h', `${header.offsetHeight}px`);
+      root.setProperty('--ea-h', `${header.offsetTop}px`);
+    };
+    measure();
+    new ResizeObserver(measure).observe(top);
+  }
+
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  const menu = document.querySelector<HTMLElement>('#nav-menu');
+  if (toggle && menu && header) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Zamknij menu' : 'Otwórz menu');
+      menu.classList.toggle('is-open', open);
+      document.body.classList.toggle('nav-open', open);
+      // Keep the panel inside the viewport on short phones; it scrolls internally.
+      menu.style.maxHeight = open ? `${window.innerHeight - header.getBoundingClientRect().bottom}px` : '';
+    };
+    const isOpen = () => toggle.getAttribute('aria-expanded') === 'true';
+    toggle.addEventListener('click', () => setOpen(!isOpen()));
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    // A tap on the dimmed page behind the panel closes it.
+    document.addEventListener('click', (e) => {
+      if (isOpen() && e.target instanceof Element && !e.target.closest('.site-top')) setOpen(false);
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && isOpen()) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+</script>

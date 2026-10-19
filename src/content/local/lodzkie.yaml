@@ -1,0 +1,130 @@
+draft: false
+name: "Łódzkie"
+searchName: "Łódzkie"
+answer: "W łódzkim najbardziej dokuczają susza, upały w mieście oraz orkany i wichury. Dom przygotujesz w kilku krokach opisanych niżej."
+description: "Susza, upały, orkany i przerwy w prądzie w województwie łódzkim. Operatorzy, numery alarmowe i plan na 30 minut dla domu."
+lrf:
+  name: "Łódzki Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-lodzki"
+  source:
+    url: "https://www.gov.pl/web/uw-lodzki"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Łódzki Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa łódzkiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-lodzki"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-lodzki"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Pogłębiająca się susza"
+    rating: "Bardzo wysokie"
+    atHome: "Łódzkie to jeden z najsuchszych regionów Polski. Latem w Bzurze i Pilicy ubywa wody, a niektóre gminy zakazują podlewania."
+    firstAction: "W czasie suszy oszczędzaj wodę z kranu i trzymaj zapas wody pitnej na kilka dni."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Monitoring suszy IMGW, region łódzki"
+  - name: "Upał w Łodzi"
+    rating: "Wysokie"
+    atHome: "Gęsta zabudowa łódzkiego śródmieścia nie stygnie w nocy. Długie upały są szczególnie trudne dla seniorów w kamienicach bez klimatyzacji."
+    firstAction: "W upał zasłaniaj okna w ciągu dnia, wietrz nocą i zaglądaj do starszych sąsiadów, którzy mieszkają sami."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (upały), region łódzki"
+  - name: "Orkany i nawałnice"
+    rating: "Wysokie"
+    atHome: "Zimowe orkany, takie jak Dudley i Eunice w 2022 roku, oraz letnie burze zrywają linie w całym regionie."
+    firstAction: "Przy ostrzeżeniu IMGW zabezpiecz balkon, naładuj telefony i połóż latarkę w widocznym miejscu."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (wiatr), region łódzki"
+  - name: "Przerwy w prądzie"
+    rating: "Średnie"
+    atHome: "Prąd znika najczęściej po wichurze, a czasem także w upał, gdy sieć jest mocniej obciążona."
+    firstAction: "Przed zapowiadanym upałem lub wichurą naładuj power bank i połóż go obok radia na baterie."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie, PGE Dystrybucja, region łódzki"
+  - name: "Mróz i śnieżyce"
+    rating: "Średnie"
+    atHome: "Oblodzone drogi i zaspy utrudniają dojazd, a w starszych budynkach mróz mocno obciąża ogrzewanie."
+    firstAction: "Przed zimą sprawdź izolację rur i odłóż zapas jedzenia na dni, gdy trudno dojechać do sklepu."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (śnieg, mróz), region łódzki"
+power:
+  - operator: "PGE Dystrybucja"
+    register: "zgłoszenie u PGE Dystrybucja osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://www.gkpge.pl/dystrybucja"
+    phone: "991"
+    note: "Na większości regionu sieć prowadzi PGE Dystrybucja, na części Energa Operator."
+    source:
+      url: "https://www.gkpge.pl/dystrybucja"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "ZWiK Łódź"
+    covers: "Łódź i okoliczne gminy"
+    url: "https://www.zwik.lodz.pl/"
+    phone: "994"
+    source:
+      url: "https://www.zwik.lodz.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Orkany zimowe"
+    date: "Luty 2022"
+    summary: "Orkany Dudley, Eunice i Franklin przeszły nad Polską jeden po drugim. Zerwane linie zostawiły bez prądu ponad milion odbiorców w całym kraju."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Cyklony_Dudley,_Eunice_i_Franklin"
+      manual: true
+      checked: 2026-10-19
+      title: "Orkany, luty 2022, region łódzki"
+  - name: "Susza rolnicza"
+    date: "Lato 2019"
+    summary: "Bardzo niskie opady w centralnej Polsce obniżyły poziom rzek. W części gmin wprowadzono ograniczenia w poborze wody."
+    source:
+      url: "https://www.gov.pl/web/rcb"
+      manual: true
+      checked: 2026-10-19
+      title: "Susza, komunikaty RCB, region łódzki"
+councils:
+  text: "Urząd Miasta Łodzi oraz urzędy gmin i starostwa odpowiadają za zarządzanie kryzysowe na swoim terenie."
+  source:
+    url: "https://www.gov.pl/web/uw-lodzki"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miasta Łodzi"
+    url: "https://uml.lodz.pl/"
+  - label: "Łódzki Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-lodzki"
+radio:
+  text: "Radio Łódź przekazuje komunikaty, które usłyszysz w radiu na baterie, gdy nie ma prądu ani zasięgu"
+  source:
+    url: "https://www.radiolodz.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [water, heat, storm, power, cold]
+planNotes:
+  water: "W tak suchym regionie zapas wody ma szczególne znaczenie. W Łodzi awarię wodociągu zgłosisz pod 994."
+  heat: "Śródmieście Łodzi nie stygnie nocą, więc w upał dzwoń do starszych bliskich i sąsiadów."
+  storm: "Orkany zimą i burze latem zrywają linie, dlatego warto reagować na ostrzeżenia IMGW."
+  power: "W upalne dni sieć bywa dodatkowo obciążona, więc przerwy zdarzają się też latem."
+  cold: "Zadbaj o izolację rur i zrób zapas na czas zasypanych dróg."
+lastChecked: 2026-10-19
+watch: []

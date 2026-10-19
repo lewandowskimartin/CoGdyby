@@ -1,0 +1,542 @@
+---
+// Emergency kit builder. Three steps: household, scenario, list.
+//
+// Same approach as Quiz.astro: the server renders everything and a small script shows one step
+// at a time. Everything needed without JavaScript is rendered too — the <noscript> block below
+// reveals the list and hides the controls that only work with a script, so a visitor with no JS
+// gets a correct, printable list for the page's default household rather than dead buttons.
+import { ITEMS, SCENARIOS, LIMITS, SOURCE, SHOP, PACK, EMAIL_FORM } from '../data/kit.js';
+import { buildKit, encodeHousehold } from '../lib/kitBuild.js';
+import { affiliateUrl } from '../data/affiliateLinks.js';
+
+const { scenario = 'general' } = Astro.props;
+
+// The default household this page renders before any interaction.
+const defaults = {
+  adults: LIMITS.adults.default,
+  children: LIMITS.children.default,
+  pets: LIMITS.pets.default,
+  days: LIMITS.days.default,
+  medical: false,
+  scenario,
+};
+const initial = buildKit(defaults);
+const shown = new Set(initial.items.map((i) => i.id));
+const qtyFor = Object.fromEntries(initial.items.map((i) => [i.id, i.qty]));
+const initialUrl = new URL(`${Astro.url.pathname}?${encodeHousehold(defaults)}`, Astro.site).href;
+// Nothing is ticked on the server, so every buyable item in this kit starts as a gap.
+const initialShopCount = initial.items.filter((i) => i.affiliate).length;
+
+// `one` is the singular, so the +/- buttons read as "One more adult" rather than "One more adults".
+const steppers = [
+  { key: 'adults', label: 'Dorośli', one: 'dorosłego', range: LIMITS.adults },
+  { key: 'children', label: 'Dzieci', one: 'dziecko', range: LIMITS.children },
+  { key: 'pets', label: 'Zwierzęta', one: 'zwierzę', range: LIMITS.pets },
+];
+---
+<noscript>
+  <style>
+    /* Beats `.kit [hidden]` on specificity, so the list shows without a script. */
+    .kit .kit-result[hidden] { display: block !important; }
+    .kit .kit-days, .kit .kit-actions, .kit .kit-edit { display: none !important; }
+  </style>
+</noscript>
+
+<div class="kit" data-kit data-scenario={scenario}>
+  <noscript>
+    <p class="q-muted kit-nojs">Kalkulator potrzebuje JavaScriptu, żeby dopasować listę do Twojego domu. Poniżej {initial.scenario.listNoun} dla 2 dorosłych na 3 dni.</p>
+  </noscript>
+
+  <!-- Steps 1 and 2 need JavaScript, so they stay hidden until the script runs. -->
+  <div data-kit-wizard hidden>
+    <ol class="kit-steps">
+      <li data-step-chip="1" class="is-current"><span>1</span> Dom</li>
+      <li data-step-chip="2"><span>2</span> Sytuacja</li>
+      <li data-step-chip="3"><span>3</span> Twoja lista</li>
+    </ol>
+
+    <!-- Step 1 -->
+    <section class="q-card kit-step" data-kit-step="1" aria-labelledby="kit-h-1">
+      <h2 id="kit-h-1" tabindex="-1">Kto jest w domu?</h2>
+      <p class="q-muted">Na tej podstawie policzymy wodę, jedzenie i pozostałe zapasy.</p>
+
+      <div class="kit-counters">
+        {steppers.map((s) => (
+          <div class="kit-counter" data-counter={s.key}>
+            <span class="kit-counter__label" id={`kit-lbl-${s.key}`}>{s.label}</span>
+            <div class="kit-counter__row">
+              <button type="button" class="kit-step-btn" data-step-down aria-label={`${s.label}: zmniejsz`}>−</button>
+              <output class="kit-counter__value" data-value aria-labelledby={`kit-lbl-${s.key}`}>{s.range.default}</output>
+              <button type="button" class="kit-step-btn" data-step-up aria-label={`${s.label}: zwiększ`}>+</button>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <label class="q-check kit-medical">
+        <input type="checkbox" data-medical />
+        <span>Ktoś w domu korzysta ze sprzętu medycznego zasilanego prądem. Dodamy plan na przerwę w zasilaniu i powiadomienia o wyłączeniach.</span>
+      </label>
+
+      <p class="kit-sofar"><span class="kit-sofar__label">Podsumowanie</span> <span data-sofar>W domu: 2 osoby.</span></p>
+
+      <div class="q-nav kit-nav">
+        <span></span>
+        <button type="button" class="btn btn-accent" data-kit-next="2">Dalej</button>
+      </div>
+    </section>
+
+    <!-- Step 2. The cards act immediately, so they are plain buttons rather than toggles. -->
+    <section class="q-card kit-step" data-kit-step="2" hidden aria-labelledby="kit-h-2">
+      <h2 id="kit-h-2" tabindex="-1">Na co się przygotowujesz?</h2>
+      <p class="q-muted">Każda sytuacja wymaga trochę innej listy. Jeśli nie wiesz, co wybrać, zacznij od zestawu na 72 godziny.</p>
+
+      <div class="kit-scenarios">
+        {SCENARIOS.map((s) => (
+          <button type="button" class:list={['kit-scenario', { 'is-current': s.id === scenario }]} data-pick-scenario={s.id}>
+            <span class="kit-scenario__badge" data-suggested-badge hidden>Sugerowane teraz</span>
+            <span class="kit-scenario__name">{s.label}</span>
+            <span class="kit-scenario__blurb">{s.blurb}</span>
+          </button>
+        ))}
+      </div>
+
+      <div class="q-nav kit-nav">
+        <button type="button" class="btn btn-outline" data-kit-back="1">Wstecz</button>
+      </div>
+    </section>
+  </div>
+
+  <!-- Step 3. Hidden for the script, revealed by the noscript style above. -->
+  <section class="kit-result" data-kit-step="3" hidden aria-labelledby="kit-h-3">
+    <div class="kit-edit">
+      <button type="button" class="btn btn-ghost" data-kit-back="1">Zmień domowników</button>
+      <button type="button" class="btn btn-ghost" data-kit-back="2">Zmień sytuację</button>
+    </div>
+
+    <div class="kit-result__head">
+      <h2 id="kit-h-3" tabindex="-1">Twój <span data-scenario-label>{initial.scenario.listNoun}</span></h2>
+      <div class="kit-days" data-counter="days">
+        <span class="kit-counter__label" id="kit-lbl-days">Dni</span>
+        <div class="kit-counter__row">
+          <button type="button" class="kit-step-btn" data-step-down aria-label="Dni: zmniejsz">−</button>
+          <output class="kit-counter__value" data-value aria-labelledby="kit-lbl-days">{LIMITS.days.default}</output>
+          <button type="button" class="kit-step-btn" data-step-up aria-label="Dni: zwiększ">+</button>
+        </div>
+      </div>
+    </div>
+
+    <p class="kit-for" data-kit-for>Dla {initial.people} osób przez {initial.days} dni.</p>
+
+    <div class="kit-totals">
+      <div class="kit-total">
+        <span class="kit-total__num"><span data-total="waterMin">{initial.waterMin}</span> l</span>
+        <span class="kit-total__label">Woda do picia</span>
+      </div>
+      <div class="kit-total">
+        <span class="kit-total__num" data-total="meals">{initial.meals}</span>
+        <span class="kit-total__label">Posiłki bez gotowania</span>
+      </div>
+      <div class="kit-total">
+        <span class="kit-total__num" data-total="count">{initial.items.length}</span>
+        <span class="kit-total__label">Zostało na liście</span>
+      </div>
+    </div>
+    <p class="q-muted kit-source">{SOURCE.text}{' '}<a href={SOURCE.url} rel="noopener">Poradnik bezpieczeństwa na gov.pl</a></p>
+
+    <ul class="kit-list" data-kit-list>
+      {ITEMS.map((item) => (
+        <li class="kit-item" data-item={item.id} hidden={!shown.has(item.id)}>
+          <label class="kit-item__main">
+            <input type="checkbox" class="kit-item__tick" />
+            <span class="kit-item__body">
+              <span class="kit-item__name">
+                {item.name}
+                {item.qty && <span class="kit-item__qty" data-qty>{qtyFor[item.id] ?? ''}</span>}
+              </span>
+              <span class="kit-item__why">{item.why}</span>
+            </span>
+          </label>
+          {item.guide && (
+            <a class="kit-item__guide" href={item.guide} aria-label={`Przeczytaj poradnik: ${item.name}`}>Przeczytaj poradnik</a>
+          )}
+        </li>
+      ))}
+    </ul>
+
+    <div class="kit-actions">
+      <button type="button" class="btn btn-outline" data-kit-print>Wydrukuj listę</button>
+      <button type="button" class="btn btn-outline" data-kit-copy>Skopiuj link</button>
+      <span class="kit-status" role="status" aria-live="polite" data-kit-status></span>
+      <label class="kit-copy-fallback" data-copy-fallback hidden>Skopiuj i wklej, gdzie chcesz
+        <input type="text" readonly data-copy-input />
+      </label>
+    </div>
+
+    <!-- Shop the gaps -->
+    <section class="kit-shop">
+      <h2>{SHOP.heading}</h2>
+      <p data-shop-intro>{SHOP.text}</p>
+      <p class="kit-shop__count" data-shop-count>{initialShopCount === 1 ? 'Na liście zakupów została 1 rzecz.' : `Rzeczy na liście zakupów: ${initialShopCount}.`}</p>
+      <ul class="kit-shop__list" data-shop-list>
+        {ITEMS.filter((i) => i.affiliate).map((item) => (
+          <li data-shop-item={item.id} hidden={!shown.has(item.id)}>
+            <span>{item.name}</span>
+            <a href={affiliateUrl(item.affiliate)} target="_blank" rel="sponsored nofollow noopener noreferrer" data-shop-link={item.id}>Zobacz opcje</a>
+          </li>
+        ))}
+      </ul>
+      <p class="q-muted" data-shop-note>Część z tych linków to linki partnerskie. Jeśli coś przez nie kupisz, możemy dostać niewielką prowizję. Cena dla Ciebie się nie zmienia.</p>
+      <p class="kit-shop__done" data-shop-done hidden>Lista zakupów jest pusta. Masz już wszystko.</p>
+    </section>
+
+    {EMAIL_FORM.action && (
+      <form class="q-card q-email kit-email" method="post" action={EMAIL_FORM.action} data-kit-email>
+        <h2>Wyślij sobie listę e-mailem</h2>
+        <p>Wyślemy Ci link do tej listy, żeby mieć ją pod ręką w sklepie.</p>
+        <label class="q-field">Adres e-mail
+          <input type="email" name="fields[email]" autocomplete="email" required />
+        </label>
+        <label class="q-check">
+          <input type="checkbox" data-consent />
+          <span>Chcę też dostawać wskazówki o przygotowaniu domu i informacje o ofertach Co gdyby. Mogę się wypisać w każdej chwili.</span>
+        </label>
+        <input type="hidden" name="fields[kit_scenario]" data-field="scenario" value={scenario} />
+        <input type="hidden" name="fields[kit_household]" data-field="household" value={initial.people} />
+        <input type="hidden" name="fields[kit_days]" data-field="days" value={initial.days} />
+        <input type="hidden" name="fields[kit_url]" data-field="url" value={initialUrl} />
+        <input type="hidden" name="fields[marketing_consent]" data-field="consent" value="no" />
+        <button type="submit" class="btn btn-primary">Wyślij mi tę listę</button>
+        <p class="q-muted" style="margin-top:0.75rem">Szczegóły w <a href="/privacy/">polityce prywatności</a>. Zapisujemy tylko link do listy i liczbę domowników.</p>
+      </form>
+    )}
+
+    <!-- The pack -->
+    <div class="q-card q-offer kit-offer">
+      <span class="eyebrow">Pakiet Co gdyby</span>
+      <h2>{PACK.heading}</h2>
+      <p>{PACK.text}</p>
+      <ul>
+        {PACK.includes.map((line) => <li>{line}</li>)}
+      </ul>
+      <div class="q-actions">
+        <a class="btn btn-accent" href={PACK.url} data-kit-pack>Kup pakiet za&nbsp;{PACK.price}</a>
+      </div>
+      <p class="q-offer__reassure">{PACK.reassurance}</p>
+    </div>
+
+    <div class="q-card q-free">
+      <h2>Na razie wolisz coś prostszego? Zacznij od karty na lodówkę</h2>
+      <p>Bezpłatna karta do druku z najważniejszymi numerami i informacjami na wypadek sytuacji kryzysowej.</p>
+      <div class="q-actions">
+        <a class="btn btn-outline" href={PACK.fallbackUrl}>{PACK.fallbackLabel}</a>
+      </div>
+    </div>
+
+    <p class="q-muted kit-foot">
+      Lista to punkt wyjścia, a nie profesjonalny audyt bezpieczeństwa. Co gdyby to niezależny projekt, niezwiązany z administracją publiczną.
+    </p>
+  </section>
+</div>
+
+<script>
+  import { buildKit, encodeHousehold, parseHousehold, describeHousehold, suggestedScenario } from '../lib/kitBuild.js';
+  import { LIMITS } from '../data/kit.js';
+  import { track } from '../lib/track.js';
+
+  const root = document.querySelector('[data-kit]');
+  if (root) {
+    const wizard = root.querySelector('[data-kit-wizard]');
+    const result = root.querySelector('[data-kit-step="3"]');
+    const chips = [...root.querySelectorAll('[data-step-chip]')];
+    const stepEls = {
+      1: root.querySelector('[data-kit-step="1"]'),
+      2: root.querySelector('[data-kit-step="2"]'),
+      3: result,
+    };
+    const status = root.querySelector('[data-kit-status]');
+    const copyFallback = root.querySelector('[data-copy-fallback]');
+
+    // Anything in the URL wins; otherwise this page's own scenario and the defaults.
+    const fromUrl = new URLSearchParams(location.search);
+    const hasUrlState = ['a', 'c', 'p', 'd', 's', 'm'].some((k) => fromUrl.has(k));
+    const household = parseHousehold(fromUrl, root.dataset.scenario);
+
+    const counters = {
+      adults: { el: root.querySelector('[data-counter="adults"]'), range: LIMITS.adults },
+      children: { el: root.querySelector('[data-counter="children"]'), range: LIMITS.children },
+      pets: { el: root.querySelector('[data-counter="pets"]'), range: LIMITS.pets },
+      days: { el: root.querySelector('[data-counter="days"]'), range: LIMITS.days },
+    };
+    const medical = root.querySelector('[data-medical]');
+    let completedTracked = false;
+
+    // What this household already owns. Keyed by item id, so it survives changing the
+    // scenario or the household — a torch you own is a torch you own on every list.
+    // localStorage can throw (private windows, blocked site data), so every access is
+    // guarded and the set simply falls back to this session only.
+    const HAVE_KEY = 'pah_kit_have';
+    const have = new Set(
+      (() => {
+        try {
+          const raw = JSON.parse(localStorage.getItem(HAVE_KEY) || '[]');
+          return Array.isArray(raw) ? raw.filter((v) => typeof v === 'string') : [];
+        } catch {
+          return [];
+        }
+      })()
+    );
+    function saveHave() {
+      try {
+        localStorage.setItem(HAVE_KEY, JSON.stringify([...have]));
+      } catch {
+        /* ticking still works for this visit */
+      }
+    }
+
+
+    const shopIntro = root.querySelector('[data-shop-intro]');
+    const shopList = root.querySelector('[data-shop-list]');
+    const shopCount = root.querySelector('[data-shop-count]');
+    const shopNote = root.querySelector('[data-shop-note]');
+    const shopDone = root.querySelector('[data-shop-done]');
+    let currentKit = null;
+    const tickTracked = new Set();
+
+    // Only write when the text actually changes: these are live regions, and a no-op write
+    // still queues an announcement.
+    function setText(el, value) {
+      if (el && el.textContent !== value) el.textContent = value;
+    }
+
+    function showStep(n, { focus = true } = {}) {
+      wizard.hidden = n === 3;
+      stepEls[1].hidden = n !== 1;
+      stepEls[2].hidden = n !== 2;
+      result.hidden = n !== 3;
+      chips.forEach((c) => {
+        const i = Number(c.dataset.stepChip);
+        c.classList.toggle('is-current', i === n);
+        c.classList.toggle('is-done', i < n);
+      });
+      if (focus) {
+        // Steps 1 and 2 are revealed from the top of the wizard so the step chips show too.
+        // Only scroll when that top has gone under the sticky header; otherwise nothing jumps.
+        const box = n === 3 ? result : wizard;
+        const header = document.querySelector('.site-header');
+        const limit = header ? header.getBoundingClientRect().bottom : 0;
+        if (box.getBoundingClientRect().top < limit) box.scrollIntoView({ block: 'start' });
+        const heading = stepEls[n].querySelector('h2');
+        if (heading) heading.focus({ preventScroll: true });
+      }
+    }
+
+    function syncCounters() {
+      for (const [key, c] of Object.entries(counters)) {
+        if (!c.el) continue;
+        setText(c.el.querySelector('[data-value]'), String(household[key]));
+        // aria-disabled rather than disabled: a button that disables itself under the user's
+        // finger drops focus to <body> and a keyboard user loses their place.
+        const atMin = household[key] <= c.range.min;
+        const atMax = household[key] >= c.range.max;
+        c.el.querySelector('[data-step-down]').setAttribute('aria-disabled', String(atMin));
+        c.el.querySelector('[data-step-up]').setAttribute('aria-disabled', String(atMax));
+      }
+      if (medical) medical.checked = household.medical;
+      setText(root.querySelector('[data-sofar]'), describeHousehold(household));
+    }
+
+    // Everything that depends on what is already owned. Split out from render() so a tick
+    // does not rewrite the URL or clear the copy-link status.
+    function renderProgress() {
+      if (!currentKit) return;
+      const remaining = currentKit.items.filter((i) => !have.has(i.id));
+      setText(root.querySelector('[data-total="count"]'), String(remaining.length));
+
+      const gaps = new Set(remaining.filter((i) => i.affiliate).map((i) => i.id));
+      root.querySelectorAll('[data-shop-item]').forEach((li) => {
+        li.hidden = !gaps.has(li.dataset.shopItem);
+      });
+
+      // With nothing left to buy, the list and its affiliate note would read as an error.
+      const nothingLeft = gaps.size === 0;
+      if (shopIntro) shopIntro.hidden = nothingLeft;
+      if (shopList) shopList.hidden = nothingLeft;
+      if (shopNote) shopNote.hidden = nothingLeft;
+      if (shopCount) shopCount.hidden = nothingLeft;
+      if (shopDone) shopDone.hidden = !nothingLeft;
+      if (shopCount && !nothingLeft) {
+        setText(
+          shopCount,
+          gaps.size === 1 ? 'Na liście zakupów została 1 rzecz.' : `Rzeczy na liście zakupów: ${gaps.size}.`
+        );
+      }
+    }
+
+    function render({ push = true } = {}) {
+      const kit = buildKit(household);
+
+      setText(root.querySelector('[data-scenario-label]'), kit.scenario.listNoun);
+      setText(root.querySelector('[data-total="waterMin"]'), String(kit.waterMin));
+      setText(root.querySelector('[data-total="meals"]'), String(kit.meals));
+      setText(
+        root.querySelector('[data-kit-for]'),
+        `Dla ${kit.people} ${kit.people === 1 ? 'osoby' : 'osób'} przez ${kit.days} ${kit.days === 1 ? 'dzień' : 'dni'}.`
+      );
+
+      const byId = new Map(kit.items.map((i) => [i.id, i]));
+      root.querySelectorAll('[data-item]').forEach((li) => {
+        const item = byId.get(li.dataset.item);
+        li.hidden = !item;
+        const qty = li.querySelector('[data-qty]');
+        if (qty && item && item.qty) qty.textContent = item.qty;
+      });
+      root.querySelectorAll('[data-pick-scenario]').forEach((b) => {
+        b.classList.toggle('is-current', b.dataset.pickScenario === household.scenario);
+      });
+
+      const query = encodeHousehold(household);
+      const url = `${location.origin}${location.pathname}?${query}`;
+      const email = root.querySelector('[data-kit-email]');
+      if (email) {
+        email.querySelector('[data-field="scenario"]').value = household.scenario;
+        email.querySelector('[data-field="household"]').value = String(kit.people);
+        email.querySelector('[data-field="days"]').value = String(household.days);
+        email.querySelector('[data-field="url"]').value = url;
+      }
+      if (push) history.replaceState(null, '', `?${query}`);
+
+      // A stale "Link copied" under a list that has since changed is worse than nothing.
+      setText(status, '');
+      if (copyFallback) copyFallback.hidden = true;
+
+      syncCounters();
+      currentKit = kit;
+      renderProgress();
+      return kit;
+    }
+
+    // Counters
+    root.querySelectorAll('[data-counter]').forEach((el) => {
+      const key = el.dataset.counter;
+      const range = counters[key] && counters[key].range;
+      if (!range) return;
+      el.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-step-up],[data-step-down]');
+        if (!btn || btn.getAttribute('aria-disabled') === 'true') return;
+        const delta = btn.hasAttribute('data-step-up') ? 1 : -1;
+        const next = Math.min(range.max, Math.max(range.min, household[key] + delta));
+        if (next === household[key]) return;
+        household[key] = next;
+        render();
+        if (key === 'days') track('kit_days_changed', { days: next });
+      });
+    });
+
+    // Ticking an item is the whole point of the list: it takes that item out of the gaps
+    // below and off the counter, and it is remembered next time.
+    const list = root.querySelector('[data-kit-list]');
+    if (list) {
+      list.addEventListener('change', (e) => {
+        const tick = e.target.closest('.kit-item__tick');
+        if (!tick) return;
+        const id = tick.closest('[data-item]').dataset.item;
+        if (tick.checked) have.add(id);
+        else have.delete(id);
+        saveHave();
+        renderProgress();
+        if (tick.checked && !tickTracked.has(id)) {
+          tickTracked.add(id);
+          track('kit_item_ticked', { item: id, scenario: household.scenario });
+        }
+      });
+      // Restore what this visitor said they already had, before the first paint of the counts.
+      list.querySelectorAll('[data-item]').forEach((li) => {
+        const tick = li.querySelector('.kit-item__tick');
+        if (tick) tick.checked = have.has(li.dataset.item);
+      });
+    }
+
+    if (medical) {
+      medical.addEventListener('change', () => {
+        household.medical = medical.checked;
+        render();
+      });
+    }
+
+    // Seasonal nudge: badge the scenario that fits the visitor's month. Display only; it never
+    // changes the selection. Done here rather than at build time so it follows the real date.
+    const suggested = suggestedScenario(new Date());
+    if (suggested) {
+      const card = root.querySelector(`[data-pick-scenario="${suggested}"]`);
+      const badge = card?.querySelector('[data-suggested-badge]');
+      if (badge) badge.hidden = false;
+    }
+
+    // Scenario cards advance straight to the list.
+    root.querySelectorAll('[data-pick-scenario]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        household.scenario = btn.dataset.pickScenario;
+        const kit = render();
+        showStep(3);
+        if (!completedTracked) {
+          completedTracked = true;
+          track(
+            'kit_completed',
+            { scenario: household.scenario, people: kit.people, days: household.days, suggested: household.scenario === suggested },
+            { beacon: true }
+          );
+        }
+      });
+    });
+
+    root.querySelectorAll('[data-kit-next]').forEach((b) =>
+      b.addEventListener('click', () => showStep(Number(b.dataset.kitNext)))
+    );
+    root.querySelectorAll('[data-kit-back]').forEach((b) =>
+      b.addEventListener('click', () => showStep(Number(b.dataset.kitBack)))
+    );
+
+    root.querySelector('[data-kit-print]').addEventListener('click', () => {
+      track('kit_print');
+      window.print();
+    });
+
+    root.querySelector('[data-kit-copy]').addEventListener('click', async () => {
+      const url = `${location.origin}${location.pathname}?${encodeHousehold(household)}`;
+      try {
+        await navigator.clipboard.writeText(url);
+        setText(status, 'Link skopiowany. Możesz wkleić, gdzie chcesz.');
+      } catch {
+        // Clipboard blocked — same fallback as the quiz share button: a selectable field.
+        const field = copyFallback.querySelector('[data-copy-input]');
+        field.value = url;
+        copyFallback.hidden = false;
+        field.focus();
+        field.select();
+      }
+      track('kit_share', { scenario: household.scenario });
+    });
+
+    root.addEventListener('click', (e) => {
+      const shop = e.target.closest('[data-shop-link]');
+      if (shop) track('kit_shop_clicked', { item: shop.dataset.shopLink, scenario: household.scenario }, { beacon: true });
+      const pack = e.target.closest('[data-kit-pack]');
+      if (pack) track('kit_pack_clicked', { scenario: household.scenario }, { beacon: true });
+    });
+
+    const email = root.querySelector('[data-kit-email]');
+    if (email) {
+      const consent = email.querySelector('[data-consent]');
+      const consentField = email.querySelector('[data-field="consent"]');
+      consent.addEventListener('change', () => (consentField.value = consent.checked ? 'yes' : 'no'));
+      email.addEventListener('submit', () =>
+        track('kit_email_submitted', { scenario: household.scenario, marketing_consent: consent.checked }, { beacon: true })
+      );
+    }
+
+    render({ push: hasUrlState });
+    showStep(hasUrlState ? 3 : 1, { focus: false });
+    track('kit_started', { scenario: household.scenario, resumed: hasUrlState });
+  }
+</script>

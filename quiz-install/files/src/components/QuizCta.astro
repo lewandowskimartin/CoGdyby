@@ -1,0 +1,10 @@
+---
+// Quiz prompt for the end of every guide (used in PostLayout.astro). Reuses the site's .article-cta box.
+import { QUIZ_PATH } from '../data/quiz.js';
+---
+<div class="article-cta" style="padding-bottom:0">
+  <div class="box">
+    <p>How prepared is your household? Find out in 2 minutes.</p>
+    <a class="btn btn-outline" href={QUIZ_PATH}>Take the quiz</a>
+  </div>
+</div>

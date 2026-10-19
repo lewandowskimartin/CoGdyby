@@ -1,0 +1,83 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { GUIDE_GROUPS, guideHref } from '../../data/related.js';
+import { publishedAreas } from '../../lib/local.js';
+import { localHref } from '../../data/local.js';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+const byId = new Map(posts.map((p) => [p.id, p]));
+
+// Topic sections from data/related.js; anything not yet grouped lands in "More guides".
+const grouped = new Set(GUIDE_GROUPS.flatMap((g) => g.slugs));
+const sections = [
+  ...GUIDE_GROUPS.map((g) => ({ title: g.title, posts: g.slugs.map((s) => byId.get(s)).filter(Boolean) })),
+  { title: 'Więcej poradników', posts: posts.filter((p) => !grouped.has(p.id)) },
+].filter((s) => s.posts.length);
+
+// Local guides get their own section once an area page is built (drafts count in dev only).
+const areas = await publishedAreas();
+
+const fmt = (d) =>
+  d.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
+---
+<BaseLayout
+  title="Poradniki: jak przygotować dom na sytuacje kryzysowe | Co gdyby"
+  description="Spokojne, praktyczne poradniki o tym, jak przygotować dom i rodzinę na przerwę w prądzie, powódź, wichurę i inne sytuacje kryzysowe. Na podstawie rządowego Poradnika bezpieczeństwa.">
+  <main id="main" class="section">
+    <div class="section-inner">
+      <div class="section-head">
+        <h1>Poradniki</h1>
+        <span class="fig">Spokojnie i konkretnie, dla polskich domów</span>
+      </div>
+      <p class="hub-lede">Poradniki opieramy na rządowym Poradniku bezpieczeństwa. Jeśli nie wiesz, od czego zacząć, <a href="/household-preparedness-quiz/" data-quiz-cta="blog-hub">dwuminutowy quiz</a> pokaże, czego brakuje, a <a href="/kit/" data-kit-cta="blog-hub">kalkulator zapasów</a> policzy, ile wody i jedzenia potrzeba w Twoim domu.</p>
+
+      {posts.length === 0 ? (
+        <p style="opacity:.7">Pierwsze poradniki już wkrótce.</p>
+      ) : sections.map((s) => (
+        <section class="hub-group">
+          <h2>{s.title}</h2>
+          <ul class="post-list">
+            {s.posts.map((p) => (
+              <li>
+                <a href={guideHref(p.id)}>
+                  <span class="p-date">{fmt(p.data.pubDate)}</span>
+                  <h3>{p.data.title}</h3>
+                  <p>{p.data.description}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ))}
+
+      {areas.length > 0 && (
+        <section class="hub-group">
+          <h2>Poradniki lokalne</h2>
+          <ul class="post-list">
+            {areas.map((a) => (
+              <li>
+                <a href={localHref(a.id)}>
+                  <h3>Plan na kryzys: {a.data.name}</h3>
+                  <p>{a.data.answer}</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a class="btn-ghost hub-all" href="/local/">Wszystkie poradniki lokalne</a>
+        </section>
+      )}
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  .hub-lede { max-width: 620px; margin: -20px 0 8px; font-size: 16.5px; line-height: 1.6; color: var(--ink-soft); text-wrap: pretty; }
+  .hub-lede a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
+  .hub-lede a:hover { color: var(--action); }
+  .hub-group { margin-top: 56px; }
+  .hub-all { margin-top: 12px; }
+  .hub-group h2 { font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .14em; color: #AD4C28; margin: 0 0 4px; }
+</style>

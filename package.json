@@ -1,0 +1,36 @@
+{
+  "name": "co-gdyby",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "indexnow": "node scripts/indexnow.mjs",
+    "test": "node --test \"src/**/*.test.mjs\" \"scripts/**/*.test.mjs\"",
+    "check:sources": "node scripts/check-sources.mjs",
+    "check:similarity": "node scripts/check-similarity.mjs"
+  },
+  "dependencies": {
+    "@astrojs/markdoc": "^0.15.11",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/rss": "^4.0.0",
+    "@astrojs/sitemap": "^3.0.0",
+    "@keystatic/astro": "5.1.0",
+    "@keystatic/core": "^0.6.9",
+    "@resvg/resvg-js": "^2.6.2",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "astro": "^5.0.0",
+    "gsap": "^3.15.0",
+    "posthog-js": "^1.434.11",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
+    "satori": "^0.33.5"
+  },
+  "devDependencies": {
+    "js-yaml": "^4.3.2",
+    "unpdf": "^1.8.1"
+  }
+}

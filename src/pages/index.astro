@@ -1,0 +1,285 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Photo from "../components/Photo.astro";
+import QuizCta from "../components/QuizCta.astro";
+const title = "Plan awaryjny dla rodziny do wydruku | Co gdyby";
+const description = "Domowy plan awaryjny do wydruku: 12 stron, karta na lodówkę, lista do plecaka ewakuacyjnego i wersja dla dzieci. Na podstawie rządowego Poradnika bezpieczeństwa.";
+import EarlyAccessPromo from "../components/EarlyAccessPromo.astro";
+import { PACK_CONFIG, packHref } from "../config/pack";
+import PackCarousel from "../components/PackCarousel.astro";
+import { getCollection } from "astro:content";
+import { HOME_GUIDES, guideHref } from "../data/related.js";
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const homeGuides = HOME_GUIDES.map((id) => allPosts.find((p) => p.id === id)).filter(Boolean);
+---
+<BaseLayout title={title} description={description}>
+<Fragment slot="head">
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://cogdyby.pl/#org",
+        "name": "Co gdyby",
+        "url": "https://cogdyby.pl",
+        "description": "Domowe plany awaryjne do wydruku, oparte na rządowym Poradniku bezpieczeństwa."
+      },
+      {
+        // Google reads this as two rich results: Product snippet + Merchant listing.
+        // Merchant listings require `image` (was missing → "invalid item" in Rich Results Test / Semrush).
+        // Images show the product itself (no price/text overlays), per Google's product image guidance.
+        "@type": "Product",
+        "@id": "https://cogdyby.pl/#pack",
+        "name": "Co gdyby – domowy plan awaryjny (12 stron PDF)",
+        "description": "Domowy plan awaryjny do wydruku: 12 stron PDF A4. Zawiera kartę na lodówkę, listę do plecaka ewakuacyjnego, karty ICE do portfela, wersję dla dzieci i pełny plan dla domowników. Na podstawie rządowego Poradnika bezpieczeństwa.",
+        "image": [
+          "https://cogdyby.pl/img/pack-lockup.png",
+          "https://cogdyby.pl/img/pack-page-01.png"
+        ],
+        "brand": { "@type": "Brand", "name": "Co gdyby" },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://cogdyby.pl/",
+          "priceCurrency": "PLN",
+          "price": PACK_CONFIG.PRICE.replace(/[^0-9.,]/g, "").replace(",", "."),
+          "availability": "https://schema.org/InStock",
+          "itemCondition": "https://schema.org/NewCondition",
+          "seller": { "@id": "https://cogdyby.pl/#org" },
+          // Mirrors /terms/ sections 5–6: no change-of-mind refunds once downloaded.
+          // Statutory rights for faulty files are unaffected (stated on /terms/).
+          "hasMerchantReturnPolicy": {
+            "@type": "MerchantReturnPolicy",
+            "applicableCountry": "PL",
+            "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+            "merchantReturnLink": "https://cogdyby.pl/terms/"
+          }
+        },
+        "category": "Emergency Preparedness",
+        "countryOfOrigin": { "@type": "Country", "name": "PL" },
+        "additionalProperty": [
+          { "@type": "PropertyValue", "name": "Liczba stron", "value": "12" },
+          { "@type": "PropertyValue", "name": "Format", "value": "PDF A4" },
+          { "@type": "PropertyValue", "name": "Wydruki", "value": "Bez limitu" }
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://cogdyby.pl/#website",
+        "url": "https://cogdyby.pl",
+        "name": "Co gdyby",
+        "publisher": { "@id": "https://cogdyby.pl/#org" }
+      }
+    ]
+  })} />
+</Fragment>
+<main id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <h1>Rodzinny plan awaryjny, który <span style="color:var(--action)">naprawdę wisi na lodówce</span></h1>
+        <p class="lede">Wypełniasz go raz, przy kuchennym stole, i przypinasz na lodówce. Dwanaście stron do wydruku, oparte na rządowym <a href="https://www.gov.pl/poradnikbezpieczenstwa">Poradniku bezpieczeństwa</a>. Wystarczy jeden spokojny wieczór.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#get" data-pack-cta="home-hero">Kup pakiet</a>
+          <a class="btn-ghost" href="/household-preparedness-quiz/" data-quiz-cta="home-hero">Sprawdź swój dom w 2 minuty</a>
+        </div>
+        <div class="spec">
+          <div><div class="k">Stron</div><div class="v">12</div></div>
+          <div><div class="k">Format</div><div class="v">PDF A4</div></div>
+          <div><div class="k">Wydruki</div><div class="v">Bez limitu</div></div>
+        </div>
+      </div>
+
+      <div class="hero-figure">
+        <Photo name="hero-home" preset="hero" class="hero-photo" alt="Rodzina wspólnie wypełnia domowy plan na sytuacje kryzysowe przy kuchennym stole" loading="eager" fetchpriority="high" />
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <section class="trust">
+    <div class="trust-inner">
+      <span class="eyebrow">Na podstawie</span>
+      <span class="src"><a href="https://www.gov.pl/poradnikbezpieczenstwa" style="color:inherit;text-decoration:none">Poradnik bezpieczeństwa</a></span>
+      <span class="sep" aria-hidden="true"></span>
+      <span class="txt">Liczby i kroki pochodzą z rządowego poradnika przygotowanego przez MON, MSWiA i RCB. Rady są te same, tylko ułożone tak, żeby łatwo było z nich skorzystać.</span>
+    </div>
+  </section>
+
+  <!-- LIFESTYLE BAND -->
+  <section class="lifestyle">
+    <div class="lifestyle-inner">
+      <Photo name="lifestyle-band" preset="lifestyle" class="lifestyle-img" alt="Spokojny dom wieczorem, plan na sytuacje kryzysowe przypięty na lodówce" loading="lazy" />
+      <div class="lifestyle-cap">
+        <span class="eyebrow">Dla zwykłych, zabieganych domów</span>
+        <p>Przygotowanie to numery na lodówce i plan, który zna każdy domownik. Potem wracasz do swoich spraw ze spokojną głową.</p>
+        <a class="btn-ghost" href="/families/" style="font-size:14px;margin-top:8px">Dla rodzin z dziećmi</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="stats">
+        <div class="stat">
+          <div class="big" data-countup="12" data-suffix=" stron">12 stron</div>
+          <p>Plan dla domowników, karta na lodówkę, karty ICE i lista do plecaka ewakuacyjnego w jednym pakiecie.</p>
+        </div>
+        <div class="stat">
+          <div class="big" data-countup="20" data-suffix=" min">20 min</div>
+          <p>Mniej więcej tyle zajmuje wspólne wypełnienie planu przy stole.</p>
+        </div>
+        <div class="stat">
+          <div class="big" data-countup="3" data-suffix=" dni">3 dni</div>
+          <p>Na tyle zapasów zaleca przygotować dom rządowy Poradnik bezpieczeństwa.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACK SHOWCASE -->
+  <PackCarousel />
+
+  <!-- FEATURES -->
+  <section class="section" id="inside">
+    <div class="section-inner">
+      <div class="features">
+        <div class="feature">
+          <Photo name="feature-plan" preset="feature" class="feature-img" alt="Wypełnianie domowego planu na sytuacje kryzysowe przy kuchennym stole" loading="lazy" />
+          <div class="feature-body">
+            <div class="fnum">01</div>
+            <h3>Czytelny i spokojny</h3>
+            <p>Duże litery, jasny układ i miejsce na Twoje notatki. Przypinasz go na lodówce, gdzie zobaczy go każdy domownik.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <Photo name="feature-grabbag" preset="feature" class="feature-img" alt="Spakowany plecak ewakuacyjny, gotowy przy drzwiach wejściowych" loading="lazy" />
+          <div class="feature-body">
+            <div class="fnum">02</div>
+            <h3>Wszystko w jednym miejscu</h3>
+            <p>Przerwa w prądzie, powódź, zapach gazu, brak wody, wichura. Kontakty, miejsce spotkania, zawory i leki domowników zapisujesz w jednym miejscu.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <Photo name="feature-print" preset="feature" class="feature-img" alt="Karta na lodówkę wydrukowana i przypięta w domu" loading="lazy" />
+          <div class="feature-body">
+            <div class="fnum">03</div>
+            <h3>Wydrukuj tyle, ile potrzebujesz</h3>
+            <p>Kupujesz raz i drukujesz tyle kopii, ile chcesz: do kuchni, do plecaka ewakuacyjnego, dla babci i dziadka.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIFESTYLE BAND 2 — caring for older family -->
+  <section class="lifestyle">
+    <div class="lifestyle-inner">
+      <Photo name="lifestyle-band-2" preset="lifestyle" class="lifestyle-img" alt="Starszy rodzic i dorosłe dziecko wspólnie wypełniają domowy plan na sytuacje kryzysowe" loading="lazy" />
+      <div class="lifestyle-cap">
+        <span class="eyebrow">Gdy nie możesz być obok</span>
+        <p>Kiedy plan wisi na lodówce u rodziców, łatwiej o spokojny sen. Wiedzą, do kogo dzwonić i co zrobić najpierw.</p>
+        <a class="btn-ghost" href="/elderly-parents/" style="font-size:14px;margin-top:8px">Dla starszych rodziców</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- OBJECTION HANDLER -->
+  <section class="section" id="why-pay">
+    <div class="section-inner">
+      <div class="objection">
+        <h2>Rządowy poradnik jest bezpłatny. Po co nasz plan?</h2>
+        <p>Rządowy <a href="https://www.gov.pl/poradnikbezpieczenstwa">Poradnik bezpieczeństwa</a> dobrze tłumaczy, co robić w sytuacji kryzysowej, i warto go przeczytać. Ma też kilka tabel do uzupełnienia. Nasz plan idzie o krok dalej: jedna karta na lodówkę z tym, co najważniejsze, karty ICE do portfela, osobna strona dla dzieci i miejsce na zawory oraz bezpieczniki. Drukujesz tyle kopii, ile potrzebujesz, i przez lata masz wszystko na papierze.</p>
+        <p>Zacznij od <a href="/free-emergency-plan-template/">darmowej karty na lodówkę</a> i zobacz, czy taki plan Ci odpowiada.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- QUIZ — soft option for visitors not ready to buy; intentionally lighter than the final CTA below -->
+  <QuizCta
+    variant="band"
+    location="home"
+    secondary={{ href: '/kit/', label: 'Albo policz zapasy dla swojej rodziny', location: 'home-band' }}
+  />
+
+
+  <!-- FINAL CTA -->
+  <section class="final" id="get">
+    <div class="final-inner">
+      <div class="pack-lockup">
+        <picture>
+          <source srcset="/img/pack-lockup.webp" type="image/webp" />
+          <img src="/img/pack-lockup.png" width="747" height="255" loading="lazy" decoding="async" alt="Kompletny, dwunastostronicowy pakiet Co gdyby rozłożony wachlarzem, z okładką na przedzie." />
+        </picture>
+        <span class="pack-lockup-label">Cały pakiet: 12 stron</span>
+      </div>
+      <h2>Przygotuj dom w jeden weekend</h2>
+      <p>Pobierasz, drukujesz, wypełniasz i przypinasz. Kosztuje mniej niż pizza dla całej rodziny, a zrobisz to raz.</p>
+      <div class="final-actions">
+        <a class="btn btn-primary" href={packHref()} data-pack-checkout="home-final">Kup pakiet za {PACK_CONFIG.PRICE}</a>
+        <a class="btn btn-outline" href="#organisations" data-org-cta="home-final">Dla organizacji</a>
+      </div>
+      <p class="reassurance">Plik od razu po zakupie · drukujesz bez limitu · zostaje u Ciebie na zawsze</p>
+      <EarlyAccessPromo variant="card" />
+    </div>
+  </section>
+
+  <!-- B2B BAND -->
+  <section class="b2b" id="organisations">
+    <div class="b2b-inner">
+      <div>
+        <div class="eyebrow">Spółdzielnie i wspólnoty mieszkaniowe, samorządy, zarządcy</div>
+        <h2>Plan awaryjny, po który mieszkańcy naprawdę sięgną</h2>
+        <p>Przygotujemy cały pakiet w barwach Waszej organizacji: pliki gotowe do druku, pola do uzupełnienia i miejsce na lokalne numery. Napiszcie, kim jesteście, a prześlemy bezpłatną próbkę z Waszym logo.</p>
+        <!-- TODO: Replace mailto with Tally form embed -->
+        <a class="btn btn-primary" href="mailto:kontakt@cogdyby.pl?subject=Zapytanie%20white-label%20%E2%80%94%20Co%20gdyby" data-org-enquiry="home-b2b">Poproś o próbkę z logo →</a>
+      </div>
+      <div class="b2b-figure">
+        <div class="wl-mock wl-mock--photo">
+          <img src="/img/pack-page-01.png" alt="Okładka pakietu — ten sam projekt, gotowy przyjąć identyfikację Twojej organizacji" width="240" height="339" loading="lazy" decoding="async" />
+          <span class="wl-mock__chip">Tu Wasze logo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FREE GUIDES: passes the homepage's weight to the guides; sits below every ask -->
+  {homeGuides.length > 0 && (
+    <section class="section home-guides" aria-labelledby="home-guides-h">
+      <div class="section-inner">
+        <div class="section-head">
+          <h2 id="home-guides-h">Darmowe poradniki</h2>
+          <span class="fig">Spokojne, praktyczne, dla polskich domów</span>
+        </div>
+        <ul class="post-list">
+          {homeGuides.map((p) => (
+            <li>
+              <a href={guideHref(p.id)} data-home-guide={p.id}>
+                <h3>{p.data.title}</h3>
+                <p>{p.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a class="btn-ghost home-guides-all" href="/blog/">Zobacz wszystkie poradniki</a>
+      </div>
+    </section>
+  )}
+
+</main>
+<style>
+  .home-guides-all { margin-top: 16px; }
+</style>
+<script>
+  // Which "Get the pack" button starts checkout. No personal data.
+  import { track } from '../lib/track.js';
+  document.querySelectorAll('[data-pack-checkout]').forEach((a) =>
+    a.addEventListener('click', () =>
+      track('pack_checkout_clicked', { position: a.getAttribute('data-pack-checkout') }, { beacon: true })
+    )
+  );
+</script>
+</BaseLayout>

@@ -1,0 +1,32 @@
+# build output
+dist/
+# generated types + cache
+.astro/
+# dependencies
+node_modules/
+# logs
+npm-debug.log*
+# environment
+.env
+.env.production
+# macOS
+.DS_Store
+
+# paid product master — delivered via Payhip, not tracked here
+pack/*.pdf
+
+# Markdoc writes these during a build and does not always clean them up
+markdoc.config.timestamp-*.mjs
+
+# Scratch folder used by Claude Code sessions
+.claude-tmp/
+
+# IndexNow: which page versions were already pinged (local to this machine)
+.indexnow-state.json
+Claude outputs/pinterest/pinterest-pins.md
+Claude outputs/pinterest/pinterest-bulk-upload.csv
+
+# Local-guide source checks (scripts/check-sources.mjs --out, lychee in CI)
+report.json
+lychee/
+Claude outputs/pinterest/photo-posts-unsplash.md

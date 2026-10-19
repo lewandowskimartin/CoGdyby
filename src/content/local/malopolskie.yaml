@@ -1,0 +1,129 @@
+draft: false
+name: "Małopolska"
+searchName: "Małopolska"
+answer: "W Małopolsce najgroźniejsze są gwałtowne powodzie na górskich rzekach, osuwiska, wiatr halny i śnieżyce. Sprawdź, jak krok po kroku przygotować dom."
+description: "Powodzie na górskich rzekach, osuwiska, halny i śnieżyce w Małopolsce. Operatorzy, numery alarmowe i plan na 30 minut dla domu."
+lrf:
+  name: "Małopolski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-malopolski"
+  source:
+    url: "https://www.gov.pl/web/uw-malopolski"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Małopolski Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa małopolskiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-malopolski"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-malopolski"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Powódź górska na Wiśle i Dunajcu"
+    rating: "Bardzo wysokie"
+    atHome: "Dunajec, Raba, Skawa i górna Wisła potrafią wezbrać w kilka godzin po ulewie. W 1997 i 2010 roku woda zagroziła Krakowowi i zalała podgórskie gminy."
+    firstAction: "Sprawdzaj stany wód na stronie IMGW i miej gotowy plan, jak przenieść dokumenty i sprzęt na piętro."
+    source:
+      url: "https://isok.gov.pl/hydroportal.html"
+      manual: true
+      checked: 2026-10-19
+      title: "Mapy zagrożenia powodziowego (ISOK), Małopolska"
+  - name: "Wiatr halny"
+    rating: "Wysokie"
+    atHome: "Na Podhalu halny w porywach przekracza nawet 100 km/h. Potrafi zrywać dachy, łamać drzewa i zwiększać ryzyko pożaru."
+    firstAction: "Gdy zapowiadają halny, sprawdź mocowanie blach i obróbek na dachu, schowaj rzeczy z podwórka i przygotuj się na przerwę w prądzie."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (wiatr halny), Małopolska"
+  - name: "Osuwiska karpackie"
+    rating: "Wysokie"
+    atHome: "Po długich deszczach nasiąknięte wodą stoki Beskidów mogą się osuwać i niszczyć domy oraz drogi dojazdowe."
+    firstAction: "Po ulewach zwracaj uwagę na nowe pęknięcia ścian i przechylające się płoty lub drzewa. Jeśli je zauważysz, zgłoś to w gminie lub pod 112."
+    source:
+      url: "https://www.gov.pl/web/rcb"
+      manual: true
+      checked: 2026-10-19
+      title: "Osuwiska, komunikaty RCB, Małopolska"
+  - name: "Śnieżyce i mróz w górach"
+    rating: "Wysokie"
+    atHome: "Obfity śnieg potrafi odciąć górskie wsie od Nowego Targu po Beskid Sądecki, a mróz utrudnia ogrzanie drewnianych domów."
+    firstAction: "Przed zimą zrób zapas opału, jedzenia i leków na dni, gdy droga do miasta jest nieprzejezdna."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (śnieg, mróz), Małopolska"
+  - name: "Przerwy w prądzie"
+    rating: "Średnie"
+    atHome: "Po halnym i śnieżycach górskie gminy mogą długo czekać na prąd, a często znika też zasięg telefonu."
+    firstAction: "Pilnuj, żeby power bank był naładowany, i trzymaj w domu radio na baterie. Awarię zgłosisz pod 991."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie i wyłączenia, Tauron, Małopolska"
+power:
+  - operator: "Tauron Dystrybucja"
+    register: "zgłoszenie u Tauron Dystrybucja osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://www.tauron-dystrybucja.pl/"
+    phone: "991"
+    source:
+      url: "https://www.tauron-dystrybucja.pl/"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "Wodociągi Miasta Krakowa"
+    covers: "Kraków i okoliczne gminy"
+    url: "https://wodociagi.krakow.pl/"
+    phone: "994"
+    source:
+      url: "https://wodociagi.krakow.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Powódź nad Wisłą"
+    date: "Maj 2010"
+    summary: "Ulewy w Karpatach podniosły poziom Wisły i jej dopływów. W Krakowie ogłoszono alarm powodziowy, a wiele miejscowości w regionie zostało zalanych."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Pow%C3%B3d%C5%BA_w_Polsce_(2010)"
+      manual: true
+      checked: 2026-10-19
+      title: "Powódź w Polsce (2010), Małopolska"
+  - name: "Powódź tysiąclecia"
+    date: "Lipiec 1997"
+    summary: "Katastrofalna powódź dotknęła także Małopolskę, m.in. okolice Oświęcimia i tereny nad górną Wisłą. Wielu mieszkańców zostało bez prądu i wody."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Pow%C3%B3d%C5%BA_tysi%C4%85clecia"
+      manual: true
+      checked: 2026-10-19
+      title: "Powódź tysiąclecia (1997), Małopolska"
+councils:
+  text: "Urząd Miasta Krakowa i starostwa powiatowe koordynują działania na swoim terenie."
+  source:
+    url: "https://www.gov.pl/web/uw-malopolski"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miasta Krakowa"
+    url: "https://www.krakow.pl/"
+  - label: "Małopolski Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-malopolski"
+radio:
+  text: "Radio Kraków podaje ostrzeżenia dla regionu, które usłyszysz także bez prądu i internetu"
+  source:
+    url: "https://www.radiokrakow.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [flood, storm, power, cold, water]
+planNotes:
+  flood: "Górskie rzeki wzbierają w kilka godzin. Sprawdzaj stan Dunajca i Raby i ustal, co przeniesiecie na piętro."
+  storm: "Halny bywa silniejszy niż wichury na nizinach, więc gdy go zapowiadają, sprawdź dach i podwórko."
+  power: "W górach przerwy trwają dłużej i często znika też zasięg. Awarię zgłosisz pod 991."
+  cold: "Śnieg potrafi odciąć górskie wsie, dlatego zapas opału, jedzenia i leków warto zrobić jesienią."
+  water: "Awarię wodociągu w Krakowie zgłosisz pod 994. W czasie suszy gminy mogą ograniczać pobór wody."
+lastChecked: 2026-10-19
+watch: []

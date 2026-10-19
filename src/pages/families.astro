@@ -1,0 +1,176 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Photo from "../components/Photo.astro";
+import QuizCta from "../components/QuizCta.astro";
+import { PACK_CONFIG } from "../config/pack";
+const title = "Rodzinny plan awaryjny z wersją dla dzieci | Co gdyby";
+const description = "Plan awaryjny do wydruku dla rodzin z dziećmi: numery alarmowe, miejsce spotkania, lista do plecaka ewakuacyjnego i prosta strona, którą dziecko wypełni z Tobą.";
+---
+<BaseLayout title={title} description={description}>
+<main id="main">
+
+  <!-- PAGE HERO -->
+  <section class="lifestyle page-hero">
+    <div class="lifestyle-inner">
+      <Photo name="hero-home" preset="lifestyle" class="lifestyle-img" alt="Rodzina wspólnie wypełnia domowy plan na sytuacje kryzysowe przy kuchennym stole" loading="eager" fetchpriority="high" />
+      <div class="lifestyle-cap">
+        <span class="eyebrow">Dla rodzin z dziećmi</span>
+        <h1>Plan awaryjny, który zrozumieją też Twoje dzieci</h1>
+        <p>Większość poradników pisze się dla dorosłych. W naszym planie jest osobna strona dla dzieci: prostsze słowa, miejsce na rysunek i trzy rzeczy, które każde dziecko powinno umieć powiedzieć z pamięci.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THREE THINGS EVERY CHILD NEEDS -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2>Trzy rzeczy, które każde dziecko powinno znać na pamięć</h2>
+        <span class="fig">Bez zaglądania do telefonu</span>
+      </div>
+      <div class="features">
+        <div class="feature">
+          <Photo name="feature-plan" preset="feature" class="feature-img" alt="Dziecko wpisuje swój adres domowy w planie na sytuacje kryzysowe" loading="lazy" />
+          <div class="feature-body">
+            <div class="fnum">01</div>
+            <h3>Pełny adres domowy</h3>
+            <p>Nie „dom z czerwonymi drzwiami”, tylko ulica, numer i miejscowość. Powtarzajcie razem, aż dziecko powie to bez zastanowienia.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <Photo name="feature-grabbag" preset="feature" class="feature-img" alt="Rodzinny plecak ewakuacyjny spakowany i gotowy przy drzwiach" loading="lazy" />
+          <div class="feature-body">
+            <div class="fnum">02</div>
+            <h3>Numer telefonu rodzica</h3>
+            <p>Zapamiętany, a nie tylko zapisany w telefonie. Jeden numer, który dziecko poda nauczycielce, sąsiadce albo policjantowi.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <Photo name="feature-print" preset="feature" class="feature-img" alt="Karta na lodówkę wydrukowana i przypięta tam, gdzie widzi ją cała rodzina" loading="lazy" />
+          <div class="feature-body">
+            <div class="fnum">03</div>
+            <h3>Jak zadzwonić na 112</h3>
+            <p>I co powiedzieć, gdy ktoś odbierze: swoje imię, adres i co się stało. Strona dla dzieci wyjaśnia, kiedy dzwonić, słowami zrozumiałymi nawet dla przedszkolaka.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIFESTYLE BAND — the conversation -->
+  <section class="lifestyle">
+    <div class="lifestyle-inner">
+      <Photo name="lifestyle-band" preset="lifestyle" class="lifestyle-img" alt="Spokojny dom wieczorem, plan na sytuacje kryzysowe przypięty na lodówce" loading="lazy" />
+      <div class="lifestyle-cap">
+        <span class="eyebrow">Dwadzieścia minut przy kuchennym stole</span>
+        <p>Najwięcej daje sama rozmowa. Gdzie się spotkamy, jeśli nie da się wrócić do domu? Który sąsiad ma zapasowy klucz? Dzieci lepiej pamiętają to, o czym same współdecydowały.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE CHILDREN'S VERSION -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="template-content">
+        <div class="template-preview">
+          <div class="card-mock card-mock-lg" role="img" aria-label="Strona planu dla dzieci — prostsza wersja z miejscem na rysunek i najważniejszymi informacjami, których potrzebuje dziecko">
+            <div class="cm-label">Domowy plan na sytuacje kryzysowe</div>
+            <div class="cm-title" style="color:var(--action)">Mój plan rodzinny</div>
+            <div class="rule"></div>
+            <div class="cm-rows">
+              <div class="cm-sub">Jak się nazywam</div>
+              <div class="cm-line"></div>
+              <div class="cm-sub">Telefony do rodziców</div>
+              <div class="cm-line"></div>
+              <div class="cm-line faint"></div>
+              <div class="cm-sub">Dorosły, któremu ufam</div>
+              <div class="cm-line"></div>
+              <div class="cm-sub">Miejsce spotkania</div>
+              <div class="cm-line"></div>
+            </div>
+            <div class="cm-foot">Wersja dla dzieci · strona 11 z 12</div>
+          </div>
+        </div>
+
+        <div class="template-details">
+          <h2>Plan, który dzieci współtworzą, zostaje im w pamięci</h2>
+          <p>Rządowy <a href="https://www.gov.pl/poradnikbezpieczenstwa">Poradnik bezpieczeństwa</a> zachęca, żeby cała rodzina wspólnie ułożyła plan. Większość szablonów zakłada jednak, że przy stole siedzą sami dorośli.</p>
+          <p>Na stronie dla dzieci jest miejsce na imię, telefony do rodziców, miejsce spotkania i dorosłego z sąsiedztwa, któremu dziecko ufa. Jest też okienko na rysunek rodziny. Na końcu trzy proste kroki: poszukaj dorosłego, któremu ufasz; zadzwoń na 112, jeśli ktoś jest ranny, a obok nie ma dorosłych; idź do miejsca spotkania.</p>
+          <p>Wersja dla dzieci to strona 11 pakietu. Pozostałe strony obejmują to, co zaleca rządowy poradnik, i kilka rzeczy, których w nim nie ma.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT'S IN THE PACK -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="template-upsell">
+        <h2>Dwanaście stron dla całej rodziny</h2>
+        <p>Strona dla dzieci jest częścią pełnego planu, który wypełniasz raz, a potem przeglądasz raz w roku.</p>
+        <div class="upsell-grid">
+          <div class="upsell-item">
+            <div class="upsell-num">01–03</div>
+            <div class="upsell-label">Na początek</div>
+            <p>Jak korzystać z pakietu, co robić w sytuacji kryzysowej i jakie <a href="/blog/uk-emergency-numbers-every-household-should-know/">numery alarmowe</a> mieć pod ręką.</p>
+          </div>
+          <div class="upsell-item">
+            <div class="upsell-num">04–06</div>
+            <div class="upsell-label">Twój dom</div>
+            <p>Kto mieszka w domu (zwierzęta też się liczą), do kogo dzwonić i gdzie się spotkacie, jeśli trzeba będzie wyjść. To samo miejsce spotkania przyda się w <a href="/blog/home-fire-safety-uk-checklist/">planie na wypadek pożaru</a>.</p>
+          </div>
+          <div class="upsell-item">
+            <div class="upsell-num">07–08</div>
+            <div class="upsell-label">Zawory i plecak ewakuacyjny</div>
+            <p>Gdzie są główny zawór wody, zawór gazu i bezpieczniki, plus lista rzeczy do plecaka ewakuacyjnego i <a href="/blog/what-to-put-in-a-uk-emergency-kit/">zestawu awaryjnego</a>, oparta na rządowych zaleceniach.</p>
+          </div>
+          <div class="upsell-item">
+            <div class="upsell-num">09–10</div>
+            <div class="upsell-label">Leki i dokumenty</div>
+            <p>Leki, ważne dokumenty i polisy, a także <a href="/blog/priority-services-register-uk-explained/">plan dla domowników korzystających ze sprzętu medycznego</a>, jeśli ktoś w domu potrzebuje szczególnej opieki.</p>
+          </div>
+          <div class="upsell-item">
+            <div class="upsell-num">11</div>
+            <div class="upsell-label">Wersja dla dzieci</div>
+            <p>Prostszy plan dla młodszych: do kogo dzwonić, gdzie się spotkać i miejsce na rysunek.</p>
+          </div>
+          <div class="upsell-item">
+            <div class="upsell-num">12</div>
+            <div class="upsell-label">Karta na lodówkę i karty ICE</div>
+            <p>Najważniejsze numery, miejsce spotkania i zawory na jednej karcie, a do tego karty ICE wielkości wizytówki, do portfela i torebki.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIFESTYLE BAND 2 — grandparents -->
+  <section class="lifestyle">
+    <div class="lifestyle-inner">
+      <Photo name="lifestyle-band-2" preset="lifestyle" class="lifestyle-img" alt="Starszy rodzic i dorosłe dziecko wspólnie wypełniają plan na sytuacje kryzysowe" loading="lazy" />
+      <div class="lifestyle-cap">
+        <span class="eyebrow">Także dla domu dziadków</span>
+        <p>Wydrukuj drugą kopię dla dziadków. Gdy zadzwonią zdenerwowani, będziecie mieć przed sobą te same informacje.</p>
+        <a class="btn-ghost" href="/elderly-parents/" style="font-size:14px;margin-top:8px">Dla starszych rodziców</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUIZ — soft option before the pack CTA -->
+  <QuizCta variant="band" location="families" title="Jak przygotowana jest Twoja rodzina?" text="Dziesięć prostych pytań, dwie minuty. Zobaczysz, co już macie, czego brakuje najbardziej i jak to szybko uzupełnić." secondary={{ href: '/kit/?a=2&c=2&d=3&s=general', label: 'Albo policz zapasy dla swojej rodziny', location: 'families-band' }} />
+
+  <!-- CTA -->
+  <section class="final" id="get-family">
+    <div class="final-inner">
+      <h2>Przygotujcie dom w jeden weekend</h2>
+      <p>Dwanaście stron, jedna rozmowa przy stole i plan, który wisi na lodówce.</p>
+      <div class="final-actions">
+        <a class="btn btn-primary" href="/#get" data-pack-cta="families">Kup pakiet za {PACK_CONFIG.PRICE}</a>
+        <a class="btn btn-outline" href="/free-emergency-plan-template/">Najpierw pobierz darmową kartę</a>
+      </div>
+      <p class="reassurance">Plik od razu po zakupie · drukujesz bez limitu · zostaje u Ciebie na zawsze</p>
+    </div>
+  </section>
+
+</main>
+</BaseLayout>

@@ -1,0 +1,151 @@
+/* Emergency kit builder. Loaded alongside quiz.css, which supplies .q-card, .q-offer, .q-email
+   and the page typography; everything here is new. Page wrapper is .quiz.kit-page, so the
+   builder inherits the quiz page's width, headings and link styling. */
+
+.kit [hidden] { display: none !important; } /* class display rules must not beat the hidden attribute */
+
+/* Step chips */
+.kit-steps { display: flex; flex-wrap: wrap; gap: 8px 18px; list-style: none; margin: 0 0 22px; padding: 0; }
+.kit-steps li { display: flex; align-items: center; gap: 8px; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.kit-steps li span {
+  display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px;
+  border-radius: 50%; background: var(--panel-2); color: var(--ink-soft); font-size: 11px;
+}
+.kit-steps li.is-current { color: var(--ink); }
+.kit-steps li.is-current span { background: #AD4C28; color: #fff; }
+.kit-steps li.is-done span { background: var(--ink); color: var(--paper); }
+
+.kit-step h2 { margin-top: 0; text-wrap: balance; }
+.kit-step h2:focus { outline: none; }
+.kit-nav { margin-top: 26px; align-items: center; }
+
+/* Counters */
+.kit-counters { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 14px; margin: 22px 0 20px; }
+.kit-counter { padding: 14px 16px; background: var(--paper); border: 1px solid var(--hair); border-radius: var(--r-sm); }
+.kit-counter__label { display: block; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 8px; }
+.kit-counter__row { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.kit-counter__value { font-family: var(--disp); font-size: 28px; font-weight: 600; line-height: 1; min-width: 2ch; text-align: center; color: var(--ink); }
+.kit-step-btn {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 44px; height: 44px; font-size: 20px; line-height: 1; cursor: pointer;
+  background: var(--paper-2); color: var(--ink); border: 1px solid var(--hair);
+  border-radius: var(--r-sm); transition: border-color .15s ease, background .15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.kit-step-btn:hover:not([aria-disabled='true']) { border-color: var(--ink); background: var(--panel); }
+.kit-step-btn[aria-disabled='true'] { opacity: .35; cursor: not-allowed; }
+.kit-step-btn:focus-visible { outline: 2px solid var(--action); outline-offset: 2px; }
+
+.kit-medical { margin: 4px 0 18px; }
+.kit .kit-sofar { margin: 0; padding: 14px 16px; background: var(--panel-2); border-radius: var(--r-sm); font-size: 15.5px; color: var(--ink-soft); }
+.kit-sofar__label { display: block; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--ink-soft); margin-bottom: 4px; }
+
+/* Scenario cards */
+.kit-scenarios { display: grid; gap: 12px; margin: 22px 0 0; }
+@media (min-width: 620px) {
+  .kit-scenarios { grid-template-columns: 1fr 1fr; }
+  /* The general kit is the "start here" card. Full width keeps the rest in even pairs. */
+  .kit-scenario[data-pick-scenario="general"] { grid-column: 1 / -1; }
+}
+.kit-scenario {
+  /* Flex column, not block: a <button> centres its content vertically, so in a row where one
+     card is taller (the "Suggested now" badge) the other card's text would drift down. */
+  display: flex; flex-direction: column; justify-content: flex-start;
+  width: 100%; text-align: left; cursor: pointer; font: inherit;
+  padding: 16px 18px; background: var(--paper); color: var(--ink);
+  border: 1px solid var(--hair); border-radius: var(--r-sm);
+  transition: border-color .15s ease, background .15s ease, transform .15s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.kit-scenario:hover { border-color: var(--ink-soft); transform: translateY(-1px); }
+.kit-scenario:focus-visible { outline: 2px solid var(--action); outline-offset: 3px; }
+.kit-scenario.is-current { border-color: #AD4C28; background: var(--panel); }
+.kit-scenario__badge {
+  display: inline-block; align-self: flex-start; margin-bottom: 8px; padding: 3px 9px;
+  font-family: var(--mono); font-size: 10.5px; line-height: 1.4; text-transform: uppercase; letter-spacing: .1em;
+  color: #AD4C28; border: 1px solid currentColor; border-radius: 999px;
+}
+.kit-scenario__name { display: block; font-family: var(--disp); font-size: 18px; font-weight: 600; margin-bottom: 5px; text-wrap: balance; }
+.kit-scenario__blurb { display: block; font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); text-wrap: pretty; }
+
+/* Result */
+.kit-result__head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: 14px 20px; }
+.kit-result__head h2 { margin: 0; flex: 1 1 260px; text-wrap: balance; }
+.kit-result__head h2:focus { outline: none; }
+.kit-days { flex: none; padding: 10px 14px; background: var(--paper-2); border: 1px solid var(--hair); border-radius: var(--r-sm); }
+.kit-days .kit-counter__value { font-size: 22px; }
+
+.kit-totals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 22px 0 10px; }
+.kit-total { padding: 18px 16px; text-align: center; background: var(--paper-2); border: 1px solid var(--hair); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); }
+.kit-total__num { display: block; font-family: var(--disp); font-size: clamp(28px, 6vw, 36px); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; color: #AD4C28; }
+.kit-total__label { display: block; margin-top: 6px; font-family: var(--mono); font-size: 11px; text-wrap: balance; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+.kit .kit-source { margin-bottom: 26px; }
+
+/* Checklist */
+.kit-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.kit-item { padding: 14px 16px; background: var(--paper-2); border: 1px solid var(--hair); border-radius: var(--r-sm); }
+.kit-item__main { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
+.kit-item__tick { width: 22px; height: 22px; margin: 2px 0 0; flex: none; accent-color: #AD4C28; }
+.kit-item__body { display: block; }
+.kit-item__name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-weight: 600; font-size: 16.5px; line-height: 1.35; text-wrap: balance; }
+.kit-item__qty { display: inline-block; padding: 2px 8px; border-radius: 999px; background: var(--panel-2); font-family: var(--mono); font-size: 11.5px; font-weight: 500; letter-spacing: .02em; color: var(--ink-soft); vertical-align: 2px; }
+.kit-item__why { display: block; margin-top: 3px; font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); text-wrap: pretty; }
+.kit-item__guide { display: inline-block; margin: -3px 0 -11px 34px; padding: 11px 0; font-size: 13.5px; } /* 44px tap target, text where it was */
+.kit-item__tick:checked ~ .kit-item__body .kit-item__name { color: var(--muted); text-decoration: line-through; text-decoration-thickness: 1px; }
+.kit-item:has(.kit-item__tick:checked) { background: transparent; border-style: dashed; }
+.kit-item:has(.kit-item__tick:checked) .kit-item__why,
+.kit-item:has(.kit-item__tick:checked) .kit-item__qty { opacity: .55; }
+
+.kit-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 22px; }
+.kit-status { font-family: var(--mono); font-size: 12.5px; color: #AD4C28; }
+.kit-copy-fallback { flex-basis: 100%; margin: 0; font-size: 13.5px; color: var(--muted); }
+.kit-copy-fallback input { display: block; width: 100%; margin-top: 6px; padding: 10px 12px; border: 1px solid var(--hair); border-radius: var(--r-sm); background: var(--paper-2); color: var(--ink); font: inherit; font-size: 16px; } /* 16px: iOS zooms smaller inputs on focus */
+
+/* Step out of the list and back into the wizard. */
+.kit-edit { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 18px; }
+.kit-edit .btn-ghost { font-size: 14.5px; padding: 0 2px; background: none; border: 0; } /* <button>: drop the UA grey fill and .btn padding */
+.kit .kit-for { margin: 2px 0 0; font-family: var(--mono); font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.kit .kit-nojs { margin-bottom: 20px; }
+
+/* Shop the gaps */
+.kit-shop { margin-top: 48px; padding: 24px; background: var(--panel); border: 1px dashed var(--hair); border-radius: var(--r-lg); }
+.kit-shop h2 { margin-top: 0; font-size: 22px; text-wrap: balance; }
+.kit-shop > p { font-size: 15.5px; line-height: 1.6; color: var(--ink-soft); text-wrap: pretty; }
+.kit .kit-shop__count { margin: 14px 0 0; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: #AD4C28; }
+.kit .kit-shop__done { margin: 14px 0 0; font-size: 15.5px; color: var(--ink-soft); }
+.kit-shop__list { list-style: none; padding: 0; margin: 14px 0 18px; display: grid; gap: 2px; }
+.kit-shop__list li { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15.5px; }
+.kit-shop__list li:last-child { border-bottom: 0; }
+.kit-shop__list span { text-wrap: balance; }
+.kit-shop__list a { display: inline-block; padding: 10px 0; margin: -10px 0; } /* 44px tap target */
+
+.kit-email { margin-top: 48px; }
+.kit-email h2 { margin-top: 0; }
+.kit-offer { margin-top: 24px; }
+.kit-offer h2 { font-size: 25px; text-wrap: balance; }
+.kit .kit-foot { margin-top: 2rem; }
+
+/* Phones */
+@media (max-width: 480px) {
+  .kit-totals { gap: 8px; }
+  .kit-total { padding: 14px 6px; }
+  .kit-total__label { letter-spacing: .05em; }
+}
+/* Small phones: keep the three step chips on one row. */
+@media (max-width: 374px) {
+  .kit-steps { flex-wrap: nowrap; justify-content: space-between; gap: 10px; }
+  .kit-steps li { gap: 6px; font-size: 10.5px; letter-spacing: .02em; white-space: nowrap; }
+  .kit-steps li span { width: 20px; height: 20px; }
+}
+
+/* Print: the list is the point. Everything that cannot be acted on with a pen comes off. */
+@media print {
+  .site-top, footer, .kit-steps, .kit-actions, .kit-shop, .kit-email, .kit-offer, .q-free,
+  .kit-edit, .kit-days .kit-step-btn, .ea-bar, .cookie-banner,
+  .kit-page > .eyebrow, .kit-page > h1, .kit-page > .q-lede, .kit-intro, .kit-more { display: none !important; }
+  .kit-days { border: 0; padding: 0; }
+  .kit-item, .kit-total { break-inside: avoid; border-color: #999; box-shadow: none; }
+  .kit-item__guide { display: none; }
+  .quiz.kit-page { padding-top: 0; }
+  a[href]::after { content: ''; }
+}

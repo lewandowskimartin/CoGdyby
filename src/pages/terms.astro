@@ -1,0 +1,60 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { PACK_CONFIG } from '../config/pack';
+const updated = 'wrzesień 2026';
+---
+<BaseLayout
+  title="Regulamin | Co gdyby"
+  description="Regulamin sprzedaży i korzystania z pakietu domowego planu na sytuacje kryzysowe Co gdyby.">
+  <main id="main">
+    <div class="page">
+      <span class="eyebrow">Co gdyby</span>
+      <h1>Regulamin</h1>
+      <p class="page-sub">Warunki, na jakich sprzedajemy pakiet i na jakich korzystasz z tej strony.</p>
+      <p class="updated">Ostatnia aktualizacja: {updated}</p>
+
+      <div class="legal">
+        {/* TODO(Martin): potwierdź dane sprzedawcy dla rynku PL (pełna nazwa, NIP/REGON,
+            adres, kraj siedziby) oraz prawo właściwe. Poniżej: Depthia + prawo polskie. */}
+        <h2>1. Kim jesteśmy</h2>
+        <p>Serwis cogdyby.pl prowadzi Marcin Lewandowski, działający jako <a href="https://depthia.com">Depthia</a>. Co gdyby jest produktem Depthia.</p>
+        <p>Kontakt: <a href="mailto:kontakt@cogdyby.pl">kontakt@cogdyby.pl</a>.</p>
+        <p>Co gdyby to niezależny produkt. <strong>Nie</strong> jesteśmy powiązani z administracją publiczną ani przez nią wspierani i nie jesteśmy jej częścią.</p>
+
+        <h2>2. Produkt</h2>
+        <p>Sprzedajemy cyfrowy pakiet „Domowy plan na sytuacje kryzysowe”: zestaw stron PDF do wydrukowania i wypełnienia. Pakiet jest przeznaczony do użytku w Twoim gospodarstwie domowym.</p>
+
+        <h2>3. Licencja i dozwolone użycie</h2>
+        <p>Kupując pakiet, udzielamy Ci osobistej, niewyłącznej i nieprzenoszalnej licencji na pobranie go i wydrukowanie tylu kopii, ile potrzeba w Twoim domu. Nie wolno Ci odsprzedawać, rozpowszechniać, sublicencjonować ani udostępniać plików, ani wykorzystywać ich do celów komercyjnych bez naszej pisemnej zgody. (Organizacje, które chcą wersji pod własną marką lub na licencji, prosimy o <a href="/#organisations" data-org-cta="terms">kontakt</a>.)</p>
+
+        <h2>4. Cena i płatność</h2>
+        <p>Pakiet kosztuje {PACK_CONFIG.PRICE} i jest płatny jednorazowo. Cena widoczna przy kasie to cena, którą płacisz. Płatność obsługuje nasz dostawca płatności, Payhip, który pobiera i odprowadza VAT (UE) w naszym imieniu; płatności kartą obsługują procesorzy Payhip, Stripe i PayPal. Nie otrzymujemy ani nie przechowujemy danych Twojej karty.</p>
+
+        <h2>5. Dostawa i prawo odstąpienia</h2>
+        <p>Pakiet jest dostarczany od razu jako plik do pobrania. Kupując, zgadzasz się na natychmiastowy dostęp i przyjmujesz do wiadomości, że tracisz 14-dniowe prawo odstąpienia od umowy przewidziane w ustawie o prawach konsumenta z chwilą rozpoczęcia pobierania (art. 38 ust. 1 pkt 13 tej ustawy, dotyczący treści cyfrowych dostarczanych za Twoją wyraźną zgodą).</p>
+        <p>Nie wpływa to na Twoje uprawnienia ustawowe. Zgodnie z przepisami o treściach cyfrowych pakiet musi być zgodny z umową, czyli z opisem, odpowiedniej jakości i przydatny do celu. Jeśli pliki są uszkodzone, nie otwierają się lub nie odpowiadają opisowi, napisz do nas. Naprawimy problem, wyślemy nowe pliki albo zwrócimy pieniądze, zgodnie z Twoimi uprawnieniami.</p>
+
+        <h2>6. Zwroty</h2>
+        <p>Pakiet jest dostarczany od razu, dlatego po pobraniu plików nie zwracamy pieniędzy z powodu zmiany zdania (zob. punkt 5). Jeśli jednak coś jest nie tak z plikami, napisz na <a href="mailto:kontakt@cogdyby.pl">kontakt@cogdyby.pl</a>, a to naprawimy. Zwroty, gdy są należne, realizowane są przez Payhip.</p>
+
+        <h2>7. Własność intelektualna</h2>
+        <p>Projekt, układ i oryginalne teksty pakietu oraz tej strony stanowią naszą własność intelektualną. Informacje publiczne z serwisu gov.pl, w tym z Poradnika bezpieczeństwa przygotowanego przez MON, MSWiA i RCB, wykorzystujemy zgodnie z warunkami ich udostępniania.</p>
+
+        <h2>8. Czym jest pakiet, a czym nie jest</h2>
+        <p>Pakiet zawiera ogólne informacje, które pomagają przygotować dom z wyprzedzeniem. Opiera się na zaleceniach rządowego <a href="https://www.gov.pl/poradnikbezpieczenstwa">Poradnika bezpieczeństwa</a>. <strong>Nie</strong> jest zindywidualizowaną instrukcją kryzysową, poradą medyczną ani profesjonalnym doradztwem i nie gwarantuje żadnego konkretnego wyniku ani Twojego bezpieczeństwa. W prawdziwej sytuacji zawsze w pierwszej kolejności stosuj się do poleceń służb i oficjalnych komunikatów. Za sposób korzystania z pakietu odpowiadasz Ty.</p>
+
+        <h2>9. Nasza odpowiedzialność</h2>
+        <p>Dostarczamy pakiet z należytą starannością. W zakresie dozwolonym przez prawo nie ponosimy odpowiedzialności za jakiekolwiek straty lub szkody wynikające z korzystania lub niemożności korzystania z pakietu lub tej strony. Żadne postanowienie tego regulaminu nie ogranicza ani nie wyłącza odpowiedzialności, której zgodnie z prawem nie można ograniczyć ani wyłączyć. Nie narusza to Twoich ustawowych uprawnień konsumenta.</p>
+
+        <h2>10. Zmiany</h2>
+        <p>Od czasu do czasu możemy aktualizować ten regulamin. Obowiązuje wersja opublikowana tutaj w chwili zakupu. Data ostatniej aktualizacji u góry strony pokazuje, kiedy wprowadziliśmy ostatnie zmiany.</p>
+
+        <h2>11. Prawo właściwe</h2>
+        <p>Regulamin podlega prawu polskiemu. Niniejsze postanowienie nie pozbawia Cię ochrony przyznanej Ci bezwzględnie obowiązującymi przepisami prawa kraju Twojego miejsca zwykłego pobytu.</p>
+
+        <h2>12. Kontakt</h2>
+        <p>Pytania dotyczące tego regulaminu: <a href="mailto:kontakt@cogdyby.pl">kontakt@cogdyby.pl</a>.</p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

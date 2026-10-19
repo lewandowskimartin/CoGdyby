@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Quiz from '../../components/Quiz.astro';
+import PostHog from '../../components/PostHog.astro';
+import '../../styles/quiz.css';
+
+const title = 'How prepared is your household? A 2-minute UK quiz — Prepared at Home';
+const description =
+  'Answer 10 quick questions and get a preparedness score out of 100, with your top three gaps and a free fix for each. Based on the official gov.uk Prepare guidance.';
+---
+<BaseLayout title={title} description={description}>
+  <PostHog slot="head" />
+  <main id="main">
+    <section class="quiz">
+      <span class="eyebrow">Prepared at Home · 2-minute check</span>
+      <h1>How prepared is your household?</h1>
+      <Quiz />
+      <p class="q-muted" style="margin-top:32px">
+        A quick self-check, not a safety assessment. Prepared at Home is independent and not affiliated with the UK government.
+      </p>
+    </section>
+  </main>
+</BaseLayout>

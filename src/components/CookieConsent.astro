@@ -1,0 +1,230 @@
+---
+// Co gdyby — cookie consent (static Astro, vanilla JS).
+// Ported from passlab.pro's consent system, trimmed to PaH's needs:
+// one optional category (Analytics = GA4 + Microsoft Clarity); no ads/PostHog.
+// Prawo telekomunikacyjne (art. 173) + RODO: nieistotne trackery zablokowane do
+// czasu aktywnej zgody; "Odrzuć wszystko" tak samo widoczne jak "Zaakceptuj
+// wszystko"; brak domyślnie zaznaczonych pól; ustawienia dostępne ze stopki;
+// wersjonowanie + ponowne pytanie co 12 miesięcy; sygnały Google Consent Mode
+// v2; respektowanie Global Privacy Control.
+const GA_ID = 'G-KBDZN8TBV0';
+const CLARITY_ID = 'yeywqy79hm';
+---
+<div id="pah-cookie" class="cc" role="dialog" aria-modal="false" aria-labelledby="cc-title" hidden>
+  <div class="cc-card">
+    <h2 id="cc-title" class="cc-h">Pliki cookie w serwisie Co gdyby</h2>
+    <p class="cc-p">
+      Analityka (Google Analytics i Microsoft Clarity) pokazuje nam,
+      które poradniki naprawdę pomagają. Włączymy ją tylko za Twoją zgodą.
+      <a href="/privacy/#cookies">Prywatność i pliki cookie</a>
+    </p>
+
+    <div class="cc-panel" id="cc-panel" hidden>
+      <div class="cc-row">
+        <div>
+          <div class="cc-row-h">Niezbędne <span class="cc-badge">Zawsze włączone</span></div>
+          <p class="cc-row-p">Potrzebne do działania strony, w tym do zapamiętania tego wyboru na 12 miesięcy. Bez śledzenia.</p>
+        </div>
+        <button type="button" class="cc-toggle" role="switch" aria-checked="true" aria-label="Niezbędne (zawsze włączone)" disabled data-cat="necessary"><span></span></button>
+      </div>
+      <div class="cc-row">
+        <div>
+          <div class="cc-row-h">Analityka</div>
+          <p class="cc-row-p">Zbiorczy pomiar korzystania ze strony przez Google Analytics 4 i Microsoft Clarity.</p>
+        </div>
+        <button type="button" class="cc-toggle" role="switch" aria-checked="false" aria-label="Analytics" data-cat="analytics"><span></span></button>
+      </div>
+    </div>
+
+    <div class="cc-actions">
+      <button type="button" class="cc-link" data-act="customise">Dostosuj</button>
+      <button type="button" class="cc-btn" data-act="reject">Odrzuć wszystko</button>
+      <button type="button" class="cc-btn" data-act="accept">Zaakceptuj wszystko</button>
+      <button type="button" class="cc-btn" data-act="save" hidden>Zapisz wybory</button>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Above the sticky header (1000) so the expanded panel never slides under it */
+  .cc { position: fixed; inset-inline: 0; bottom: 0; z-index: 1100; padding: 12px; padding-bottom: max(12px, env(safe-area-inset-bottom)); }
+  .cc-card {
+    max-width: 640px; margin: 0 auto; background: var(--paper-2);
+    border: 1px solid var(--hair); border-radius: var(--r-md);
+    box-shadow: var(--shadow-lg); padding: 20px 22px; color: var(--ink);
+    font-family: var(--body);
+    max-height: calc(100dvh - 24px); overflow-y: auto; overscroll-behavior: contain;
+  }
+  .cc-h { font-family: var(--disp); font-size: 19px; font-weight: 600; margin: 0 0 6px; }
+  .cc-p { font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); margin: 0; }
+  .cc-p a { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; white-space: nowrap; }
+  .cc-p a:hover { color: var(--action); }
+  .cc-panel { margin-top: 14px; border: 1px solid var(--hair); border-radius: var(--r-sm); background: var(--panel); padding: 2px 14px; }
+  .cc-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding: 12px 0; }
+  .cc-row + .cc-row { border-top: 1px solid var(--hair-2); }
+  .cc-row-h { font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+  .cc-row-p { font-size: 12.5px; color: var(--muted); margin: 4px 0 0; line-height: 1.5; }
+  .cc-badge { white-space: nowrap; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; background: var(--panel-2); color: var(--muted); border-radius: 999px; padding: 2px 8px; }
+  .cc-toggle { position: relative; flex: none; width: 44px; height: 24px; border-radius: 999px; border: none; background: var(--panel-2); cursor: pointer; transition: background .15s; margin-top: 2px; }
+  .cc-toggle[aria-checked="true"] { background: var(--action); }
+  .cc-toggle[disabled] { opacity: .6; cursor: not-allowed; }
+  .cc-toggle span { position: absolute; top: 2px; left: 2px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .15s; box-shadow: 0 1px 2px rgba(43,39,33,.2); }
+  .cc-toggle[aria-checked="true"] span { transform: translateX(20px); }
+  .cc-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 16px; }
+  .cc-link { background: none; border: none; color: var(--muted); font: inherit; font-size: 14px; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; margin-right: auto; padding: 6px 2px; }
+  .cc-link:hover { color: var(--ink); }
+  .cc-btn { font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; border: 1px solid var(--ink); background: var(--paper); color: var(--ink); border-radius: var(--r-sm); padding: 10px 18px; min-width: 118px; transition: background .15s, color .15s; }
+  .cc-btn:hover { background: var(--ink); color: var(--paper); }
+  /* Phones: Reject / Accept side by side (equal weight), Customise as a full-width row
+     above them, so the banner takes about a third of the screen, not half. */
+  @media (max-width: 520px) {
+    .cc { padding: 8px; padding-bottom: max(8px, env(safe-area-inset-bottom)); }
+    .cc-card { padding: 16px 16px 14px; }
+    .cc-h { font-size: 17px; }
+    .cc-p { font-size: 14px; line-height: 1.5; }
+    .cc-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+    .cc-link { grid-column: 1 / -1; justify-self: start; margin: 0; padding: 12px 2px; min-height: 44px; }
+    .cc-btn { width: 100%; min-width: 0; min-height: 44px; padding: 10px 12px; }
+  }
+</style>
+
+<script define:vars={{ GA_ID, CLARITY_ID }}>
+  const KEY = 'pah_consent';
+  const VERSION = 1;
+  const REASK_DAYS = 365;
+
+  // Where the consent record lives.
+  //
+  // localStorage is preferred: it is never sent to the server. But it can throw on ACCESS, not
+  // only on write — site data blocked, a third-party iframe, dom.storage.enabled=false, some
+  // lockdown modes — and `typeof localStorage` reads the property, so probing it outside a
+  // try/catch used to throw here and take the rest of this handler with it: no banner, no
+  // button listeners, no footer cookie settings.
+  //
+  // When localStorage is unavailable we fall back to a first-party cookie, which often still
+  // works in those cases. Both are strictly necessary under PECR: they hold nothing but this
+  // choice, so no consent is needed to set them. If neither works, `storage` is null and the
+  // choice simply cannot be remembered.
+  const readCookie = (k) => {
+    const hit = document.cookie.split('; ').find((c) => c.slice(0, k.length + 1) === k + '=');
+    return hit ? decodeURIComponent(hit.slice(k.length + 1)) : null;
+  };
+
+  const storage = (() => {
+    const probe = '__pah_probe__';
+    try {
+      const s = window.localStorage;
+      s.setItem(probe, '1');
+      s.removeItem(probe);
+      return { kind: 'local', get: (k) => s.getItem(k), set: (k, v) => { s.setItem(k, v); return true; } };
+    } catch {
+      /* fall through to the cookie */
+    }
+    try {
+      const attrs = ';path=/;samesite=lax' + (location.protocol === 'https:' ? ';secure' : '');
+      document.cookie = probe + '=1;max-age=10' + attrs;
+      const writable = readCookie(probe) === '1';
+      document.cookie = probe + '=;max-age=0' + attrs;
+      if (!writable) return null;
+      return {
+        kind: 'cookie',
+        get: readCookie,
+        set: (k, v) => {
+          document.cookie = k + '=' + encodeURIComponent(v) + ';max-age=' + REASK_DAYS * 86400 + attrs;
+          return readCookie(k) !== null;
+        },
+      };
+    } catch {
+      return null;
+    }
+  })();
+
+  const hasGPC = () => typeof navigator !== 'undefined' && navigator.globalPrivacyControl === true;
+
+  function getConsent() {
+    if (!storage) return null;
+    try {
+      const raw = storage.get(KEY);
+      if (!raw) return null;
+      const d = JSON.parse(raw);
+      if (d.version !== VERSION) return null;
+      if (Date.now() - new Date(d.timestamp).getTime() > REASK_DAYS * 864e5) return null;
+      return d;
+    } catch { return null; }
+  }
+
+  /** @returns {boolean} whether the choice was actually recorded. */
+  function setConsent(analytics) {
+    if (!storage) return false;
+    const rec = { version: VERSION, timestamp: new Date().toISOString(), preferences: { necessary: true, analytics: !!analytics } };
+    try {
+      return storage.set(KEY, JSON.stringify(rec));
+    } catch {
+      return false;
+    }
+  }
+
+  function loadAnalytics() {
+    if (hasGPC()) return; // Global Privacy Control = opt-out; never load.
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted' });
+    gtag('consent', 'update', { analytics_storage: 'granted' });
+    gtag('js', new Date());
+    gtag('config', GA_ID, { anonymize_ip: true });
+    const s = document.createElement('script');
+    s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+    document.head.appendChild(s);
+    (function (c, l, a, r, i, t, y) {
+      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+    })(window, document, "clarity", "script", CLARITY_ID);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const root = document.getElementById('pah-cookie');
+    if (!root) return;
+    const panel = root.querySelector('#cc-panel');
+    const toggle = root.querySelector('[data-cat="analytics"]');
+    const btn = (a) => root.querySelector('[data-act="' + a + '"]');
+
+    const existing = getConsent();
+    if (existing && existing.preferences.analytics) loadAnalytics();
+
+    const open = () => { root.hidden = false; };
+    const close = () => { root.hidden = true; };
+    function showPanel(on) {
+      panel.hidden = !on;
+      btn('customise').hidden = on;
+      btn('accept').hidden = on;
+      btn('save').hidden = !on;
+      if (on) toggle.setAttribute('aria-checked', existing && existing.preferences.analytics ? 'true' : 'false');
+    }
+    function decide(analytics) {
+      const saved = setConsent(analytics);
+      close();
+      if (saved) {
+        // Reload so scripts load/unload cleanly on the next document load.
+        location.assign(location.href);
+        return;
+      }
+      // The choice could not be stored, so a reload would show this banner again, and again,
+      // with no way out. Close it and honour the click for this page instead.
+      if (analytics) loadAnalytics();
+    }
+
+    if (!existing) open();
+
+    btn('customise').addEventListener('click', () => showPanel(true));
+    btn('accept').addEventListener('click', () => decide(true));
+    btn('reject').addEventListener('click', () => decide(false));
+    btn('save').addEventListener('click', () => decide(toggle.getAttribute('aria-checked') === 'true'));
+    toggle.addEventListener('click', () => {
+      toggle.setAttribute('aria-checked', toggle.getAttribute('aria-checked') === 'true' ? 'false' : 'true');
+    });
+
+    // Footer "Cookie settings" opens the panel on any page.
+    window.addEventListener('pah:cookie-settings', () => { open(); showPanel(true); });
+  });
+</script>

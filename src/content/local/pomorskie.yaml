@@ -1,0 +1,129 @@
+draft: false
+name: "Pomorze"
+searchName: "Pomorze"
+answer: "Na Pomorzu najgroźniejsze są sztormowe wichury znad Bałtyku, gwałtowne nawałnice i podtopienia. Sprawdź, jak krok po kroku przygotować dom."
+description: "Sztormy, nawałnice, podtopienia na Żuławach i przerwy w prądzie w województwie pomorskim. Operatorzy, numery i plan na 30 minut dla domu."
+lrf:
+  name: "Pomorski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-pomorski"
+  source:
+    url: "https://www.gov.pl/web/uw-pomorski"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Pomorski Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa pomorskiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-pomorski"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-pomorski"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Sztormy znad Zatoki Gdańskiej"
+    rating: "Bardzo wysokie"
+    atHome: "Wiatr od Bałtyku potrafi zrywać dachy w Trójmieście i spiętrzać wodę w Zatoce Gdańskiej oraz u ujścia Wisły."
+    firstAction: "Przy ostrzeżeniu IMGW przed sztormem nie spaceruj po falochronach i molo, zabezpiecz balkon i przygotuj się na przerwę w prądzie."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (sztorm), Pomorze"
+  - name: "Nawałnice w borach"
+    rating: "Wysokie"
+    atHome: "Nawałnica z sierpnia 2017 roku połamała lasy pod Chojnicami, były ofiary śmiertelne, a dziesiątki tysięcy domów zostały bez prądu."
+    firstAction: "Latem sprawdzaj ostrzeżenia IMGW przed wyjazdem pod namiot lub na obóz dziecka i nie zostawajcie w lesie, gdy zapowiadają gwałtowne burze."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia meteorologiczne IMGW, Pomorze"
+  - name: "Podtopienia na Żuławach"
+    rating: "Wysokie"
+    atHome: "Część Żuław leży poniżej poziomu morza. Przy sztormie i ulewach woda zbiera się tu szybciej, niż pompownie zdążą ją odprowadzić."
+    firstAction: "Jeśli mieszkasz na Żuławach, sprawdź mapę w Hydroportalu ISOK i ustal, którędy wyjedziecie w razie ewakuacji."
+    source:
+      url: "https://isok.gov.pl/hydroportal.html"
+      manual: true
+      checked: 2026-10-19
+      title: "Mapy zagrożenia powodziowego (ISOK), Pomorze"
+  - name: "Przerwy w prądzie"
+    rating: "Wysokie"
+    atHome: "Po sztormie nadmorskie i wiejskie gminy potrafią zostać bez prądu na wiele godzin."
+    firstAction: "Jesienią i zimą trzymaj latarki i power bank w gotowości. Awarię zgłosisz pod numerem 991."
+    source:
+      url: "https://energa-operator.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie, Energa Operator, Pomorze"
+  - name: "Mróz i śnieżyce"
+    rating: "Średnie"
+    atHome: "Wilgotny chłód i gołoledź utrudniają dojazd, a wiatr od morza sprawia, że mróz jest bardziej odczuwalny."
+    firstAction: "Przed zimą zaizoluj rury w nieogrzewanych miejscach i zrób zapas na dni z gołoledzią."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (mróz, śnieg), Pomorze"
+power:
+  - operator: "Energa Operator"
+    register: "zgłoszenie u Energa Operator osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://energa-operator.pl/"
+    phone: "991"
+    source:
+      url: "https://energa-operator.pl/"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "Saur Neptun Gdańsk"
+    covers: "Gdańsk i okoliczne gminy"
+    url: "https://www.sng.com.pl/"
+    phone: "994"
+    source:
+      url: "https://www.sng.com.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Nawałnice stulecia"
+    date: "Sierpień 2017"
+    summary: "Gwałtowne nawałnice zniszczyły ogromne obszary lasów, m.in. w okolicach Chojnic. Były ofiary śmiertelne, a dziesiątki tysięcy domów zostały bez prądu."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Nawa%C5%82nice_w_Polsce_(2017)"
+      manual: true
+      checked: 2026-10-19
+      title: "Nawałnice w Polsce (2017), Pomorze"
+  - name: "Powódź w Gdańsku"
+    date: "Lipiec 2001"
+    summary: "Ulewny deszcz w ciągu kilku godzin zalał dużą część Gdańska. Woda płynęła ulicami i zalała piwnice oraz parterowe mieszkania."
+    source:
+      url: "https://en.wikipedia.org/wiki/2001_flood_in_Gda%C5%84sk"
+      manual: true
+      checked: 2026-10-19
+      title: "2001 flood in Gdańsk (Wikipedia)"
+councils:
+  text: "Urząd Miejski w Gdańsku, gminy Trójmiasta i starostwa powiatowe odpowiadają za zarządzanie kryzysowe."
+  source:
+    url: "https://www.gov.pl/web/uw-pomorski"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miejski w Gdańsku"
+    url: "https://www.gdansk.pl/"
+  - label: "Pomorski Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-pomorski"
+radio:
+  text: "Radio Gdańsk nadaje ostrzeżenia przed sztormem i inne komunikaty, które usłyszysz w radiu na baterie"
+  source:
+    url: "https://radiogdansk.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [storm, power, flood, water, cold]
+planNotes:
+  storm: "Sztormy znad Zatoki Gdańskiej są tu największym zagrożeniem. W czasie ostrzeżenia trzymajcie się z dala od plaży i nabrzeży."
+  power: "Po sztormie nadmorskie gminy mogą długo czekać na prąd. Awarię zgłosisz pod 991."
+  flood: "Na Żuławach woda zbiera się szybko. Ustal z rodziną, którędy wyjedziecie, gdyby trzeba było się ewakuować."
+  water: "W Gdańsku awarię wodociągu zgłosisz pod 994."
+  cold: "Nad morzem mróz jest wilgotny i dokuczliwy. Zaizoluj rury i zrób zapas na zimowe dni."
+lastChecked: 2026-10-19
+watch: []

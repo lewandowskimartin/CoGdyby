@@ -1,0 +1,131 @@
+---
+// Quiz stepper. The server renders every question; the script shows one at a time.
+import { QUESTIONS, RESULTS_PATH } from '../data/quiz.js';
+const total = QUESTIONS.length;
+---
+<div class="q-intro" data-quiz-intro>
+  <p class="q-lede">{total} questions, about 2 minutes. Based on the <a href="https://prepare.campaign.gov.uk/get-prepared-for-emergencies/" rel="noopener">GOV.UK Prepare</a> guidance.</p>
+  <p class="q-muted">No sign-up needed. Your answers stay in your browser and we don’t store them.</p>
+  <button type="button" class="btn btn-accent" data-quiz-start hidden>Start the quiz</button>
+  <noscript>
+    <p><strong>This quiz needs JavaScript to work.</strong> You can still <a href="/free-emergency-plan-template">download the free fridge card</a>.</p>
+  </noscript>
+</div>
+
+<form class="q-card" data-quiz-form data-results-path={RESULTS_PATH} data-total={total} hidden novalidate>
+  <div class="q-progress">
+    <div class="q-progress__bar" aria-hidden="true"><div class="q-progress__fill" data-quiz-fill></div></div>
+    <span class="q-progress__text" data-quiz-progress aria-live="polite">Question 1 of {total}</span>
+  </div>
+
+  {QUESTIONS.map((q, i) => (
+    <fieldset class="q-step" data-quiz-step={i} hidden={i !== 0}>
+      <legend tabindex="-1">{q.text}</legend>
+      {q.options.map((label, points) => (
+        <label class="q-option">
+          <input type="radio" name={q.id} value={points} />
+          <span>{label}</span>
+        </label>
+      ))}
+    </fieldset>
+  ))}
+
+  <div class="q-nav">
+    <button type="button" class="btn btn-outline" data-quiz-back>Back</button>
+    <button type="button" class="btn btn-accent" data-quiz-next disabled>Next</button>
+  </div>
+</form>
+
+<script>
+  import { track } from '../lib/track.js';
+
+  const intro = document.querySelector('[data-quiz-intro]');
+  const start = document.querySelector('[data-quiz-start]');
+  const form = document.querySelector('[data-quiz-form]');
+
+  if (intro && start && form) {
+    const steps = [...form.querySelectorAll('[data-quiz-step]')];
+    const total = steps.length;
+    const answers = new Array(total).fill(null);
+    const backBtn = form.querySelector('[data-quiz-back]');
+    const nextBtn = form.querySelector('[data-quiz-next]');
+    const progress = form.querySelector('[data-quiz-progress]');
+    const fill = form.querySelector('[data-quiz-fill]');
+    const resultsPath = form.dataset.resultsPath;
+    let current = 0;
+    let advanceTimer = 0;
+
+    start.hidden = false;
+
+    function show(i, { focus = true } = {}) {
+      clearTimeout(advanceTimer);
+      current = i;
+      steps.forEach((s, n) => (s.hidden = n !== i));
+      progress.textContent = `Question ${i + 1} of ${total}`;
+      fill.style.width = `${(i / total) * 100}%`;
+      backBtn.disabled = false;
+      backBtn.textContent = i === 0 ? 'Back to start' : 'Back';
+      nextBtn.disabled = answers[i] === null;
+      nextBtn.textContent = i === total - 1 ? 'See my score' : 'Next';
+      if (focus) steps[i].querySelector('legend').focus();
+    }
+
+    function finish() {
+      if (answers.some((a) => a === null)) {
+        show(answers.indexOf(null));
+        return;
+      }
+      const a = answers.join('');
+      track('quiz_completed', {}, { beacon: true });
+      window.location.assign(`${resultsPath}?a=${a}`);
+    }
+
+    function next() {
+      if (answers[current] === null) return;
+      if (current === total - 1) finish();
+      else show(current + 1);
+    }
+
+    start.addEventListener('click', () => {
+      intro.hidden = true;
+      form.hidden = false;
+      show(0);
+      track('quiz_started');
+    });
+
+    backBtn.addEventListener('click', () => {
+      if (current === 0) {
+        form.hidden = true;
+        intro.hidden = false;
+        start.focus();
+      } else {
+        show(current - 1);
+      }
+    });
+
+    nextBtn.addEventListener('click', next);
+
+    // Pointer taps move on automatically after a short pause. Keyboard users press Next,
+    // so arrow keys can move between options without skipping the question.
+    let lastPointer = 0;
+    form.addEventListener('pointerdown', () => (lastPointer = Date.now()));
+
+    form.addEventListener('change', (e) => {
+      const input = e.target;
+      if (!(input instanceof HTMLInputElement) || input.type !== 'radio') return;
+      const i = Number(input.closest('[data-quiz-step]').dataset.quizStep);
+      answers[i] = Number(input.value);
+      if (i !== current) return;
+      nextBtn.disabled = false;
+      if (Date.now() - lastPointer < 1000) {
+        clearTimeout(advanceTimer);
+        advanceTimer = window.setTimeout(next, 350);
+      }
+    });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      next();
+    });
+  }
+</script>

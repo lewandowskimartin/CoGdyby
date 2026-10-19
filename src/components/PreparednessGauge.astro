@@ -1,0 +1,149 @@
+---
+/**
+ * PreparednessGauge.astro
+ * Animated 3-band score gauge for /household-preparedness-quiz/results.
+ *
+ * The component only provides the visual shell (SVG + typography).
+ * The parent page's client script fills in the score, sets the band, and
+ * triggers the reveal by:
+ *   1. Setting data-gauge-band="starting|partly|well" on [data-gauge-card]
+ *   2. Rotating [data-gauge-marker] via CSS transform
+ *   3. Counting up the number in [data-score] and setting [data-band] text
+ *   4. Adding the .is-ready class on the card
+ *
+ * Bands (from src/data/quiz.js): starting 0–39, partly 40–74, well 75–100.
+ * Uses site tokens only — no new colours introduced.
+ */
+const CX = 240, CY = 220, R = 160;
+const point = (s) => {
+  const rad = (-90 + (s / 100) * 180) * Math.PI / 180;
+  return { x: CX + R * Math.sin(rad), y: CY - R * Math.cos(rad) };
+};
+const arc = (a, b) => {
+  const p1 = point(a), p2 = point(b);
+  return `M ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${R} ${R} 0 0 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
+};
+// Outer ends match the track's round caps. Visible gaps at the band boundaries. Each round cap reaches ~3.6 points past its arc end
+// (18 of the 36-unit stroke, on a 160 radius), so the arcs stop well short of 40 and 75 and
+// the rounded ends still clear each other instead of overlapping into darker blobs.
+const bandStarting = arc(0, 35);
+const bandPartly   = arc(44.5, 70);
+const bandWell     = arc(79.5, 100);
+---
+
+<div class="pah-gauge" data-gauge-card data-gauge-band="starting">
+  <div class="pah-gauge__wrap">
+    <svg class="pah-gauge__svg" viewBox="0 0 480 260" role="img" aria-label="Wskaźnik Twojego wyniku gotowości, od 0 do 100.">
+      <path class="pah-gauge__track" d="M 80 220 A 160 160 0 0 1 400 220" />
+      <path class="pah-gauge__band pah-gauge__band--starting" d={bandStarting} />
+      <path class="pah-gauge__band pah-gauge__band--partly"   d={bandPartly} />
+      <path class="pah-gauge__band pah-gauge__band--well"     d={bandWell} />
+      <text class="pah-gauge__end" x="72"  y="256" text-anchor="middle">0</text>
+      <text class="pah-gauge__end" x="408" y="256" text-anchor="middle">100</text>
+      <g class="pah-gauge__marker" data-gauge-marker>
+        <circle class="pah-gauge__halo" cx="240" cy="60" r="20" />
+        <circle class="pah-gauge__dot"  cx="240" cy="60" r="10" />
+      </g>
+    </svg>
+    <div class="pah-gauge__center">
+      <!-- The count-up is visual only; screen readers get the final score once, from data-score-sr. -->
+      <div class="pah-gauge__score" aria-hidden="true"><span data-score>0</span></div>
+      <div class="pah-gauge__suffix" aria-hidden="true">na 100</div>
+      <span class="visually-hidden" aria-live="polite" data-score-sr></span>
+    </div>
+  </div>
+  <!-- Below the arc, not inside it: inside, the label is wider than the space the arc leaves. -->
+  <p class="pah-gauge__band-label" data-band>&nbsp;</p>
+</div>
+
+<style>
+  .pah-gauge { max-width: 480px; margin: 12px auto 28px; text-align: center; }
+  .pah-gauge__wrap { position: relative; width: 100%; }
+  .pah-gauge__svg { width: 100%; height: auto; display: block; overflow: visible; }
+
+  .pah-gauge__track {
+    fill: none; stroke: var(--hair-2); stroke-width: 36; stroke-linecap: round;
+  }
+  .pah-gauge__band {
+    fill: none; stroke-width: 36; stroke-linecap: round;
+    opacity: 0.30; transition: opacity 0.6s ease;
+  }
+  .pah-gauge__band--starting { stroke: var(--action-2); }
+  .pah-gauge__band--partly   { stroke: var(--action); }
+  .pah-gauge__band--well     { stroke: #AD4C28; }
+
+  .pah-gauge[data-gauge-band="starting"] .pah-gauge__band--starting,
+  .pah-gauge[data-gauge-band="partly"]   .pah-gauge__band--partly,
+  .pah-gauge[data-gauge-band="well"]     .pah-gauge__band--well { opacity: 1; }
+
+  .pah-gauge__end {
+    font-family: var(--mono);
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    fill: var(--muted);
+  }
+  /* The SVG scales down on phones (to ~0.6x at 320px), so the end labels need larger units there. */
+  @media (max-width: 480px) { .pah-gauge__end { font-size: 20px; } }
+
+  .pah-gauge__marker {
+    transform-origin: 240px 220px;
+    transform: rotate(-90deg);
+    transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .pah-gauge__halo { fill: rgba(224, 138, 78, 0.18); transition: fill 0.4s ease; }
+  .pah-gauge__dot  {
+    fill: var(--paper-2); stroke: var(--action-2); stroke-width: 3;
+    filter: drop-shadow(0 2px 5px rgba(43, 39, 33, 0.20));
+    transition: stroke 0.4s ease;
+  }
+  .pah-gauge[data-gauge-band="partly"] .pah-gauge__dot  { stroke: var(--action); }
+  .pah-gauge[data-gauge-band="partly"] .pah-gauge__halo { fill: rgba(207, 95, 51, 0.16); }
+  .pah-gauge[data-gauge-band="well"]   .pah-gauge__dot  { stroke: #AD4C28; }
+  .pah-gauge[data-gauge-band="well"]   .pah-gauge__halo { fill: rgba(173, 76, 40, 0.14); }
+
+  @keyframes pah-gauge-pulse {
+    0%, 100% { r: 20; opacity: 0.55; }
+    50%      { r: 27; opacity: 0.15; }
+  }
+  .pah-gauge.is-ready .pah-gauge__halo {
+    animation: pah-gauge-pulse 2.6s ease-in-out infinite;
+    animation-delay: 1.5s;
+  }
+
+  .pah-gauge__center {
+    position: absolute; left: 0; right: 0; top: 70%;
+    transform: translateY(-50%);
+    text-align: center; pointer-events: none;
+  }
+  /* Same pill as .q-band in quiz.css. White on #AD4C28 is 5.5:1 for every band; the arc
+     already carries the band colour. */
+  .pah-gauge__band-label {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 11px; font-weight: 600; line-height: 1.2;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    background: #AD4C28; color: #fff;
+    border-radius: 999px; padding: 7px 14px;
+    margin: 14px 0 0;
+    opacity: 0; transform: translateY(4px);
+    transition: opacity 0.5s ease 0.9s, transform 0.5s ease 0.9s;
+  }
+  .pah-gauge.is-ready .pah-gauge__band-label { opacity: 1; transform: translateY(0); }
+
+  .pah-gauge__score {
+    font-family: var(--disp);
+    font-weight: 600;
+    font-size: clamp(64px, 14vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: #AD4C28;
+    font-variant-numeric: tabular-nums;
+  }
+  .pah-gauge__suffix {
+    font-family: var(--mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-top: 6px;
+  }
+</style>

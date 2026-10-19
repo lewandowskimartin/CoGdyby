@@ -1,0 +1,323 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Photo from "../components/Photo.astro";
+
+// All cohort settings (price, close date, seats, checkout link) live in src/config/earlyAccess.ts
+import { EA, EARLY_BIRD } from "../config/earlyAccess";
+const PAYHIP_EARLY_ACCESS_URL = EA.CHECKOUT_URL;
+const { SEAT_CAP, SEATS_REMAINING, SHOW_SEAT_COUNTER, LIST_PRICE, REFUND_DAYS, COURSE_OPEN_LABEL } = EA;
+const CLOSE_DATE_LABEL = EA.CLOSE_LABEL;
+const G = "https://www.gov.pl/poradnikbezpieczenstwa";
+
+const title = `Kurs „${EA.NAME}”: przygotuj dom na sytuacje kryzysowe w 30 dni | Co gdyby`;
+const description = `30-dniowy kurs krok po kroku: woda, ciepło, jedzenie, łączność i plan dla rodziny. Wczesny dostęp dla pierwszych ${EA.SEAT_CAP} rodzin za ${EA.PRICE} (po premierze ${EA.LIST_PRICE}), ${EA.REFUND_DAYS} dni na zwrot pieniędzy.`;
+---
+<BaseLayout title={title} description={description}>
+<main id="main">
+
+  <!-- HERO -->
+  <section class="page" style="padding-bottom: 8px;">
+    <span class="eyebrow">Kurs „{EA.NAME}” &middot; wczesny dostęp dla pierwszych 30 rodzin</span>
+    <h1>W 30 dni przygotujesz dom <span style="color: var(--action);">na przerwę w prądzie, wichurę czy brak wody</span></h1>
+    <p class="page-sub"><strong>„{EA.NAME}”</strong> to spokojny kurs krok po kroku dla zwykłych, zapracowanych rodzin. Co tydzień jedno zadanie, które łatwo zmieścić w normalnym tygodniu.</p>
+    <div class="hero-actions" style="margin: 28px 0 14px;">
+      <a class="btn btn-primary" href={PAYHIP_EARLY_ACCESS_URL} data-ea-checkout="hero">Zapisuję się za {EA.PRICE}</a>
+      <span class="price-anchor" style="font-family: var(--body); font-weight: 600; font-size: 15.5px; color: var(--muted);">po premierze <s>{LIST_PRICE}</s></span>
+    </div>
+    <p class="page-sub" style="font-size: 14px; color: var(--muted);">{SEAT_CAP} miejsc · dla polskich domów · {REFUND_DAYS} dni na zwrot pieniędzy · prowadzi Depthia</p>
+    <p class="page-sub" style="font-size: 13px; color: var(--muted);">Zapisy trwają do {CLOSE_DATE_LABEL}.</p>
+  </section>
+
+  <!-- PHOTO BAND — the outcome -->
+  <section class="lifestyle">
+    <div class="lifestyle-inner">
+      <Photo name="hero-home" preset="lifestyle" class="lifestyle-img" alt="Rodzina wspólnie wypełnia domowy plan awaryjny przy kuchennym stole" loading="eager" />
+      <div class="lifestyle-cap">
+        <span class="eyebrow">Jeden krok w tygodniu</span>
+        <p>Krótkie, spokojne zadania przy kuchennym stole. Bez wielkich zakupów i bez weekendu w piwnicy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE GAP -->
+  <section class="section">
+    <div class="section-inner" style="max-width: 700px; margin: 0 auto;">
+      <ul class="legal" style="padding-left: 1.3em;">
+        <li>We wrześniu 2024 roku powódź na południu Polski zalała całe miejscowości w Kotlinie Kłodzkiej i na Opolszczyźnie. Tysiące domów na wiele dni zostały bez prądu i wody pitnej.</li>
+        <li>8 kwietnia 2008 roku mokry śnieg i silny wiatr uszkodziły linie wysokiego napięcia pod Szczecinem. Bez prądu zostało ponad 500 tysięcy osób.<sup><a href="#src-1" aria-label="Źródło 1">1</a></sup></li>
+        <li>Rządowy Poradnik bezpieczeństwa zaleca, by każdy dom miał zapasy na minimum 3 dni, w tym 3 litry wody na osobę na dobę.<sup><a href="#src-2" aria-label="Źródło 2">2</a></sup></li>
+      </ul>
+      <p style="font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin-top: 20px;">Większość z nas wie, że warto się przygotować. Najtrudniej zacząć, kiedy dzieci, praca i dom zajmują cały dzień.</p>
+      <ol id="sources" class="ea-sources">
+        <li id="src-1"><a href="https://www.gramwzielone.pl/trendy/102789/blackout-co-oznacza-najglosniejsze-przypadki-i-jak-sie-przed-nim-ochronic" rel="noopener nofollow" target="_blank">Gramwzielone.pl, „Blackout – co oznacza? Najgłośniejsze przypadki”</a></li>
+        <li id="src-2"><a href={G} rel="noopener nofollow" target="_blank">„Poradnik bezpieczeństwa – przeczytaj, przećwicz, zachowaj”, MON, MSWiA i RCB</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- TRANSFORMATION -->
+  <section class="section">
+    <div class="section-inner" style="max-width: 700px; margin: 0 auto;">
+      <div class="section-head">
+        <h2>Jak wygląda przygotowany dom</h2>
+      </div>
+      <ul class="legal" style="padding-left: 1.3em;">
+        <li>Plan dla wszystkich domowników wypełniony i schowany w teczce, a jednostronicowa karta wisi na lodówce</li>
+        <li>Plecak ewakuacyjny stoi w stałym miejscu i co pół roku przeglądacie jego zawartość</li>
+        <li>Woda, jedzenie, leki i ciepłe rzeczy na co najmniej 3 dni są w domu i nie musisz o nich myśleć</li>
+        <li>Rodzina wie, jak się skontaktować, kiedy telefony nie działają</li>
+        <li>Macie za sobą jeden próbny wieczór bez prądu</li>
+      </ul>
+    </div>
+    <div class="section-inner" style="padding-top: 0;">
+      <div class="features">
+        <div class="feature">
+          <Photo name="feature-plan" preset="feature" class="feature-img" alt="Wypełnianie domowego planu awaryjnego przy kuchennym stole" loading="lazy" />
+          <div class="feature-body">
+            <div class="fnum">PLAN</div>
+            <p>Zapisany raz, wspólnie. W stresie nikt nie musi niczego pamiętać.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <Photo name="feature-grabbag" preset="feature" class="feature-img" alt="Spakowany plecak ewakuacyjny przy drzwiach wejściowych" loading="lazy" />
+          <div class="feature-body">
+            <div class="fnum">PLECAK</div>
+            <p>Spakowany, sprawdzony i w miejscu, które zna każdy domownik.</p>
+          </div>
+        </div>
+        <div class="feature">
+          <Photo name="feature-print" preset="feature" class="feature-img" alt="Wydrukowana karta z planem przypięta w domu" loading="lazy" />
+          <div class="feature-body">
+            <div class="fnum">WYDRUK</div>
+            <p>Najważniejsze informacje na papierze, bo telefon i internet mogą zawieść jako pierwsze.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="template-upsell">
+        <h2>Program: pięć krótkich modułów</h2>
+        <p>Jeden moduł w tygodniu. Pierwsze 30 rodzin dostaje kurs przed premierą i pomaga nam dopracować wersję publiczną.</p>
+        <div class="upsell-grid">
+          <div class="upsell-item">
+            <div class="upsell-num">Tydzień 0</div>
+            <div class="upsell-label">Przegląd domu w 20 minut</div>
+            <p>Sprawdzasz, co już masz. W module: krótkie wideo i lista kontrolna.</p>
+          </div>
+          <div class="upsell-item">
+            <div class="upsell-num">Tydzień 1</div>
+            <div class="upsell-label">Woda, ciepło, światło</div>
+            <p>Od tych trzech rzeczy warto zacząć. W module: wideo i lista zapasów.</p>
+          </div>
+          <div class="upsell-item">
+            <div class="upsell-num">Tydzień 2</div>
+            <div class="upsell-label">Jedzenie, leki, gotówka</div>
+            <p>Co trzymać, gdzie i jak to wymieniać, żeby nic się nie zmarnowało. W module: wideo i prosty plan rotacji.</p>
+          </div>
+          <div class="upsell-item">
+            <div class="upsell-num">Tydzień 3</div>
+            <div class="upsell-label">Łączność i plan rodzinny</div>
+            <p>Jak się odnaleźć, gdy telefony milczą. W module: wideo i szablon planu dla rodziny.</p>
+          </div>
+          <div class="upsell-item highlight">
+            <div class="upsell-num">Tydzień 4</div>
+            <div class="upsell-label">Próba, wydruk, gotowe</div>
+            <p>Jeden próbny wieczór bez prądu i wydrukowany plan. W module: scenariusz próby i plan do druku.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO'S BEHIND THIS -->
+  <section class="section">
+    <div class="section-inner" style="max-width: 640px; margin: 0 auto;">
+      <div class="section-head">
+        <h2>Kto za tym stoi</h2>
+      </div>
+      <blockquote style="margin: 0; padding: 6px 0 6px 22px; border-left: 3px solid var(--action); font-family: var(--disp); font-weight: 500; font-size: 21px; line-height: 1.4; text-wrap: pretty;">
+        Jestem Martin. Mam rodzinę, psa i harcerską przeszłość, a harcerskie „czuwaj” zostało ze mną na długo. Kiedy szukałem pomocy w przygotowaniu własnego domu, trafiałem głównie na treści amerykańskie, militarne albo takie, które straszą. Zrobiłem więc spokojną, praktyczną wersję dla zwykłych polskich rodzin. Taką, jakiej sam potrzebowałem.
+      </blockquote>
+      <p style="font-size: 14px; color: var(--muted); margin-top: 14px;">Projekt Co gdyby prowadzi Depthia.</p>
+    </div>
+  </section>
+
+  <!-- TRUST -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="objection">
+        <h2>Skąd cena {EA.PRICE} we wczesnym dostępie?</h2>
+        <p>Pierwsze 30 rodzin dostaje najniższą cenę, jaką kiedykolwiek będzie miał ten kurs. W zamian prosimy o szczere uwagi, dzięki którym dopracujemy wersję publiczną. Liczba miejsc i data zamknięcia zapisów są prawdziwe, a jeśli kurs się nie sprawdzi, przez {REFUND_DAYS} dni możesz poprosić o zwrot pieniędzy.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE OFFER -->
+  <section class="section" id="offer">
+    <div class="section-inner">
+      <div class="compare">
+        <h2>Ceny kursu</h2>
+        <div class="compare-table-wrap">
+          <table class="compare-table">
+            <caption class="visually-hidden">Ceny kursu: wczesny dostęp, cena promocyjna i cena regularna</caption>
+            <thead>
+              <tr>
+                <th>Etap</th>
+                <th>Cena</th>
+                <th>Kiedy</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="highlight">Wczesny dostęp dla pierwszych 30 rodzin</td>
+                <td class="highlight">{EA.PRICE}</td>
+                <td class="highlight">Do {CLOSE_DATE_LABEL} · {SEAT_CAP} miejsc</td>
+              </tr>
+              <tr>
+                <td>Cena promocyjna</td>
+                <td>{EARLY_BIRD.PRICE}</td>
+                <td>Do {EARLY_BIRD.CLOSE_LABEL} · {EARLY_BIRD.SEAT_CAP} miejsc</td>
+              </tr>
+              <tr class="list-row">
+                <td style="color: #AD4C28; font-weight: 600;">Cena regularna</td>
+                <td style="color: #AD4C28; font-weight: 600;">{LIST_PRICE}</td>
+                <td style="color: #AD4C28; font-weight: 600;">Po {EARLY_BIRD.CLOSE_LABEL} · bez limitu miejsc</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <ul class="legal" style="padding-left: 1.3em; margin-top: 24px; max-width: 560px; margin-left:auto; margin-right:auto; text-align:left;">
+          <li>Pełny dostęp i wszystkie przyszłe aktualizacje bez dopłat</li>
+          <li>Wszystkie listy i szablony do pobrania na stałe</li>
+          <li>Prywatny formularz, w którym zgłaszasz uwagi do programu</li>
+          <li>Twoje imię na stronie z podziękowaniami dla pierwszych 30 rodzin, jeśli chcesz</li>
+          <li>W prezencie: domowy plan awaryjny do wydruku</li>
+          <li>{REFUND_DAYS} dni na zwrot pieniędzy, liczone od dnia startu kursu</li>
+        </ul>
+        <div class="hero-actions" style="justify-content:center; margin-top: 28px;">
+          <a class="btn btn-primary" href={PAYHIP_EARLY_ACCESS_URL} data-ea-checkout="offer">Zapisuję się za {EA.PRICE}</a>
+        </div>
+        <p class="reassurance" style="text-align:center;">{SHOW_SEAT_COUNTER ? <><span class="placeholder">Wolne miejsca: {SEATS_REMAINING} z {SEAT_CAP}</span> · </> : `${SEAT_CAP} miejsc · `}zapisy do {CLOSE_DATE_LABEL}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- GUARANTEE -->
+  <section class="faq-cta" style="padding-top: 0;">
+    <div class="box" style="flex-direction: column; text-align: center; gap: 10px;">
+      <p style="font-size: 22px;">{REFUND_DAYS} dni na zwrot pieniędzy</p>
+      <p style="margin:0; font-family: var(--body); font-weight: 400; font-size: 16px; line-height: 1.65; color: var(--ink-soft); max-width: 560px;">
+        Korzystaj z kursu przez {REFUND_DAYS} dni od jego startu. Jeśli uznasz, że nie był wart {EA.PRICE}, napisz na <a href="mailto:kontakt@cogdyby.pl">kontakt@cogdyby.pl</a>, a oddamy całą kwotę. Bez formularzy i bez tłumaczenia się.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="page" style="padding-top: 24px;">
+    <section class="faq-group" style="border-top: none; padding-top: 0; margin-top: 0;">
+      <h2>Pytania</h2>
+      <div class="faq-item">
+        <h3>Kiedy startuje kurs?</h3>
+        <p>{COURSE_OPEN_LABEL}. Rodziny z wczesnego dostępu zaczynają jako pierwsze, przed publiczną premierą. W dniu startu dostaniesz maila.</p>
+      </div>
+      <div class="faq-item">
+        <h3>A jeśli nie zdążę w 30 dni?</h3>
+        <p>Nic się nie stanie. 30 dni to proponowany rytm, a nie termin. Dostęp do kursu nie wygasa.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Czy kurs pasuje do mieszkania w bloku?</h3>
+        <p>Tak. Każdy moduł ma wskazówki osobno dla mieszkania w bloku i dla domu z ogrodem czy piwnicą, w mieście i na wsi.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Mam już część rzeczy. Czy kurs ma sens?</h3>
+        <p>Tak. Pierwszy moduł zaczyna się od przeglądu tego, co już masz, więc nie robisz niczego dwa razy.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Czy kurs jest dostosowany do Polski?</h3>
+        <p>Tak. Numery alarmowe, przepisy, dostawcy prądu i wody oraz zalecenia z rządowego Poradnika bezpieczeństwa dotyczą Polski.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Jak działa zwrot?</h3>
+        <p>Masz {REFUND_DAYS} dni od startu kursu. Wystarczy jeden mail. Szczegóły są w ramce powyżej.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Kto prowadzi kurs?</h3>
+        <p>Ja, Martin. Więcej o projekcie znajdziesz wyżej i w <a href="/faq/">najczęstszych pytaniach</a>.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Co z dostępem w przyszłości?</h3>
+        <p>Wszystko, co pobierzesz (plan, listy i szablony), zostaje u Ciebie. Gdybyśmy kiedyś zamknęli kurs, uprzedzimy o tym co najmniej 90 dni wcześniej i udostępnimy wszystkie materiały do pobrania.</p>
+      </div>
+    </section>
+  </section>
+
+  <!-- PHOTO BAND — calm after -->
+  <section class="lifestyle">
+    <div class="lifestyle-inner">
+      <Photo name="lifestyle-band" preset="lifestyle" class="lifestyle-img" alt="Spokojny dom wieczorem, plan awaryjny przypięty na lodówce" loading="lazy" />
+      <div class="lifestyle-cap">
+        <span class="eyebrow">Po 30 dniach</span>
+        <p>Masz to z głowy i wracasz do zwykłego życia. O to w tym chodzi.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="final">
+    <div class="final-inner">
+      <h2>Wczesny dostęp do {CLOSE_DATE_LABEL}</h2>
+      <p>Potem kurs kosztuje {EARLY_BIRD.PRICE} do {EARLY_BIRD.CLOSE_LABEL}, a następnie {LIST_PRICE}.</p>
+      <div class="final-actions">
+        <a class="btn btn-primary" href={PAYHIP_EARLY_ACCESS_URL} data-ea-checkout="final">Zapisuję się za {EA.PRICE}</a>
+      </div>
+      <p class="reassurance">{SEAT_CAP} miejsc · {REFUND_DAYS} dni na zwrot pieniędzy · potwierdzenie od razu na maila</p>
+    </div>
+  </section>
+
+</main>
+<script>
+  import { track, readEaSource } from '../lib/track.js';
+  const refPath = (() => {
+    try {
+      const u = new URL(document.referrer);
+      return u.host === location.host ? 'ref:' + u.pathname : null;
+    } catch {
+      return null;
+    }
+  })();
+  const src = new URLSearchParams(location.search).get('src') || readEaSource() || refPath || 'direct';
+  document.querySelectorAll('[data-ea-checkout]').forEach((a) =>
+    a.addEventListener('click', () =>
+      track('ea_checkout_clicked', { position: a.getAttribute('data-ea-checkout'), src }, { beacon: true })
+    )
+  );
+</script>
+<style>
+  .ea-sources {
+    margin: 26px 0 0;
+    padding-left: 1.4em;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--muted);
+  }
+  .ea-sources li + li { margin-top: .35em; }
+  .ea-sources a {
+    color: inherit;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .ea-sources a:hover { color: var(--action); }
+  .legal sup { font-size: 11px; line-height: 0; }
+  .legal sup a {
+    text-decoration: none;
+    color: var(--action);
+    padding: 10px 4px;
+    margin: -10px -3px;
+  }
+  .legal sup a:hover { text-decoration: underline; }
+</style>
+</BaseLayout>

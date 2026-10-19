@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<title>Household Emergency Plan — Prepared at Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3EBDD; --panel:#F6EFE4; --ink:#2B2721;
+    --action:#CF5F33; --action-text:#AD4C28; --hair:#E5DBCB;
+    --ink-soft:#5C554A; --muted:#716A5C;
+    --disp:'Fraunces',Georgia,'Times New Roman',serif; --body:'DM Sans',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; --mono:'IBM Plex Mono',ui-monospace,Menlo,monospace;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  @page{ size:A4; margin:0; }
+  body{ font-family:var(--body); color:var(--ink); -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .page{
+    width:210mm; height:297mm; padding:15mm 16mm 13mm; background:var(--paper);
+    page-break-after:always; position:relative; display:flex; flex-direction:column; overflow:hidden;
+  }
+  .page:last-child{ page-break-after:auto; }
+
+  /* running header + footer */
+  .rh{ display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--ink); padding-bottom:7px; margin-bottom:22px; }
+  .rh .brand{ font-family:var(--disp); font-weight:600; font-size:12pt; letter-spacing:-.01em; }
+  .rh .pg{ font-family:var(--mono); font-size:8pt; letter-spacing:.1em; color:var(--action-text); text-transform:uppercase; }
+  .rf{ margin-top:auto; padding-top:10px; border-top:1px solid var(--hair); display:flex; justify-content:space-between; font-family:var(--mono); font-size:7pt; color:var(--ink); opacity:.5; letter-spacing:.04em; }
+
+  h1.title{ font-family:var(--disp); font-weight:500; font-size:30pt; line-height:1.04; letter-spacing:-0.02em; text-wrap:balance; margin:0 0 6px; }
+  .lead{ font-size:11pt; line-height:1.55; opacity:.8; margin:0 0 20px; max-width:150mm; }
+  .eyebrow{ font-family:var(--mono); font-size:8pt; letter-spacing:.14em; text-transform:uppercase; color:var(--action-text); margin-bottom:10px; }
+  .kicker{ font-family:var(--mono); font-size:8pt; letter-spacing:.12em; text-transform:uppercase; color:var(--action-text); margin:0 0 10px; }
+  .rule{ height:2px; background:var(--action); width:44px; margin:12px 0 20px; }
+
+  /* fill fields */
+  .field{ margin-bottom:14px; }
+  .lab{ font-family:var(--mono); font-size:7.5pt; letter-spacing:.1em; text-transform:uppercase; color:var(--action-text); }
+  .field .lab{ display:block; margin-bottom:9px; }
+  .wl{ border-bottom:1px solid var(--ink); height:8mm; }
+  .wl.sm{ height:7mm; }
+  .wl.faint{ border-bottom:1px solid var(--hair); }
+  .two{ display:grid; grid-template-columns:1fr 1fr; gap:0 14mm; }
+  .three{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:0 9mm; }
+
+  /* number rows */
+  .num{ display:flex; justify-content:space-between; align-items:baseline; border-bottom:1px solid var(--hair); padding:8px 0; }
+  .num .n-lab{ font-size:10.5pt; font-weight:500; }
+  .num .n-sub{ font-size:8pt; opacity:.6; }
+  .num .n-val{ font-family:var(--disp); font-weight:700; font-size:12pt; }
+  .num .n-fill{ flex:1; border-bottom:1px solid var(--ink); height:6mm; margin-left:14px; max-width:70mm; }
+
+  /* checklist */
+  .chk{ display:flex; align-items:flex-start; gap:9px; padding:7px 0; border-bottom:1px solid var(--hair); }
+  .chk .bx{ width:13px; height:13px; border:1.5px solid var(--ink); flex:none; margin-top:2px; }
+  .chk .ct{ font-size:10pt; line-height:1.35; }
+  .chk .ct small{ display:block; font-size:8pt; opacity:.6; }
+
+  /* boxes / callouts */
+  .box{ border:1px solid var(--ink); padding:14px 16px; }
+  .box.panel{ background:var(--panel); border-color:var(--hair); }
+  .callout{ background:var(--ink); color:var(--paper); padding:12px 16px; display:flex; align-items:center; gap:12px; }
+  .callout .big{ font-family:var(--disp); font-weight:700; font-size:16pt; color:var(--action); }
+  .callout .txt{ font-size:9.5pt; line-height:1.4; }
+  .note{ font-size:9pt; line-height:1.5; opacity:.75; }
+  .sketch{ border:1px solid var(--ink); flex:1; min-height:60mm; background-color:var(--paper); background-image:repeating-linear-gradient(135deg,rgba(43,39,33,.05) 0 1px,transparent 1px 9px); display:flex; align-items:flex-start; justify-content:flex-start; padding:8px 10px; font-family:var(--mono); font-size:7.5pt; color:var(--ink); opacity:.5; }
+
+  .gap-sm{ height:8px; } .gap{ height:16px; } .gap-lg{ height:26px; }
+  .cols2{ display:grid; grid-template-columns:1fr 1fr; gap:0 12mm; }
+  .grow{ flex:1; }
+  h2.sec{ font-family:var(--disp); font-weight:500; font-size:15pt; letter-spacing:-0.02em; text-wrap:balance; margin:0 0 4px; }
+  .sec-sub{ font-size:9.5pt; opacity:.7; margin:0 0 14px; line-height:1.5; }
+
+  /* cover */
+  .cover{ justify-content:center; }
+  .cover .band{ height:6px; background:var(--action); width:70mm; margin:0 0 26px; }
+  .cover h1{ font-family:var(--disp); font-weight:500; font-size:46pt; line-height:1.0; letter-spacing:-0.02em; text-wrap:balance; margin:0 0 16px; }
+  .cover .sub{ font-size:13pt; line-height:1.5; opacity:.8; max-width:135mm; margin:0 0 40px; }
+
+  /* cut-out cards */
+  .cut{ border:1.5px dashed var(--ink); padding:12px 14px; position:relative; }
+  .cut::before{ content:'cut out & keep'; position:absolute; top:-7px; left:12px; background:var(--paper); padding:0 6px; font-family:var(--mono); font-size:7pt; letter-spacing:.08em; text-transform:uppercase; color:var(--action-text); }
+  .ice{ border:1.5px dashed var(--ink); padding:10px 12px; }
+</style>
+</head>
+<body>
+
+<!-- 1 · COVER -->
+<section class="page cover">
+  <div class="eyebrow">Household emergency plan</div>
+  <div class="band"></div>
+  <h1>Prepared<br>at Home</h1>
+  <p class="sub">One plan, so everyone in the house knows what to do. Fill it in once, print it, and pin it up where you'll see it.</p>
+  <div class="two" style="max-width:150mm">
+    <div class="field"><span class="lab">This plan belongs to</span><div class="wl"></div></div>
+    <div class="field"><span class="lab">Date completed</span><div class="wl"></div></div>
+  </div>
+  <div class="rf" style="border-top:0;margin-top:40px"><span>Prepared at Home · preparedathome.co.uk</span><span>Aligned with gov.uk/Prepare</span></div>
+</section>
+
+<!-- 2 · HOW TO USE -->
+<section class="page">
+  <div class="rh"><span class="brand">Household Emergency Plan</span><span class="pg">02 / 12</span></div>
+  <div class="kicker">Start here</div>
+  <h1 class="title">How to use this pack</h1>
+  <p class="lead">Twenty minutes at the kitchen table now means nobody's working it out under pressure later. Do it together — children included.</p>
+
+  <div class="three" style="margin-bottom:22px">
+    <div class="box panel"><div style="font-family:var(--disp);font-weight:700;font-size:20pt;color:var(--action)">1</div><div style="font-weight:600;margin:6px 0 4px">Fill it in</div><div class="note">Go through each page by hand. Skip anything that doesn't apply.</div></div>
+    <div class="box panel"><div style="font-family:var(--disp);font-weight:700;font-size:20pt;color:var(--action)">2</div><div style="font-weight:600;margin:6px 0 4px">Print it</div><div class="note">Any home printer, colour or black and white. Print a spare for the grab bag.</div></div>
+    <div class="box panel"><div style="font-family:var(--disp);font-weight:700;font-size:20pt;color:var(--action)">3</div><div style="font-weight:600;margin:6px 0 4px">Pin it up</div><div class="note">On the fridge or inside a cupboard door — somewhere everyone can find it.</div></div>
+  </div>
+
+  <div class="callout"><span class="big">999</span><span class="txt"><strong>In a real emergency, always call 999 first</strong> (or 112). This pack helps you prepare in advance — it doesn't replace the emergency services.</span></div>
+
+  <div class="gap"></div>
+  <div class="box">
+    <div class="kicker" style="margin-bottom:8px">Good to do once a year</div>
+    <div class="note">Check the numbers still work, update anything that's changed — a new phone, a house move, a new baby — and re-print. Preparedness only works if it's current.</div>
+  </div>
+
+  <div class="rf"><span>Prepared at Home</span><span>Information sourced from gov.uk/Prepare</span></div>
+</section>
+
+<!-- 3 · IN AN EMERGENCY -->
+<section class="page">
+  <div class="rh"><span class="brand">Household Emergency Plan</span><span class="pg">03 / 12</span></div>
+  <div class="kicker">What to do</div>
+  <h1 class="title">In an emergency</h1>
+  <p class="lead">The official UK advice, and the numbers to have to hand.</p>
+
+  <div class="two" style="margin-bottom:18px">
+    <div class="box panel">
+      <div class="kicker" style="margin-bottom:8px">If the emergency is outside your home</div>
+      <div style="font-family:var(--disp);font-weight:700;font-size:14pt;color:var(--action)">Go in · Stay in · Tune in</div>
+      <div class="note" style="margin-top:9px"><strong>Go in</strong> — depending on the emergency you may need to close all windows and doors. <strong>Stay in.</strong> <strong>Tune in</strong> — follow national and local news and official advice (local radio and TV, and trusted sources such as your emergency services' social media).</div>
+    </div>
+    <div class="box panel">
+      <div class="kicker" style="margin-bottom:8px">If the emergency is inside your home</div>
+      <div style="font-family:var(--disp);font-weight:700;font-size:14pt;color:var(--action)">Get out · Stay out · Ring 999</div>
+      <div class="note" style="margin-top:9px">Get everyone out of the home, stay out, and ring 999 straight away.</div>
+    </div>
+  </div>
+
+  <div class="kicker">Important numbers</div>
+  <div class="num"><div class="n-lab">Emergency services</div><div class="n-val">999</div></div>
+  <div class="num"><div class="n-lab">NHS non-emergency</div><div class="n-val">111</div></div>
+  <div class="num"><div class="n-lab">Police non-urgent</div><div class="n-val">101</div></div>
+  <div class="num"><div><div class="n-lab">Report a power cut</div><div class="n-sub">Free · England, Scotland &amp; Wales · Northern Ireland 03457 643643</div></div><div class="n-val">105</div></div>
+  <div class="num"><div class="n-lab">GP surgery</div><div class="n-fill"></div></div>
+
+  <div class="gap"></div>
+  <div class="kicker">Tune in — our radio stations</div>
+  <div class="two" style="margin-bottom:2px"><span class="lab">Station (e.g. BBC Radio 2)</span><span class="lab">Frequency (e.g. 88–91 FM)</span></div>
+  <div class="two"><div class="wl"></div><div class="wl"></div></div>
+  <div class="two"><div class="wl"></div><div class="wl"></div></div>
+
+  <div class="rf"><span>Prepared at Home</span><span>Aligned with the gov.uk Household Emergency Plan</span></div>
+</section>
+
+<!-- 4 · WHO LIVES HERE -->
+<section class="page">
+  <div class="rh"><span class="brand">Household Emergency Plan</span><span class="pg">04 / 12</span></div>
+  <div class="kicker">Our household</div>
+  <h1 class="title">Who lives here</h1>
+  <p class="lead">Everyone under this roof, so nobody's forgotten in a hurry.</p>
+
+  <div class="field"><span class="lab">Home address</span><div class="wl"></div><div class="wl faint"></div></div>
+  <div class="gap-sm"></div>
+
+  <div class="kicker">People</div>
+  <div class="three" style="margin-bottom:2px"><span class="lab">Name</span><span class="lab">Date of birth</span><span class="lab">Mobile</span></div>
+  <div class="three"><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+  <div class="three"><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+  <div class="three"><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+  <div class="three"><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+  <div class="three"><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+
+  <div class="gap-lg"></div>
+  <div class="kicker">Pets</div>
+  <div class="two" style="margin-bottom:2px"><span class="lab">Name & type</span><span class="lab">Notes (microchip, food, meds)</span></div>
+  <div class="two"><div class="wl"></div><div class="wl"></div></div>
+  <div class="two"><div class="wl"></div><div class="wl"></div></div>
+
+  <div class="rf"><span>Prepared at Home</span><span>preparedathome.co.uk</span></div>
+</section>
+
+<!-- 5 · CONTACTS -->
+<section class="page">
+  <div class="rh"><span class="brand">Household Emergency Plan</span><span class="pg">05 / 12</span></div>
+  <div class="kicker">Who to reach</div>
+  <h1 class="title">People to contact</h1>
+  <p class="lead">Family — in your household and beyond — plus school or childcare, work, and anyone's carer or clinical team.</p>
+
+  <div class="three" style="margin-bottom:2px"><span class="lab">Name</span><span class="lab">Mobile number(s)</span><span class="lab">Landline</span></div>
+  <div class="three"><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+  <div class="three"><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+  <div class="three"><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+  <div class="three"><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+  <div class="three"><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+
+  <div class="gap-lg"></div>
+  <div class="kicker">Others we might check on</div>
+  <div class="note" style="margin-bottom:12px">If you're able to help your community and it's safe to do so, you could start with a neighbour. Note their details here.</div>
+  <div class="two" style="margin-bottom:2px"><span class="lab">Name &amp; address</span><span class="lab">Landline &amp; mobile</span></div>
+  <div class="two"><div class="wl"></div><div class="wl"></div></div>
+  <div class="two"><div class="wl"></div><div class="wl"></div></div>
+  <div class="two"><div class="wl"></div><div class="wl"></div></div>
+
+  <div class="rf"><span>Prepared at Home</span><span>Aligned with the gov.uk Household Emergency Plan</span></div>
+</section>
+
+<!-- 6 · WHERE WE MEET -->
+<section class="page">
+  <div class="rh"><span class="brand">Household Emergency Plan</span><span class="pg">06 / 12</span></div>
+  <div class="kicker">If you have to leave home</div>
+  <h1 class="title">Where we meet</h1>
+  <p class="lead">In some situations you may need to leave your home. Agree now where you'll meet others — this could be a community hub if you have one nearby.</p>
+
+  <div class="field"><span class="lab">Our agreed meeting point</span><div class="wl"></div><div class="wl faint"></div></div>
+
+  <div class="gap-sm"></div>
+  <div class="box panel"><div class="note">Always follow advice from the emergency services about when it is safe to return home.</div></div>
+
+  <div class="gap"></div>
+  <div class="kicker">Sketch the route or draw a little map</div>
+  <div class="sketch grow">Draw here — where to go, how to get there.</div>
+
+  <div class="rf"><span>Prepared at Home</span><span>Aligned with the gov.uk Household Emergency Plan</span></div>
+</section>
+
+<!-- 7 · UTILITIES -->
+<section class="page">
+  <div class="rh"><span class="brand">Household Emergency Plan</span><span class="pg">07 / 12</span></div>
+  <div class="kicker">Turning things off</div>
+  <h1 class="title">Utilities &amp; shut-offs</h1>
+  <p class="lead">If you have time and it's safe to do so, you may need to turn these off in an emergency. Note where each one is so anyone at home can find it.</p>
+
+  <div class="field"><span class="lab">Water stop cock — location</span><div class="wl"></div></div>
+  <div class="field"><span class="lab">Gas isolation valve — location</span><div class="wl"></div></div>
+  <div class="field"><span class="lab">Electricity isolation switch — location</span><div class="wl"></div></div>
+
+  <div class="callout" style="margin:4px 0 6px"><span class="txt"><strong>Important:</strong> you can turn the water and electricity back on yourself — but <strong>not the gas</strong>. Gas must be turned back on by a qualified engineer.</span></div>
+
+  <div class="gap"></div>
+  <div class="kicker">Our suppliers</div>
+  <div class="two">
+    <div class="field"><span class="lab">Electricity supplier & account</span><div class="wl"></div></div>
+    <div class="field"><span class="lab">Gas supplier & account</span><div class="wl"></div></div>
+  </div>
+  <div class="two">
+    <div class="field"><span class="lab">Water supplier & account</span><div class="wl"></div></div>
+    <div class="field"><span class="lab">Broadband / phone</span><div class="wl"></div></div>
+  </div>
+
+  <div class="gap-sm"></div>
+  <div class="box panel"><div class="note"><strong>Power cut?</strong> Call <strong>105</strong> (free). <strong>Smell gas?</strong> Get fresh air, avoid switches and flames, and call <strong>0800 111 999</strong> from outside.</div></div>
+
+  <div class="rf"><span>Prepared at Home</span><span>Guidance per gov.uk/Prepare</span></div>
+</section>
+
+<!-- 8 · GRAB BAG -->
+<section class="page">
+  <div class="rh"><span class="brand">Household Emergency Plan</span><span class="pg">08 / 12</span></div>
+  <div class="kicker">If you have to leave quickly</div>
+  <h1 class="title">Grab-bag checklist</h1>
+  <p class="lead">One bag, by the door. Tick it off as you pack, check it twice a year.</p>
+
+  <div class="cols2" style="gap:0 14mm">
+    <div>
+      <div class="chk"><div class="bx"></div><div class="ct">Torch and spare batteries</div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">Bottled water <small>at least 3 litres per person, per day</small></div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">Wind-up or battery radio</div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">First aid kit</div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">Wet wipes &amp; hand sanitiser</div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">Any medication <small>a few days' worth</small></div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">Phone charger / power bank</div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">Copies of key documents <small>ID, insurance, this plan</small></div></div>
+    </div>
+    <div>
+      <div class="chk"><div class="bx"></div><div class="ct">Some cash <small>cards may not work</small></div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">Warm layers &amp; a blanket</div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">Whistle</div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">Non-perishable food &amp; a tin opener <small>no cooking needed — tinned meat, fruit, veg</small></div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">Baby supplies <small>if needed</small></div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">Pet supplies <small>if needed</small></div></div>
+      <div class="chk"><div class="bx"></div><div class="ct">Spare keys</div></div>
+    </div>
+  </div>
+
+  <div class="gap"></div>
+  <div class="kicker">We also added</div>
+  <div class="wl"></div><div class="wl faint"></div>
+
+  <div class="rf"><span>Prepared at Home</span><span>Checklist per gov.uk/Prepare</span></div>
+</section>
+
+<!-- 9 · MEDICAL & DOCUMENTS -->
+<section class="page">
+  <div class="rh"><span class="brand">Household Emergency Plan</span><span class="pg">09 / 12</span></div>
+  <div class="kicker">Important to have to hand</div>
+  <h1 class="title">Medication &amp; documents</h1>
+  <p class="lead">The details someone would need if you couldn't give them yourself.</p>
+
+  <div class="kicker">List of current medication</div>
+  <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:0 6mm;margin-bottom:2px">
+    <span class="lab">Medication name</span><span class="lab">Dose</span><span class="lab">How often</span><span class="lab">Who takes it</span>
+  </div>
+  <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:0 6mm"><div class="wl"></div><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+  <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:0 6mm"><div class="wl"></div><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+  <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:0 6mm"><div class="wl"></div><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+  <div style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:0 6mm"><div class="wl"></div><div class="wl"></div><div class="wl"></div><div class="wl"></div></div>
+
+  <div class="gap"></div>
+  <div class="two">
+    <div class="field"><span class="lab">GP surgery</span><div class="wl"></div></div>
+    <div class="field"><span class="lab">NHS number(s)</span><div class="wl"></div></div>
+  </div>
+
+  <div class="gap-sm"></div>
+  <div class="kicker">Insurance details</div>
+  <div class="note" style="margin-bottom:9px">Insurance company names, phone numbers and policy numbers.</div>
+  <div class="wl"></div><div class="wl faint"></div>
+
+  <div class="gap-sm"></div>
+  <div class="kicker">Where our key documents are kept</div>
+  <div class="note" style="margin-bottom:9px">Passports, birth certificates, deeds/tenancy, wills.</div>
+  <div class="wl"></div>
+
+  <div class="gap-sm"></div>
+  <div class="box panel"><div class="note"><strong>Tip:</strong> Add an ICE (In Case of Emergency) contact to your phone and set up Medical ID — paramedics check for both.</div></div>
+
+  <div class="rf"><span>Prepared at Home</span><span>Aligned with the gov.uk Household Emergency Plan</span></div>
+</section>
+
+<!-- 10 · PSR -->
+<section class="page">
+  <div class="rh"><span class="brand">Household Emergency Plan</span><span class="pg">10 / 12</span></div>
+  <div class="kicker">One extra step worth taking</div>
+  <h1 class="title">Priority Services Register</h1>
+  <p class="lead">Recommended by gov.uk/Prepare and genuinely worth doing: a free service from energy and water companies for anyone who'd need extra help in a power or water cut.</p>
+
+  <div class="box panel" style="margin-bottom:18px">
+    <div style="font-weight:600;margin-bottom:8px">It's worth signing up if anyone in your home:</div>
+    <div class="cols2" style="gap:0 12mm">
+      <div class="note">· is older, or has a disability<br>· relies on medical equipment that needs power<br>· has a serious or long-term illness</div>
+      <div class="note">· has young children<br>· would struggle to cope in a cut<br>· needs communications in another format</div>
+    </div>
+  </div>
+
+  <div class="note" style="margin-bottom:16px">It's free, and it doesn't affect your bills. To join, contact your electricity, gas or water supplier (each keeps its own register) and ask to be added — or search "Priority Services Register" plus your supplier's name.</div>
+
+  <div class="two">
+    <div class="field"><span class="lab">Registered with (supplier)</span><div class="wl"></div></div>
+    <div class="field"><span class="lab">Date / reference</span><div class="wl"></div></div>
+  </div>
+  <div class="field"><span class="lab">Who in our home is registered</span><div class="wl"></div></div>
+
+  <div class="grow"></div>
+  <div class="box"><div class="note">Not sure who your supplier is? Your last bill will say, or call the power-cut line <strong>105</strong> and they can point you to your network operator.</div></div>
+
+  <div class="rf"><span>Prepared at Home</span><span>Recommended by gov.uk/Prepare</span></div>
+</section>
+
+<!-- 11 · FOR CHILDREN -->
+<section class="page">
+  <div class="rh"><span class="brand">Household Emergency Plan</span><span class="pg">11 / 12</span></div>
+  <div class="kicker">For children</div>
+  <h1 class="title" style="color:var(--action)">My family plan</h1>
+  <p class="lead">A calmer version to fill in yourself. Grown-ups can help.</p>
+
+  <div class="two">
+    <div class="field"><span class="lab">My name</span><div class="wl"></div></div>
+    <div class="field"><span class="lab">How old I am</span><div class="wl"></div></div>
+  </div>
+
+  <div class="kicker">My grown-ups and their numbers</div>
+  <div class="two"><div class="wl"></div><div class="wl"></div></div>
+  <div class="two"><div class="wl"></div><div class="wl"></div></div>
+
+  <div class="gap-sm"></div>
+  <div class="two">
+    <div class="field"><span class="lab">Where my family will meet</span><div class="wl"></div></div>
+    <div class="field"><span class="lab">A grown-up I can trust nearby</span><div class="wl"></div></div>
+  </div>
+
+  <div class="gap-sm"></div>
+  <div class="box panel" style="margin-bottom:14px">
+    <div style="font-weight:600;margin-bottom:8px">If something happens, I can:</div>
+    <div class="note">1. Stay calm and find a grown-up I trust.  2. Call <strong>999</strong> if someone is hurt and there are no grown-ups.  3. Go to our family meeting place.</div>
+  </div>
+
+  <div class="kicker">Draw your family and your safe place</div>
+  <div class="sketch grow" style="background-image:repeating-linear-gradient(135deg,rgba(207,95,51,.08) 0 1px,transparent 1px 9px)">Draw here.</div>
+
+  <div class="rf"><span>Prepared at Home</span><span>preparedathome.co.uk</span></div>
+</section>
+
+<!-- 12 · CUT-OUT CARDS -->
+<section class="page">
+  <div class="rh"><span class="brand">Household Emergency Plan</span><span class="pg">12 / 12</span></div>
+  <div class="kicker">Cut out and keep</div>
+  <h1 class="title">Fridge card &amp; ICE cards</h1>
+  <p class="lead">Snip these out — the card for the fridge, the little ones for wallets and school bags.</p>
+
+  <div class="cut" style="margin-bottom:20px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px">
+      <div style="font-family:var(--disp);font-weight:700;font-size:15pt">In an emergency</div>
+      <div class="kicker" style="margin:0">Household · fridge card</div>
+    </div>
+    <div class="cols2" style="gap:0 14mm">
+      <div>
+        <div class="num" style="padding:5px 0"><div class="n-lab" style="font-size:9.5pt">Emergency</div><div class="n-val" style="font-size:11pt">999 / 112</div></div>
+        <div class="num" style="padding:5px 0"><div class="n-lab" style="font-size:9.5pt">NHS non-urgent</div><div class="n-val" style="font-size:11pt">111</div></div>
+        <div class="num" style="padding:5px 0"><div class="n-lab" style="font-size:9.5pt">Police non-emergency</div><div class="n-val" style="font-size:11pt">101</div></div>
+        <div class="num" style="padding:5px 0;border-bottom:0"><div class="n-lab" style="font-size:9.5pt">Power cut</div><div class="n-val" style="font-size:11pt">105</div></div>
+      </div>
+      <div>
+        <div class="num" style="padding:5px 0"><div class="n-lab" style="font-size:9.5pt">Gas emergency</div><div class="n-val" style="font-size:10pt">0800 111 999</div></div>
+        <div class="field" style="margin:6px 0 0"><span class="lab" style="margin-bottom:6px">We meet at</span><div class="wl sm"></div></div>
+        <div class="field" style="margin:8px 0 0"><span class="lab" style="margin-bottom:6px">Water / gas / electric off at</span><div class="wl sm"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kicker">Wallet ICE cards — one each</div>
+  <div class="two" style="gap:0 8mm">
+    <div class="ice">
+      <div class="kicker" style="margin:0 0 8px">In case of emergency</div>
+      <div class="field" style="margin-bottom:8px"><span class="lab" style="margin-bottom:5px">Name</span><div class="wl sm"></div></div>
+      <div class="field" style="margin-bottom:8px"><span class="lab" style="margin-bottom:5px">Contact & number</span><div class="wl sm"></div></div>
+      <div class="field" style="margin-bottom:0"><span class="lab" style="margin-bottom:5px">Medical notes / allergies</span><div class="wl sm"></div></div>
+    </div>
+    <div class="ice">
+      <div class="kicker" style="margin:0 0 8px">In case of emergency</div>
+      <div class="field" style="margin-bottom:8px"><span class="lab" style="margin-bottom:5px">Name</span><div class="wl sm"></div></div>
+      <div class="field" style="margin-bottom:8px"><span class="lab" style="margin-bottom:5px">Contact & number</span><div class="wl sm"></div></div>
+      <div class="field" style="margin-bottom:0"><span class="lab" style="margin-bottom:5px">Medical notes / allergies</span><div class="wl sm"></div></div>
+    </div>
+  </div>
+
+  <div class="rf"><span>Prepared at Home · preparedathome.co.uk</span><span>Aligned with gov.uk/Prepare</span></div>
+</section>
+
+</body>
+</html>

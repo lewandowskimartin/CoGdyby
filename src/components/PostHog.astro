@@ -1,0 +1,44 @@
+---
+// Optional product analytics. Renders nothing unless PUBLIC_POSTHOG_KEY is set.
+// Cookieless: nothing is stored on the visitor's device. Requires "Cookieless server hash mode"
+// switched on in PostHog > Project settings > Web analytics.
+const key = import.meta.env.PUBLIC_POSTHOG_KEY;
+const host = import.meta.env.PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com';
+---
+{key && (
+  <script is:inline define:vars={{ key, host }}>
+    window.__phConfig = { key, host };
+  </script>
+)}
+{key && (
+  <script>
+    const cfg = window.__phConfig;
+    if (cfg) {
+      import('posthog-js').then(({ default: posthog }) => {
+        posthog.init(cfg.key, {
+          api_host: cfg.host,
+          cookieless_mode: 'always',
+          persistence: 'memory', // belt and braces: never write to cookies or storage
+          autocapture: false,
+          capture_dead_clicks: false,
+          capture_pageview: true,
+          capture_pageleave: false,
+          disable_session_recording: true,
+          disable_surveys: true,
+          // Drop query strings (the results page URL carries the quiz answers).
+          before_send: (event) => {
+            const p = event?.properties;
+            if (p) {
+              for (const k of ['$current_url', '$referrer', '$initial_current_url']) {
+                if (typeof p[k] === 'string') p[k] = p[k].split('?')[0];
+              }
+            }
+            return event;
+          },
+        });
+        window.posthog = posthog;
+        window.dispatchEvent(new Event('posthog:ready'));
+      });
+    }
+  </script>
+)}

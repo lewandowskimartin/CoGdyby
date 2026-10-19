@@ -1,0 +1,130 @@
+draft: false
+name: "Kujawsko-Pomorskie"
+searchName: "Kujawsko-Pomorskie"
+answer: "W kujawsko-pomorskim najgroźniejsze bywają letnie nawałnice i trąby powietrzne, a po nich wichury i przerwy w prądzie. Oto praktyczny plan dla Twojego domu."
+description: "Nawałnice, wichury, przerwy w prądzie i susza w kujawsko-pomorskim. Operatorzy, numery alarmowe i plan na 30 minut dla domu."
+lrf:
+  name: "Kujawsko-Pomorski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-kujawsko-pomorski"
+  source:
+    url: "https://www.gov.pl/web/uw-kujawsko-pomorski"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Kujawsko-Pomorski Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa kujawsko-pomorskiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-kujawsko-pomorski"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-kujawsko-pomorski"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Nawałnice i trąby powietrzne"
+    rating: "Bardzo wysokie"
+    atHome: "W sierpniu 2017 roku nawałnica w kilkanaście minut powaliła tysiące hektarów lasu w Borach Tucholskich. Podobne burze wciąż zrywają tu dachy i linie energetyczne."
+    firstAction: "Latem sprawdzaj ostrzeżenia IMGW przed wyjazdem nad jezioro lub do lasu i ustal, gdzie schronicie się w czasie burzy."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia meteorologiczne IMGW, Kujawy i Pomorze"
+  - name: "Wichury nad doliną Wisły"
+    rating: "Wysokie"
+    atHome: "Wiatr wiejący doliną Wisły między Bydgoszczą a Toruniem przewraca drzewa i zrywa napowietrzne linie na wsiach."
+    firstAction: "Po ostrzeżeniu zabezpiecz podwórko i balkon, a telefony i power banki naładuj jeszcze przed wieczorem."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (wiatr), Kujawy i Pomorze"
+  - name: "Przerwy w prądzie"
+    rating: "Wysokie"
+    atHome: "Po dużej nawałnicy w leśnych gminach prąd potrafi wracać nawet kilka dni."
+    firstAction: "Trzymaj latarkę, power bank i radio razem. Awarię zgłosisz pod numerem 991, a jej zasięg sprawdzisz na stronie Energi Operator."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie, Energa Operator, Kujawy i Pomorze"
+  - name: "Susza"
+    rating: "Średnie"
+    atHome: "Kujawy należą do najsuchszych części kraju. Przy niskich opadach spada poziom wód, a gminy apelują o oszczędzanie wody."
+    firstAction: "W czasie suszy podlewaj ogród wieczorem lub deszczówką i trzymaj w domu zapas wody do picia."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Monitoring suszy IMGW, Kujawy i Pomorze"
+  - name: "Upały"
+    rating: "Średnie"
+    atHome: "Fale upałów nagrzewają mieszkania w Bydgoszczy i Toruniu, szczególnie na ostatnich piętrach. Najtrudniej znoszą to seniorzy i małe dzieci."
+    firstAction: "W upalne dni zasłaniaj okna od strony słońca, pamiętaj o piciu wody i zaglądaj do starszych sąsiadów."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (upały), Kujawy i Pomorze"
+power:
+  - operator: "Energa Operator"
+    register: "zgłoszenie u Energa Operator osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://energa-operator.pl/"
+    phone: "991"
+    note: "Na większości regionu sieć prowadzi Energa Operator, na części Enea Operator."
+    source:
+      url: "https://energa-operator.pl/"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "MWiK Bydgoszcz"
+    covers: "Bydgoszcz i okoliczne gminy"
+    url: "https://www.mwik.bydgoszcz.pl/"
+    phone: "994"
+    source:
+      url: "https://www.mwik.bydgoszcz.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Nawałnice stulecia"
+    date: "Sierpień 2017"
+    summary: "Gwałtowne burze i trąby powietrzne zniszczyły lasy w Borach Tucholskich i okolicach. Dziesiątki tysięcy odbiorców zostały bez prądu, niektórzy na wiele dni."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Nawa%C5%82nice_w_Polsce_(2017)"
+      manual: true
+      checked: 2026-10-19
+      title: "Nawałnice w Polsce (2017), Kujawy i Pomorze"
+  - name: "Orkany zimowe"
+    date: "Luty 2022"
+    summary: "Seria orkanów, m.in. Dudley i Eunice, zerwała linie energetyczne w wielu regionach. W całym kraju bez prądu było ponad milion odbiorców, również w kujawsko-pomorskim."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Cyklony_Dudley,_Eunice_i_Franklin"
+      manual: true
+      checked: 2026-10-19
+      title: "Orkany, luty 2022, Kujawy i Pomorze"
+councils:
+  text: "Bydgoszcz, Toruń i powiaty mają własne wydziały zarządzania kryzysowego."
+  source:
+    url: "https://www.gov.pl/web/uw-kujawsko-pomorski"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miasta Bydgoszczy"
+    url: "https://www.bydgoszcz.pl/"
+  - label: "Kujawsko-Pomorski Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-kujawsko-pomorski"
+radio:
+  text: "Polskie Radio PiK podaje informacje także wtedy, gdy nie ma prądu ani zasięgu"
+  source:
+    url: "https://www.radiopik.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [storm, power, water, cold, heat]
+planNotes:
+  storm: "Nawałnice takie jak w 2017 roku są tu największym zagrożeniem, dlatego letnich ostrzeżeń IMGW nie warto lekceważyć."
+  power: "Po nawałnicy w gminach leśnych prąd może wracać kilka dni. Awarię zgłosisz pod 991."
+  water: "Latem Kujawy bywają suche. Awarię wodociągu w Bydgoszczy zgłosisz pod 994."
+  cold: "Przed zimą zaizoluj rury w garażu lub piwnicy i zrób zapas na czas oblodzonych dróg."
+  heat: "W upał najbardziej nagrzewają się mieszkania pod dachem. Pamiętaj też o starszych sąsiadach."
+lastChecked: 2026-10-19
+watch: []

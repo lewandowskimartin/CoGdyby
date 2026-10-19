@@ -1,0 +1,53 @@
+---
+// Responsive, modern-format images via astro:assets.
+// Drop-in replacement for the old raw <img> tags: outputs a single <img>
+// (no <picture> wrapper) so existing CSS + GSAP selectors keep working.
+import { Image } from 'astro:assets';
+import heroHome from '../assets/img/hero-home.jpg';
+import lifestyleBand from '../assets/img/lifestyle-band.jpg';
+import lifestyleBand2 from '../assets/img/lifestyle-band-2.jpg';
+import featurePlan from '../assets/img/feature-plan.jpg';
+import featureGrabbag from '../assets/img/feature-grabbag.jpg';
+import featurePrint from '../assets/img/feature-print.jpg';
+
+const MAP = {
+  'hero-home': heroHome,
+  'lifestyle-band': lifestyleBand,
+  'lifestyle-band-2': lifestyleBand2,
+  'feature-plan': featurePlan,
+  'feature-grabbag': featureGrabbag,
+  'feature-print': featurePrint,
+};
+
+// Width ladders + sizes hints per display context, so the browser
+// downloads only what it needs instead of the full-res original.
+const PRESET = {
+  hero:      { widths: [400, 600, 800, 1200], sizes: '(min-width: 900px) 50vw, 100vw' },
+  lifestyle: { widths: [600, 900, 1200, 1600], sizes: '100vw' },
+  feature:   { widths: [300, 450, 600, 900], sizes: '(min-width: 600px) 33vw, 100vw' },
+};
+
+const {
+  name,
+  alt,
+  class: className,
+  preset = 'lifestyle',
+  loading = 'lazy',
+  fetchpriority,
+} = Astro.props;
+
+const src = MAP[name];
+if (!src) throw new Error(`Photo: unknown image "${name}"`);
+const { widths, sizes } = PRESET[preset] ?? PRESET.lifestyle;
+---
+<Image
+  src={src}
+  alt={alt}
+  class={className}
+  widths={widths}
+  sizes={sizes}
+  format="webp"
+  quality={72}
+  loading={loading}
+  {...(fetchpriority ? { fetchpriority } : {})}
+/>

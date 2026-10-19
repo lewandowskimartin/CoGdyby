@@ -1,0 +1,129 @@
+draft: false
+name: "Podlasie"
+searchName: "Podlasie"
+answer: "Podlasie to najzimniejszy region Polski, więc najważniejsze są tu mroźne, śnieżne zimy, a obok nich wichury i przerwy w prądzie. Poniżej opisujemy, co to oznacza dla domu."
+description: "Mróz, śnieżyce, wichury, przerwy w prądzie i susza na Podlasiu. Operatorzy, numery alarmowe i plan na 30 minut dla domu."
+lrf:
+  name: "Podlaski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-podlaski"
+  source:
+    url: "https://www.gov.pl/web/uw-podlaski"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Podlaski Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa podlaskiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-podlaski"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-podlaski"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Siarczysty mróz"
+    rating: "Bardzo wysokie"
+    atHome: "Okolice Suwałk nazywa się polskim biegunem zimna. Długie, silne mrozy mogą zamrozić instalację wodną i są groźne dla osób w słabo ogrzanych domach."
+    firstAction: "Jesienią zaizoluj rury, zleć przegląd pieca i przygotuj zapas opału oraz leków na najzimniejsze tygodnie."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (mróz), Podlasie"
+  - name: "Zamiecie i zaspy"
+    rating: "Wysokie"
+    atHome: "Obfity śnieg i zamiecie potrafią odciąć wsie nad Biebrzą i Narwią, utrudniając dojazd służb i dostaw."
+    firstAction: "Gdy IMGW ostrzega przed zamieciami, odłóż wyjazd i miej w domu zapas jedzenia na kilka dni."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (śnieg), Podlasie"
+  - name: "Wichury w puszczy"
+    rating: "Wysokie"
+    atHome: "W rozległych puszczach wiatr łamie drzewa i zrywa linie prowadzące do oddalonych wsi."
+    firstAction: "Po ostrzeżeniu IMGW przygotuj latarkę i power bank, a zimą także koce na wypadek wyłączenia prądu."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (wiatr), Podlasie"
+  - name: "Susza"
+    rating: "Średnie"
+    atHome: "Gdy długo nie pada, spada poziom Biebrzy i Narwi, a wysuszone torfowiska łatwo się zapalają."
+    firstAction: "W czasie suszy oszczędzaj wodę i nie rozpalaj ognia w pobliżu łąk i torfowisk."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Monitoring suszy IMGW, Podlasie"
+  - name: "Upały"
+    rating: "Średnie"
+    atHome: "Upały są tu krótsze, ale potrafią mocno nagrzać domy. Najtrudniej znoszą je osoby starsze."
+    firstAction: "W upał wietrz w nocy, zasłaniaj okna w dzień i przypominaj starszym bliskim o piciu wody."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (upały), Podlasie"
+power:
+  - operator: "PGE Dystrybucja"
+    register: "zgłoszenie u PGE Dystrybucja osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://www.gkpge.pl/dystrybucja"
+    phone: "991"
+    source:
+      url: "https://www.gkpge.pl/dystrybucja"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "Wodociągi Białostockie"
+    covers: "Białystok i okoliczne gminy"
+    url: "https://wodociagi.bialystok.pl/"
+    phone: "994"
+    source:
+      url: "https://wodociagi.bialystok.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Siarczyste mrozy"
+    date: "Zima 2012"
+    summary: "Fala arktycznego mrozu przyniosła na Podlasiu temperatury sięgające nawet około -30°C. Zamarzały instalacje, a najbardziej zagrożone były osoby w słabo ogrzanych domach."
+    source:
+      url: "https://en.wikipedia.org/wiki/Early_2012_European_cold_wave"
+      manual: true
+      checked: 2026-10-19
+      title: "Early 2012 European cold wave (Wikipedia)"
+  - name: "Orkany zimowe"
+    date: "Luty 2022"
+    summary: "Po serii orkanów w całym kraju bez prądu było ponad milion odbiorców. Zerwane linie dotknęły także północny wschód."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Cyklony_Dudley,_Eunice_i_Franklin"
+      manual: true
+      checked: 2026-10-19
+      title: "Orkany, luty 2022, Podlasie"
+councils:
+  text: "Urząd Miejski w Białymstoku i starostwa powiatowe prowadzą zarządzanie kryzysowe na swoim terenie."
+  source:
+    url: "https://www.gov.pl/web/uw-podlaski"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miejski w Białymstoku"
+    url: "https://www.bialystok.pl/"
+  - label: "Podlaski Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-podlaski"
+radio:
+  text: "Polskie Radio Białystok usłyszysz na UKF także wtedy, gdy zabraknie prądu i zasięgu"
+  source:
+    url: "https://www.radio.bialystok.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [cold, storm, power, water, heat]
+planNotes:
+  cold: "To najzimniejszy region kraju. Przygotuj dom na tygodnie mrozu: opał, zapasy i zaizolowane rury."
+  storm: "Wiatr w puszczy zrywa linie do oddalonych wsi, dlatego ostrzeżenia IMGW warto traktować poważnie."
+  power: "Zimą brak prądu oznacza też brak ogrzewania. Trzymaj koce i latarki pod ręką, a awarię zgłoś pod 991."
+  water: "W Białymstoku awarię wodociągu zgłosisz pod 994. Latem uważaj z ogniem przy torfowiskach."
+  heat: "Nawet krótki upał nagrzewa dom. Wietrz w nocy i pamiętaj o starszych bliskich."
+lastChecked: 2026-10-19
+watch: []

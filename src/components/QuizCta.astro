@@ -1,0 +1,53 @@
+---
+// Quiz prompt.
+// - Default ("article"): the box at the end of every guide (PostLayout.astro). Reuses .article-cta.
+// - variant="band": a compact section on landing pages (home, families, elderly parents).
+//   Deliberately lighter than the .final pack CTA (smaller heading, outline button) so the pack stays the main ask.
+// data-quiz-cta feeds the quiz_cta_clicked event (BaseLayout.astro), so each placement can be compared.
+import { QUIZ_PATH, QUESTIONS } from '../data/quiz.js';
+const n = QUESTIONS.length;
+const {
+  variant = 'article',
+  location = 'article',
+  eyebrow = 'Zanim cokolwiek kupisz',
+  title = 'Jak przygotowany jest Twój dom?',
+  text = `${n} krótkich pytań na podstawie rządowego Poradnika bezpieczeństwa. Dostajesz wynik w skali 0–100, trzy najważniejsze braki i bezpłatny sposób na każdy z nich.`,
+  cta = 'Przejdź quiz (2 minuty)',
+  // { href, label } — an optional second, quieter link under the quiz button. Used to offer
+  // the kit builder alongside the quiz without a second band competing for the same space.
+  secondary,
+} = Astro.props;
+---
+<style>
+  /* The second link is a quieter alternative under the main button, not a rival to it. */
+  /* inline-block, so if the label wraps the arrow stays attached to the last word */
+  .quiz-band-second { display: inline-block; padding: 12px 0; min-height: 0; font-size: 14px; font-weight: 500; line-height: 1.4; color: var(--ink-soft); }
+  .quiz-band-second::after { display: inline-block; margin-left: 7px; }
+  .quiz-band-second:hover { color: var(--action); }
+</style>
+
+{variant === 'band' ? (
+  <section class="quiz-band" id="quiz" aria-labelledby={`quiz-band-${location}`}>
+    <div class="quiz-band-inner">
+      <div class="quiz-band-copy">
+        <span class="eyebrow">{eyebrow}</span>
+        <h2 id={`quiz-band-${location}`}>{title}</h2>
+        <p>{text}</p>
+      </div>
+      <div class="quiz-band-action">
+        <a class="btn btn-outline" href={QUIZ_PATH} data-quiz-cta={location}>{cta}</a>
+        <span class="quiz-band-note">Bezpłatnie · bez zapisu · wynik od razu</span>
+        {secondary && (
+          <a class="btn-ghost quiz-band-second" href={secondary.href} data-kit-cta={secondary.location ?? location}>{secondary.label}</a>
+        )}
+      </div>
+    </div>
+  </section>
+) : (
+  <div class="article-cta" style="padding-bottom:0">
+    <div class="box">
+      <p>Jak przygotowany jest Twój dom? Sprawdź w 2 minuty.</p>
+      <a class="btn btn-outline" href={QUIZ_PATH} data-quiz-cta={location}>Przejdź quiz</a>
+    </div>
+  </div>
+)}

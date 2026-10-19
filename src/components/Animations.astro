@@ -1,0 +1,66 @@
+<script>
+  // Scroll reveal + stat count-up. Tiny, GSAP-free, so it ships as one small deferred
+  // module (no dynamic import / preload-helper chain). Parallax drift is pure CSS
+  // (animation-timeline: view()) in global.css. Reduced-motion users get nothing here.
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Fade + rise, once. Elements already on screen at load are left untouched (no class,
+    // no observer) so nothing that's already visible flickers. CTA panels people jump to
+    // via #get / #organisations (.final-inner, .b2b-inner) are deliberately not revealed,
+    // so they're never blank when an anchor link lands on them.
+    const selector = [
+      '.trust-inner', '.feature', '.stat', '.upsell-item', '.faq-item',
+      '.objection', '.quiz-band-inner',
+      '.compare-table-wrap', '.article-cta .box', '.faq-cta .box',
+      '.post-list li', '.lifestyle-cap', '.template-content > *',
+    ].join(',');
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        // Stagger only among the elements that arrive together, so a lone element never
+        // waits on a page-wide counter.
+        let n = 0;
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const el = entry.target as HTMLElement;
+          el.style.setProperty('--reveal-i', String(Math.min(n++, 3)));
+          el.classList.add('in-view');
+          io.unobserve(el);
+        }
+      },
+      { rootMargin: '0px 0px -8% 0px' }
+    );
+
+    document.querySelectorAll<HTMLElement>(selector).forEach((el) => {
+      // Skip anything already in (or near) the viewport — it should just stay visible.
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.9) return;
+      el.classList.add('reveal');
+      io.observe(el);
+    });
+
+    // Stat count-up: final numbers are in the markup; animate up to them on first entry.
+    document.querySelectorAll<HTMLElement>('[data-countup]').forEach((el) => {
+      const once = new IntersectionObserver(
+        (entries, obs) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            obs.unobserve(entry.target);
+            const target = parseFloat(el.dataset.countup || '0');
+            const suffix = el.dataset.suffix || '';
+            const prefix = el.dataset.prefix || '';
+            const duration = 1100;
+            const t0 = performance.now();
+            const step = (now: number) => {
+              const p = Math.min(1, (now - t0) / duration);
+              const eased = 1 - Math.pow(1 - p, 3);
+              el.textContent = `${prefix}${Math.round(target * eased)}${suffix}`;
+              if (p < 1) requestAnimationFrame(step);
+            };
+            requestAnimationFrame(step);
+          }
+        },
+        { rootMargin: '0px 0px -10% 0px' }
+      );
+      once.observe(el);
+    });
+  }
+</script>

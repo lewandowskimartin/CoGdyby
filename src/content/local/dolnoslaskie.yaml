@@ -1,0 +1,138 @@
+draft: false
+name: Dolny Śląsk
+searchName: Dolny Śląsk
+answer: Na Dolnym Śląsku największym zagrożeniem jest powódź, a po niej wichury i przerwy w prądzie. Poniżej opisujemy, co to oznacza dla domu i jak się przygotować.
+description: Powódź, wichury i przerwy w prądzie na Dolnym Śląsku. Lokalni operatorzy, numery alarmowe i plan na 30 minut dla Twojego domu.
+
+lrf:
+  name: Dolnośląski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)
+  url: https://www.duw.pl/pl/bezpieczenstwo/zarzadzanie-kryzysowe
+  source:
+    url: https://www.duw.pl/pl/bezpieczenstwo/zarzadzanie-kryzysowe
+    manual: true
+    checked: 2026-10-19
+    title: WCZK Dolnośląskiego Urzędu Wojewódzkiego
+
+register:
+  title: Zagrożenia dla województwa dolnośląskiego (zarządzanie kryzysowe)
+  edition: Stan na październik 2026
+  url: https://www.duw.pl/pl/bezpieczenstwo/zarzadzanie-kryzysowe
+  system: unrated
+  source:
+    url: https://www.duw.pl/pl/bezpieczenstwo/zarzadzanie-kryzysowe
+    manual: true
+    checked: 2026-10-19
+
+risks:
+  - name: "Powódź i gwałtowne wezbrania"
+    rating: "Bardzo wysokie"
+    atHome: "Odra, Nysa Kłodzka i górskie potoki w Sudetach potrafią w ciągu jednej nocy zalać Kłodzko, Lądek-Zdrój czy Stronie Śląskie. Tak było w 1997 i 2024 roku."
+    firstAction: "Sprawdź w Hydroportalu ISOK, czy dom w dolinie Odry lub Nysy Kłodzkiej leży na terenie zagrożonym zalaniem, i ustal, co przeniesiesz na piętro."
+    source:
+      url: "https://isok.gov.pl/hydroportal.html"
+      manual: true
+      checked: 2026-10-19
+      title: "Mapy zagrożenia powodziowego (ISOK), Dolny Śląsk"
+  - name: "Wichury w Sudetach i na nizinie"
+    rating: "Wysokie"
+    atHome: "Silny wiatr łamie drzewa w dolnośląskich lasach i zrywa linie od Wrocławia po Karkonosze. Prąd potrafi wtedy zniknąć na wiele godzin."
+    firstAction: "Gdy IMGW wyda ostrzeżenie dla Twojego powiatu, zdejmij z balkonu luźne rzeczy i naładuj telefony, zanim wiatr się wzmoże."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (wiatr), Dolny Śląsk"
+  - name: "Przerwy w dostawie prądu"
+    rating: "Wysokie"
+    atHome: "Po wichurze albo przy oblodzeniu linii gaśnie światło, przestaje działać piec gazowy, a zamrażarka zaczyna się rozmrażać."
+    firstAction: "Trzymaj latarkę, power bank i radio w jednej szufladzie. Numer pogotowia energetycznego 991 zapisz na kartce."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie i wyłączenia, Tauron, Dolny Śląsk"
+  - name: "Susza i niżówki na Odrze"
+    rating: "Średnie"
+    atHome: "Przy niskim stanie Odry i spadku wód gruntowych niektóre gminy ograniczają pobór wody, na przykład do podlewania ogrodów."
+    firstAction: "Gdy gmina apeluje o oszczędzanie wody, ogranicz podlewanie i miej w domu kilka zgrzewek wody pitnej."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Monitoring suszy IMGW, Dolny Śląsk"
+  - name: "Mróz i śnieg w górach"
+    rating: "Średnie"
+    atHome: "W Kotlinie Kłodzkiej i w Sudetach mróz bywa ostry, a śnieg potrafi na kilka dni odciąć górskie wsie."
+    firstAction: "Przed zimą zaizoluj rury w nieogrzewanych pomieszczeniach i zrób zapas jedzenia na dni, gdy drogi są nieprzejezdne."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (śnieg, mróz), Dolny Śląsk"
+power:
+  - operator: Tauron Dystrybucja
+    register: zgłoszenie u Tauron Dystrybucja osoby zależnej od prądu (urządzenia medyczne)
+    url: https://www.tauron-dystrybucja.pl/
+    phone: '991'
+    source:
+      url: https://www.tauron-dystrybucja.pl/
+      manual: true
+      checked: 2026-10-19
+
+water:
+  - company: MPWiK Wrocław
+    covers: Wrocław i okoliczne gminy
+    url: https://www.mpwik.wroc.pl/
+    phone: '994'
+    source:
+      url: https://www.mpwik.wroc.pl/
+      manual: true
+      checked: 2026-10-19
+
+pastEvents:
+  - name: Powódź (niż Boris)
+    date: Wrzesień 2024
+    summary: Ulewne deszcze w Kotlinie Kłodzkiej zalały m.in. Kłodzko, Lądek-Zdrój, Stronie Śląskie i Bystrzycę Kłodzką. Tysiące domów zostały bez prądu i wody pitnej, a Wrocław przez kilka dni przygotowywał się na falę kulminacyjną na Odrze.
+    source:
+      url: https://www.gov.pl/web/rcb
+      manual: true
+      checked: 2026-10-19
+      title: Powódź 2024, komunikaty RCB
+  - name: Powódź tysiąclecia
+    date: Lipiec 1997
+    summary: Największa powódź w powojennej historii regionu zalała dużą część Wrocławia i południowego Dolnego Śląska. Wielu mieszkańców na długo zostało bez prądu, wody i łączności.
+    source:
+      url: https://pl.wikipedia.org/wiki/Pow%C3%B3d%C5%BA_tysi%C4%85clecia
+      manual: true
+      checked: 2026-10-19
+      title: Powódź tysiąclecia (1997)
+
+councils:
+  text: urzędy miast i gmin oraz starostwa powiatowe mają własne wydziały zarządzania kryzysowego.
+  source:
+    url: https://www.duw.pl/
+    manual: true
+    checked: 2026-10-19
+
+councilPages:
+  - label: Urząd Miejski Wrocławia, zarządzanie kryzysowe
+    url: https://www.wroclaw.pl/
+  - label: Dolnośląski Urząd Wojewódzki
+    url: https://www.duw.pl/
+
+radio:
+  text: Radio Wrocław, regionalna rozgłośnia Polskiego Radia, nadaje komunikaty także wtedy, gdy nie działa prąd ani sieć komórkowa
+  source:
+    url: https://www.radiowroclaw.pl/
+    manual: true
+    checked: 2026-10-19
+
+planOrder: [flood, power, storm, water, cold]
+planNotes:
+  flood: "W dolinach Odry i Nysy Kłodzkiej powódź to największe zagrożenie. Sprawdź, czy dom leży na terenie zalewowym i którędy dojdziecie wyżej."
+  power: "Po wichurach w Sudetach naprawa linii może potrwać. Awarię zgłosisz pod 991, a mapę awarii znajdziesz na stronie Tauronu."
+  storm: "Wiatr od strony Karkonoszy szybko się wzmaga, dlatego warto reagować już na ostrzeżenie pierwszego stopnia."
+  water: "Latem gminy czasem ograniczają pobór wody. We Wrocławiu awarię wodociągu zgłosisz pod 994."
+  cold: "W Kotlinie Kłodzkiej i w górach przygotuj dom na silny mróz i zasypane drogi."
+lastChecked: 2026-10-19
+watch: []

@@ -1,0 +1,129 @@
+draft: false
+name: "Lubelszczyzna"
+searchName: "Lubelszczyzna"
+answer: "Na Lubelszczyźnie najbardziej dokuczają susza, nawałnice z gradem, wezbrania rzek i długie, mroźne zimy. Poniżej znajdziesz plan dla swojego domu."
+description: "Susza, nawałnice, wezbrania Wisły i Bugu oraz mróz na Lubelszczyźnie. Operatorzy, numery alarmowe i plan na 30 minut dla domu."
+lrf:
+  name: "Lubelski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-lubelski"
+  source:
+    url: "https://www.gov.pl/web/uw-lubelski"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Lubelski Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa lubelskiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-lubelski"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-lubelski"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Susza na Lubelszczyźnie"
+    rating: "Wysokie"
+    atHome: "Rolniczy wschód od lat zmaga się z niedoborem opadów. Wysychają przydomowe studnie, a gminy wprowadzają zakazy podlewania."
+    firstAction: "Jeśli korzystasz z własnej studni, trzymaj zapas wody pitnej i sprawdzaj poziom wody w czasie suszy."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Monitoring suszy IMGW, Lubelszczyzna"
+  - name: "Burze z gradem i trąby powietrzne"
+    rating: "Wysokie"
+    atHome: "Gwałtowne burze niszczą uprawy, zrywają dachy budynków gospodarczych i linie energetyczne."
+    firstAction: "Gdy IMGW ostrzega przed burzami, zamknij zwierzęta w budynkach, schowaj sprzęt z podwórka i naładuj telefony."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia meteorologiczne IMGW, Lubelszczyzna"
+  - name: "Podtopienia nad Wisłą i Bugiem"
+    rating: "Wysokie"
+    atHome: "Roztopy i ulewy podnoszą poziom Wisły, Bugu i Wieprza. W 2010 roku prawie cała gmina Wilków znalazła się pod wodą."
+    firstAction: "Jeśli mieszkasz blisko rzeki, sprawdź mapę w Hydroportalu ISOK i ustalcie, co przenosicie wyżej w razie alarmu."
+    source:
+      url: "https://isok.gov.pl/hydroportal.html"
+      manual: true
+      checked: 2026-10-19
+      title: "Mapy zagrożenia powodziowego (ISOK), Lubelszczyzna"
+  - name: "Ostra, kontynentalna zima"
+    rating: "Wysokie"
+    atHome: "Daleko od morza mróz trzyma długo, a zaspy potrafią odciąć wsie od sklepów."
+    firstAction: "Przed zimą zrób zapas jedzenia i leków, a rury w nieogrzewanych pomieszczeniach zaizoluj."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (mróz, śnieg), Lubelszczyzna"
+  - name: "Przerwy w prądzie"
+    rating: "Średnie"
+    atHome: "Na rozległych terenach wiejskich naprawa zerwanej linii trwa zwykle dłużej niż w mieście."
+    firstAction: "Na wsi przygotuj się na dłuższą przerwę: latarki, power bank i zapas wody, jeśli pompa przy studni działa na prąd."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie, PGE Dystrybucja, Lubelszczyzna"
+power:
+  - operator: "PGE Dystrybucja"
+    register: "zgłoszenie u PGE Dystrybucja osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://www.gkpge.pl/dystrybucja"
+    phone: "991"
+    source:
+      url: "https://www.gkpge.pl/dystrybucja"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "MPWiK Lublin"
+    covers: "Lublin i okoliczne gminy"
+    url: "https://mpwik.lublin.pl/"
+    phone: "994"
+    source:
+      url: "https://mpwik.lublin.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Powódź nad Wisłą"
+    date: "Maj 2010"
+    summary: "Wysoka fala na Wiśle przerwała wały. Woda zalała prawie całą gminę Wilków, a tysiące mieszkańców musiały się ewakuować."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Pow%C3%B3d%C5%BA_w_Polsce_(2010)"
+      manual: true
+      checked: 2026-10-19
+      title: "Powódź w Polsce (2010), Lubelszczyzna"
+  - name: "Susza rolnicza"
+    date: "Lato 2019"
+    summary: "Długi brak opadów dotknął rolniczy region. Obniżył się poziom wód, a niektóre gminy ograniczyły pobór wody."
+    source:
+      url: "https://www.gov.pl/web/rcb"
+      manual: true
+      checked: 2026-10-19
+      title: "Susza, komunikaty RCB, Lubelszczyzna"
+councils:
+  text: "za pomoc na miejscu odpowiadają wójtowie, burmistrzowie i starostowie, a w Lublinie prezydent miasta."
+  source:
+    url: "https://www.gov.pl/web/uw-lubelski"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miasta Lublin"
+    url: "https://lublin.eu/"
+  - label: "Lubelski Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-lubelski"
+radio:
+  text: "Radio Lublin nadaje ostrzeżenia na falach UKF, nawet gdy nie działa internet ani telefon"
+  source:
+    url: "https://radio.lublin.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [water, storm, flood, cold, power]
+planNotes:
+  water: "Susza bywa tu dotkliwa, więc warto mieć zapas wody. W Lublinie awarię wodociągu zgłosisz pod 994."
+  storm: "Burze z gradem przychodzą szybko, dlatego ostrzeżenia IMGW warto sprawdzać latem codziennie."
+  flood: "Wisła, Bug i Wieprz podtapiają nadrzeczne wsie. Sprawdź swoją okolicę na mapie i ustal, co przeniesiecie wyżej."
+  cold: "Zima trzyma tu długo, więc zapas jedzenia i izolacja rur bardzo się przydają."
+  power: "Na wsi naprawa linii trwa dłużej, więc zapas wody i latarek ma tu większe znaczenie."
+lastChecked: 2026-10-19
+watch: []

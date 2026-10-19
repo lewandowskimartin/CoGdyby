@@ -1,0 +1,129 @@
+draft: false
+name: "Wielkopolska"
+searchName: "Wielkopolska"
+answer: "W Wielkopolsce od lat brakuje wody, więc najważniejsza jest tu susza, a obok niej nawałnice, wichury i upały. Poniżej opisujemy, co to oznacza dla domu."
+description: "Susza, nawałnice, wichury, upały i przerwy w prądzie w Wielkopolsce. Operatorzy, numery alarmowe i plan na 30 minut dla domu."
+lrf:
+  name: "Wielkopolski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-wielkopolski"
+  source:
+    url: "https://www.gov.pl/web/uw-wielkopolski"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Wielkopolski Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa wielkopolskiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-wielkopolski"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-wielkopolski"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Chroniczny deficyt wody"
+    rating: "Bardzo wysokie"
+    atHome: "W Warcie i Noteci latem bywa bardzo mało wody, a w niektórych gminach wysychają przydomowe studnie."
+    firstAction: "Zbieraj deszczówkę do podlewania ogrodu, a w domu trzymaj kilka zgrzewek wody do picia."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Monitoring suszy IMGW, Wielkopolska"
+  - name: "Nawałnice i trąby powietrzne"
+    rating: "Wysokie"
+    atHome: "Gwałtowne burze, takie jak w 2017 roku, łamią lasy i drzewa w miastach oraz zrywają linie na wsiach."
+    firstAction: "Gdy IMGW ostrzega przed burzą, wstaw samochód do garażu, naładuj telefony i przeczekaj burzę w domu."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia meteorologiczne IMGW, Wielkopolska"
+  - name: "Upały"
+    rating: "Wysokie"
+    atHome: "Latem region mocno się nagrzewa. Długie upały męczą zwłaszcza seniorów i rodziny z małymi dziećmi w poznańskich blokach."
+    firstAction: "Na noc przenieście dzieci do najchłodniejszego pokoju i dzwońcie codziennie do starszych bliskich."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (upały), Wielkopolska"
+  - name: "Wichury"
+    rating: "Wysokie"
+    atHome: "Na otwartych polach wiatr szybko się rozpędza, przewraca drzewa przy drogach i zrywa napowietrzne linie."
+    firstAction: "Po ostrzeżeniu IMGW zabezpiecz podwórko i przygotuj latarki na wieczór bez prądu."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (wiatr), Wielkopolska"
+  - name: "Przerwy w prądzie"
+    rating: "Średnie"
+    atHome: "Na wsiach prąd znika najczęściej wtedy, gdy wichura przewróci drzewo na linię."
+    firstAction: "W czasie przerwy nie otwieraj zamrażarki. Pełna utrzyma chłód nawet do dwóch dób."
+    source:
+      url: "https://www.operator.enea.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie, Enea Operator, Wielkopolska"
+power:
+  - operator: "Enea Operator"
+    register: "zgłoszenie u Enea Operator osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://www.operator.enea.pl/"
+    phone: "991"
+    source:
+      url: "https://www.operator.enea.pl/"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "Aquanet"
+    covers: "Poznań i okoliczne gminy"
+    url: "https://www.aquanet.pl/"
+    phone: "994"
+    source:
+      url: "https://www.aquanet.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Nawałnice stulecia"
+    date: "Sierpień 2017"
+    summary: "Gwałtowne nawałnice połamały lasy w północnej części regionu. Dziesiątki tysięcy domów zostały bez prądu."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Nawa%C5%82nice_w_Polsce_(2017)"
+      manual: true
+      checked: 2026-10-19
+      title: "Nawałnice w Polsce (2017), Wielkopolska"
+  - name: "Susza rolnicza"
+    date: "Lato 2019"
+    summary: "Po kolejnym suchym roku spadł poziom Warty, Noteci i wielkopolskich jezior. Część gmin ograniczyła pobór wody do podlewania."
+    source:
+      url: "https://www.gov.pl/web/rcb"
+      manual: true
+      checked: 2026-10-19
+      title: "Susza, komunikaty RCB, Wielkopolska"
+councils:
+  text: "w Poznaniu kryzysami zajmuje się urząd miasta, a w powiatach i gminach starostwa oraz wójtowie i burmistrzowie."
+  source:
+    url: "https://www.gov.pl/web/uw-wielkopolski"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miasta Poznania"
+    url: "https://www.poznan.pl/"
+  - label: "Wielkopolski Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-wielkopolski"
+radio:
+  text: "Radio Poznań nadaje ostrzeżenia dla regionu, które usłyszysz także bez prądu i internetu"
+  source:
+    url: "https://radiopoznan.fm/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [water, storm, heat, power, cold]
+planNotes:
+  water: "W tak suchym regionie warto zbierać deszczówkę i mieć zapas wody. W Poznaniu awarię zgłosisz pod 994."
+  storm: "Nawałnice łamią lasy i zrywają linie, więc letnie ostrzeżenia IMGW warto traktować poważnie."
+  heat: "Latem mieszkania mocno się nagrzewają. Pamiętaj o starszych bliskich i o piciu wody."
+  power: "Po wichurze wiejskie gminy mogą długo czekać na prąd."
+  cold: "Przed zimą zaizoluj rury i przygotuj zapas na dni z gołoledzią."
+lastChecked: 2026-10-19
+watch: []

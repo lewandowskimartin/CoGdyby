@@ -1,0 +1,129 @@
+draft: false
+name: "Opolszczyzna"
+searchName: "Opolszczyzna"
+answer: "Na Opolszczyźnie najgroźniejsza jest powódź, a obok niej wichury i przerwy w prądzie. Oto praktyczny plan dla Twojego domu."
+description: "Powódź na Odrze i Nysie Kłodzkiej, wichury, przerwy w prądzie i susza na Opolszczyźnie. Operatorzy, numery i plan na 30 minut dla domu."
+lrf:
+  name: "Opolski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-opolski"
+  source:
+    url: "https://www.gov.pl/web/uw-opolski"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Opolski Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa opolskiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-opolski"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-opolski"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Powódź na Odrze"
+    rating: "Bardzo wysokie"
+    atHome: "Opole i Kędzierzyn-Koźle leżą nad Odrą, a Nysa i Głuchołazy nad Nysą Kłodzką i Białą Głuchołaską. W 1997 i 2024 roku woda weszła tu do tysięcy domów."
+    firstAction: "Sprawdzaj ostrzeżenia hydrologiczne IMGW dla swojego powiatu i ustalcie w rodzinie, co i kiedy przenosicie na piętro."
+    source:
+      url: "https://isok.gov.pl/hydroportal.html"
+      manual: true
+      checked: 2026-10-19
+      title: "Mapy zagrożenia powodziowego (ISOK), Opolszczyzna"
+  - name: "Wichury nad Opolszczyzną"
+    rating: "Wysokie"
+    atHome: "Silny wiatr przewraca drzewa przy drogach i zrywa przewody, a wsie zostają bez prądu."
+    firstAction: "Po ostrzeżeniu IMGW zabezpiecz rzeczy na podwórku i przygotuj latarki na wieczór bez prądu."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (wiatr), Opolszczyzna"
+  - name: "Długie przerwy w prądzie"
+    rating: "Wysokie"
+    atHome: "Podczas powodzi i po nawałnicach prąd w części regionu potrafi zniknąć na kilka dni."
+    firstAction: "Latarkę, power bank i radio trzymaj w stałym miejscu. Pogotowie energetyczne to numer 991."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie i wyłączenia, Tauron, Opolszczyzna"
+  - name: "Susza"
+    rating: "Średnie"
+    atHome: "Gdy spada poziom Odry i wód gruntowych, gminy wprowadzają okresowe zakazy podlewania."
+    firstAction: "W czasie suszy oszczędzaj wodę i miej w domu zapas wody pitnej na kilka dni."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Monitoring suszy IMGW, Opolszczyzna"
+  - name: "Mróz i śnieżyce"
+    rating: "Średnie"
+    atHome: "Oblodzone drogi utrudniają dojazd, a długi mróz może uszkodzić ogrzewanie i zamrozić instalację wodną."
+    firstAction: "Jesienią sprawdź, czy główny zawór wody łatwo się zakręca, i odłóż jedzenie na mroźne, zasypane dni."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (śnieg, mróz), Opolszczyzna"
+power:
+  - operator: "Tauron Dystrybucja"
+    register: "zgłoszenie u Tauron Dystrybucja osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://www.tauron-dystrybucja.pl/"
+    phone: "991"
+    source:
+      url: "https://www.tauron-dystrybucja.pl/"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "Wodociągi i Kanalizacja w Opolu"
+    covers: "Opole i okoliczne gminy"
+    url: "https://wikopole.com.pl/"
+    phone: "994"
+    source:
+      url: "https://wikopole.com.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Powódź tysiąclecia"
+    date: "Lipiec 1997"
+    summary: "Opole było jednym z najbardziej poszkodowanych miast. Woda zalała dużą część miasta i południa regionu, a mieszkańcy zostali bez prądu, wody i łączności."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Pow%C3%B3d%C5%BA_tysi%C4%85clecia"
+      manual: true
+      checked: 2026-10-19
+      title: "Powódź tysiąclecia (1997), Opolszczyzna"
+  - name: "Powódź (niż Boris)"
+    date: "Wrzesień 2024"
+    summary: "Ulewne deszcze zalały południe Opolszczyzny, m.in. Nysę i Głuchołazy. Tysiące domów na wiele dni zostały bez prądu i wody pitnej."
+    source:
+      url: "https://www.gov.pl/web/rcb"
+      manual: true
+      checked: 2026-10-19
+      title: "Powódź 2024, komunikaty RCB, Opolszczyzna"
+councils:
+  text: "Urząd Miasta Opola i starostwa powiatowe odpowiadają za zarządzanie kryzysowe na swoim terenie."
+  source:
+    url: "https://www.gov.pl/web/uw-opolski"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miasta Opola"
+    url: "https://www.opole.pl/"
+  - label: "Opolski Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-opolski"
+radio:
+  text: "Radio Opole informuje mieszkańców także wtedy, gdy brakuje prądu i zasięgu"
+  source:
+    url: "https://radio.opole.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [flood, power, storm, water, cold]
+planNotes:
+  flood: "Powodzie wracają tu regularnie. Mieszkańcy Opola, Nysy i Kędzierzyna-Koźla powinni sprawdzić, czy ich dom leży na terenie zalewowym."
+  power: "W czasie powodzi prąd bywa wyłączany zapobiegawczo. Awarię zgłosisz pod 991."
+  storm: "Na ostrzeżenie IMGW przed wiatrem reaguj od razu, zanim zacznie mocno wiać."
+  water: "Latem gminy mogą ograniczać pobór wody. W Opolu awarię zgłosisz pod 994."
+  cold: "Zabezpiecz instalację przed mrozem i zrób zapas na dni, gdy drogi są oblodzone."
+lastChecked: 2026-10-19
+watch: []

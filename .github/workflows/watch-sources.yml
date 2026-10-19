@@ -1,0 +1,77 @@
+# Weekly watch on the sources behind the local guides (Mondays 07:15 UK summer time / 06:15 GMT).
+#   1. npm run check:sources: every quoted fact still on its source page; register pages,
+#      GOV.UK pages and datasets checked for changes. One GitHub issue per problem, labelled
+#      source-watch; an issue already open with the same title is not duplicated.
+#   2. Outside links across the whole built site; one "broken outside links" issue if any fail.
+# Commits nothing, so it never triggers a Cloudflare deploy. Needs no secrets.
+# Run by hand: Actions → Watch sources → Run workflow.
+# Plan: plans/2026-10-14-local-pages-automation.md
+
+name: Watch sources
+
+on:
+  schedule:
+    - cron: '15 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Check sources
+        id: sources
+        # Exit 1 just means "found something"; the next step turns that into issues.
+        run: npm run check:sources -- --json --out report.json || test $? -eq 1
+
+      - name: Open issues for problems
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: node scripts/watch-issues.mjs report.json
+
+      - name: Build (for the outside-link check)
+        run: npm run build
+
+      - name: Outside links
+        id: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          lycheeVersion: v0.24.2
+          # Amazon blocks link checkers, and many sites answer bots with 403/429: treated as fine.
+          args: >-
+            --no-progress
+            --root-dir ${{ github.workspace }}/dist
+            --index-files index.html
+            --exclude 'amazon\.co\.uk|amzn\.(to|eu)'
+            --accept '200..=299,403,429'
+            --max-concurrency 4 --max-retries 2 --timeout 30
+            'dist/**/*.html'
+          output: lychee/out.md
+          fail: false
+
+      - name: Issue for broken outside links
+        if: steps.lychee.outputs.exit_code != '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          title="[links] Broken outside links on the site"
+          gh label create source-watch --color CF5F33 --description "A local guide source changed or needs checking" 2>/dev/null || true
+          if gh issue list --state open --label source-watch --search "in:title \"$title\"" --json title --jq '.[].title' | grep -qxF "$title"; then
+            echo "Already open: $title"
+          else
+            head -c 60000 lychee/out.md > lychee/body.md   # GitHub caps issue bodies at 65,536 characters
+            gh issue create --title "$title" --label source-watch --body-file lychee/body.md
+          fi

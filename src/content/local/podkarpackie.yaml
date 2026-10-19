@@ -1,0 +1,129 @@
+draft: false
+name: "Podkarpacie"
+searchName: "Podkarpacie"
+answer: "Na Podkarpaciu najgroźniejsze są gwałtowne wezbrania rzek, osuwiska i śnieżne zimy w Bieszczadach. Oto praktyczny plan dla Twojego domu."
+description: "Wezbrania Sanu i Wisłoka, osuwiska, śnieżyce i wichury na Podkarpaciu. Operatorzy, numery alarmowe i plan na 30 minut dla domu."
+lrf:
+  name: "Podkarpacki Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-podkarpacki"
+  source:
+    url: "https://www.gov.pl/web/uw-podkarpacki"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Podkarpacki Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa podkarpackiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-podkarpacki"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-podkarpacki"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Wezbrania Sanu i Wisłoka"
+    rating: "Bardzo wysokie"
+    atHome: "Po ulewach w Karpatach San, Wisłok i Wisłoka bardzo szybko zalewają doliny w okolicach Przemyśla i Jasła."
+    firstAction: "Sprawdzaj stany wód Sanu i Wisłoka na stronie IMGW, a dokumenty trzymaj w jednym pojemniku, który łatwo zabrać."
+    source:
+      url: "https://isok.gov.pl/hydroportal.html"
+      manual: true
+      checked: 2026-10-19
+      title: "Mapy zagrożenia powodziowego (ISOK), Podkarpacie"
+  - name: "Osuwiska w Bieszczadach i Beskidzie"
+    rating: "Wysokie"
+    atHome: "Po długich deszczach strome, rozmoknięte stoki Bieszczadów mogą się osuwać i niszczyć drogi oraz budynki."
+    firstAction: "Po kilku dniach deszczu sprawdzaj, czy ziemia wokół domu nie pęka i się nie przesuwa. Niepokojące zmiany zgłaszaj w gminie."
+    source:
+      url: "https://www.gov.pl/web/rcb"
+      manual: true
+      checked: 2026-10-19
+      title: "Osuwiska, komunikaty RCB, Podkarpacie"
+  - name: "Śnieżyce i siarczysty mróz"
+    rating: "Wysokie"
+    atHome: "W Bieszczadach zima bywa długa i mroźna, a zaspy potrafią na kilka dni odciąć wsie."
+    firstAction: "Opał i zapasy zgromadź jesienią, a w czasie mrozu i zawiei nie wyjeżdżaj w góry bez potrzeby."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (śnieg, mróz), Podkarpacie"
+  - name: "Wichury w dolinach"
+    rating: "Wysokie"
+    atHome: "Wiatr wiejący z gór łamie drzewa przy drogach i zrywa linie w rozległych, zalesionych gminach."
+    firstAction: "Po ostrzeżeniu IMGW schowaj luźne rzeczy z podwórka i przygotuj latarki na wieczór bez prądu."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (wiatr), Podkarpacie"
+  - name: "Przerwy w prądzie"
+    rating: "Średnie"
+    atHome: "Po śnieżycy czy wichurze naprawa linii w górskich i wiejskich gminach trwa dłużej niż w mieście."
+    firstAction: "Trzymaj w domu radio na baterie, bo w górach razem z prądem często znika zasięg."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie, PGE Dystrybucja, Podkarpacie"
+power:
+  - operator: "PGE Dystrybucja"
+    register: "zgłoszenie u PGE Dystrybucja osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://www.gkpge.pl/dystrybucja"
+    phone: "991"
+    source:
+      url: "https://www.gkpge.pl/dystrybucja"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "MPWiK Rzeszów"
+    covers: "Rzeszów i okoliczne gminy"
+    url: "https://mpwik.rzeszow.pl/"
+    phone: "994"
+    source:
+      url: "https://mpwik.rzeszow.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Powódź nad Sanem"
+    date: "Maj 2010"
+    summary: "Ulewy w Karpatach podniosły poziom Sanu i Wisłoka. Woda zalała miejscowości w dolinach, a część mieszkańców ewakuowano."
+    source:
+      url: "https://pl.wikipedia.org/wiki/Pow%C3%B3d%C5%BA_w_Polsce_(2010)"
+      manual: true
+      checked: 2026-10-19
+      title: "Powódź w Polsce (2010), Podkarpacie"
+  - name: "Osuwiska po ulewach"
+    date: "Lato 2010"
+    summary: "Długie, intensywne opady uruchomiły w Karpatach wiele osuwisk, które zniszczyły domy i drogi w regionie."
+    source:
+      url: "https://www.gov.pl/web/rcb"
+      manual: true
+      checked: 2026-10-19
+      title: "Osuwiska, komunikaty RCB, Podkarpacie"
+councils:
+  text: "w górskich gminach pierwszą pomoc organizuje wójt lub burmistrz, a w powiatach starostwo."
+  source:
+    url: "https://www.gov.pl/web/uw-podkarpacki"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miasta Rzeszowa"
+    url: "https://rzeszow.pl/"
+  - label: "Podkarpacki Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-podkarpacki"
+radio:
+  text: "Polskie Radio Rzeszów dociera do górskich gmin także wtedy, gdy nie działa sieć komórkowa"
+  source:
+    url: "https://www.radio.rzeszow.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [flood, cold, storm, power, water]
+planNotes:
+  flood: "San i Wisłok wzbierają bardzo szybko. Trzymaj dokumenty gotowe do zabrania i ustal, którędy dojdziecie wyżej."
+  cold: "Bieszczadzka zima potrafi odciąć wieś na kilka dni, więc opał i zapasy warto zgromadzić jesienią."
+  storm: "Wiatr z gór łamie drzewa przy drogach. Po ostrzeżeniu IMGW zostańcie w domu."
+  power: "W górskich gminach na naprawę linii czeka się dłużej niż w mieście."
+  water: "W Rzeszowie awarię wodociągu zgłosisz pod 994."
+lastChecked: 2026-10-19
+watch: []

@@ -1,0 +1,175 @@
+---
+// "Twelve pages" showcase. Page previews from the v1.0.1 PDF live in /public/img/pack-page-NN.png.
+// Full A4 sheets rendered at display size only (240px wide) so they can't stand in for the paid PDF.
+// Mobile: native swipe with snap. Desktop: the stage pins and scrolling moves the pages sideways.
+// Styles: "Pack carousel" in src/styles/global.css.
+const PAGES = [
+  { n: '01', title: 'Okładka', alt: 'Okładka domowego planu na sytuacje kryzysowe Co gdyby' },
+  { n: '02', title: 'Jak korzystać z pakietu', alt: 'Strona 2: jak korzystać z pakietu' },
+  { n: '03', title: 'W sytuacji kryzysowej', alt: 'Strona 3: w sytuacji kryzysowej, z oficjalnymi radami i najważniejszymi numerami' },
+  { n: '04', title: 'Kto tu mieszka', alt: 'Strona 4: kto tu mieszka, z listą wszystkich domowników' },
+  { n: '05', title: 'Osoby do kontaktu', alt: 'Strona 5: osoby do kontaktu' },
+  { n: '06', title: 'Gdzie się spotykamy', alt: 'Strona 6: gdzie się spotykamy, jeśli trzeba opuścić dom' },
+  { n: '07', title: 'Media i zawory', alt: 'Strona 7: media i zawory' },
+  { n: '08', title: 'Lista do plecaka ewakuacyjnego', alt: 'Strona 8: lista do plecaka ewakuacyjnego z polami do odhaczenia' },
+  { n: '09', title: 'Leki i dokumenty', alt: 'Strona 9: leki i dokumenty' },
+  { n: '10', title: 'Prąd i sprzęt medyczny', alt: 'Strona 10: plan na przerwę w prądzie dla osób korzystających ze sprzętu medycznego' },
+  { n: '11', title: 'Mój plan rodzinny', alt: 'Strona 11: mój plan rodzinny, strona dla dzieci' },
+  { n: '12', title: 'Karty ICE', alt: 'Strona 12: karty ICE do wycięcia i noszenia w portfelu' },
+];
+const TOTAL = String(PAGES.length).padStart(2, '0');
+---
+<section class="pack" id="pack" data-pack aria-labelledby="pack-title">
+  <div class="pack-stage">
+    <div class="section-head">
+      <h2 id="pack-title">12 stron do wypełnienia</h2>
+      <span class="fig">Rys. 1. Wszystkie strony pakietu</span>
+    </div>
+
+    <div class="pack-viewport" tabindex="0" role="region" aria-roledescription="carousel" aria-label="12 stron pakietu. Użyj strzałek, żeby przechodzić między stronami.">
+      <ol class="pack-rail">
+        {PAGES.map((p) => (
+          <li class="pack-item">
+            <figure>
+              <img src={`/img/pack-page-${p.n}.png`} width="240" height="339" loading="lazy" decoding="async" draggable="false" alt={p.alt} />
+              <figcaption><span class="pack-num">{p.n}</span><span>{p.title}</span></figcaption>
+            </figure>
+          </li>
+        ))}
+      </ol>
+    </div>
+
+    <div class="pack-foot">
+      <p class="pack-lede">Strony drukujesz na domowej drukarce i wypełniasz ręcznie. W pakiecie jest też karta na lodówkę, karty ICE i strona dla dzieci.</p>
+      <div class="pack-controls">
+        <span class="pack-count"><b data-pack-current>01</b> / {TOTAL}</span>
+        <span class="pack-progress" aria-hidden="true"><i data-pack-bar></i></span>
+        <button class="pack-btn" type="button" data-pack-prev aria-label="Poprzednia strona" disabled>
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 10H4M9 5l-5 5 5 5" /></svg>
+        </button>
+        <button class="pack-btn" type="button" data-pack-next aria-label="Następna strona">
+          <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" /></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  // GSAP is only needed for the DESKTOP pinned/scrubbed effect (>=900px, motion allowed).
+  // Mobile + reduced-motion use native scroll-snap, so GSAP is loaded lazily and only when
+  // the desktop effect will actually run — the mobile Lighthouse run downloads no GSAP at all.
+  const root = document.querySelector<HTMLElement>('[data-pack]');
+
+  if (root) {
+    const stage = root.querySelector<HTMLElement>('.pack-stage')!;
+    const viewport = root.querySelector<HTMLElement>('.pack-viewport')!;
+    const rail = root.querySelector<HTMLElement>('.pack-rail')!;
+    const items = Array.from(rail.children) as HTMLElement[];
+    const current = root.querySelector<HTMLElement>('[data-pack-current]')!;
+    const bar = root.querySelector<HTMLElement>('[data-pack-bar]')!;
+    const prev = root.querySelector<HTMLButtonElement>('[data-pack-prev]')!;
+    const next = root.querySelector<HTMLButtonElement>('[data-pack-next]')!;
+    const last = items.length - 1;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+    // Set by the desktop pin once GSAP has loaded; null means we're in native-scroll mode.
+    let pin: any = null;
+    let active = -1;
+
+    // Progress 0->1 across the rail. At progress i/last, page i sits at the focal point,
+    // so rounding gives the page the reader is looking at.
+    function sync(progress: number) {
+      const p = Math.min(Math.max(progress, 0), 1);
+      bar.style.transform = `scaleX(${p})`;
+      const i = Math.round(p * last);
+      if (i === active) return;
+      active = i;
+      items.forEach((el, k) => el.classList.toggle('is-active', k === i));
+      current.textContent = String(i + 1).padStart(2, '0');
+      prev.disabled = i === 0;
+      next.disabled = i === last;
+    }
+
+    // Swipe mode (mobile, reduced motion).
+    function onSwipe() {
+      if (pin) return;
+      const max = viewport.scrollWidth - viewport.clientWidth;
+      sync(max > 0 ? viewport.scrollLeft / max : 0);
+    }
+    viewport.addEventListener('scroll', onSwipe, { passive: true });
+
+    function go(index: number) {
+      const i = Math.min(Math.max(index, 0), last);
+      const behavior: ScrollBehavior = reduced.matches ? 'auto' : 'smooth';
+      if (pin) {
+        window.scrollTo({ top: pin.start + (pin.end - pin.start) * (i / last), behavior });
+      } else {
+        const gutter = parseFloat(getComputedStyle(rail).paddingLeft) || 0;
+        viewport.scrollTo({ left: items[i].offsetLeft - gutter, behavior });
+      }
+    }
+    prev.addEventListener('click', () => go(active - 1));
+    next.addEventListener('click', () => go(active + 1));
+    viewport.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') { e.preventDefault(); go(active + 1); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); go(active - 1); }
+    });
+
+    // Pinned, scroll-driven mode (desktop, motion allowed) — GSAP loaded on demand.
+    const desktopMotion = window.matchMedia('(min-width: 900px) and (prefers-reduced-motion: no-preference)');
+
+    function initPin() {
+      Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(([gsapMod, stMod]) => {
+        const gsap = gsapMod.default;
+        const ScrollTrigger = stMod.ScrollTrigger;
+        gsap.registerPlugin(ScrollTrigger);
+
+        const mm = gsap.matchMedia();
+        mm.add('(min-width: 900px) and (prefers-reduced-motion: no-preference)', () => {
+          root.classList.add('is-pinned');
+          viewport.scrollLeft = 0;
+          const distance = () => Math.max(0, rail.offsetWidth - viewport.clientWidth);
+
+          const tween = gsap.to(rail, {
+            x: () => -distance(),
+            ease: 'none',
+            onUpdate: function () { sync(this.progress()); },
+            scrollTrigger: {
+              trigger: stage,
+              start: 'top top',
+              end: () => `+=${distance()}`,
+              pin: true,
+              scrub: 0.6,
+              refreshPriority: 1,
+              invalidateOnRefresh: true,
+            },
+          });
+          pin = tween.scrollTrigger ?? null;
+          sync(0);
+
+          return () => {
+            pin = null;
+            root.classList.remove('is-pinned');
+            gsap.set(rail, { clearProps: 'transform' });
+            onSwipe();
+          };
+        });
+      });
+    }
+
+    if (desktopMotion.matches) {
+      // Defer to idle so GSAP never sits on the critical path.
+      if ('requestIdleCallback' in window) requestIdleCallback(initPin, { timeout: 2500 });
+      else window.addEventListener('load', () => setTimeout(initPin, 300));
+    } else {
+      // Only pull GSAP in if the viewport later crosses into desktop-with-motion.
+      const onChange = (e: MediaQueryListEvent) => {
+        if (e.matches) { desktopMotion.removeEventListener('change', onChange); initPin(); }
+      };
+      desktopMotion.addEventListener('change', onChange);
+    }
+
+    sync(0);
+  }
+</script>

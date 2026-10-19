@@ -1,0 +1,170 @@
+---
+// One component, every Early Access placement. Renders nothing once Early Access is closed or disabled,
+// except "results", which moves to the early-bird price, then full price, instead of disappearing.
+// variant: "bar" (site-wide, above header) | "guide" (end of blog posts) | "card" (homepage final CTA)
+//          | "inline" (single line, e.g. free sample page) | "footer" (footer link)
+//          | "results" (quiz results page; copy is set per score band by results.astro)
+import { EA, EARLY_BIRD, eaIsOpen, eaPhase, eaHref, EA_GUIDE_TOPICS } from "../config/earlyAccess";
+
+const { variant = "inline", slug } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, "");
+const onEAPage = path === EA.URL;
+const show = eaIsOpen() && !(onEAPage && variant !== "footer");
+const topic = slug ? EA_GUIDE_TOPICS[slug] : undefined;
+
+// The quiz results card is the one placement that survives the close dates: it moves to the
+// early-bird price, then full price, instead of vanishing. Build-time values below, re-checked in
+// the browser so a stale static build still shows the right tier.
+const phase = eaPhase();
+const copy = {
+  ea: {
+    eyebrow: `Wczesny dostęp \u00b7 dla pierwszych ${EA.SEAT_CAP} rodzin`,
+    label: `Zobacz kurs za ${EA.PRICE}`,
+    note: `${EA.SEAT_CAP} miejsc \u00b7 zapisy do ${EA.CLOSE_LABEL} \u00b7 ${EA.REFUND_DAYS} dni na zwrot pieniędzy`,
+  },
+  eb: {
+    eyebrow: `Cena promocyjna \u00b7 ${EARLY_BIRD.SEAT_CAP} miejsc`,
+    label: `Zobacz kurs za ${EARLY_BIRD.PRICE}`,
+    note: `${EARLY_BIRD.PRICE} do ${EARLY_BIRD.CLOSE_LABEL}, potem ${EA.LIST_PRICE} \u00b7 ${EA.REFUND_DAYS} dni na zwrot pieniędzy`,
+  },
+  lp: {
+    eyebrow: `Kurs 30-dniowy \u00b7 zapisy otwarte`,
+    label: `Zobacz kurs za ${EA.LIST_PRICE}`,
+    note: `${EA.REFUND_DAYS} dni na zwrot pieniędzy \u00b7 dostęp od\u00a0razu`,
+  },
+};
+const now = phase === "launch" ? copy.lp : phase === "early-bird" ? copy.eb : copy.ea;
+---
+{show && variant === "bar" && (
+  <div class="ea-bar" data-ea-close={EA.CLOSE_ISO} role="region" aria-label="Ogłoszenie o wczesnym dostępie">
+    <a href={eaHref("bar")} data-ea-cta="bar">
+      <strong>Wczesny dostęp:</strong>{" "}kurs „{EA.NAME}”<span class="ea-long"> krok po kroku</span>. Dla pierwszych {EA.SEAT_CAP} rodzin {EA.PRICE}<span class="ea-muted">{" "}(po premierze {EA.LIST_PRICE})</span>. Zapisy do {EA.CLOSE_SHORT}{" "}<span aria-hidden="true">→</span>
+    </a>
+    <button type="button" class="ea-bar-x" aria-label="Zamknij ogłoszenie">×</button>
+  </div>
+)}
+
+{show && variant === "guide" && (
+  <div class="ea-guide" data-ea-close={EA.CLOSE_ISO}>
+    <span class="ea-eyebrow">Wczesny dostęp · dla pierwszych {EA.SEAT_CAP} rodzin</span>
+    <p class="ea-guide-head">{topic ? `Poradnik o ${topic} to dobry początek. Resztę domu przygotujesz krok po kroku.` : "Chcesz przygotować cały dom, krok po kroku?"}</p>
+    <p class="ea-guide-body">W kursie <strong>„{EA.NAME}”</strong> co tydzień zajmujesz się jednym tematem: wodą, ciepłem, jedzeniem, łącznością i planem dla rodziny. We wczesnym dostępie {EA.PRICE}{" "}<s>{EA.LIST_PRICE}</s>, zapisy do {EA.CLOSE_LABEL}.</p>
+    <a class="ea-link" href={eaHref(`guide-${slug ?? "post"}`)} data-ea-cta={`guide-${slug ?? "post"}`}>Zobacz kurs{" "}<span aria-hidden="true">→</span></a>
+  </div>
+)}
+
+{show && variant === "card" && (
+  <div class="ea-card" data-ea-close={EA.CLOSE_ISO}>
+    <p class="ea-card-head">Wolisz przejść przez to z przewodnikiem?</p>
+    <p class="ea-card-body">„{EA.NAME}” to 30-dniowy kurs, w którym przygotowujesz dom po jednym kroku w tygodniu. Dla pierwszych {EA.SEAT_CAP} rodzin {EA.PRICE}{" "}<s>{EA.LIST_PRICE}</s>, zapisy do {EA.CLOSE_SHORT}.</p>
+    <a class="ea-link" href={eaHref("home")} data-ea-cta="home">Zobacz kurs{" "}<span aria-hidden="true">→</span></a>
+  </div>
+)}
+
+{show && variant === "inline" && (
+  <p class="ea-inline" data-ea-close={EA.CLOSE_ISO}>
+    Wolisz zrobić to z przewodnikiem? Kurs <a class="ea-link" href={eaHref("free-sample")} data-ea-cta="free-sample">„{EA.NAME}”</a> prowadzi przez wszystko krok po kroku. We wczesnym dostępie {EA.PRICE}, zapisy do {EA.CLOSE_SHORT}.
+  </p>
+)}
+
+{EA.ENABLED && variant === "results" && (
+  <div
+    class="q-card q-course"
+    data-ea-results
+    data-ea-close-iso={EA.CLOSE_ISO}
+    data-eb-close-iso={EARLY_BIRD.CLOSE_ISO}
+    data-ea-eyebrow-eb={copy.eb.eyebrow}
+    data-ea-label-eb={copy.eb.label}
+    data-ea-note-eb={copy.eb.note}
+    data-ea-eyebrow-lp={copy.lp.eyebrow}
+    data-ea-label-lp={copy.lp.label}
+    data-ea-note-lp={copy.lp.note}
+  >
+    <p class="q-course__strip"><span class="eyebrow" data-ea-eyebrow>{now.eyebrow}</span></p>
+    <div class="q-course__body">
+      <h2 data-ea-heading>Wolisz przejść przez to z przewodnikiem?</h2>
+      <p data-ea-text>W kursie „{EA.NAME}” co tydzień zajmujesz się jednym tematem: wodą, ciepłem, jedzeniem, łącznością i planem dla rodziny.</p>
+      <div class="q-actions">
+        <a class="btn btn-accent" href={eaHref("quiz")} data-ea-link data-ea-cta="quiz">{now.label}</a>
+      </div>
+      <p class="q-course__note" data-ea-note>{now.note}</p>
+    </div>
+  </div>
+)}
+
+{show && variant === "footer" && (
+  <a href={eaHref("footer")} data-ea-close={EA.CLOSE_ISO} data-ea-cta="footer">Kurs „Gotowi w 30 dni”</a>
+)}
+
+<script>
+  // Hide every promo once the close date passes — works on a stale static build too.
+  document.querySelectorAll<HTMLElement>("[data-ea-close]").forEach((el) => {
+    const close = new Date(el.dataset.eaClose || "").getTime();
+    if (close && Date.now() >= close) el.remove();
+  });
+  // Quiz results card: swap to early-bird wording after the Early Access close, then to full-price
+  // wording after the early-bird close, so a static build deployed earlier still prices itself correctly.
+  document.querySelectorAll<HTMLElement>("[data-ea-results]").forEach((el) => {
+    const eaClose = new Date(el.dataset.eaCloseIso || "").getTime();
+    const ebClose = new Date(el.dataset.ebCloseIso || "").getTime();
+    const now = Date.now();
+    const tier = ebClose && now >= ebClose ? "Lp" : eaClose && now >= eaClose ? "Eb" : "";
+    if (!tier) return;
+    const swap = (sel: string, value?: string) => {
+      const node = el.querySelector(sel);
+      if (node && value) node.textContent = value;
+    };
+    swap("[data-ea-eyebrow]", el.dataset[`eaEyebrow${tier}`]);
+    swap("[data-ea-link]", el.dataset[`eaLabel${tier}`]);
+    swap("[data-ea-note]", el.dataset[`eaNote${tier}`]);
+  });
+
+  // Dismissible top bar (per-browser; safe if storage is blocked).
+  const bar = document.querySelector<HTMLElement>(".ea-bar");
+  if (bar) {
+    const key = "pah-ea-bar-dismissed";
+    try { if (localStorage.getItem(key)) bar.remove(); } catch {}
+    bar.querySelector(".ea-bar-x")?.addEventListener("click", () => {
+      bar.remove();
+      try { localStorage.setItem(key, "1"); } catch {}
+    });
+  }
+</script>
+
+<style>
+  .ea-bar { position: relative; background: var(--ink); color: var(--paper); font-family: var(--body); font-size: 13.5px; line-height: 1.4; text-align: center; padding: 10px 48px; }
+  .ea-bar a { color: var(--paper); text-decoration: none; }
+  .ea-bar a:hover { color: var(--action-2); }
+  .ea-bar strong { color: var(--action-2); font-weight: 600; }
+  .ea-bar .ea-muted { opacity: .7; }
+  .ea-bar-x { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: 0; color: var(--paper); opacity: .7; font-size: 20px; line-height: 1; width: 44px; height: 44px; cursor: pointer; }
+  .ea-bar-x:hover { opacity: 1; }
+  /* Phones: sticky bar must stay slim — drop the list-price aside so it fits on ~2 lines. */
+  @media (max-width: 560px) { .ea-bar { font-size: 12.5px; padding: 8px 44px 8px 14px; text-align: left; } .ea-bar .ea-muted { display: none; } .ea-bar-x { right: 2px; } }
+  /* Narrowest phones: drop the descriptor so the bar stays at two lines. */
+  @media (max-width: 359px) { .ea-bar .ea-long { display: none; } }
+
+  .ea-link { color: #AD4C28; font-weight: 600; text-decoration: none; }
+  .ea-link:hover { text-decoration: underline; }
+  s { opacity: .75; }
+
+  .ea-guide { margin-top: 16px; padding: 24px 32px 26px; border: 1px dashed var(--hair); border-radius: var(--r-lg); background: var(--paper-2); }
+  .ea-eyebrow { display: block; font-family: var(--mono); font-size: 11.5px; line-height: 1.4; letter-spacing: .06em; text-transform: uppercase; color: #AD4C28; }
+  .ea-guide-head { font-family: var(--disp); font-weight: 600; font-size: 19px; line-height: 1.3; letter-spacing: -0.01em; margin: 8px 0 6px; text-wrap: balance; }
+  @media (max-width: 480px) { .ea-guide { padding: 22px 20px 24px; } }
+  .ea-guide-body { font-size: 15px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 10px; }
+
+  /* Sits inside the terracotta .final panel: inherit its dark on-action text (#161310, 4.7:1 on #CF5F33).
+     Brand orange / warm grey text would fail contrast here (1.4:1 / 1.9:1). */
+  .ea-card { margin: 40px auto 0; padding-top: 30px; border-top: 1px solid rgba(22, 19, 16, .28); max-width: 560px; color: inherit; }
+  .ea-card .ea-card-head { font-family: var(--disp); font-weight: 500; font-size: clamp(27px, 4.2vw, 34px); line-height: 1.12; letter-spacing: -0.02em; color: inherit; max-width: none; margin: 0 auto 14px; text-align: center; text-wrap: balance; }
+  .ea-card .ea-card-body { font-size: 15.5px; line-height: 1.6; color: inherit; margin: 0 auto 16px; max-width: 480px; }
+  .ea-card s { opacity: .8; }
+  .ea-card .ea-link { color: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+  .ea-card .ea-link:hover { text-decoration-thickness: 2.5px; }
+
+  /* Quiz results course card: all layout lives in quiz.css (.q-course), next to the other
+     cards on that page, so the two stay in step. */
+
+  .ea-inline { text-align: center; font-size: 15px; color: var(--ink-soft); margin: 24px auto 0; max-width: 600px; }
+</style>

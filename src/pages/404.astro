@@ -1,0 +1,24 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+---
+<BaseLayout title="Nie znaleziono strony | Co gdyby" description="Strona, której szukasz, nie istnieje.">
+<main id="main">
+  <div class="article" style="text-align:center; padding-top:96px; padding-bottom:96px;">
+    <span class="eyebrow">404</span>
+    <h1 style="font-size:clamp(36px,7vw,44px); margin-bottom:16px;">Nie znaleziono strony</h1>
+    <p style="font-size:17px; line-height:1.6; color:var(--ink-soft); max-width:440px; margin:0 auto 32px;">Strona, której szukasz, została przeniesiona lub nie istnieje. Oto kilka miejsc, od których możesz zacząć:</p>
+    <div class="nf-actions">
+      <a class="btn btn-primary" href="/">Wróć na stronę główną</a>
+      <a class="btn btn-outline" href="/blog/">Przeczytaj nasze poradniki</a>
+    </div>
+    <p class="nf-more">Możesz też rozwiązać <a href="/household-preparedness-quiz/">krótki quiz</a>, policzyć zapasy w <a href="/kit/">kalkulatorze</a> albo pobrać <a href="/free-emergency-plan-template/">darmową kartę na lodówkę</a>.</p>
+  </div>
+</main>
+<style>
+  .nf-more { margin: 28px auto 0; max-width: 440px; font-size: 15.5px; line-height: 1.6; color: var(--ink-soft); text-wrap: balance; }
+  .nf-more a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
+  .nf-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  /* Phones: stacked, one shared width */
+  @media (max-width: 440px) { .nf-actions { flex-direction: column; align-items: stretch; max-width: 300px; margin: 0 auto; } }
+</style>
+</BaseLayout>

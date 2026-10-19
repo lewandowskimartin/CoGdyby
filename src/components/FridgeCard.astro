@@ -1,0 +1,20 @@
+---
+// Fridge card preview: the real free sample (Prepared-at-Home-Fridge-Card-v1.0.1), rendered from the
+// PDF to /img/fridge-card-v101-340.webp. The card is gated behind the email signup, so this is a
+// deliberately low-res 1x preview (340px = the slot's max width), like the pack-page previews.
+// NEVER ship a 2x/3x or full-size render here: it would hand out the card without the signup.
+// Full A-size sheet (white margin + sand card), so it reads as the printed page — same as the pack carousel.
+// Sits in the "Photo variants" shell from global.css (.card-mock--photo); A-series ratio matches .card-mock.
+interface Props { alt?: string; loading?: "lazy" | "eager" }
+const { loading = "lazy", alt = "Karta na lodówkę Co gdyby: co robić, gdy zagrożenie jest na zewnątrz lub w domu, miejsce na adres, punkty spotkań, kluczowe kontakty oraz lokalizacje głównego zaworu wody, zaworu gazu i skrzynki bezpieczników, a także najważniejsze numery alarmowe" } = Astro.props;
+---
+<div class="card-mock card-mock-lg card-mock--photo">
+  <img
+    src="/img/fridge-card-v101-340.webp"
+    width="340" height="481"
+    draggable="false"
+    alt={alt}
+    loading={loading} decoding="async"
+  />
+</div>
+

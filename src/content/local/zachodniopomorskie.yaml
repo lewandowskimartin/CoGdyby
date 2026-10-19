@@ -1,0 +1,121 @@
+draft: false
+name: "Pomorze Zachodnie"
+searchName: "Pomorze Zachodnie"
+answer: "Na Pomorzu Zachodnim najgroźniejsze są sztormy znad Bałtyku i oblodzenie linii, które w 2008 roku odcięło prąd setkom tysięcy osób. Zobacz, co to oznacza dla domu i jak się przygotować."
+description: "Sztormy, blackout po oblodzeniu linii, cofka na Zalewie Szczecińskim i przerwy w prądzie. Operatorzy, numery i plan na 30 minut dla domu."
+lrf:
+  name: "Zachodniopomorski Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)"
+  url: "https://www.gov.pl/web/uw-zachodniopomorski"
+  source:
+    url: "https://www.gov.pl/web/uw-zachodniopomorski"
+    manual: true
+    checked: 2026-10-19
+    title: "Wojewódzkie Centrum Zarządzania Kryzysowego, Zachodniopomorski Urząd Wojewódzki"
+register:
+  title: "Zagrożenia dla województwa zachodniopomorskiego (zarządzanie kryzysowe)"
+  edition: "Stan na październik 2026"
+  url: "https://www.gov.pl/web/uw-zachodniopomorski"
+  system: unrated
+  source:
+    url: "https://www.gov.pl/web/uw-zachodniopomorski"
+    manual: true
+    checked: 2026-10-19
+risks:
+  - name: "Sztormy i wichury od Bałtyku"
+    rating: "Bardzo wysokie"
+    atHome: "Wiatr od morza i Zalewu Szczecińskiego potrafi zrywać dachy w Szczecinie i Świnoujściu oraz spiętrzać wodę u ujścia Odry."
+    firstAction: "W czasie ostrzeżenia przed sztormem trzymaj się z dala od portu i brzegu Zalewu, zdejmij rzeczy z balkonu i przygotuj latarki."
+    source:
+      url: "https://hydro.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (sztorm), Pomorze Zachodnie"
+  - name: "Rozległy blackout po oblodzeniu"
+    rating: "Wysokie"
+    atHome: "8 kwietnia 2008 roku mokry śnieg oblepił linie i powalił słupy wysokiego napięcia. Bez prądu zostało ponad 500 tysięcy osób, część z nich na ponad dobę."
+    firstAction: "Od jesieni do wiosny trzymaj w gotowości latarkę, power bank, radio i koce. Awarię zgłosisz pod 991."
+    source:
+      url: "https://www.gramwzielone.pl/trendy/102789/blackout-co-oznacza-najglosniejsze-przypadki-i-jak-sie-przed-nim-ochronic"
+      manual: true
+      checked: 2026-10-19
+      title: "Blackout – najgłośniejsze przypadki (Gramwzielone.pl)"
+  - name: "Spiętrzenia sztormowe i podtopienia"
+    rating: "Wysokie"
+    atHome: "Gdy silny wiatr od morza cofa wodę w Odrze (tzw. cofka), podtapiane są nisko położone osiedla i Międzyodrze."
+    firstAction: "Jeśli mieszkasz nisko przy wodzie, sprawdź mapę w Hydroportalu ISOK i obserwuj ostrzeżenia IMGW przed spiętrzeniem."
+    source:
+      url: "https://isok.gov.pl/hydroportal.html"
+      manual: true
+      checked: 2026-10-19
+      title: "Mapy zagrożenia powodziowego (ISOK), Pomorze Zachodnie"
+  - name: "Przerwy w prądzie"
+    rating: "Wysokie"
+    atHome: "Po sztormie albo oblodzeniu linii nadmorskie i wiejskie gminy mogą na wiele godzin zostać bez prądu."
+    firstAction: "Pilnuj, żeby power bank był zawsze naładowany, a latarki miały baterie. Awarię zgłosisz pod 991."
+    source:
+      url: "https://www.operator.enea.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie, Enea Operator, Pomorze Zachodnie"
+  - name: "Mróz i śnieżyce"
+    rating: "Średnie"
+    atHome: "Wilgotny chłód i oblodzenie linii energetycznych to tu realne zagrożenie, co pokazał 2008 rok."
+    firstAction: "Jesienią zaizoluj rury i zrób zapas jedzenia, bo po oblodzeniu linii prąd może wracać długo."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (mróz, śnieg), Pomorze Zachodnie"
+power:
+  - operator: "Enea Operator"
+    register: "zgłoszenie u Enea Operator osoby zależnej od prądu (urządzenia medyczne)"
+    url: "https://www.operator.enea.pl/"
+    phone: "991"
+    source:
+      url: "https://www.operator.enea.pl/"
+      manual: true
+      checked: 2026-10-19
+water:
+  - company: "ZWiK Szczecin"
+    covers: "Szczecin i okoliczne gminy"
+    url: "https://zwik.szczecin.pl/"
+    phone: "994"
+    source:
+      url: "https://zwik.szczecin.pl/"
+      manual: true
+      checked: 2026-10-19
+pastEvents:
+  - name: "Blackout w Szczecinie"
+    date: "Kwiecień 2008"
+    summary: "Mokry śnieg i silny wiatr uszkodziły linie i słupy wysokiego napięcia pod Szczecinem. Bez prądu zostało ponad 500 tysięcy osób w mieście i okolicach."
+    source:
+      url: "https://www.gramwzielone.pl/trendy/102789/blackout-co-oznacza-najglosniejsze-przypadki-i-jak-sie-przed-nim-ochronic"
+      manual: true
+      checked: 2026-10-19
+      title: "Blackout – najgłośniejsze przypadki (Gramwzielone.pl)"
+councils:
+  text: "Urząd Miasta Szczecin, nadmorskie gminy i starostwa powiatowe koordynują działania na swoim terenie."
+  source:
+    url: "https://www.gov.pl/web/uw-zachodniopomorski"
+    manual: true
+    checked: 2026-10-19
+councilPages:
+  - label: "Urząd Miasta Szczecin"
+    url: "https://www.szczecin.eu/"
+  - label: "Zachodniopomorski Urząd Wojewódzki"
+    url: "https://www.gov.pl/web/uw-zachodniopomorski"
+radio:
+  text: "Radio Szczecin przekazuje ostrzeżenia przed sztormem również wtedy, gdy nie działa sieć komórkowa"
+  source:
+    url: "https://radioszczecin.pl/"
+    manual: true
+    checked: 2026-10-19
+planOrder: [storm, power, flood, water, cold]
+planNotes:
+  storm: "Wiatr od morza i Zalewu Szczecińskiego bywa tu najgroźniejszy. W czasie ostrzeżenia trzymaj się z dala od brzegu i portu."
+  power: "W 2008 roku oblodzenie odcięło prąd całemu Szczecinowi. Zimą miej naładowany power bank i latarki, a awarię zgłoś pod 991."
+  flood: "Cofka i wysoka Odra zalewają Międzyodrze i nisko położone osiedla. Sprawdź swój adres w Hydroportalu ISOK."
+  water: "W Szczecinie i okolicy awarię wodociągu zgłosisz pod 994."
+  cold: "Wilgotny mróz oblodza linie. Zaizoluj rury i przygotuj zapas na wypadek dłuższej przerwy w prądzie."
+lastChecked: 2026-10-19
+watch: []

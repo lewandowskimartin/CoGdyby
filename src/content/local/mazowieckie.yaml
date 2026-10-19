@@ -1,0 +1,148 @@
+draft: false
+name: Mazowsze
+searchName: Mazowsze
+answer: Na Mazowszu i w Warszawie najczęściej dokuczają wichury, przerwy w prądzie i upały. Dom przygotujesz w kilku krokach opisanych niżej.
+description: Przerwy w prądzie, wichury, upały i wezbrania Wisły w Warszawie i na Mazowszu. Operatorzy, numery alarmowe i plan na 30 minut dla domu.
+
+lrf:
+  name: Mazowiecki Urząd Wojewódzki (Wojewódzkie Centrum Zarządzania Kryzysowego)
+  url: https://www.gov.pl/web/uw-mazowiecki
+  source:
+    url: https://www.gov.pl/web/uw-mazowiecki
+    manual: true
+    checked: 2026-10-19
+    title: WCZK Mazowieckiego Urzędu Wojewódzkiego
+
+register:
+  title: Zagrożenia dla województwa mazowieckiego (zarządzanie kryzysowe)
+  edition: Stan na październik 2026
+  url: https://www.gov.pl/web/uw-mazowiecki
+  system: unrated
+  source:
+    url: https://www.gov.pl/web/uw-mazowiecki
+    manual: true
+    checked: 2026-10-19
+
+risks:
+  - name: "Przerwy w prądzie w stolicy"
+    rating: "Wysokie"
+    atHome: "W Warszawie jedna awaria potrafi wyłączyć światło, windy i pompy w całych kwartałach bloków. W upale w 2015 roku wprowadzono ograniczenia poboru prądu dla dużych firm."
+    firstAction: "Jeśli mieszkasz w bloku, trzymaj w mieszkaniu latarkę i zapas wody. Awarię zgłosisz pod 991."
+    source:
+      url: "https://www.stoen.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Awarie, Stoen Operator, Mazowsze"
+  - name: "Wichury i letnie nawałnice"
+    rating: "Wysokie"
+    atHome: "Gwałtowny front burzowy łamie drzewa w parkach i przy drogach, zrywa sieć trakcyjną i linie od Warszawy po Płock."
+    firstAction: "Po ostrzeżeniu IMGW zabezpiecz balkon, a telefony i power banki naładuj jeszcze przed wieczorem."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (wiatr), Mazowsze"
+  - name: "Upał i miejska wyspa ciepła"
+    rating: "Wysokie"
+    atHome: "Nagrzane ulice i bloki Warszawy nie stygną w nocy. Długie upały są szczególnie trudne dla seniorów i małych dzieci."
+    firstAction: "W upał zasłaniaj okna w ciągu dnia, pamiętaj o piciu wody i dzwoń do starszych osób, które mieszkają same."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (upały), Mazowsze"
+  - name: "Wezbrania Wisły i Narwi"
+    rating: "Średnie"
+    atHome: "Wysoka woda na Wiśle i Narwi zagraża nadrzecznym dzielnicom i gminom pod Płockiem, jak podczas powodzi w 2010 roku."
+    firstAction: "Jeśli mieszkasz blisko rzeki, sprawdź mapę w Hydroportalu ISOK i ustalcie, co przenosicie wyżej w razie alarmu."
+    source:
+      url: "https://isok.gov.pl/hydroportal.html"
+      manual: true
+      checked: 2026-10-19
+      title: "Mapy zagrożenia powodziowego (ISOK), Mazowsze"
+  - name: "Mróz i śnieżyce"
+    rating: "Średnie"
+    atHome: "Gołoledź potrafi sparaliżować komunikację w aglomeracji, a mróz obciąża ogrzewanie w starszych budynkach."
+    firstAction: "Przed zimą zrób zapas jedzenia i leków na dni, gdy dojazd do pracy i sklepu jest utrudniony."
+    source:
+      url: "https://meteo.imgw.pl/"
+      manual: true
+      checked: 2026-10-19
+      title: "Ostrzeżenia IMGW (mróz, śnieg), Mazowsze"
+power:
+  - operator: Stoen Operator
+    register: zgłoszenie u Stoen Operator i PGE osoby zależnej od prądu (urządzenia medyczne)
+    url: https://www.stoen.pl/
+    phone: '991'
+    note: Stoen Operator odpowiada za sieć w Warszawie, a poza stolicą sieć prowadzi głównie PGE Dystrybucja.
+    source:
+      url: https://www.stoen.pl/
+      manual: true
+      checked: 2026-10-19
+  - operator: PGE Dystrybucja
+    register: zgłoszenie u Stoen Operator i PGE osoby zależnej od prądu (urządzenia medyczne)
+    url: https://www.gkpge.pl/dystrybucja
+    phone: '991'
+    note: Obsługuje większość Mazowsza poza Warszawą.
+    source:
+      url: https://www.gkpge.pl/dystrybucja
+      manual: true
+      checked: 2026-10-19
+
+water:
+  - company: Wodociągi Warszawskie (MPWiK w m.st. Warszawie)
+    covers: Warszawa i część gmin ościennych
+    url: https://www.mpwik.com.pl/
+    phone: '994'
+    source:
+      url: https://www.mpwik.com.pl/
+      manual: true
+      checked: 2026-10-19
+
+pastEvents:
+  - name: Powódź na Wiśle
+    date: Maj 2010
+    summary: Wysoka fala na Wiśle zagroziła Warszawie i zalała tereny w regionie, m.in. w okolicach Płocka. Część mieszkańców ewakuowano, a wały umacniano workami z piaskiem.
+    source:
+      url: https://pl.wikipedia.org/wiki/Pow%C3%B3d%C5%BA_w_Polsce_(2010)
+      manual: true
+      checked: 2026-10-19
+      title: Powódź w Polsce (2010)
+  - name: Ograniczenia w dostawie prądu (stopnie zasilania)
+    date: Sierpień 2015
+    summary: Upał i susza ograniczyły pracę elektrowni. Wprowadzono 20. stopień zasilania, czyli ograniczenia poboru prądu dla dużych odbiorców. To przykład, jak pogoda może obciążyć sieć.
+    source:
+      url: https://pl.wikipedia.org/wiki/Stopnie_zasilania
+      manual: true
+      checked: 2026-10-19
+      title: Stopnie zasilania (2015)
+
+councils:
+  text: zarządzaniem kryzysowym zajmują się gminy, miasta i starostwa powiatowe, każde na swoim terenie.
+  source:
+    url: https://www.gov.pl/web/uw-mazowiecki
+    manual: true
+    checked: 2026-10-19
+
+councilPages:
+  - label: Urząd m.st. Warszawy, bezpieczeństwo
+    url: https://um.warszawa.pl/
+  - label: Mazowiecki Urząd Wojewódzki
+    url: https://www.gov.pl/web/uw-mazowiecki
+
+radio:
+  text: Polskie Radio RDC i lokalne rozgłośnie nadają komunikaty, gdy nie działa prąd ani sieć komórkowa
+  source:
+    url: https://www.rdc.pl/
+    manual: true
+    checked: 2026-10-19
+
+planOrder: [power, storm, heat, flood, water]
+planNotes:
+  power: "W Warszawie siecią zarządza Stoen Operator, a poza stolicą głównie PGE. W obu przypadkach awarię zgłosisz pod 991."
+  storm: "Front burzowy zrywa sieć trakcyjną i linie, więc po ostrzeżeniu IMGW lepiej zostać w domu."
+  heat: "W mieście upał jest bardziej dokuczliwy. Wietrz rano i wieczorem i pamiętaj o starszych bliskich."
+  flood: "Wisła i Narew potrafią podtopić nadrzeczne dzielnice. Sprawdź swój adres w Hydroportalu ISOK."
+  water: "W Warszawie awarię wodociągu zgłosisz pod 994."
+lastChecked: 2026-10-19
+watch: []

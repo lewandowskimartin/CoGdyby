@@ -1,0 +1,34 @@
+# Fakty wspólne dla każdej strony /local/, każdy z dokładnymi słowami ze źródła.
+# `npm run check:sources` potwierdza, że słowa nadal tam są.
+# Schemat: localNational w src/content.config.ts.
+
+contacts:
+  - id: emergency
+    label: Numer alarmowy
+    number: '112'
+    source:
+      url: https://www.gov.pl/web/numer-alarmowy-112
+      quote: '112'
+      checked: 2026-10-19
+  - id: power-cut
+    label: Pogotowie energetyczne
+    number: '991'
+    source:
+      url: https://www.gov.pl/web/rcb
+      manual: true
+      checked: 2026-10-19
+      title: Pogotowie energetyczne 991
+  - id: gas
+    label: Pogotowie gazowe
+    number: '992'
+    source:
+      url: https://www.gov.pl/web/rcb
+      manual: true
+      checked: 2026-10-19
+      title: Pogotowie gazowe 992
+
+watch:
+  # Strona RCB — obserwuj zmiany komunikatów i poradników.
+  - kind: govuk
+    url: https://www.gov.pl/web/rcb
+    since: 2026-10-19
