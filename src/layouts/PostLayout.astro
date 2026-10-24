@@ -1,4 +1,5 @@
 ---
+import BuyButton from "../components/BuyButton.astro";
 import BaseLayout from './BaseLayout.astro';
 import EarlyAccessPromo from '../components/EarlyAccessPromo.astro';
 import QuizCta from '../components/QuizCta.astro';
@@ -69,7 +70,7 @@ const crumbsLd = {
     <div class="article-cta">
       <div class="box">
         <p>Cały rodzinny plan awaryjny na 12 stronach do wydruku.</p>
-        <a class="btn btn-primary" href="/#get" data-pack-cta="guide">Kup pakiet za {PACK_CONFIG.PRICE}</a>
+        <BuyButton href="/#get" data-pack-cta="guide" />
       </div>
       <EarlyAccessPromo variant="guide" slug={slug} />
     </div>
@@ -95,7 +96,7 @@ const crumbsLd = {
   /* Sits under the pack box, in the same 720px column. Titles only, so it reads as
      "keep reading" without competing with the pack CTA above it. */
   .related { max-width: 720px; margin: -24px auto 0; padding: 0 var(--pad) 72px; }
-  .related h2 { font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .14em; color: #AD4C28; margin: 0 0 4px; }
+  .related h2 { font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .14em; color: var(--action); margin: 0 0 4px; }
   .related .post-list a { padding: 20px 0; }
   .related .post-list h3 { font-size: 21px; margin: 0; text-wrap: balance; }
   .related-all { margin-top: 12px; }

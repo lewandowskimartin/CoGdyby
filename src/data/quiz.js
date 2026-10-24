@@ -2,8 +2,8 @@
 // Kolejność pytań = kolejność wyświetlania. Kolejność AREAS = priorytet rozstrzygania remisów
 // dla „najsłabszego obszaru” i braków. Punkty: indeks opcji 0, 1, 2. Wynik = suma punktów × 5 (0–100).
 
-export const QUIZ_PATH = '/household-preparedness-quiz/'; // trailing slash: the host redirects the bare path
-export const RESULTS_PATH = '/household-preparedness-quiz/results/';
+export const QUIZ_PATH = '/quiz/'; // trailing slash: the host redirects the bare path
+export const RESULTS_PATH = '/quiz/wynik/';
 
 // Oferta pakietu na stronie wyników. Link do kasy jest w src/config/pack.ts.
 import { PACK_CONFIG, packHref } from '../config/pack.ts';
@@ -18,7 +18,7 @@ export const PACK = {
     'Strona planu dla dzieci',
   ],
   reassurance: 'Plik od razu po zakupie · drukujesz bez limitu · zostaje u Ciebie na zawsze',
-  fallbackUrl: '/free-emergency-plan-template/',
+  fallbackUrl: '/darmowa-karta/',
   fallbackLabel: 'Pobierz darmową kartę na lodówkę',
 };
 

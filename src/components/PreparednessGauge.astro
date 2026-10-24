@@ -1,7 +1,7 @@
 ---
 /**
  * PreparednessGauge.astro
- * Animated 3-band score gauge for /household-preparedness-quiz/results.
+ * Animated 3-band score gauge for /quiz/wynik.
  *
  * The component only provides the visual shell (SVG + typography).
  * The parent page's client script fills in the score, sets the band, and
@@ -70,7 +70,7 @@ const bandWell     = arc(79.5, 100);
   }
   .pah-gauge__band--starting { stroke: var(--action-2); }
   .pah-gauge__band--partly   { stroke: var(--action); }
-  .pah-gauge__band--well     { stroke: #AD4C28; }
+  .pah-gauge__band--well     { stroke: var(--action); }
 
   .pah-gauge[data-gauge-band="starting"] .pah-gauge__band--starting,
   .pah-gauge[data-gauge-band="partly"]   .pah-gauge__band--partly,
@@ -89,16 +89,16 @@ const bandWell     = arc(79.5, 100);
     transform: rotate(-90deg);
     transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .pah-gauge__halo { fill: rgba(224, 138, 78, 0.18); transition: fill 0.4s ease; }
+  .pah-gauge__halo { fill: rgba(189, 239, 211, 0.45); transition: fill 0.4s ease; }
   .pah-gauge__dot  {
     fill: var(--paper-2); stroke: var(--action-2); stroke-width: 3;
     filter: drop-shadow(0 2px 5px rgba(43, 39, 33, 0.20));
     transition: stroke 0.4s ease;
   }
   .pah-gauge[data-gauge-band="partly"] .pah-gauge__dot  { stroke: var(--action); }
-  .pah-gauge[data-gauge-band="partly"] .pah-gauge__halo { fill: rgba(207, 95, 51, 0.16); }
-  .pah-gauge[data-gauge-band="well"]   .pah-gauge__dot  { stroke: #AD4C28; }
-  .pah-gauge[data-gauge-band="well"]   .pah-gauge__halo { fill: rgba(173, 76, 40, 0.14); }
+  .pah-gauge[data-gauge-band="partly"] .pah-gauge__halo { fill: rgba(10, 107, 74, 0.16); }
+  .pah-gauge[data-gauge-band="well"]   .pah-gauge__dot  { stroke: var(--action); }
+  .pah-gauge[data-gauge-band="well"]   .pah-gauge__halo { fill: rgba(8, 87, 60, 0.14); }
 
   @keyframes pah-gauge-pulse {
     0%, 100% { r: 20; opacity: 0.55; }
@@ -114,14 +114,14 @@ const bandWell     = arc(79.5, 100);
     transform: translateY(-50%);
     text-align: center; pointer-events: none;
   }
-  /* Same pill as .q-band in quiz.css. White on #AD4C28 is 5.5:1 for every band; the arc
+  /* Same pill as .q-band in quiz.css. White on var(--action) is 5.5:1 for every band; the arc
      already carries the band colour. */
   .pah-gauge__band-label {
     display: inline-block;
     font-family: var(--mono);
     font-size: 11px; font-weight: 600; line-height: 1.2;
     letter-spacing: 0.12em; text-transform: uppercase;
-    background: #AD4C28; color: #fff;
+    background: var(--action); color: #fff;
     border-radius: 999px; padding: 7px 14px;
     margin: 14px 0 0;
     opacity: 0; transform: translateY(4px);
@@ -135,7 +135,7 @@ const bandWell     = arc(79.5, 100);
     font-size: clamp(64px, 14vw, 88px);
     line-height: 1;
     letter-spacing: -0.03em;
-    color: #AD4C28;
+    color: var(--action);
     font-variant-numeric: tabular-nums;
   }
   .pah-gauge__suffix {

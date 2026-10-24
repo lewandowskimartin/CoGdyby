@@ -49,7 +49,7 @@ export const SCENARIOS = [
     blurb: 'Podstawowy domowy zestaw na wichury, przerwy w prądzie i kłopoty z zakupami. Od niego najlepiej zacząć.',
     h1: 'Przygotuj domowy zestaw awaryjny',
     seoTitle: 'Kalkulator zapasów: zestaw awaryjny na 72 godziny dla Twojego domu',
-    guide: '/blog/what-to-put-in-a-uk-emergency-kit/',
+    guide: '/blog/zestaw-awaryjny-lista-na-72-godziny/',
     guideLabel: 'Co włożyć do zestawu awaryjnego',
     seoDescription:
       'Policz zapasy na 72 godziny dla swojej rodziny w trzech krokach: woda, jedzenie bez gotowania i najważniejsze rzeczy. Na podstawie rządowego Poradnika bezpieczeństwa.',
@@ -74,7 +74,7 @@ export const SCENARIOS = [
     seoTitle: 'Zestaw na przerwę w prądzie: co trzymać w domu na blackout',
     seoDescription:
       'Lista na przerwę w prądzie dla Twojej rodziny: światło, ciepło, ładowanie telefonu i jedzenie bez gotowania. Na podstawie rządowego Poradnika bezpieczeństwa.',
-    guide: '/blog/how-to-prepare-for-a-power-cut-uk/',
+    guide: '/blog/jak-przygotowac-dom-na-przerwe-w-pradzie/',
     guideLabel: 'Jak przygotować się na przerwę w prądzie',
   },
   {
@@ -97,7 +97,7 @@ export const SCENARIOS = [
     seoTitle: 'Jak przygotować dom na wichurę: lista rzeczy i zadań',
     seoDescription:
       'Lista na wichurę dla Twojego domu: co zrobić przed nawałnicą i co mieć pod ręką, gdy zabraknie prądu. Na podstawie rządowego Poradnika bezpieczeństwa.',
-    guide: '/blog/how-to-prepare-for-a-storm-uk/',
+    guide: '/blog/jak-przygotowac-dom-na-wichure/',
     guideLabel: 'Jak przygotować się na wichurę',
   },
   {
@@ -120,7 +120,7 @@ export const SCENARIOS = [
     seoTitle: 'Jak przygotować dom na powódź: lista rzeczy i ostrzeżenia',
     seoDescription:
       'Lista na powódź dla Twojego domu: ostrzeżenia, które warto włączyć, i rzeczy do przeniesienia wyżej. Na podstawie rządowego Poradnika bezpieczeństwa.',
-    guide: '/blog/what-to-do-in-a-flood-uk/',
+    guide: '/blog/co-robic-podczas-powodzi/',
     guideLabel: 'Co robić przed powodzią, w jej trakcie i po niej',
   },
   {
@@ -164,7 +164,7 @@ export const SCENARIOS = [
     seoTitle: 'Brak wody w kranie: ile wody trzymać i co przygotować',
     seoDescription:
       'Lista na brak wody dla Twojej rodziny: woda do picia, mycie i spłukiwanie toalety bez kranu oraz numery, pod które warto dzwonić. Na podstawie rządowego Poradnika bezpieczeństwa.',
-    guide: '/blog/how-much-water-to-store-emergency-uk/',
+    guide: '/blog/ile-wody-trzymac-w-domu/',
     guideLabel: 'Ile wody trzymać w domu na wypadek kryzysu',
   },
   {
@@ -187,7 +187,7 @@ export const SCENARIOS = [
     seoTitle: 'Plecak ewakuacyjny: co spakować dla całej rodziny',
     seoDescription:
       'Lista do plecaka ewakuacyjnego dla Twojej rodziny, na wypadek, gdy trzeba szybko wyjść z domu. Na podstawie rządowego Poradnika bezpieczeństwa.',
-    guide: '/blog/uk-emergency-grab-bag-checklist/',
+    guide: '/blog/plecak-ewakuacyjny-lista/',
     guideLabel: 'Jak spakować plecak ewakuacyjny',
   },
 ];
@@ -207,23 +207,23 @@ export const SUGGESTED_BY_MONTH = {
 
 // Który poradnik odpowiada któremu zestawowi i dokąd prowadzi jego kit CTA.
 export const POST_KITS = {
-  'what-to-put-in-a-uk-emergency-kit': { scenario: 'general', inline: true },
-  'uk-emergency-grab-bag-checklist': { scenario: 'grab-bag', inline: true },
-  'how-much-water-to-store-emergency-uk': { scenario: 'general', inline: true },
-  'how-to-prepare-for-a-power-cut-uk': { scenario: 'power-cut', inline: true },
-  'emergency-food-supply-uk-budget': {
+  'zestaw-awaryjny-lista-na-72-godziny': { scenario: 'general', inline: true },
+  'plecak-ewakuacyjny-lista': { scenario: 'grab-bag', inline: true },
+  'ile-wody-trzymac-w-domu': { scenario: 'general', inline: true },
+  'jak-przygotowac-dom-na-przerwe-w-pradzie': { scenario: 'power-cut', inline: true },
+  'zapas-jedzenia-na-sytuacje-kryzysowa': {
     scenario: 'general',
     inline: false,
     title: 'Ile posiłków potrzeba w Twoim domu?',
   },
-  'cheap-ways-to-prepare-for-emergencies-uk': {
+  'jak-tanio-przygotowac-dom': {
     scenario: 'general',
     inline: false,
     title: 'Czego brakuje w Twojej spiżarce?',
   },
-  'how-to-prepare-for-a-storm-uk': { scenario: 'storm', inline: false },
-  'what-to-do-in-a-flood-uk': { scenario: 'flood', inline: false },
-  'will-the-uk-have-blackouts-this-winter': { scenario: 'power-cut', inline: false },
+  'jak-przygotowac-dom-na-wichure': { scenario: 'storm', inline: false },
+  'co-robic-podczas-powodzi': { scenario: 'flood', inline: false },
+  'czy-grozi-blackout': { scenario: 'power-cut', inline: false },
 };
 
 // Pytania quizu, których luka to luka w zapasach, i zestaw, który ją domyka.
@@ -244,7 +244,6 @@ export function kitHref(scenario = DEFAULT_SCENARIO, params = '') {
 // Pozycje.
 //   scenarios: 'all' lub lista id scenariuszy.
 //   needs:     'children' | 'pets' | 'medical' — pokazywane tylko, gdy dom je ma.
-//   affiliate: id z data/affiliateLinks.js.
 //   guide:     istniejący poradnik na stronie.
 //   qty:       funkcja policzonych sum, dla linii, gdzie liczba pomaga.
 export const ITEMS = [
@@ -253,8 +252,7 @@ export const ITEMS = [
     name: 'Woda butelkowana',
     why: 'Niższa liczba to woda do picia, wyższa wystarczy też do gotowania i mycia. Przechowuj ją w chłodnym, ciemnym miejscu.',
     scenarios: 'all',
-    affiliate: 'water',
-    guide: '/blog/how-much-water-to-store-emergency-uk/',
+    guide: '/blog/ile-wody-trzymac-w-domu/',
     qty: (t) => `${t.waterMin}–${t.waterComfort} litrów`,
   },
   {
@@ -262,8 +260,7 @@ export const ITEMS = [
     name: 'Jedzenie bez gotowania',
     why: 'Konserwy i produkty z długim terminem, które domownicy naprawdę lubią i które da się zjeść bez podgrzewania.',
     scenarios: 'all',
-    affiliate: 'tins',
-    guide: '/blog/emergency-food-supply-uk-budget/',
+    guide: '/blog/zapas-jedzenia-na-sytuacje-kryzysowa/',
     qty: (t) => `${t.meals} posiłków`,
   },
   {
@@ -271,14 +268,12 @@ export const ITEMS = [
     name: 'Ręczny otwieracz do konserw',
     why: 'Łatwo o nim zapomnieć, a bez niego część konserw trudno otworzyć.',
     scenarios: 'all',
-    affiliate: 'tinopener',
   },
   {
     id: 'torch',
     name: 'Latarka i zapasowe baterie',
     why: 'Najlepiej po jednej na osobę. Latarka jest bezpieczniejsza niż świece.',
     scenarios: 'all',
-    affiliate: 'torch',
     qty: (t) => `${t.people}, jeśli się da`,
   },
   {
@@ -286,21 +281,18 @@ export const ITEMS = [
     name: 'Naładowany power bank',
     why: 'Pozwala dzwonić, odbierać wiadomości i alerty. Doładowuj go co kilka miesięcy.',
     scenarios: 'all',
-    affiliate: 'powerbank',
   },
   {
     id: 'radio',
     name: 'Radio na baterie lub na korbkę',
     why: 'Radio działa nawet wtedy, gdy nie ma prądu ani zasięgu. Poradnik bezpieczeństwa zaleca, by mieć je w domu.',
     scenarios: 'all',
-    affiliate: 'radio',
   },
   {
     id: 'firstaid',
     name: 'Apteczka',
     why: 'Plastry, bandaże, środek do dezynfekcji oraz leki, których domownicy używają na co dzień.',
     scenarios: 'all',
-    affiliate: 'firstaid',
   },
   {
     id: 'medicines',
@@ -313,7 +305,7 @@ export const ITEMS = [
     name: 'Najważniejsze numery na papierze',
     why: 'Numer alarmowy 112, pogotowie energetyczne 991, gazowe 992, ciepłownicze 993 i wodociągowe 994. Do tego przychodnia, ubezpieczyciel i sąsiad.',
     scenarios: 'all',
-    guide: '/blog/uk-emergency-numbers-every-household-should-know/',
+    guide: '/blog/numery-alarmowe/',
   },
   {
     id: 'warmth',
@@ -350,7 +342,7 @@ export const ITEMS = [
     name: 'Plan, co przenieść wyżej',
     why: 'Ustalcie teraz, co trafia na piętro i kto to przenosi, żeby nie decydować o tym po ciemku.',
     scenarios: ['flood'],
-    guide: '/blog/what-to-do-in-a-flood-uk/',
+    guide: '/blog/co-robic-podczas-powodzi/',
   },
   {
     id: 'floodwarnings',
@@ -427,7 +419,7 @@ export const ITEMS = [
     why: 'Większość operatorów sieci wysyła bezpłatne SMS-y lub maile o planowanych wyłączeniach. Zapisz się na stronie swojego operatora.',
     scenarios: 'all',
     needs: 'medical',
-    guide: '/blog/priority-services-register-uk-explained/',
+    guide: '/blog/sprzet-medyczny-a-przerwa-w-pradzie/',
   },
   {
     id: 'backup-power',
@@ -441,15 +433,9 @@ export const ITEMS = [
     name: 'Plecak ewakuacyjny przy drzwiach',
     why: 'Spakowany plecak z najpotrzebniejszymi rzeczami na wypadek, gdyby trzeba było szybko wyjść.',
     scenarios: ['general', 'power-cut', 'storm', 'flood'],
-    guide: '/blog/uk-emergency-grab-bag-checklist/',
+    guide: '/blog/plecak-ewakuacyjny-lista/',
   },
 ];
-
-// Szczera linia nad linkami do zakupów. Celowo krótka.
-export const SHOP = {
-  heading: 'Kupuj tylko to, czego brakuje',
-  text: 'Większość tych rzeczy pewnie już masz, a latarka czy konserwy z szafki są tak samo dobre jak nowe. Lista pokazuje, czego brakuje. Przy brakujących rzeczach podajemy linki do produktów, z których sami korzystamy.',
-};
 
 export const PACK = {
   url: packHref(),
@@ -463,7 +449,7 @@ export const PACK = {
     'Strona planu dla dzieci',
   ],
   reassurance: 'Plik od razu po zakupie · drukujesz bez limitu · zostaje u Ciebie na zawsze',
-  fallbackUrl: '/free-emergency-plan-template/',
+  fallbackUrl: '/darmowa-karta/',
   fallbackLabel: 'Pobierz darmową kartę na lodówkę',
 };
 

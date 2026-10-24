@@ -1,7 +1,27 @@
 # CLAUDE.md — working notes for this repo
 
-Prepared at Home (preparedathome.co.uk) — Astro site. Read this before making changes.
-Author: Martin, a product designer. He has a sharp eye; "looks about right" is not good enough.
+Co gdyby (cogdyby.pl) — the Polish-market version of Prepared at Home (preparedathome.co.uk).
+Astro site, all visitor-facing copy in Polish. Read this before making changes.
+Author: Martin (Marcin Lewandowski), a product designer. He has a sharp eye; "looks about right" is not good enough.
+
+## Co gdyby rules (read first)
+
+- **Language and voice:** Polish, calm, concrete, for mothers 30+. Gender-neutral (no "zrobiłeś/zrobiłaś",
+  "chciałbyś"); Polish quotes „…”; dashes sparingly; no AI tells. Full guide: the "Co Gdyby" project doc
+  `claude/co-gdyby-voice-guide.md`. Facts come from the government Poradnik bezpieczeństwa
+  (https://www.gov.pl/poradnikbezpieczenstwa), IMGW, ISOK, operators; never "Poradnik RCB".
+- **URLs are Polish:** /quiz/, /quiz/wynik/, /darmowa-karta/, /dla-rodziny/, /starsi-rodzice/, /regulamin/,
+  /polityka-prywatnosci/, Polish blog slugs. Old English URLs 301 via `public/_redirects`; add a line there
+  whenever a URL changes.
+- **Legal (selling from the UK to Polish consumers):** seller details live only in `src/config/seller.ts`.
+  Checklist: project doc `claude/co-gdyby-legal-checklist.md`. Never show a struck-through "regular" price that
+  was never charged (Omnibus). Course prices, seats and deadlines are shown only while that tier is really on
+  sale (`eaPhase()` in `src/config/earlyAccess.ts`: date not passed, not sold out, Payhip link set).
+- **Checkout:** the Payhip links in `src/config/pack.ts` / `src/config/earlyAccess.ts` must point at Polish
+  products priced in PLN. Never point them at the UK (English, GBP) products.
+- **No affiliate links** and **no Google Analytics / Clarity**. The only optional analytics is PostHog
+  (cookieless, EU), loaded only after consent (`cg:analytics-consent`).
+- **Local pages:** 16 voivodeships in `src/content/local/`. `npm run check:similarity` must stay under 30%.
 
 ## The rule that would have saved the most time
 
@@ -27,7 +47,7 @@ When CSS behaves unexpectedly, find the CAUSE in the cascade before editing. Tra
 and specificity actually apply. Guessing and nudging values is what turns a 2-minute fix into six rounds.
 
 Concrete example from this repo: `.final p { max-width: 460px; margin: 0 auto 32px }` applies to
-EVERY `<p>` inside the terracotta `.final` panel — including new elements dropped in there. It silently
+EVERY `<p>` inside the green `.final` panel — including new elements dropped in there. It silently
 constrained a new heading's box and pinned it left. **Scoped component styles still inherit from and
 collide with global.css.** Before styling a new element inside an existing section, check what global
 rules already target it (`.final p`, `.final h2`, `.final-inner { text-align: center }`, etc.).
@@ -47,11 +67,13 @@ rules already target it (`.final p`, `.final h2`, `.final-inner { text-align: ce
 
 ## Brand / tech quick-reference (from src/styles/global.css :root)
 
-- Terracotta accent `--action: #CF5F33`; on-terracotta text `--on-action / #161310` (AA; white fails here).
+- Emerald accent `--action: #0A6B4A` (5.5:1 on paper), hover `--action-hover: #08573C`, mint `--action-2: #BDEFD3` (on dark ink, and button fill on the emerald panel).
+  On the emerald panel text is cream `#FBF7F0` (6.1:1); dark ink fails there (2.2:1). Primary button on the panel is mint with ink text.
 - Ink `--ink: #2B2721`, soft `--ink-soft: #5C554A`; paper creams `--paper #F3EBDD`, `--paper-2 #FBF7F0`.
 - Display font `--disp` = Fraunces (serif); body `--body` = DM Sans; mono `--mono` = IBM Plex Mono.
 - Pack page images: `public/img/pack-page-01..12.png` (240×339). Composite lockups: `public/img/pack-lockup.*`.
 - Early Access course copy/prices are config-driven: `src/config/earlyAccess.ts` (EA.NAME, PRICE, etc.).
+- Logo `public/img/cogdyby-logo.svg`. Pack page images are still the UK (Prepared at Home, English, terracotta) artwork — replace with Co gdyby versions.
 
 ## Local guides: every fact is sourced
 
@@ -59,7 +81,7 @@ rules already target it (`.final p`, `.final h2`, `.final-inner { text-align: ce
   Every fact has `source: { url, quote, checked }`, where `quote` is the exact words on the source page.
   The build fails on a fact without one. Use `manual: true` only for text that can't be extracted.
 - `npm run check:sources` confirms every quote is still on its page and checks the `watch` lists
-  (register pages, GOV.UK, data.gov.uk). Run it before publishing; it exits 1 on any problem.
+  (register pages and gov.pl). Run it before publishing; it exits 1 on any problem.
 - `.github/workflows/watch-sources.yml` runs it every Monday and opens issues labelled `source-watch`.
   `.github/workflows/checks.yml` runs tests, build, similarity and internal links on every push.
 - `npm test` runs all unit tests (src and scripts). Plan: `plans/2026-10-14-local-pages-automation.md`.
@@ -67,6 +89,6 @@ rules already target it (`.final p`, `.final h2`, `.final-inner { text-align: ce
 ## Housekeeping
 
 - Work in-place in this folder; don't leave scratch files (no `.claude-tmp/`, no stray previews).
-- Branch is usually `test-2`. Don't commit unless asked.
+- Default branch is `main`. Don't commit unless asked.
 - Full working procedure (research → plan → sense-check → execute → test → amend → report) is the
   standing operating procedure Martin set; this file is the project-specific layer on top of it.

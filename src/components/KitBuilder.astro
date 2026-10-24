@@ -1,13 +1,13 @@
 ---
+import BuyButton from "./BuyButton.astro";
 // Emergency kit builder. Three steps: household, scenario, list.
 //
 // Same approach as Quiz.astro: the server renders everything and a small script shows one step
 // at a time. Everything needed without JavaScript is rendered too — the <noscript> block below
 // reveals the list and hides the controls that only work with a script, so a visitor with no JS
 // gets a correct, printable list for the page's default household rather than dead buttons.
-import { ITEMS, SCENARIOS, LIMITS, SOURCE, SHOP, PACK, EMAIL_FORM } from '../data/kit.js';
+import { ITEMS, SCENARIOS, LIMITS, SOURCE, PACK, EMAIL_FORM } from '../data/kit.js';
 import { buildKit, encodeHousehold } from '../lib/kitBuild.js';
-import { affiliateUrl } from '../data/affiliateLinks.js';
 
 const { scenario = 'general' } = Astro.props;
 
@@ -24,8 +24,6 @@ const initial = buildKit(defaults);
 const shown = new Set(initial.items.map((i) => i.id));
 const qtyFor = Object.fromEntries(initial.items.map((i) => [i.id, i.qty]));
 const initialUrl = new URL(`${Astro.url.pathname}?${encodeHousehold(defaults)}`, Astro.site).href;
-// Nothing is ticked on the server, so every buyable item in this kit starts as a gap.
-const initialShopCount = initial.items.filter((i) => i.affiliate).length;
 
 // `one` is the singular, so the +/- buttons read as "One more adult" rather than "One more adults".
 const steppers = [
@@ -173,23 +171,6 @@ const steppers = [
       </label>
     </div>
 
-    <!-- Shop the gaps -->
-    <section class="kit-shop">
-      <h2>{SHOP.heading}</h2>
-      <p data-shop-intro>{SHOP.text}</p>
-      <p class="kit-shop__count" data-shop-count>{initialShopCount === 1 ? 'Na liście zakupów została 1 rzecz.' : `Rzeczy na liście zakupów: ${initialShopCount}.`}</p>
-      <ul class="kit-shop__list" data-shop-list>
-        {ITEMS.filter((i) => i.affiliate).map((item) => (
-          <li data-shop-item={item.id} hidden={!shown.has(item.id)}>
-            <span>{item.name}</span>
-            <a href={affiliateUrl(item.affiliate)} target="_blank" rel="sponsored nofollow noopener noreferrer" data-shop-link={item.id}>Zobacz opcje</a>
-          </li>
-        ))}
-      </ul>
-      <p class="q-muted" data-shop-note>Część z tych linków to linki partnerskie. Jeśli coś przez nie kupisz, możemy dostać niewielką prowizję. Cena dla Ciebie się nie zmienia.</p>
-      <p class="kit-shop__done" data-shop-done hidden>Lista zakupów jest pusta. Masz już wszystko.</p>
-    </section>
-
     {EMAIL_FORM.action && (
       <form class="q-card q-email kit-email" method="post" action={EMAIL_FORM.action} data-kit-email>
         <h2>Wyślij sobie listę e-mailem</h2>
@@ -207,7 +188,7 @@ const steppers = [
         <input type="hidden" name="fields[kit_url]" data-field="url" value={initialUrl} />
         <input type="hidden" name="fields[marketing_consent]" data-field="consent" value="no" />
         <button type="submit" class="btn btn-primary">Wyślij mi tę listę</button>
-        <p class="q-muted" style="margin-top:0.75rem">Szczegóły w <a href="/privacy/">polityce prywatności</a>. Zapisujemy tylko link do listy i liczbę domowników.</p>
+        <p class="q-muted" style="margin-top:0.75rem">Szczegóły w <a href="/polityka-prywatnosci/">polityce prywatności</a>. Zapisujemy tylko link do listy i liczbę domowników.</p>
       </form>
     )}
 
@@ -220,7 +201,7 @@ const steppers = [
         {PACK.includes.map((line) => <li>{line}</li>)}
       </ul>
       <div class="q-actions">
-        <a class="btn btn-accent" href={PACK.url} data-kit-pack>Kup pakiet za&nbsp;{PACK.price}</a>
+        <BuyButton class="btn btn-accent" href={PACK.url} data-kit-pack />
       </div>
       <p class="q-offer__reassure">{PACK.reassurance}</p>
     </div>
@@ -295,11 +276,6 @@ const steppers = [
     }
 
 
-    const shopIntro = root.querySelector('[data-shop-intro]');
-    const shopList = root.querySelector('[data-shop-list]');
-    const shopCount = root.querySelector('[data-shop-count]');
-    const shopNote = root.querySelector('[data-shop-note]');
-    const shopDone = root.querySelector('[data-shop-done]');
     let currentKit = null;
     const tickTracked = new Set();
 
@@ -352,25 +328,6 @@ const steppers = [
       if (!currentKit) return;
       const remaining = currentKit.items.filter((i) => !have.has(i.id));
       setText(root.querySelector('[data-total="count"]'), String(remaining.length));
-
-      const gaps = new Set(remaining.filter((i) => i.affiliate).map((i) => i.id));
-      root.querySelectorAll('[data-shop-item]').forEach((li) => {
-        li.hidden = !gaps.has(li.dataset.shopItem);
-      });
-
-      // With nothing left to buy, the list and its affiliate note would read as an error.
-      const nothingLeft = gaps.size === 0;
-      if (shopIntro) shopIntro.hidden = nothingLeft;
-      if (shopList) shopList.hidden = nothingLeft;
-      if (shopNote) shopNote.hidden = nothingLeft;
-      if (shopCount) shopCount.hidden = nothingLeft;
-      if (shopDone) shopDone.hidden = !nothingLeft;
-      if (shopCount && !nothingLeft) {
-        setText(
-          shopCount,
-          gaps.size === 1 ? 'Na liście zakupów została 1 rzecz.' : `Rzeczy na liście zakupów: ${gaps.size}.`
-        );
-      }
     }
 
     function render({ push = true } = {}) {
@@ -519,8 +476,6 @@ const steppers = [
     });
 
     root.addEventListener('click', (e) => {
-      const shop = e.target.closest('[data-shop-link]');
-      if (shop) track('kit_shop_clicked', { item: shop.dataset.shopLink, scenario: household.scenario }, { beacon: true });
       const pack = e.target.closest('[data-kit-pack]');
       if (pack) track('kit_pack_clicked', { scenario: household.scenario }, { beacon: true });
     });

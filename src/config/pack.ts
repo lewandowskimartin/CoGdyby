@@ -3,6 +3,10 @@
 // button falls back to the pricing section on the homepage (/#get), so nothing breaks.
 
 export const PACK_CONFIG = {
+  // Sales switch. false = nothing on the site can be bought: every buy button (BuyButton.astro)
+  // renders as a non-clickable "Wkrótce w sprzedaży" and the course never shows a checkout.
+  // Set to true only once the Polish PLN products exist in Payhip and the legal checklist is done.
+  SALES_OPEN: false,
   // DISABLED: n3Vsm is the English Prepared at Home pack priced in GBP (£14.99). Selling it here
   // as "79 zł" would charge Polish buyers in GBP for an English file: a misleading practice under
   // Polish consumer law. Paste the link of the Polish PDF, priced in PLN, once it exists in Payhip.
@@ -11,5 +15,9 @@ export const PACK_CONFIG = {
   // Until the Polish product exists, buy buttons open an e-mail instead of a dead link.
   FALLBACK_URL: "mailto:kontakt@cogdyby.pl?subject=Pakiet%20Co%20gdyby",
 };
+
+// Label on every buy button while PACK_CONFIG.SALES_OPEN is false.
+export const SOON_LABEL = "Wkrótce w sprzedaży";
+export const salesOpen = () => PACK_CONFIG.SALES_OPEN;
 
 export const packHref = () => PACK_CONFIG.CHECKOUT_URL || PACK_CONFIG.FALLBACK_URL;

@@ -37,7 +37,7 @@ export default defineConfig({
   integrations: [
     sitemap({
       filter: (page) =>
-        !page.includes('/household-preparedness-quiz/results') && !page.includes('/og/'),
+        !page.includes('/quiz/wynik') && !page.includes('/og/'),
       serialize(item) {
         const path = new URL(item.url).pathname;
         const slug = (path.match(/^\/blog\/([^/]+)\/$/) || [])[1];

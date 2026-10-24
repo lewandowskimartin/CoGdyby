@@ -102,7 +102,6 @@ export function buildKit(input = {}, items = ITEMS) {
       id: item.id,
       name: item.name,
       why: item.why,
-      affiliate: item.affiliate ?? null,
       guide: item.guide ?? null,
       qty: typeof item.qty === 'function' ? item.qty(totals) : null,
     })),

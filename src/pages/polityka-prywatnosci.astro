@@ -1,0 +1,89 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SELLER } from '../config/seller';
+const updated = 'październik 2026';
+const mail = `mailto:${SELLER.EMAIL}`;
+---
+<BaseLayout
+  title="Polityka prywatności | Co gdyby"
+  description="Kto jest administratorem Twoich danych w Co gdyby, jakie dane zbieramy, w jakim celu, komu je powierzamy, jak długo je przechowujemy i jakie masz prawa według RODO.">
+  <main id="main">
+    <div class="page">
+      <span class="eyebrow">Co gdyby</span>
+      <h1>Polityka prywatności</h1>
+      <p class="page-sub">Jak postępujemy z Twoimi danymi osobowymi i jakie masz prawa.</p>
+      <p class="updated">Ostatnia aktualizacja: {updated}</p>
+
+      <div class="legal">
+        <h2>1. Administrator danych</h2>
+        <p>Administratorem Twoich danych osobowych jest <strong>{SELLER.NAME}</strong>, przedsiębiorca jednoosobowy działający pod nazwą <strong>{SELLER.TRADING_NAME}</strong> w Wielkiej Brytanii („my”). Prowadzimy serwis cogdyby.pl („Co gdyby”). Jesteśmy zarejestrowani w brytyjskim organie ochrony danych (Information Commissioner's Office) pod numerem {SELLER.ICO}.</p>
+        <ul>
+          {SELLER.ADDRESS && <li>Adres: {SELLER.ADDRESS}</li>}
+          <li>E-mail: <a href={mail}>{SELLER.EMAIL}</a></li>
+          {SELLER.PHONE && <li>Telefon: {SELLER.PHONE}</li>}
+        </ul>
+        {SELLER.EU_REP && <p>Nasz przedstawiciel w Unii Europejskiej (art. 27 RODO): {SELLER.EU_REP}. Możesz kontaktować się z nim we wszystkich sprawach dotyczących Twoich danych.</p>}
+        <p>Ponieważ kierujemy ofertę do osób w Polsce, stosujemy unijne RODO, a jako przedsiębiorca z Wielkiej Brytanii także brytyjskie UK GDPR.</p>
+
+        <h2>2. Jakie dane zbieramy</h2>
+        <ul>
+          <li><strong>Adres e-mail</strong>, jeśli zapiszesz się po bezpłatną kartę lub na newsletter, albo do nas napiszesz.</li>
+          <li><strong>Dane zamówienia</strong>, gdy kupujesz pakiet lub kurs: imię i nazwisko, adres e-mail, kraj, informacje o zamówieniu i płatności. Zamówienie obsługuje Payhip. Do rozliczenia VAT Payhip zbiera też dane potwierdzające Twój kraj (np. adres IP i kraj wydania karty). <strong>Nie otrzymujemy ani nie przechowujemy pełnych danych Twojej karty.</strong></li>
+          <li><strong>Wynik quizu</strong>, jeśli wyślesz go sobie e-mailem: adres e-mail, przedział wyniku, obszar do poprawy, link do wyników i informacja, czy chcesz dostawać wskazówki i oferty. Sam quiz działa w Twojej przeglądarce i Twoje odpowiedzi do nas nie trafiają, chyba że wyślesz sobie link z wynikami, który zawiera ich krótki kod.</li>
+          <li><strong>Lista z kalkulatora zapasów</strong>, jeśli wyślesz ją sobie e-mailem: adres e-mail, link do listy i liczba domowników.</li>
+          <li><strong>Treść wiadomości</strong>, które do nas wysyłasz, w tym zapytania organizacji.</li>
+          <li><strong>Dane o korzystaniu ze strony</strong>, tylko jeśli zgodzisz się na analitykę (punkt 6).</li>
+        </ul>
+        <p>Nie prosimy o dane szczególnych kategorii, np. o zdrowiu. Informacje, które wpisujesz ręcznie do wydrukowanego planu (np. leki domowników), zostają u Ciebie i do nas nie trafiają.</p>
+
+        <h2>3. Cele i podstawy prawne</h2>
+        <ul>
+          <li><strong>Sprzedaż i dostarczenie pakietu lub kursu</strong>, obsługa reklamacji i odstąpień. Podstawa: wykonanie umowy (art. 6 ust. 1 lit. b RODO).</li>
+          <li><strong>Wysłanie bezpłatnej karty, wyniku quizu lub listy zapasów.</strong> Podstawa: wykonanie usługi, o którą prosisz (art. 6 ust. 1 lit. b RODO).</li>
+          <li><strong>Newsletter, wskazówki i informacje o ofertach</strong>, jeśli zaznaczysz zgodę. Podstawa: Twoja zgoda (art. 6 ust. 1 lit. a RODO i przepisy Prawa komunikacji elektronicznej). Zgodę możesz wycofać w każdej chwili linkiem w wiadomości, bez wpływu na wcześniejsze przetwarzanie.</li>
+          <li><strong>Księgowość i podatki</strong>, w tym przechowywanie dokumentacji sprzedaży. Podstawa: obowiązek prawny (art. 6 ust. 1 lit. c RODO).</li>
+          <li><strong>Odpowiedzi na wiadomości</strong>, bezpieczeństwo serwisu oraz ustalenie, dochodzenie lub obrona roszczeń. Podstawa: nasz prawnie uzasadniony interes (art. 6 ust. 1 lit. f RODO).</li>
+          <li><strong>Analityka strony</strong>, tylko za Twoją zgodą (art. 6 ust. 1 lit. a RODO i art. 399 Prawa komunikacji elektronicznej).</li>
+        </ul>
+        <p>Podanie danych jest dobrowolne, ale bez adresu e-mail nie możemy wysłać karty ani newslettera, a bez danych zamówienia nie da się zawrzeć i wykonać umowy. Nie podejmujemy wobec Ciebie decyzji w sposób wyłącznie zautomatyzowany i nie profilujemy Cię.</p>
+
+        <h2>4. Komu powierzamy dane</h2>
+        <p>Nie sprzedajemy Twoich danych. Korzystamy z kilku dostawców, którzy przetwarzają dane w naszym imieniu na podstawie umów powierzenia, albo jako odrębni administratorzy, gdy wymagają tego ich zadania:</p>
+        <ul>
+          <li><strong>Payhip</strong> (Wielka Brytania): sprzedaż, płatności, dostarczanie plików i kursu, rozliczanie VAT. Płatności obsługują <strong>Stripe</strong> i <strong>PayPal</strong>, które przetwarzają dane płatnicze jako odrębni administratorzy.</li>
+          <li><strong>MailerLite</strong> (Unia Europejska): wysyłka karty, wyników, list i newslettera.</li>
+          <li><strong>Cloudflare</strong>: hosting i bezpieczeństwo strony.</li>
+          <li><strong>PostHog</strong> (serwery w UE): analityka quizu i kalkulatora, tylko za Twoją zgodą.</li>
+          <li><strong>Namecheap (Private Email)</strong>: poczta e-mail, gdy do nas piszesz.</li>
+        </ul>
+
+        <h2>5. Przekazywanie danych poza Europejski Obszar Gospodarczy</h2>
+        <p>Działamy w Wielkiej Brytanii. Komisja Europejska uznała, że Wielka Brytania zapewnia odpowiedni poziom ochrony danych (decyzja stwierdzająca odpowiedni stopień ochrony, przedłużona w 2025 roku). Część dostawców (np. Cloudflare, Namecheap) może przetwarzać dane w USA. Odbywa się to na podstawie ram ochrony danych UE–USA (Data Privacy Framework) albo standardowych klauzul umownych zatwierdzonych przez Komisję Europejską. Na prośbę przekażemy informacje o zastosowanych zabezpieczeniach.</p>
+
+        <h2 id="cookies">6. Pliki cookie i analityka</h2>
+        <p>Przy pierwszej wizycie baner pyta, czy zgadzasz się na analitykę. Zanim wybierzesz, nie wczytujemy żadnych narzędzi analitycznych. Zdanie możesz zmienić w każdej chwili przez <strong>Ustawienia cookie</strong> w stopce.</p>
+        <p>Nie używamy Google Analytics ani innych narzędzi, które ustawiają analityczne pliki cookie. Na stronach quizu i kalkulatora, tylko za Twoją zgodą, działa <strong>PostHog</strong> w trybie bez plików cookie. Nie zapisuje niczego na Twoim urządzeniu, nie przechowuje adresu IP i usuwa z adresu strony kod Twoich odpowiedzi, zanim cokolwiek wyśle. Nie nagrywamy sesji, a Twój adres e-mail nigdy nie trafia do PostHog.</p>
+        <p>Jeśli odmówisz albo Twoja przeglądarka wysyła sygnał Global Privacy Control, PostHog nie wczytuje się wcale. Bez zgody zapisujemy tylko Twój wybór (datę, numer wersji i informację o zgodzie) na 12 miesięcy, w pamięci przeglądarki albo w pliku cookie <strong>pah_consent</strong>. Payhip może ustawić pliki cookie niezbędne do obsługi płatności, gdy przejdziesz do zakupu.</p>
+
+        <h2>7. Jak długo przechowujemy dane</h2>
+        <ul>
+          <li>Dane zamówień: około 6 lat od końca roku podatkowego, w którym nastąpiła sprzedaż (brytyjskie przepisy podatkowe wymagają co najmniej 5 lat od terminu złożenia zeznania), a jeśli toczy się spór, do jego zakończenia.</li>
+          <li>Newsletter: do czasu wypisania się lub wycofania zgody.</li>
+          <li>Karta, wynik quizu i lista zapasów wysłane e-mailem: do 12 miesięcy od wysyłki, chyba że zapiszesz się też na newsletter.</li>
+          <li>Wiadomości i zapytania: do 2 lat od zakończenia korespondencji.</li>
+          <li>Zapis wyboru dotyczącego cookie: 12 miesięcy.</li>
+        </ul>
+
+        <h2>8. Twoje prawa</h2>
+        <p>Masz prawo dostępu do swoich danych, ich sprostowania, usunięcia, ograniczenia przetwarzania i przeniesienia, a także prawo sprzeciwu wobec przetwarzania opartego na naszym prawnie uzasadnionym interesie. Jeśli przetwarzamy dane na podstawie zgody, możesz ją wycofać w każdej chwili. Napisz na <a href={mail}>{SELLER.EMAIL}</a>, odpowiemy w ciągu miesiąca.</p>
+        <p>Masz też prawo złożyć skargę do Prezesa Urzędu Ochrony Danych Osobowych (ul. Stawki 2, 00-193 Warszawa, <a href="https://uodo.gov.pl" rel="nofollow">uodo.gov.pl</a>) albo do brytyjskiego Information Commissioner's Office (<a href="https://ico.org.uk" rel="nofollow">ico.org.uk</a>).</p>
+
+        <h2>9. Zmiany polityki</h2>
+        <p>Politykę możemy aktualizować, np. gdy zmienimy dostawców. Data ostatniej aktualizacji u góry strony pokazuje, kiedy wprowadziliśmy ostatnie zmiany. O istotnych zmianach dotyczących newslettera poinformujemy e-mailem.</p>
+
+        <h2>10. Kontakt</h2>
+        <p>Pytania o Twoje dane i tę politykę: <a href={mail}>{SELLER.EMAIL}</a>.</p>
+      </div>
+    </div>
+  </main>
+</BaseLayout>

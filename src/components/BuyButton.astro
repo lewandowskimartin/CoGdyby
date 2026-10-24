@@ -1,0 +1,20 @@
+---
+// Every "buy the pack" button on the site goes through here.
+// While sales are closed (PACK_CONFIG.SALES_OPEN = false in src/config/pack.ts) it renders as a plain,
+// non-clickable <span>: no link to Payhip, /#get or e-mail, nothing to click or tab to.
+// Flip SALES_OPEN to true and every button becomes a real link again with its own label.
+import { salesOpen, SOON_LABEL, PACK_CONFIG } from "../config/pack";
+
+interface Props {
+  href: string;
+  class?: string;
+  label?: string;
+  [attr: string]: unknown;
+}
+
+const { href, class: cls = "btn btn-primary", label, ...rest } = Astro.props;
+const text = label ?? `Kup pakiet za ${PACK_CONFIG.PRICE}`;
+---
+{salesOpen()
+  ? <a class={cls} href={href} {...rest}>{text}</a>
+  : <span class={`${cls} is-soon`} aria-disabled="true">{SOON_LABEL}</span>}

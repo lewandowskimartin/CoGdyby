@@ -1,9 +1,9 @@
 ---
 import { EA, eaPrice, eaPhase } from '../config/earlyAccess';
-import { PACK_CONFIG } from '../config/pack';
+import { PACK_CONFIG, salesOpen } from '../config/pack';
 
 // On the course page the header CTA sells the course (dark, so it reads as a different product
-// from the terracotta pack button); everywhere else it's the £14.99 pack.
+// from the green pack button); everywhere else it's the £14.99 pack.
 const onCourse = Astro.url.pathname.replace(/\/$/, '') === EA.URL;
 const coursePhase = eaPhase();
 const coursePrice = eaPrice(coursePhase);
@@ -13,7 +13,7 @@ const courseOnSale = coursePhase !== 'off';
 <a class="skip-link" href="#main">Przejdź do treści</a>
 <header class="site-header">
   <a class="brand" href="/" aria-label="Co gdyby — strona główna">
-    <img src="/img/pah-logo.svg" alt="Co gdyby" width="201" height="26" class="brand-logo" />
+    <img src="/img/cogdyby-logo.svg" alt="Co gdyby" width="142" height="31" class="brand-logo" />
   </a>
   <nav class="nav" aria-label="Menu główne">
     <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="nav-menu" aria-label="Otwórz menu">
@@ -23,16 +23,18 @@ const courseOnSale = coursePhase !== 'off';
     </button>
     <ul class="nav-links" id="nav-menu">
       <li><a href="/#pack" data-pack-cta="header-nav">Pakiet</a></li>
-      <li><a href="/free-emergency-plan-template/">Darmowa karta</a></li>
-      <li><a href="/household-preparedness-quiz/" data-quiz-cta="nav">Quiz</a></li>
+      <li><a href="/darmowa-karta/">Darmowa karta</a></li>
+      <li><a href="/quiz/" data-quiz-cta="nav">Quiz</a></li>
       <li><a href="/kit/" data-kit-cta="nav">Kalkulator zapasów</a></li>
-      <li><a href="/#organisations" data-org-cta="header">Dla organizacji</a></li>
+      <li><a href="/dla-samorzadow/" data-org-cta="header">Dla organizacji</a></li>
       <li><a href="/blog/">Poradniki</a></li>
     </ul>
     {onCourse && courseOnSale ? (
       <a class="price price--course" href="#offer" data-ea-cta="header-price"><span class="price-label">Zobacz kurs</span><span class="price-sep"> · </span><span class="price-amount">{coursePrice}</span></a>
     ) : (
-      <a class="price" href="/#get" data-pack-cta="header-price"><span class="price-label">Kup pakiet</span><span class="price-sep"> · </span><span class="price-amount">{PACK_CONFIG.PRICE}</span></a>
+      salesOpen()
+        ? <a class="price" href="/#get" data-pack-cta="header-price"><span class="price-label">Kup pakiet</span><span class="price-sep"> · </span><span class="price-amount">{PACK_CONFIG.PRICE}</span></a>
+        : <span class="price is-soon" aria-disabled="true"><span class="price-label">Pakiet wkrótce</span><span class="price-sep"> · </span><span class="price-amount">{PACK_CONFIG.PRICE}</span></span>
     )}
   </nav>
 </header>

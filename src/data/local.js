@@ -9,7 +9,7 @@ export const LOCAL_PATH = '/local';
 export const localHref = (id) => `${LOCAL_PATH}/${id}/`;
 
 // Byline on every local page and in its Article schema. TODO(Martin): confirm the name
-// to publish under ("Martin" as on /early-access/, or "Marcin Lewandowski" as on /terms/).
+// to publish under ("Martin" as on /early-access/, or "Marcin Lewandowski" as on /regulamin/).
 export const LOCAL_AUTHOR = 'Martin';
 export const CORRECTIONS_EMAIL = 'kontakt@cogdyby.pl';
 export const NOT_AFFILIATED =
@@ -51,4 +51,4 @@ export const PLAN_STEPS = {
 export const PLAN_STEP_IDS = /** @type {const} */ (['flood', 'power', 'water', 'storm', 'cold', 'heat', 'evacuation']);
 
 // Two guides linked from every local page, beside the /local/ hub.
-export const LOCAL_RELATED = ['what-to-do-in-a-flood-uk', 'how-to-prepare-for-a-power-cut-uk'];
+export const LOCAL_RELATED = ['co-robic-podczas-powodzi', 'jak-przygotowac-dom-na-przerwe-w-pradzie'];

@@ -1,5 +1,5 @@
 /* Co gdyby — site styles
-   Warm editorial system: cream paper, espresso ink, terracotta accent.
+   Warm editorial system: cream paper, espresso ink, forest-green accent.
    Soft rounded cards, generous air, elegant serif display.
    Mobile-first; larger layouts layer in via min-width media queries. */
 
@@ -12,8 +12,9 @@
   --ink: #2B2721;        /* espresso near-black */
   --ink-soft: #5C554A;   /* warm grey body text */
   --muted: #716A5C;      /* warm grey labels — AA on paper (4.53:1) */
-  --action: #CF5F33;     /* terracotta accent — used sparingly */
-  --action-2: #E08A4E;   /* lighter accent (on dark) */
+  --action: #0A6B4A;     /* emerald accent: 5.5:1 on paper, white text on it 6.5:1 */
+  --action-hover: #08573C; /* darker emerald for hover / pressed (7.3:1 on paper) */
+  --action-2: #BDEFD3;   /* mint: light accent on dark ink (11.6:1) and button fill on the emerald panel */
   --hair: #E5DBCB;       /* soft hairline */
   --hair-2: #EDE4D6;
 
@@ -128,7 +129,7 @@ h1, h2, h3 {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.14em;
-  color: #AD4C28;
+  color: var(--action);
   text-wrap: balance; /* no lone last word when a label wraps */
 }
 
@@ -171,8 +172,8 @@ h1, h2, h3 {
 }
 .btn-primary { background: var(--ink); color: var(--paper); }
 .btn-primary:hover { background: #3a352d; color: var(--paper); transform: translateY(-1px); box-shadow: var(--shadow-md); }
-.btn-accent { background: #AD4C28; color: #fff; border-radius: var(--r-sm); }
-.btn-accent:hover { background: #964225; color: #fff; transform: translateY(-1px); box-shadow: var(--shadow-md); }
+.btn-accent { background: var(--action); color: #fff; border-radius: var(--r-sm); }
+.btn-accent:hover { background: var(--action-hover); color: #fff; transform: translateY(-1px); box-shadow: var(--shadow-md); }
 .btn-outline { border-color: var(--ink); color: var(--ink); background: transparent; }
 .btn-outline:hover { background: var(--ink); color: var(--paper); }
 .btn-ghost {
@@ -188,6 +189,14 @@ h1, h2, h3 {
 .btn-ghost::after { content: "→"; transition: transform .16s ease; }
 .btn-ghost:hover { color: var(--action); }
 .btn-ghost:hover::after { transform: translateX(3px); }
+
+/* Buy buttons while sales are closed (PACK_CONFIG.SALES_OPEN = false in src/config/pack.ts):
+   rendered as <span aria-disabled>, visibly inactive and ignoring the pointer, so no hover lift. */
+.btn.is-soon,
+.nav .price.is-soon { cursor: default; pointer-events: none; box-shadow: none; transform: none;
+  /* Outline instead of a faded fill: fading any colour makes it look muddy and drops text contrast. */
+  background: transparent; color: var(--ink); border: 1.5px solid var(--ink); }
+.final .btn.is-soon { background: transparent; color: var(--action-2); border: 1.5px solid var(--action-2); } /* mint on emerald 5.1:1 */
 
 /* ---- Header ---- */
 /* Sticky top: Early Access bar + header stick together as one unit (desktop).
@@ -215,7 +224,7 @@ h1, h2, h3 {
 }
 .brand-logo {
   display: block;
-  height: 20px;
+  height: 26px;
   width: auto;
 }
 .nav { display: flex; align-items: center; gap: 8px; font-size: 14.5px; font-weight: 500; }
@@ -228,7 +237,7 @@ h1, h2, h3 {
   font-weight: 700;
   font-size: 14px;
   color: var(--paper);
-  background: #AD4C28;
+  background: var(--action);
   border-radius: var(--r-sm);
   padding: 10px 16px;
   min-height: 44px;
@@ -237,7 +246,7 @@ h1, h2, h3 {
   white-space: nowrap;
   transition: background .16s ease, transform .16s ease;
 }
-.nav .price:hover { background: #964225; color: var(--paper); transform: translateY(-1px); }
+.nav .price:hover { background: var(--action-hover); color: var(--paper); transform: translateY(-1px); }
 .price-amount { display: none; }
 .price-sep { display: none; white-space: pre; } /* keep the spaces round the dash: flex items trim edge whitespace */
 
@@ -318,18 +327,18 @@ body.nav-open::after {
 /* Narrowest phones (≤359px): keep logo, pill and toggle on one line without squashing */
 @media (max-width: 359px) {
   .site-header { --pad: 16px; gap: 8px; }
-  .brand-logo { height: 17px; }
+  .brand-logo { height: 22px; }
   .nav { gap: 4px; }
   .nav .price { padding: 10px 12px; font-size: 13.5px; }
 }
 
 @media (min-width: 760px) {
   .site-header { padding: 16px var(--pad); }
-  .brand-logo { height: 24px; }
+  .brand-logo { height: 31px; }
   .nav-toggle { display: none; }
   .nav { gap: 26px; }
   .nav .price { order: unset; padding: 14px 20px; background: var(--action); }
-  .nav .price:hover { background: #964225; }
+  .nav .price:hover { background: var(--action-hover); }
   .price-label { display: inline; }
   .price-sep { display: inline; }
   .price-amount { display: inline; }
@@ -355,7 +364,7 @@ body.nav-open::after {
   body.nav-open::after { display: none; }
 }
 
-/* Course page: the header CTA sells the course, in ink rather than terracotta (Header.astro) */
+/* Course page: the header CTA sells the course, in ink rather than green (Header.astro) */
 .nav .price.price--course { background: var(--ink); color: var(--paper); }
 .nav .price.price--course:hover { background: #3a352d; color: var(--paper); }
 
@@ -370,7 +379,7 @@ body.nav-open::after {
 @media (min-width: 760px) and (max-width: 859px) {
   .nav, .nav-links { gap: 13px; }
   .nav-links a { font-size: 13.5px; }
-  .brand-logo { height: 22px; }
+  .brand-logo { height: 28px; }
 }
 
 /* ---- Hero ---- */
@@ -389,6 +398,8 @@ body.nav-open::after {
   .hero-copy h1 { font-size: 50px; }
 }
 .hero-copy .lede { font-size: 18px; line-height: 1.62; color: var(--ink-soft); max-width: 480px; margin: 0 0 32px; text-wrap: pretty; }
+/* Links inside running text need more than a colour shift to stand out (WCAG 1.4.1): underline them. */
+.hero-copy .lede a, .footer-legal a, .faq-cta .box p a { text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; }
 .spec {
   margin-top: 44px;
@@ -398,7 +409,7 @@ body.nav-open::after {
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
 }
-.spec .k { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: #AD4C28; }
+.spec .k { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--action); }
 .spec .v { font-family: var(--disp); font-weight: 600; font-size: 20px; margin-top: 6px; }
 @media (max-width: 480px) {
   /* Phones: thumb-width primary CTA; spec values never wrap ("A4 PDF") */
@@ -456,14 +467,14 @@ body.nav-open::after {
   display: flex;
   flex-direction: column;
 }
-.card-mock .cm-label { font-family: var(--mono); font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase; color: #AD4C28; }
+.card-mock .cm-label { font-family: var(--mono); font-size: 8.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--action); }
 .card-mock .cm-title { font-family: var(--disp); font-weight: 600; font-size: 27px; line-height: 1.08; letter-spacing: -0.02em; margin-top: 10px; }
 .card-mock .rule { height: 2px; background: var(--action); width: 44px; margin: 12px 0 16px; border-radius: 2px; }
 .cm-rows { display: flex; flex-direction: column; flex: 1; }
 .cm-row { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--hair); padding: 8px 0; }
 .cm-row span { font-size: 10.5px; font-weight: 500; color: var(--ink-soft); }
 .cm-row b { font-family: var(--disp); font-weight: 700; font-size: 15px; }
-.cm-sub { font-family: var(--mono); font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase; color: #AD4C28; margin: 16px 0 8px; }
+.cm-sub { font-family: var(--mono); font-size: 8.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--action); margin: 16px 0 8px; }
 .cm-line { border-bottom: 1px solid var(--ink); height: 16px; }
 .cm-line.faint { border-color: var(--hair); }
 .cm-foot { font-family: var(--mono); font-size: 8px; color: var(--muted); margin-top: 12px; }
@@ -560,7 +571,7 @@ body.nav-open::after {
   color: var(--muted);
   transition: color .3s ease;
 }
-.pack-num { flex: none; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: #AD4C28; }
+.pack-num { flex: none; font-family: var(--mono); font-size: 11px; letter-spacing: .1em; color: var(--action); }
 .pack-item.is-active img { transform: translateY(-8px); filter: drop-shadow(0 22px 34px rgba(43, 39, 33, .2)); }
 .pack-item.is-active figcaption { color: var(--ink); }
 @media (hover: hover) {
@@ -640,11 +651,11 @@ body.nav-open::after {
   position: absolute;
   inset: 0;
   /* Phones: the caption covers most of the photo, so the scrim has to carry further up */
-  background: linear-gradient(0deg, rgba(43,39,33,.88) 0%, rgba(43,39,33,.66) 55%, rgba(43,39,33,.18) 100%);
+  background: linear-gradient(0deg, rgba(43,39,33,.9) 0%, rgba(43,39,33,.78) 55%, rgba(43,39,33,.3) 100%);
 }
 @media (min-width: 600px) {
   .lifestyle-inner::after {
-    background: linear-gradient(90deg, rgba(43,39,33,.72) 0%, rgba(43,39,33,.42) 42%, rgba(43,39,33,.05) 78%);
+    background: linear-gradient(90deg, rgba(43,39,33,.82) 0%, rgba(43,39,33,.58) 42%, rgba(43,39,33,.05) 80%);
   }
 }
 .lifestyle-cap {
@@ -658,7 +669,7 @@ body.nav-open::after {
 @media (min-width: 600px) {
   .lifestyle-cap { padding: 32px clamp(24px, 4vw, 48px); }
 }
-.lifestyle-cap .eyebrow { display: block; color: #F2BE96; } /* light terracotta: legible on the photo scrim */
+.lifestyle-cap .eyebrow { display: block; color: var(--action-2); } /* mint: legible on the photo scrim */
 .lifestyle-cap .btn-ghost { color: var(--paper); }
 .lifestyle-cap .btn-ghost:hover { color: var(--action-2); }
 .lifestyle-cap p { font-family: var(--disp); font-weight: 500; font-size: clamp(17px, 2.6vw, 27px); line-height: 1.28; letter-spacing: -0.015em; margin: 8px 0 0; text-wrap: balance; }
@@ -683,7 +694,7 @@ body.nav-open::after {
   .feature-img { aspect-ratio: 1 / 1; }
 }
 .feature-body { padding: 28px 30px 32px; }
-.feature .fnum { font-family: var(--mono); font-weight: 500; font-size: 12px; color: #AD4C28; letter-spacing: .06em; margin-bottom: 18px; }
+.feature .fnum { font-family: var(--mono); font-weight: 500; font-size: 12px; color: var(--action); letter-spacing: .06em; margin-bottom: 18px; }
 .feature h3 { font-size: 24px; font-weight: 600; margin-bottom: 12px; letter-spacing: -0.02em; }
 .feature p { font-size: 15.5px; line-height: 1.66; color: var(--ink-soft); margin: 0; text-wrap: pretty; }
 @media (max-width: 599px) {
@@ -735,7 +746,7 @@ body.nav-open::after {
 .wl-brand { display: flex; align-items: center; gap: 9px; margin-bottom: auto; }
 .wl-logo { width: 26px; height: 26px; border: 1.5px dashed #B7A794; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-family: var(--mono); font-size: 6.5px; line-height: 1.1; text-align: center; color: var(--muted); }
 .wl-brand b { font-family: var(--disp); font-weight: 600; font-size: 11px; line-height: 1.15; }
-.wl-label { font-family: var(--mono); font-size: 7.5px; letter-spacing: .12em; text-transform: uppercase; color: #AD4C28; margin-top: 14px; }
+.wl-label { font-family: var(--mono); font-size: 7.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--action); margin-top: 14px; }
 .wl-title { font-family: var(--disp); font-weight: 600; font-size: 21px; line-height: 1.08; letter-spacing: -0.02em; margin-top: 6px; }
 .wl-rule { height: 2px; background: var(--action); width: 34px; margin: 10px 0 12px; border-radius: 2px; }
 .wl-desc { font-size: 8px; color: var(--ink-soft); line-height: 1.5; }
@@ -755,7 +766,7 @@ body.nav-open::after {
 .final-inner {
   max-width: var(--wrap);
   margin: 0 auto;
-  background: var(--action); /* #CF5F33 terracotta */
+  background: var(--action); /* #0A6B4A emerald */
   border: 1px solid var(--action);
   border-radius: var(--r-lg);
   text-align: center;
@@ -777,22 +788,22 @@ body.nav-open::after {
 /* Pack lockup — fanned "12 pages" mark above the final CTA heading */
 .pack-lockup { display: flex; flex-direction: column; align-items: center; gap: 14px; margin-bottom: 20px; }
 .pack-lockup img { display: block; width: min(460px, 86vw); height: auto; }
-.pack-lockup-label { font-family: var(--body); font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--on-action); opacity: .85; }
-/* Text and buttons on the terracotta panel (WCAG AA, measured against #CF5F33):
-   text #161310 = 4.7:1. White is only 3.93:1, which fails for body copy, so it isn't used.
-   Primary: ink fill, cream text (14.8:1 inside; the button edge is 3.8:1 against the panel).
-   Secondary: cream fill, ink text (13.9:1 inside; the edge is 3.7:1 against the panel). */
-.final-inner { --on-action: #161310; color: var(--on-action); }
+.pack-lockup-label { font-family: var(--body); font-size: 12px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--on-action); }
+/* Text and buttons on the emerald panel (WCAG AA, measured against #0A6B4A):
+   text #FBF7F0 = 6.1:1. Dark ink would be only 2.2:1, so it isn't used here.
+   Primary: mint fill, ink text (11.6:1 inside; the edge is 5.1:1 against the panel).
+   Secondary: transparent with a cream outline and cream text (6.1:1). */
+.final-inner { --on-action: #FBF7F0; color: var(--on-action); }
 .final h2 { color: var(--on-action); }
 .final .reassurance { color: var(--on-action) !important; }
-.final .btn-primary { background: var(--ink); color: var(--paper-2); border-color: var(--ink); }
-.final .btn-primary:hover { background: #3a352d; color: var(--paper-2); }
-.final .btn-outline { background: var(--paper-2); color: var(--ink); border-color: var(--paper-2); }
-.final .btn-outline:hover { background: #fff; color: var(--ink); border-color: #fff; transform: translateY(-1px); }
+.final .btn-primary { background: var(--action-2); color: var(--ink); border-color: var(--action-2); }
+.final .btn-primary:hover { background: #D6F6E4; color: var(--ink); border-color: #D6F6E4; }
+.final .btn-outline { background: transparent; color: var(--paper-2); border-color: var(--paper-2); }
+.final .btn-outline:hover { background: var(--paper-2); color: var(--ink); border-color: var(--paper-2); transform: translateY(-1px); }
 .final :focus-visible { outline-color: var(--on-action); }
 .reassurance { font-size: 13px !important; color: var(--muted) !important; margin-top: 16px !important; margin-bottom: 0 !important; letter-spacing: 0.01em; }
 
-/* ---- Quiz band (soft CTA on #FBF7F0, quieter than the terracotta .final) ---- */
+/* ---- Quiz band (soft CTA on #FBF7F0, quieter than the green .final) ---- */
 .quiz-band { padding: 0 var(--pad) 40px; }
 .lifestyle + .quiz-band { padding-top: 48px; }
 .quiz-band-inner {
@@ -827,7 +838,7 @@ body.nav-open::after {
 @media (max-width: 719px) { .objection { text-align: left; } } /* long centred paragraphs read badly on phones */
 .objection h2 { font-family: var(--disp); font-size: clamp(28px, 5vw, 32px); font-weight: 500; line-height: 1.2; letter-spacing: -0.015em; margin-bottom: 16px; }
 .objection p { font-size: 16px; line-height: 1.65; color: var(--ink-soft); margin-bottom: 12px; }
-.objection a:not(.btn) { color: #AD4C28; text-decoration: underline; text-underline-offset: 3px; }
+.objection a:not(.btn) { color: var(--action); text-decoration: underline; text-underline-offset: 3px; }
 .objection a:not(.btn):hover { color: var(--ink); }
 
 /* ---- Free template page ---- */
@@ -860,7 +871,7 @@ body.nav-open::after {
 .template-upsell { text-align: center; }
 .template-upsell h2 { font-family: var(--disp); font-size: clamp(30px, 5.5vw, 36px); font-weight: 500; line-height: 1.15; letter-spacing: -0.015em; margin-bottom: 12px; }
 .template-upsell > p { font-size: 16px; color: var(--ink-soft); line-height: 1.6; max-width: 540px; margin: 0 auto 36px; }
-.template-upsell > p a { color: #AD4C28; text-decoration: underline; text-underline-offset: 3px; }
+.template-upsell > p a { color: var(--action); text-decoration: underline; text-underline-offset: 3px; }
 
 .upsell-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; text-align: left; }
 @media (max-width: 720px) { .upsell-grid { grid-template-columns: repeat(2, 1fr); } }
@@ -878,7 +889,7 @@ body.nav-open::after {
 .compare-table th { font-family: var(--body); font-weight: 600; font-size: 13px; text-transform: uppercase; letter-spacing: 0.03em; padding: 10px 16px; border-bottom: 2px solid var(--hair); color: var(--muted); }
 .compare-table td { padding: 10px 16px; border-bottom: 1px solid var(--hair-2); color: var(--ink-soft); }
 .compare-table .highlight { color: var(--ink); font-weight: 500; background: var(--panel); }
-.compare-table th.highlight { color: #AD4C28; background: var(--panel); }
+.compare-table th.highlight { color: var(--action); background: var(--panel); }
 @media (max-width: 400px) {
   /* Narrow phones: tighter cells so every column fits without a hidden sideways scroll */
   .compare-table th, .compare-table td { padding: 10px 8px; }
@@ -951,7 +962,7 @@ body.nav-open::after {
 .post-list a { display: block; padding: 30px 0; color: var(--ink); }
 .post-list a:hover { color: var(--action); }
 .post-list h3 { font-size: 25px; font-weight: 600; line-height: 1.15; letter-spacing: -0.02em; margin: 0 0 8px; }
-.post-list .p-date { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: #AD4C28; }
+.post-list .p-date { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--action); }
 .post-list p { margin: 8px 0 0; font-size: 15.5px; line-height: 1.6; color: var(--ink-soft); max-width: 620px; }
 
 /* ---- Legal / FAQ content pages ---- */
@@ -967,7 +978,7 @@ body.nav-open::after {
 .page .updated { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 20px 0 0; }
 
 .faq-group { padding-top: 30px; margin-top: 40px; border-top: 1px solid var(--hair); }
-.faq-group > h2 { font-size: 12px; font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; color: #AD4C28; font-weight: 500; margin: 0 0 22px; }
+.faq-group > h2 { font-size: 12px; font-family: var(--mono); text-transform: uppercase; letter-spacing: .12em; color: var(--action); font-weight: 500; margin: 0 0 22px; }
 .faq-item { padding: 0 0 22px; margin-bottom: 22px; border-bottom: 1px solid var(--hair); }
 .faq-item:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
 .faq-item h3 { font-size: 21px; font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; margin: 0 0 10px; }
@@ -979,7 +990,7 @@ body.nav-open::after {
    no underline, so without this they read as plain text. Same treatment as .faq-item / .prose. */
 .template-details p a, .upsell-item p a, .feature-body p a { text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
 .template-details p a:hover, .upsell-item p a:hover, .feature-body p a:hover { color: var(--action); }
-/* On the terracotta highlight cards: underline in the text colour, and no colour change on hover. */
+/* On the green highlight cards: underline in the text colour, and no colour change on hover. */
 .upsell-item.highlight p a, .upsell-item.highlight p a:hover { color: var(--paper); text-decoration-color: currentColor; }
 
 .faq-cta { max-width: 760px; margin: 0 auto; padding: 12px var(--pad) 72px; }
@@ -996,11 +1007,17 @@ body.nav-open::after {
 .legal li + li { margin-top: .4em; }
 .legal a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
 .legal a:hover { color: var(--action); }
-.legal .placeholder { background: rgba(207,95,51,.12); color: #9a4324; padding: 0 4px; border-radius: 3px; font-weight: 500; }
+.legal .placeholder { background: rgba(10,107,74,.12); color: var(--action-hover); padding: 0 4px; border-radius: 3px; font-weight: 500; }
 
 /* ---- Page hero (tall lifestyle variant for landing pages) ---- */
 .page-hero .lifestyle-img { height: clamp(360px, 56vw, 540px); }
 .page-hero .lifestyle-cap { max-width: 540px; }
+/* Page heroes carry a tall caption (eyebrow + h1 + lede), so the eyebrow sits where the photo is
+   brightest. A denser scrim keeps the 11px eyebrow above 4.5:1 there. */
+.page-hero .lifestyle-inner::after { background: linear-gradient(0deg, rgba(43,39,33,.9) 0%, rgba(43,39,33,.8) 65%, rgba(43,39,33,.6) 100%); }
+@media (min-width: 600px) {
+  .page-hero .lifestyle-inner::after { background: linear-gradient(90deg, rgba(43,39,33,.86) 0%, rgba(43,39,33,.64) 42%, rgba(43,39,33,.05) 80%); }
+}
 .page-hero .lifestyle-cap h1 {
   font-family: var(--disp);
   font-size: clamp(36px, 7vw, 52px);
@@ -1028,12 +1045,12 @@ body.nav-open::after {
 
 /* ---- Highlighted upsell items ---- */
 .upsell-item.highlight {
-  background: #AD4C28;
+  background: var(--action);
   color: var(--paper);
 }
-.upsell-item.highlight .upsell-num { color: rgba(243,235,221,.55); }
+.upsell-item.highlight .upsell-num { color: rgba(251,247,240,.9); } /* 4.7:1 on the green */
 .upsell-item.highlight .upsell-label { color: var(--paper); }
-.upsell-item.highlight p { color: rgba(243,235,221,.82); }
+.upsell-item.highlight p { color: var(--paper-2); } /* 5.4:1; a translucent cream drops under 4.5:1 */
 .upsell-item.highlight a { color: var(--paper); }
 
 /* -------- Photo variants: real pack pages in place of hand-coded mocks -------- */

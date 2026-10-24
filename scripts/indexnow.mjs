@@ -15,17 +15,17 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 
-const SITE = 'https://preparedathome.co.uk';
+const SITE = 'https://cogdyby.pl';
 // Testing only: fetch pages from a local preview while still submitting the real URLs.
 const FETCH_ORIGIN = process.env.INDEXNOW_FETCH_ORIGIN || SITE;
 const ENDPOINT = process.env.INDEXNOW_ENDPOINT || 'https://api.indexnow.org/indexnow';
-const KEY = '938557fb4d9ac146523ae95b1707bd81';
+const KEY = 'a419168d8e92f3203cd9f00e0ab72bfd'; // cogdyby.pl key; the matching file is public/<KEY>.txt
 const STATE_FILE = new URL('../.indexnow-state.json', import.meta.url);
 const FEED_HUB = 'https://pubsubhubbub.appspot.com/'; // Google's public WebSub hub, named in the feed
 const HUB = process.env.WEBSUB_HUB || FEED_HUB; // where the ping goes (env override for testing only)
 const FEED_URL = `${SITE}/rss.xml`;
 const FEED_KEY = '__feed__'; // state entry for the feed fingerprint
-const SKIP = [/\/privacy\/$/, /\/terms\/$/]; // never worth a recrawl ping
+const SKIP = [/\/polityka-prywatnosci\/$/, /\/regulamin\/$/]; // never worth a recrawl ping
 
 const args = process.argv.slice(2);
 const ALL = args.includes('--all');
@@ -33,7 +33,7 @@ const DRY = args.includes('--dry');
 const paths = args.filter((a) => !a.startsWith('--'));
 
 const get = async (url) => {
-  const res = await fetch(url.replace(SITE, FETCH_ORIGIN), { headers: { 'user-agent': 'prepared-at-home-indexnow' } });
+  const res = await fetch(url.replace(SITE, FETCH_ORIGIN), { headers: { 'user-agent': 'cogdyby-indexnow' } });
   if (!res.ok) throw new Error(`${res.status} ${url}`);
   return res.text();
 };

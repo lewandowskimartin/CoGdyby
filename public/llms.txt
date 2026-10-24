@@ -1,21 +1,35 @@
-# llms.txt for Prepared at Home
-# https://llms.txt/about
+# Co gdyby
 
-User-Agent: *
-Allow: /
+> Co gdyby (cogdyby.pl) to spokojne, praktyczne poradniki i narzędzia, które pomagają polskim rodzinom przygotować dom na sytuacje kryzysowe: przerwy w prądzie, wichury, powodzie, brak wody i szybkie wyjście z domu. Treści opierają się na rządowym „Poradniku bezpieczeństwa – przeczytaj, przećwicz, zachowaj” (MON, MSWiA, RCB). Serwis jest niezależny i niezwiązany z administracją publiczną. Język: polski.
 
-# Main entry points
-URL: https://preparedathome.co.uk/
-Description: UK household emergency plan tool and guides
-Language: en
+## Narzędzia
 
-# Primary guides
-URL: https://preparedathome.co.uk/blog/
-Description: Practical emergency preparedness guides
-URL: https://preparedathome.co.uk/kit/
-Description: Emergency kit builder tools
-URL: https://preparedathome.co.uk/household-preparedness-quiz/
-Description: Preparedness assessment quiz
+- [Quiz gotowości](https://cogdyby.pl/quiz/): 10 pytań, wynik 0–100 i lista braków z bezpłatnymi sposobami na każdy z nich.
+- [Kalkulator zapasów](https://cogdyby.pl/kit/): ile wody i jedzenia potrzeba w domu na 72 godziny, dla liczby domowników i zwierząt.
+- [Darmowa karta na lodówkę](https://cogdyby.pl/darmowa-karta/): jednostronicowy plan z numerami alarmowymi i miejscem spotkania.
 
-# Contact
-Email: info@marcinlewandowski.com
+## Poradniki
+
+- [Wszystkie poradniki](https://cogdyby.pl/blog/)
+- [Poradnik bezpieczeństwa w pigułce](https://cogdyby.pl/blog/poradnik-bezpieczenstwa-w-pigulce/)
+- [Numery alarmowe](https://cogdyby.pl/blog/numery-alarmowe/)
+- [Ile wody trzymać w domu](https://cogdyby.pl/blog/ile-wody-trzymac-w-domu/)
+- [Plecak ewakuacyjny: lista](https://cogdyby.pl/blog/plecak-ewakuacyjny-lista/)
+- [Zestaw awaryjny na 72 godziny](https://cogdyby.pl/blog/zestaw-awaryjny-lista-na-72-godziny/)
+- [Syreny alarmowe: co oznacza każdy sygnał](https://cogdyby.pl/blog/syreny-alarmowe-sygnaly/)
+- [Alert RCB: jak działa](https://cogdyby.pl/blog/alert-rcb-jak-dziala/)
+- [Schrony i miejsca schronienia](https://cogdyby.pl/blog/schrony-i-miejsca-ukrycia/)
+- [Plecak ewakuacyjny dla dziecka](https://cogdyby.pl/blog/plecak-ewakuacyjny-dla-dziecka/)
+- [Apteczka domowa: lista](https://cogdyby.pl/blog/apteczka-domowa-lista/)
+- [Poradniki lokalne dla 16 województw](https://cogdyby.pl/local/)
+
+## Dla organizacji
+
+- [Dla gmin, spółdzielni i wspólnot](https://cogdyby.pl/dla-samorzadow/): plan awaryjny dla mieszkańców we własnych barwach, z lokalnymi numerami.
+
+## Informacje
+
+- [Najczęstsze pytania](https://cogdyby.pl/faq/)
+- [Regulamin](https://cogdyby.pl/regulamin/)
+- [Polityka prywatności](https://cogdyby.pl/polityka-prywatnosci/)
+- Kontakt: kontakt@cogdyby.pl

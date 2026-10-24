@@ -1,3 +1,5 @@
+import { salesOpen } from "./pack.ts";
+
 // Early Access cohort — single source of truth for the /early-access page and every
 // promo link across the site (top bar, guide box, homepage card, free-sample line, footer).
 // To end the promo early: set ENABLED to false. Otherwise it switches itself off after CLOSE_ISO
@@ -50,7 +52,7 @@ export type EaPhase = "off" | "early-access" | "early-bird" | "launch";
 // Static pages read this at build time: redeploy when a tier changes (date passes, seats sell
 // out). Promos also hide themselves in the browser after their close date.
 export const eaPhase = (now: Date = new Date()): EaPhase => {
-  if (!EA.ENABLED) return "off";
+  if (!EA.ENABLED || !salesOpen()) return "off";
   const t = now.getTime();
   if (t < new Date(EA.CLOSE_ISO).getTime() && EA.SEATS_SOLD < EA.SEAT_CAP) {
     return EA.CHECKOUT_URL ? "early-access" : "off";
@@ -91,14 +93,19 @@ export const eaHref = (_src?: string) => `${EA.URL}/`;
 
 // Guide-specific lead-in for the end-of-article box. Missing slugs fall back to a generic line.
 export const EA_GUIDE_TOPICS: Record<string, string> = {
-  "how-to-prepare-for-a-power-cut-uk": "przerwach w prądzie",
-  "what-to-do-during-a-power-cut-uk": "przerwach w prądzie",
-  "will-the-uk-have-blackouts-this-winter": "blackoucie",
-  "how-to-prepare-for-a-storm-uk": "wichurach",
-  "what-to-do-in-a-flood-uk": "powodzi",
-  "how-much-water-to-store-emergency-uk": "zapasach wody",
-  "emergency-food-supply-uk-budget": "zapasach jedzenia",
-  "uk-emergency-grab-bag-checklist": "plecaku ewakuacyjnym",
-  "what-to-put-in-a-uk-emergency-kit": "zestawie awaryjnym",
-  "uk-emergency-numbers-every-household-should-know": "numerach alarmowych",
+  "jak-przygotowac-dom-na-przerwe-w-pradzie": "przerwach w prądzie",
+  "co-robic-podczas-przerwy-w-pradzie": "przerwach w prądzie",
+  "czy-grozi-blackout": "blackoucie",
+  "jak-przygotowac-dom-na-wichure": "wichurach",
+  "co-robic-podczas-powodzi": "powodzi",
+  "ile-wody-trzymac-w-domu": "zapasach wody",
+  "zapas-jedzenia-na-sytuacje-kryzysowa": "zapasach jedzenia",
+  "plecak-ewakuacyjny-lista": "plecaku ewakuacyjnym",
+  "zestaw-awaryjny-lista-na-72-godziny": "zestawie awaryjnym",
+  "numery-alarmowe": "numerach alarmowych",
+  "syreny-alarmowe-sygnaly": "alarmach i syrenach",
+  "alert-rcb-jak-dziala": "alertach i ostrzeżeniach",
+  "schrony-i-miejsca-ukrycia": "miejscach schronienia",
+  "plecak-ewakuacyjny-dla-dziecka": "plecaku ewakuacyjnym dla dziecka",
+  "apteczka-domowa-lista": "domowej apteczce",
 };

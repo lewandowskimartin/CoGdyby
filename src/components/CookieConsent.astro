@@ -1,22 +1,19 @@
 ---
 // Co gdyby — cookie consent (static Astro, vanilla JS).
-// Ported from passlab.pro's consent system, trimmed to PaH's needs:
-// one optional category (Analytics = GA4 + Microsoft Clarity); no ads/PostHog.
-// Prawo telekomunikacyjne (art. 173) + RODO: nieistotne trackery zablokowane do
-// czasu aktywnej zgody; "Odrzuć wszystko" tak samo widoczne jak "Zaakceptuj
-// wszystko"; brak domyślnie zaznaczonych pól; ustawienia dostępne ze stopki;
-// wersjonowanie + ponowne pytanie co 12 miesięcy; sygnały Google Consent Mode
-// v2; respektowanie Global Privacy Control.
-const GA_ID = 'G-KBDZN8TBV0';
-const CLARITY_ID = 'yeywqy79hm';
+// One optional category: Analytics = PostHog (cookieless, EU servers, quiz and kit pages only).
+// Google Analytics and Microsoft Clarity were removed from cogdyby.pl (they were the UK
+// properties). Prawo komunikacji elektronicznej (art. 399) + RODO: nothing optional loads before
+// an active choice; "Odrzuć wszystko" is as visible as "Zaakceptuj wszystko"; no pre-ticked
+// boxes; settings reachable from the footer; versioned, re-asked every 12 months; Global
+// Privacy Control respected.
 ---
 <div id="pah-cookie" class="cc" role="dialog" aria-modal="false" aria-labelledby="cc-title" hidden>
   <div class="cc-card">
     <h2 id="cc-title" class="cc-h">Pliki cookie w serwisie Co gdyby</h2>
     <p class="cc-p">
-      Analityka (Google Analytics i Microsoft Clarity) pokazuje nam,
-      które poradniki naprawdę pomagają. Włączymy ją tylko za Twoją zgodą.
-      <a href="/privacy/#cookies">Prywatność i pliki cookie</a>
+      Za Twoją zgodą włączymy prostą analitykę bez plików cookie, która pokazuje nam,
+      jak działa quiz i kalkulator zapasów.
+      <a href="/polityka-prywatnosci/#cookies">Prywatność i pliki cookie</a>
     </p>
 
     <div class="cc-panel" id="cc-panel" hidden>
@@ -30,9 +27,9 @@ const CLARITY_ID = 'yeywqy79hm';
       <div class="cc-row">
         <div>
           <div class="cc-row-h">Analityka</div>
-          <p class="cc-row-p">Zbiorczy pomiar korzystania ze strony przez Google Analytics 4 i Microsoft Clarity.</p>
+          <p class="cc-row-p">Zbiorczy pomiar korzystania z quizu i kalkulatora przez PostHog, bez plików cookie, na serwerach w UE.</p>
         </div>
-        <button type="button" class="cc-toggle" role="switch" aria-checked="false" aria-label="Analytics" data-cat="analytics"><span></span></button>
+        <button type="button" class="cc-toggle" role="switch" aria-checked="false" aria-label="Analityka" data-cat="analytics"><span></span></button>
       </div>
     </div>
 
@@ -88,9 +85,9 @@ const CLARITY_ID = 'yeywqy79hm';
   }
 </style>
 
-<script define:vars={{ GA_ID, CLARITY_ID }}>
+<script is:inline>
   const KEY = 'pah_consent';
-  const VERSION = 1;
+  const VERSION = 2; // 2: analytics now means PostHog only (GA4 and Clarity removed)
   const REASK_DAYS = 365;
 
   // Where the consent record lives.
@@ -102,7 +99,7 @@ const CLARITY_ID = 'yeywqy79hm';
   // button listeners, no footer cookie settings.
   //
   // When localStorage is unavailable we fall back to a first-party cookie, which often still
-  // works in those cases. Both are strictly necessary under PECR: they hold nothing but this
+  // works in those cases. Both are strictly necessary (art. 399 ust. 3 PKE): they hold nothing but this
   // choice, so no consent is needed to set them. If neither works, `storage` is null and the
   // choice simply cannot be remembered.
   const readCookie = (k) => {
@@ -169,20 +166,6 @@ const CLARITY_ID = 'yeywqy79hm';
     // Tell consent-gated scripts (PostHog) they may start. The flag covers scripts that run later.
     window.__cgAnalyticsConsent = true;
     window.dispatchEvent(new Event('cg:analytics-consent'));
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', functionality_storage: 'granted', security_storage: 'granted' });
-    gtag('consent', 'update', { analytics_storage: 'granted' });
-    gtag('js', new Date());
-    gtag('config', GA_ID, { anonymize_ip: true });
-    const s = document.createElement('script');
-    s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
-    document.head.appendChild(s);
-    (function (c, l, a, r, i, t, y) {
-      c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-      t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-      y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-    })(window, document, "clarity", "script", CLARITY_ID);
   }
 
   document.addEventListener('DOMContentLoaded', () => {

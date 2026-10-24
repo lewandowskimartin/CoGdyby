@@ -1,6 +1,6 @@
 /* Open Graph card template — Co gdyby.
    Mirrors the site's visual system from src/styles/global.css:
-   cream paper, espresso ink, terracotta accent, Fraunces display + DM Sans + IBM Plex Mono.
+   cream paper, espresso ink, forest-green accent, Fraunces display + DM Sans + IBM Plex Mono.
    Rendered to PNG at build time by render.js; no browser involved, so this is a plain
    VDOM tree (satori accepts React-shaped objects) rather than JSX. */
 
@@ -15,8 +15,8 @@ const C = {
   ink: '#2B2721',
   inkSoft: '#5C554A',
   muted: '#716A5C',
-  action: '#CF5F33',
-  accentInk: '#AD4C28', // the darker terracotta used for .eyebrow and filled buttons (AA on paper)
+  action: '#0A6B4A',
+  accentInk: '#0A6B4A', // brand emerald used for .eyebrow and filled buttons (5.5:1 on paper, white text 6.5:1)
   hair: '#E5DBCB',
 };
 
@@ -39,7 +39,7 @@ function headlineSize(s) {
 }
 
 /* Chip variants double as the category signal — the one element readable at
-   feed-thumbnail size. Filled terracotta = paid pack, filled ink = the course,
+   feed-thumbnail size. Filled green = paid pack, filled ink = the course,
    outline = free things, null = legal/utility pages. */
 function chip(spec) {
   if (!spec) return null;
@@ -114,7 +114,7 @@ export function card(page) {
           padding: '54px 62px 50px',
         },
         [
-          // Terracotta rule — the same accent mark the site uses above section headings.
+          // Green rule — the same accent mark the site uses above section headings.
           el({ display: 'flex', width: 52, height: 5, borderRadius: 3, backgroundColor: C.action }),
 
           text(

@@ -12,7 +12,7 @@
   border-radius: 50%; background: var(--panel-2); color: var(--ink-soft); font-size: 11px;
 }
 .kit-steps li.is-current { color: var(--ink); }
-.kit-steps li.is-current span { background: #AD4C28; color: #fff; }
+.kit-steps li.is-current span { background: var(--action); color: #fff; }
 .kit-steps li.is-done span { background: var(--ink); color: var(--paper); }
 
 .kit-step h2 { margin-top: 0; text-wrap: balance; }
@@ -59,11 +59,11 @@
 }
 .kit-scenario:hover { border-color: var(--ink-soft); transform: translateY(-1px); }
 .kit-scenario:focus-visible { outline: 2px solid var(--action); outline-offset: 3px; }
-.kit-scenario.is-current { border-color: #AD4C28; background: var(--panel); }
+.kit-scenario.is-current { border-color: var(--action); background: var(--panel); }
 .kit-scenario__badge {
   display: inline-block; align-self: flex-start; margin-bottom: 8px; padding: 3px 9px;
   font-family: var(--mono); font-size: 10.5px; line-height: 1.4; text-transform: uppercase; letter-spacing: .1em;
-  color: #AD4C28; border: 1px solid currentColor; border-radius: 999px;
+  color: var(--action); border: 1px solid currentColor; border-radius: 999px;
 }
 .kit-scenario__name { display: block; font-family: var(--disp); font-size: 18px; font-weight: 600; margin-bottom: 5px; text-wrap: balance; }
 .kit-scenario__blurb { display: block; font-size: 14.5px; line-height: 1.5; color: var(--ink-soft); text-wrap: pretty; }
@@ -77,7 +77,7 @@
 
 .kit-totals { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 22px 0 10px; }
 .kit-total { padding: 18px 16px; text-align: center; background: var(--paper-2); border: 1px solid var(--hair); border-radius: var(--r-lg); box-shadow: var(--shadow-sm); }
-.kit-total__num { display: block; font-family: var(--disp); font-size: clamp(28px, 6vw, 36px); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; color: #AD4C28; }
+.kit-total__num { display: block; font-family: var(--disp); font-size: clamp(28px, 6vw, 36px); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; color: var(--action); }
 .kit-total__label { display: block; margin-top: 6px; font-family: var(--mono); font-size: 11px; text-wrap: balance; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
 .kit .kit-source { margin-bottom: 26px; }
 
@@ -85,7 +85,7 @@
 .kit-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .kit-item { padding: 14px 16px; background: var(--paper-2); border: 1px solid var(--hair); border-radius: var(--r-sm); }
 .kit-item__main { display: flex; gap: 12px; align-items: flex-start; cursor: pointer; }
-.kit-item__tick { width: 22px; height: 22px; margin: 2px 0 0; flex: none; accent-color: #AD4C28; }
+.kit-item__tick { width: 22px; height: 22px; margin: 2px 0 0; flex: none; accent-color: var(--action); }
 .kit-item__body { display: block; }
 .kit-item__name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; font-weight: 600; font-size: 16.5px; line-height: 1.35; text-wrap: balance; }
 .kit-item__qty { display: inline-block; padding: 2px 8px; border-radius: 999px; background: var(--panel-2); font-family: var(--mono); font-size: 11.5px; font-weight: 500; letter-spacing: .02em; color: var(--ink-soft); vertical-align: 2px; }
@@ -97,7 +97,7 @@
 .kit-item:has(.kit-item__tick:checked) .kit-item__qty { opacity: .55; }
 
 .kit-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 22px; }
-.kit-status { font-family: var(--mono); font-size: 12.5px; color: #AD4C28; }
+.kit-status { font-family: var(--mono); font-size: 12.5px; color: var(--action); }
 .kit-copy-fallback { flex-basis: 100%; margin: 0; font-size: 13.5px; color: var(--muted); }
 .kit-copy-fallback input { display: block; width: 100%; margin-top: 6px; padding: 10px 12px; border: 1px solid var(--hair); border-radius: var(--r-sm); background: var(--paper-2); color: var(--ink); font: inherit; font-size: 16px; } /* 16px: iOS zooms smaller inputs on focus */
 
@@ -108,16 +108,8 @@
 .kit .kit-nojs { margin-bottom: 20px; }
 
 /* Shop the gaps */
-.kit-shop { margin-top: 48px; padding: 24px; background: var(--panel); border: 1px dashed var(--hair); border-radius: var(--r-lg); }
-.kit-shop h2 { margin-top: 0; font-size: 22px; text-wrap: balance; }
-.kit-shop > p { font-size: 15.5px; line-height: 1.6; color: var(--ink-soft); text-wrap: pretty; }
-.kit .kit-shop__count { margin: 14px 0 0; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: #AD4C28; }
+.kit .kit-shop__count { margin: 14px 0 0; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--action); }
 .kit .kit-shop__done { margin: 14px 0 0; font-size: 15.5px; color: var(--ink-soft); }
-.kit-shop__list { list-style: none; padding: 0; margin: 14px 0 18px; display: grid; gap: 2px; }
-.kit-shop__list li { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--hair); font-size: 15.5px; }
-.kit-shop__list li:last-child { border-bottom: 0; }
-.kit-shop__list span { text-wrap: balance; }
-.kit-shop__list a { display: inline-block; padding: 10px 0; margin: -10px 0; } /* 44px tap target */
 
 .kit-email { margin-top: 48px; }
 .kit-email h2 { margin-top: 0; }

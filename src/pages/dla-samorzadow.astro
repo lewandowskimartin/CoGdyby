@@ -1,0 +1,160 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Photo from "../components/Photo.astro";
+import { SELLER } from "../config/seller";
+const title = "Plan na sytuacje kryzysowe dla mieszkańców: gminy, spółdzielnie, wspólnoty | Co gdyby";
+const description = "Domowy plan na sytuacje kryzysowe w barwach gminy, spółdzielni lub wspólnoty mieszkaniowej: lokalne numery, miejsca schronienia i pliki do druku dla mieszkańców. Bezpłatna próbka z Waszym logo.";
+const subject = encodeURIComponent("Próbka dla organizacji: Co gdyby");
+const body = encodeURIComponent(
+  "Dzień dobry,\n\nNazwa organizacji:\nRodzaj (gmina / spółdzielnia / wspólnota / zarządca / inna):\nLiczba mieszkańców lub lokali (w przybliżeniu):\nCo chcielibyśmy dodać do planu (np. numery administracji, miejsca schronienia):\nJak planujemy go rozdać (druk, strona, e-mail):\n\nPozdrawiam,\n"
+);
+const mailto = `mailto:${SELLER.EMAIL}?subject=${subject}&body=${body}`;
+---
+<BaseLayout title={title} description={description}>
+<main id="main">
+
+  <!-- PAGE HERO -->
+  <section class="lifestyle page-hero">
+    <div class="lifestyle-inner">
+      <Photo name="lifestyle-band" preset="lifestyle" class="lifestyle-img" alt="Domowy plan na sytuacje kryzysowe przypięty na lodówce w mieszkaniu" loading="eager" fetchpriority="high" />
+      <div class="lifestyle-cap">
+        <span class="eyebrow">Dla gmin, spółdzielni i wspólnot mieszkaniowych</span>
+        <h1>Plan na sytuacje kryzysowe dla Waszych mieszkańców</h1>
+        <p>Mieszkańcy coraz częściej pytają, co robić przy przerwie w prądzie, wichurze albo alarmie. Przygotujemy dla nich prosty plan do wydruku, w Waszych barwach i z lokalnymi informacjami, na podstawie rządowego Poradnika bezpieczeństwa.</p>
+        <a class="btn btn-primary" href={mailto} data-org-enquiry="councils-hero" style="margin-top:8px">Poproś o bezpłatną próbkę</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO IT'S FOR -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2>Dla kogo</h2>
+        <span class="fig">Ten sam plan, inne lokalne szczegóły</span>
+      </div>
+      <div class="upsell-grid">
+        <div class="upsell-item">
+          <div class="upsell-label">Gminy i powiaty</div>
+          <p>Wersja do biuletynu, na stronę urzędu i do punktów obsługi mieszkańców. Z numerem do urzędu, informacją, gdzie szukać komunikatów, i miejscami schronienia na terenie gminy.</p>
+        </div>
+        <div class="upsell-item">
+          <div class="upsell-label">Spółdzielnie mieszkaniowe</div>
+          <p>Ulotka na klatki schodowe i do skrzynek, strona w gazetce osiedlowej. Z telefonem do administracji i pogotowia technicznego oraz informacją o piwnicach czy innych miejscach schronienia w budynkach.</p>
+        </div>
+        <div class="upsell-item">
+          <div class="upsell-label">Wspólnoty i zarządcy</div>
+          <p>Jedna kartka na tablicę ogłoszeń i plan dla każdego lokalu. Z numerem do zarządcy, lokalizacją głównych zaworów i miejscem zbiórki przed budynkiem.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT RESIDENTS GET -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="template-upsell">
+        <h2>Co dostają mieszkańcy</h2>
+        <p>Plan obejmuje to, co zaleca rządowy <a href="https://www.gov.pl/poradnikbezpieczenstwa">Poradnik bezpieczeństwa</a>, w formie stron do wypełnienia długopisem przy kuchennym stole.</p>
+        <div class="upsell-grid">
+          <div class="upsell-item">
+            <div class="upsell-label">Karta na lodówkę</div>
+            <p><a href="/blog/numery-alarmowe/">Numery alarmowe</a>, telefon do bliskich i miejsce spotkania. Obok nich Wasze numery: urząd, administracja, zarządca.</p>
+          </div>
+          <div class="upsell-item">
+            <div class="upsell-label">Alarmy i ostrzeżenia</div>
+            <p>Co oznaczają <a href="/blog/syreny-alarmowe-sygnaly/">sygnały syren</a>, jak działa <a href="/blog/alert-rcb-jak-dziala/">Alert RCB</a> i gdzie szukać komunikatów.</p>
+          </div>
+          <div class="upsell-item highlight">
+            <div class="upsell-label">Lokalne miejsca schronienia</div>
+            <p>Miejsca, które wskażecie, opisane prostym językiem, oraz ogólne zasady z poradnika o <a href="/blog/schrony-i-miejsca-ukrycia/">schronach i miejscach ukrycia</a>.</p>
+          </div>
+          <div class="upsell-item">
+            <div class="upsell-label">Zapasy i plecak</div>
+            <p>Ile wody i jedzenia trzymać w domu, co spakować do <a href="/blog/plecak-ewakuacyjny-lista/">plecaka ewakuacyjnego</a> i do <a href="/blog/apteczka-domowa-lista/">apteczki</a>.</p>
+          </div>
+          <div class="upsell-item">
+            <div class="upsell-label">Starsi i dzieci</div>
+            <p>Strona dla dzieci, karty ICE do portfela i miejsce na leki oraz sprzęt medyczny na prąd, ważne zwłaszcza dla osób starszych mieszkających samotnie.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-head">
+        <h2>Jak to wygląda</h2>
+      </div>
+      <div class="upsell-grid">
+        <div class="upsell-item">
+          <div class="upsell-num">01</div>
+          <div class="upsell-label">Napiszcie do nas</div>
+          <p>Kim jesteście, ilu mieszkańców chcecie objąć i jak chcecie rozdać plan: w druku, na stronie czy mailem.</p>
+        </div>
+        <div class="upsell-item">
+          <div class="upsell-num">02</div>
+          <div class="upsell-label">Bezpłatna próbka</div>
+          <p>Przygotujemy przykładową stronę z Waszym logo i kolorami, żebyście mogli pokazać ją zarządowi lub radzie.</p>
+        </div>
+        <div class="upsell-item">
+          <div class="upsell-num">03</div>
+          <div class="upsell-label">Oferta</div>
+          <p>Wycena zależy od liczby wersji i zakresu lokalnych zmian. Prześlemy ją po próbce, razem z warunkami licencji na druk.</p>
+        </div>
+        <div class="upsell-item">
+          <div class="upsell-num">04</div>
+          <div class="upsell-label">Pliki do druku</div>
+          <p>Dostajecie pliki PDF gotowe do druku i do publikacji na Waszej stronie.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HONEST NOTES -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="faq-group" style="margin-top:0">
+        <h2>Warto wiedzieć</h2>
+        <div class="faq-item">
+          <h3>Czy to materiał urzędowy?</h3>
+          <p>Nie. Co gdyby to niezależny serwis, niezwiązany z administracją publiczną. Treści opieramy na rządowym Poradniku bezpieczeństwa. Informacje lokalne, takie jak miejsca schronienia czy punkty zbiórki, podajecie Wy albo wskazujecie oficjalne źródło, z którego je bierzemy. Przed drukiem zatwierdzacie całość.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Na jakich zasadach realizujecie zamówienie?</h3>
+          <p>Na podstawie indywidualnej oferty i umowy z organizacją, a nie regulaminu sklepu dla klientów indywidualnych. Fakturę wystawiamy na organizację. Sprzedawcą jest {SELLER.NAME}, działający jako {SELLER.TRADING_NAME}, {SELLER.ADDRESS}.</p>
+        </div>
+        <div class="faq-item">
+          <h3>Czy możemy sami wydrukować tyle egzemplarzy, ile potrzebujemy?</h3>
+          <p>Tak, liczbę egzemplarzy i sposób rozpowszechniania ustalamy w licencji. Pliki przygotowujemy tak, żeby dało się je wydrukować w zwykłej drukarni albo na biurowej drukarce.</p>
+        </div>
+        <div class="faq-item">
+          <h3>A wersja w innym języku?</h3>
+          <p>Jeśli wśród mieszkańców są osoby, które lepiej czytają po ukraińsku lub angielsku, napiszcie o tym w wiadomości. Sprawdzimy, czy możemy przygotować taką wersję.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="b2b" id="probka">
+    <div class="b2b-inner">
+      <div>
+        <div class="eyebrow">Bezpłatna próbka</div>
+        <h2>Zobaczcie plan z Waszym logo</h2>
+        <p>Napiszcie kilka zdań o swojej organizacji. Odpowiemy mailem i przygotujemy próbkę, którą można pokazać zarządowi lub radzie.</p>
+        <a class="btn btn-primary" href={mailto} data-org-enquiry="councils-final">Poproś o próbkę z logo</a>
+      </div>
+      <div class="b2b-figure">
+        <div class="wl-mock wl-mock--photo">
+          <img src="/img/pack-page-01.png" alt="Okładka planu, gotowa przyjąć logo i kolory Waszej organizacji" width="240" height="339" loading="lazy" decoding="async" />
+          <span class="wl-mock__chip">Tu Wasze logo</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+</BaseLayout>

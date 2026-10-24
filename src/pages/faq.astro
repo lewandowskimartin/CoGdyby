@@ -1,4 +1,5 @@
 ---
+import BuyButton from "../components/BuyButton.astro";
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { PACK_CONFIG } from '../config/pack';
 
@@ -9,7 +10,7 @@ const groups = [
     title: 'O pakiecie',
     items: [
       { q: `Co jest w pakiecie Co gdyby?`, a: [
-        `Dwanaście stron do wydruku i wypełnienia długopisem. Jest w nim plan dla wszystkich domowników, karta na lodówkę z najważniejszymi numerami, karty ICE do portfela (ICE to skrót od „In Case of Emergency”, czyli „w nagłym wypadku”), <a href="/blog/uk-emergency-grab-bag-checklist/">lista do plecaka ewakuacyjnego</a>, strona na miejsce spotkania, miejsce na zawory wody i gazu, bezpieczniki, leki i kontakty oraz <a href="/families/">prostsza wersja dla dzieci</a>. Dostajesz plik PDF w formacie A4. Kartę na lodówkę możesz najpierw <a href="/free-emergency-plan-template/">pobrać za darmo</a>.`
+        `Dwanaście stron do wydruku i wypełnienia długopisem. Jest w nim plan dla wszystkich domowników, karta na lodówkę z najważniejszymi numerami, karty ICE do portfela (ICE to skrót od „In Case of Emergency”, czyli „w nagłym wypadku”), <a href="/blog/plecak-ewakuacyjny-lista/">lista do plecaka ewakuacyjnego</a>, strona na miejsce spotkania, miejsce na zawory wody i gazu, bezpieczniki, leki i kontakty oraz <a href="/dla-rodziny/">prostsza wersja dla dzieci</a>. Dostajesz plik PDF w formacie A4. Kartę na lodówkę możesz najpierw <a href="/darmowa-karta/">pobrać za darmo</a>.`
       ]},
       { q: `Czym to się różni od rządowego Poradnika bezpieczeństwa?`, a: [
         `Rady są te same, bo na nich się opieramy. Rządowy <a href="${G}">Poradnik bezpieczeństwa</a> (MON, MSWiA i RCB) jest bezpłatny, dobrze tłumaczy, co robić w kryzysie, i ma kilka tabel do uzupełnienia. Zachęcamy, żeby go przeczytać.`,
@@ -19,10 +20,10 @@ const groups = [
         `Nie. Co gdyby to niezależny projekt, niezwiązany z administracją publiczną. Korzystamy z publicznych zaleceń z <a href="${G}">Poradnika bezpieczeństwa</a> i serwisów gov.pl, a potem układamy je w formę, którą łatwiej mieć pod ręką. Oryginał zawsze znajdziesz bezpłatnie na gov.pl.`
       ]},
       { q: `Dla kogo jest ten pakiet?`, a: [
-        `Dla każdego domu: <a href="/families/">rodzin z małymi dziećmi</a>, <a href="/elderly-parents/">osób, które opiekują się starszymi rodzicami</a>, par, singli i wszystkich, którzy od dawna odkładają zrobienie planu „na kiedyś”. Piszemy spokojnie i praktycznie, bez straszenia.`
+        `Dla każdego domu: <a href="/dla-rodziny/">rodzin z małymi dziećmi</a>, <a href="/starsi-rodzice/">osób, które opiekują się starszymi rodzicami</a>, par, singli i wszystkich, którzy od dawna odkładają zrobienie planu „na kiedyś”. Piszemy spokojnie i praktycznie, bez straszenia.`
       ]},
       { q: `Czy pakiet jest dopasowany do Polski?`, a: [
-        `Tak. <a href="/blog/uk-emergency-numbers-every-household-should-know/">Numery alarmowe</a> (112, 997, 998, 999, a także pogotowie energetyczne 991, gazowe 992 i wodociągowe 994), ostrzeżenia Alert RCB i aplikacja RSO oraz wszystkie zalecenia odnoszą się do polskich realiów.`
+        `Tak. <a href="/blog/numery-alarmowe/">Numery alarmowe</a> (112, 997, 998, 999, a także pogotowie energetyczne 991, gazowe 992 i wodociągowe 994), ostrzeżenia Alert RCB i aplikacja RSO oraz wszystkie zalecenia odnoszą się do polskich realiów.`
       ]},
     ]
   },
@@ -68,22 +69,22 @@ const groups = [
     title: 'Treść i bezpieczeństwo',
     items: [
       { q: `Skąd pochodzą rady w pakiecie?`, a: [
-        `Z rządowego <a href="${G}">Poradnika bezpieczeństwa</a> przygotowanego przez MON, MSWiA i Rządowe Centrum Bezpieczeństwa oraz z serwisów gov.pl. Nie wymyślamy własnych zasad bezpieczeństwa, tylko porządkujemy oficjalne. Krótkie omówienie poradnika znajdziesz w tekście <a href="/blog/what-the-uk-prepare-campaign-means-for-your-household/">Poradnik bezpieczeństwa w pigułce</a>.`
+        `Z rządowego <a href="${G}">Poradnika bezpieczeństwa</a> przygotowanego przez MON, MSWiA i Rządowe Centrum Bezpieczeństwa oraz z serwisów gov.pl. Nie wymyślamy własnych zasad bezpieczeństwa, tylko porządkujemy oficjalne. Krótkie omówienie poradnika znajdziesz w tekście <a href="/blog/poradnik-bezpieczenstwa-w-pigulce/">Poradnik bezpieczeństwa w pigułce</a>.`
       ]},
       { q: `Czy pakiet zapewni mojej rodzinie bezpieczeństwo?`, a: [
         `Żaden produkt nie może tego obiecać. Pakiet pomaga przygotować się wcześniej, żeby w trudnej chwili każdy znał plan, a numery były pod ręką. To ogólne informacje, a nie instrukcja na konkretną sytuację. Gdy coś się dzieje, zawsze w pierwszej kolejności słuchaj służb i oficjalnych komunikatów.`
       ]},
       { q: `Na jakie sytuacje przygotowuje pakiet?`, a: [
-        `Na te, które zdarzają się najczęściej: <a href="/blog/how-to-prepare-for-a-power-cut-uk/">przerwę w dostawie prądu</a>, <a href="/blog/how-to-prepare-for-a-storm-uk/">wichurę</a>, <a href="/blog/what-to-do-in-a-flood-uk/">powódź</a>, <a href="/blog/what-to-do-if-you-smell-gas-uk/">zapach gazu</a>, <a href="/blog/how-much-water-to-store-emergency-uk/">brak wody</a> i <a href="/blog/uk-emergency-grab-bag-checklist/">konieczność szybkiego wyjścia z domu</a>. Skupiamy się na podstawach: kontaktach, miejscu spotkania, zaworach i plecaku ewakuacyjnym.`
+        `Na te, które zdarzają się najczęściej: <a href="/blog/jak-przygotowac-dom-na-przerwe-w-pradzie/">przerwę w dostawie prądu</a>, <a href="/blog/jak-przygotowac-dom-na-wichure/">wichurę</a>, <a href="/blog/co-robic-podczas-powodzi/">powódź</a>, <a href="/blog/co-robic-gdy-czujesz-gaz/">zapach gazu</a>, <a href="/blog/ile-wody-trzymac-w-domu/">brak wody</a> i <a href="/blog/plecak-ewakuacyjny-lista/">konieczność szybkiego wyjścia z domu</a>. Skupiamy się na podstawach: kontaktach, miejscu spotkania, zaworach i plecaku ewakuacyjnym.`
       ]},
       { q: `Czy jest wersja dla dzieci?`, a: [
-        `Tak. To prosta strona, którą dziecko wypełni razem z Tobą: telefony do rodziców, miejsce spotkania i trzy łatwe kroki. Słowa są dobrane tak, żeby uspokajały, a nie straszyły. Więcej na <a href="/families/">stronie dla rodzin</a>.`
+        `Tak. To prosta strona, którą dziecko wypełni razem z Tobą: telefony do rodziców, miejsce spotkania i trzy łatwe kroki. Słowa są dobrane tak, żeby uspokajały, a nie straszyły. Więcej na <a href="/dla-rodziny/">stronie dla rodzin</a>.`
       ]},
       { q: `Jak często aktualizować plan?`, a: [
         `Wystarczy raz w roku i za każdym razem, gdy coś się zmienia: nowy numer telefonu, przeprowadzka, narodziny dziecka, nowa szkoła. Plan jest tak ułożony, żeby odświeżenie zajęło kilka minut.`
       ]},
       { q: `Ktoś w domu korzysta ze sprzętu medycznego na prąd. Co wtedy?`, a: [
-        `Warto przygotować dla niego osobny plan: sprawdzić, jak długo działa bateria, zapisać telefon do dostawcy sprzętu i ustalić, dokąd pojechać, gdyby przerwa w prądzie się przedłużała. Dobrze też zapisać się na powiadomienia o planowanych wyłączeniach u swojego operatora sieci. Wszystko opisujemy w poradniku o <a href="/blog/priority-services-register-uk-explained/">sprzęcie medycznym w domu</a>.`
+        `Warto przygotować dla niego osobny plan: sprawdzić, jak długo działa bateria, zapisać telefon do dostawcy sprzętu i ustalić, dokąd pojechać, gdyby przerwa w prądzie się przedłużała. Dobrze też zapisać się na powiadomienia o planowanych wyłączeniach u swojego operatora sieci. Wszystko opisujemy w poradniku o <a href="/blog/sprzet-medyczny-a-przerwa-w-pradzie/">sprzęcie medycznym w domu</a>.`
       ]},
     ]
   },
@@ -91,7 +92,7 @@ const groups = [
     title: 'Dla organizacji',
     items: [
       { q: `Czy samorząd albo spółdzielnia mogą zamówić pakiet ze swoim logo?`, a: [
-        `Tak. Przygotowujemy wersję dla spółdzielni i wspólnot mieszkaniowych, samorządów i zarządców: ten sam projekt w Waszych barwach, z lokalnymi numerami i informacjami o zagrożeniach. Szczegóły są w <a href="/#organisations">sekcji dla organizacji</a>, możesz też <a href="mailto:kontakt@cogdyby.pl">napisać do nas</a>.`
+        `Tak. Przygotowujemy wersję dla spółdzielni i wspólnot mieszkaniowych, samorządów i zarządców: ten sam projekt w Waszych barwach, z lokalnymi numerami i informacjami o zagrożeniach. Szczegóły są na stronie <a href="/dla-samorzadow/">dla gmin, spółdzielni i wspólnot</a>, możesz też <a href="mailto:kontakt@cogdyby.pl">napisać do nas</a>.`
       ]},
       { q: `Czy możemy dodać własne numery i informacje o zagrożeniach?`, a: [
         `Tak, właśnie po to jest ta wersja. Wy dostarczacie i zatwierdzacie treści, a my przygotowujemy projekt i pliki do druku. Napiszcie, a wszystko omówimy.`
@@ -137,7 +138,7 @@ const faqLd = {
     <div class="faq-cta">
       <div class="box">
         <p>Chcesz mieć plan na papierze?</p>
-        <a class="btn btn-primary" href="/#get" data-pack-cta="faq">Kup pakiet za {PACK_CONFIG.PRICE}</a>
+        <BuyButton href="/#get" data-pack-cta="faq" />
       </div>
     </div>
   </main>

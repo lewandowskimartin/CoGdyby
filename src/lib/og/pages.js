@@ -32,26 +32,33 @@ const KIT_PAGES = Object.fromEntries(
 export const STATIC_PAGES = {
   index: {
     eyebrow: 'Domowy plan na sytuacje kryzysowe',
-    headline: "Rodzinny plan awaryjny, który naprawdę wisi na lodówce",
+    headline: "Rodzinny plan awaryjny na każde „co gdyby”",
     sub: '12 stron do druku A4 · na podstawie rządowego Poradnika bezpieczeństwa.',
     chip: PACK_CHIP,
   },
 
-  families: {
+  'dla-rodziny': {
     eyebrow: 'Dla rodzin z dziećmi',
     headline: 'Plan awaryjny, który zrozumieją też dzieci',
     sub: "Ze stroną dla dzieci: prosty język i trzy rzeczy, które warto, żeby wiedziało każde dziecko.",
     chip: PACK_CHIP,
   },
 
-  'elderly-parents': {
+  'starsi-rodzice': {
     eyebrow: 'Dla dorosłych dzieci i opiekunów',
     headline: "Plan na lodówce mamy i taty",
     sub: "Numery alarmowe, do kogo dzwonić, gdzie jest główny zawór wody i co zrobić, gdy zabraknie prądu.",
     chip: PACK_CHIP,
   },
 
-  'free-emergency-plan-template': {
+  'dla-samorzadow': {
+    eyebrow: 'Gminy, spółdzielnie, wspólnoty',
+    headline: 'Plan na sytuacje kryzysowe dla Waszych mieszkańców',
+    sub: 'W Waszych barwach, z lokalnymi numerami i miejscami schronienia.',
+    chip: { label: 'Próbka', caption: 'Bezpłatnie, z Waszym logo', variant: 'outline' },
+  },
+
+  'darmowa-karta': {
     eyebrow: 'Darmowy fragment',
     headline: 'Darmowy szablon domowego planu na sytuacje kryzysowe',
     sub: 'Pobierz kartę na lodówkę, najczęściej używaną stronę planu. Wypełnij i przypnij magnesem.',
@@ -65,14 +72,14 @@ export const STATIC_PAGES = {
     chip: EA_CHIP,
   },
 
-  'household-preparedness-quiz': {
+  'quiz': {
     eyebrow: 'Quiz w 2 minuty',
     headline: 'Jak przygotowany jest Twój dom?',
     sub: '10 krótkich pytań, wynik w skali 0–100 i bezpłatny sposób na każdy brak.',
     chip: { label: 'Za darmo', caption: 'Zajmuje 2 minuty', variant: 'outline' },
   },
 
-  'household-preparedness-quiz/results': {
+  'quiz/wynik': {
     eyebrow: 'Wynik quizu',
     headline: 'Twój wynik w quizie gotowości',
     sub: 'Wynik w skali 0–100, najważniejsze braki i bezpłatny sposób na każdy z nich.',
@@ -93,14 +100,14 @@ export const STATIC_PAGES = {
     chip: PACK_CHIP,
   },
 
-  privacy: {
+  'polityka-prywatnosci': {
     eyebrow: 'Informacje prawne',
     headline: 'Polityka prywatności',
     sub: 'Jak Co gdyby zbiera, wykorzystuje i chroni Twoje dane oraz jakie masz prawa na gruncie RODO.',
     chip: null,
   },
 
-  terms: {
+  'regulamin': {
     eyebrow: 'Informacje prawne',
     headline: 'Regulamin sprzedaży i korzystania',
     sub: 'Warunki zakupu i korzystania z pakietu Co gdyby.',
@@ -119,21 +126,26 @@ export const STATIC_PAGES = {
 /* Topic eyebrows for the guides. A guide whose slug isn't listed falls back to
    "Guide", so new posts still get a correct card without touching this file. */
 const GUIDE_TOPICS = {
-  'cheap-ways-to-prepare-for-emergencies-uk': 'Tanim kosztem',
-  'emergency-food-supply-uk-budget': 'Jedzenie i woda',
-  'home-fire-safety-uk-checklist': 'Bezpieczeństwo pożarowe',
-  'how-much-water-to-store-emergency-uk': 'Jedzenie i woda',
-  'how-to-prepare-for-a-power-cut-uk': 'Przerwy w prądzie',
-  'how-to-prepare-for-a-storm-uk': 'Wichury',
-  'priority-services-register-uk-explained': 'Dodatkowe wsparcie',
-  'uk-emergency-grab-bag-checklist': 'Plecak ewakuacyjny',
-  'uk-emergency-numbers-every-household-should-know': 'Numery alarmowe',
-  'what-the-uk-prepare-campaign-means-for-your-household': 'Poradnik bezpieczeństwa',
-  'what-to-do-during-a-power-cut-uk': 'Przerwy w prądzie',
-  'what-to-do-if-you-smell-gas-uk': 'Bezpieczeństwo gazowe',
-  'what-to-do-in-a-flood-uk': 'Powodzie',
-  'what-to-put-in-a-uk-emergency-kit': 'Zestaw awaryjny',
-  'will-the-uk-have-blackouts-this-winter': 'Przerwy w prądzie',
+  'jak-tanio-przygotowac-dom': 'Tanim kosztem',
+  'zapas-jedzenia-na-sytuacje-kryzysowa': 'Jedzenie i woda',
+  'bezpieczenstwo-pozarowe-w-domu': 'Bezpieczeństwo pożarowe',
+  'ile-wody-trzymac-w-domu': 'Jedzenie i woda',
+  'jak-przygotowac-dom-na-przerwe-w-pradzie': 'Przerwy w prądzie',
+  'jak-przygotowac-dom-na-wichure': 'Wichury',
+  'sprzet-medyczny-a-przerwa-w-pradzie': 'Dodatkowe wsparcie',
+  'plecak-ewakuacyjny-lista': 'Plecak ewakuacyjny',
+  'numery-alarmowe': 'Numery alarmowe',
+  'poradnik-bezpieczenstwa-w-pigulce': 'Poradnik bezpieczeństwa',
+  'co-robic-podczas-przerwy-w-pradzie': 'Przerwy w prądzie',
+  'co-robic-gdy-czujesz-gaz': 'Bezpieczeństwo gazowe',
+  'co-robic-podczas-powodzi': 'Powodzie',
+  'zestaw-awaryjny-lista-na-72-godziny': 'Zestaw awaryjny',
+  'czy-grozi-blackout': 'Przerwy w prądzie',
+  'syreny-alarmowe-sygnaly': 'Alarmy',
+  'alert-rcb-jak-dziala': 'Ostrzeżenia',
+  'schrony-i-miejsca-ukrycia': 'Schronienie',
+  'plecak-ewakuacyjny-dla-dziecka': 'Plecak ewakuacyjny',
+  'apteczka-domowa-lista': 'Pierwsza pomoc',
 };
 
 /* Meta descriptions run long for SEO. On a card, one sentence is plenty — take the

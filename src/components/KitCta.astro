@@ -74,7 +74,7 @@ const c = cta ?? defaults.cta;
     padding: 22px 24px;
     background: var(--panel);
     border: 1px solid var(--hair);
-    border-left: 3px solid #AD4C28;
+    border-left: 3px solid var(--action);
     border-radius: var(--r-sm);
   }
   .kit-inline p { margin: 0; }
@@ -83,7 +83,7 @@ const c = cta ?? defaults.cta;
     font-size: 10.5px;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: #AD4C28;
+    color: var(--action);
     margin-bottom: 8px !important;
   }
   .kit-inline__title {
@@ -108,7 +108,7 @@ const c = cta ?? defaults.cta;
     color: var(--muted);
   }
   /* .prose a { color: var(--ink) } outranks .btn-accent inside a guide, so the button has to
-     state its own colour or it renders dark-on-terracotta. Hover too: .prose a:hover is (0,2,1). */
+     state its own colour or it renders dark-on-green. Hover too: .prose a:hover is (0,2,1). */
   .kit-inline__btn,
   .kit-inline__btn:hover { color: #fff; text-decoration: none; }
 </style>

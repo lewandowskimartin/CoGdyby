@@ -1,4 +1,5 @@
 ---
+import BuyButton from "../components/BuyButton.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Photo from "../components/Photo.astro";
 import QuizCta from "../components/QuizCta.astro";
@@ -45,13 +46,13 @@ const homeGuides = HOME_GUIDES.map((id) => allPosts.find((p) => p.id === id)).fi
           "availability": "https://schema.org/InStock",
           "itemCondition": "https://schema.org/NewCondition",
           "seller": { "@id": "https://cogdyby.pl/#org" },
-          // Mirrors /terms/ sections 5–6: no change-of-mind refunds once downloaded.
-          // Statutory rights for faulty files are unaffected (stated on /terms/).
+          // Mirrors /regulamin/ sections 5–6: no change-of-mind refunds once downloaded.
+          // Statutory rights for faulty files are unaffected (stated on /regulamin/).
           "hasMerchantReturnPolicy": {
             "@type": "MerchantReturnPolicy",
             "applicableCountry": "PL",
             "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
-            "merchantReturnLink": "https://cogdyby.pl/terms/"
+            "merchantReturnLink": "https://cogdyby.pl/regulamin/"
           }
         },
         "category": "Emergency Preparedness",
@@ -78,11 +79,11 @@ const homeGuides = HOME_GUIDES.map((id) => allPosts.find((p) => p.id === id)).fi
   <section class="hero">
     <div class="hero-inner">
       <div class="hero-copy">
-        <h1>Rodzinny plan awaryjny, który <span style="color:var(--action)">naprawdę wisi na lodówce</span></h1>
+        <h1>Rodzinny plan awaryjny <span style="color:var(--action)">na&nbsp;każde „co&nbsp;gdyby”</span></h1>
         <p class="lede">Wypełniasz go raz, przy kuchennym stole, i przypinasz na lodówce. Dwanaście stron do wydruku, oparte na rządowym <a href="https://www.gov.pl/poradnikbezpieczenstwa">Poradniku bezpieczeństwa</a>. Wystarczy jeden spokojny wieczór.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#get" data-pack-cta="home-hero">Kup pakiet</a>
-          <a class="btn-ghost" href="/household-preparedness-quiz/" data-quiz-cta="home-hero">Sprawdź swój dom w 2 minuty</a>
+          <BuyButton href="#get" label="Kup pakiet" data-pack-cta="home-hero" />
+          <a class="btn-ghost" href="/quiz/" data-quiz-cta="home-hero">Sprawdź swój dom w 2 minuty</a>
         </div>
         <div class="spec">
           <div><div class="k">Stron</div><div class="v">12</div></div>
@@ -114,7 +115,7 @@ const homeGuides = HOME_GUIDES.map((id) => allPosts.find((p) => p.id === id)).fi
       <div class="lifestyle-cap">
         <span class="eyebrow">Dla zwykłych, zabieganych domów</span>
         <p>Przygotowanie to numery na lodówce i plan, który zna każdy domownik. Potem wracasz do swoich spraw ze spokojną głową.</p>
-        <a class="btn-ghost" href="/families/" style="font-size:14px;margin-top:8px">Dla rodzin z dziećmi</a>
+        <a class="btn-ghost" href="/dla-rodziny/" style="font-size:14px;margin-top:8px">Dla rodzin z dziećmi</a>
       </div>
     </div>
   </section>
@@ -181,7 +182,7 @@ const homeGuides = HOME_GUIDES.map((id) => allPosts.find((p) => p.id === id)).fi
       <div class="lifestyle-cap">
         <span class="eyebrow">Gdy nie możesz być obok</span>
         <p>Kiedy plan wisi na lodówce u rodziców, łatwiej o spokojny sen. Wiedzą, do kogo dzwonić i co zrobić najpierw.</p>
-        <a class="btn-ghost" href="/elderly-parents/" style="font-size:14px;margin-top:8px">Dla starszych rodziców</a>
+        <a class="btn-ghost" href="/starsi-rodzice/" style="font-size:14px;margin-top:8px">Dla starszych rodziców</a>
       </div>
     </div>
   </section>
@@ -192,7 +193,7 @@ const homeGuides = HOME_GUIDES.map((id) => allPosts.find((p) => p.id === id)).fi
       <div class="objection">
         <h2>Rządowy poradnik jest bezpłatny. Po co nasz plan?</h2>
         <p>Rządowy <a href="https://www.gov.pl/poradnikbezpieczenstwa">Poradnik bezpieczeństwa</a> dobrze tłumaczy, co robić w sytuacji kryzysowej, i warto go przeczytać. Ma też kilka tabel do uzupełnienia. Nasz plan idzie o krok dalej: jedna karta na lodówkę z tym, co najważniejsze, karty ICE do portfela, osobna strona dla dzieci i miejsce na zawory oraz bezpieczniki. Drukujesz tyle kopii, ile potrzebujesz, i przez lata masz wszystko na papierze.</p>
-        <p>Zacznij od <a href="/free-emergency-plan-template/">darmowej karty na lodówkę</a> i zobacz, czy taki plan Ci odpowiada.</p>
+        <p>Zacznij od <a href="/darmowa-karta/">darmowej karty na lodówkę</a> i zobacz, czy taki plan Ci odpowiada.</p>
       </div>
     </div>
   </section>
@@ -219,8 +220,8 @@ const homeGuides = HOME_GUIDES.map((id) => allPosts.find((p) => p.id === id)).fi
       <h2>Przygotuj dom w jeden weekend</h2>
       <p>Pobierasz, drukujesz, wypełniasz i przypinasz. Kosztuje mniej niż pizza dla całej rodziny, a zrobisz to raz.</p>
       <div class="final-actions">
-        <a class="btn btn-primary" href={packHref()} data-pack-checkout="home-final">Kup pakiet za {PACK_CONFIG.PRICE}</a>
-        <a class="btn btn-outline" href="#organisations" data-org-cta="home-final">Dla organizacji</a>
+        <BuyButton href={packHref()} data-pack-checkout="home-final" />
+        <a class="btn btn-outline" href="/dla-samorzadow/" data-org-cta="home-final">Dla organizacji</a>
       </div>
       <p class="reassurance">Plik od razu po zakupie · drukujesz bez limitu · zostaje u Ciebie na zawsze</p>
       <EarlyAccessPromo variant="card" />
@@ -234,8 +235,7 @@ const homeGuides = HOME_GUIDES.map((id) => allPosts.find((p) => p.id === id)).fi
         <div class="eyebrow">Spółdzielnie i wspólnoty mieszkaniowe, samorządy, zarządcy</div>
         <h2>Plan awaryjny, po który mieszkańcy naprawdę sięgną</h2>
         <p>Przygotujemy cały pakiet w barwach Waszej organizacji: pliki gotowe do druku, pola do uzupełnienia i miejsce na lokalne numery. Napiszcie, kim jesteście, a prześlemy bezpłatną próbkę z Waszym logo.</p>
-        <!-- TODO: Replace mailto with Tally form embed -->
-        <a class="btn btn-primary" href="mailto:kontakt@cogdyby.pl?subject=Zapytanie%20white-label%20%E2%80%94%20Co%20gdyby" data-org-enquiry="home-b2b">Poproś o próbkę z logo →</a>
+        <a class="btn btn-primary" href="/dla-samorzadow/" data-org-enquiry="home-b2b">Zobacz, jak to działa →</a>
       </div>
       <div class="b2b-figure">
         <div class="wl-mock wl-mock--photo">

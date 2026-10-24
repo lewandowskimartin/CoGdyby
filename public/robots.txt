@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://preparedathome.co.uk/sitemap-index.xml
+Sitemap: https://cogdyby.pl/sitemap-index.xml

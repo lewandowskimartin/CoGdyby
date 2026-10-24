@@ -1,5 +1,5 @@
 // Who sells on cogdyby.pl — single source of truth for the terms, privacy policy and footer.
-// Same seller as preparedathome.co.uk: Marcin Lewandowski t/a Depthia, UK sole trader.
+// Seller: Marcin Lewandowski t/a Depthia, UK sole trader.
 //
 // ADDRESS and PHONE are REQUIRED before any sale to consumers:
 // - Polish law: art. 12 ust. 1 pkt 3 ustawy o prawach konsumenta (address, e-mail, phone) and

@@ -4,12 +4,7 @@ import { defineMarkdocConfig, component, nodes } from '@astrojs/markdoc/config';
 //
 // 1. The built-in `link` node renders through MarkdocLink.astro, which sets
 //    target/rel per link: external links open in a new tab with safe rel
-//    values, and Amazon links additionally get rel="sponsored nofollow".
-//
-// 2. The `alink` tag renders an affiliate link from a central id, e.g.
-//    {% alink id="torch" %}A basic LED torch{% /alink %}
-//    The URLs live in src/data/affiliateLinks.js — swap a Wish List for an
-//    Idea List there once and every post updates.
+//    values. (No affiliate links on cogdyby.pl.)
 export default defineMarkdocConfig({
   nodes: {
     link: {
@@ -32,13 +27,6 @@ export default defineMarkdocConfig({
         text: { type: String },
         cta: { type: String },
       },
-    },
-    alink: {
-      render: component('./src/components/AffiliateLink.astro'),
-      attributes: {
-        id: { type: String, required: true },
-      },
-      children: ['text', 'strong', 'em', 'code', 's'],
     },
   },
 });
