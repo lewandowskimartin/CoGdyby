@@ -646,6 +646,10 @@ body.nav-open::after {
   overflow: hidden;
 }
 .lifestyle-img { width: 100%; height: clamp(260px, 42vw, 440px); object-fit: cover; }
+/* Photos whose people sit on the right: keep them in frame when phones crop the sides. */
+.lifestyle-img--right { object-position: 80% center; }
+/* Portrait photo in a wide band: the band shows ~30% of its height, so aim the window at both faces. */
+.lifestyle-img--portrait { object-position: 50% 56%; }
 .lifestyle-inner::after {
   content: "";
   position: absolute;
