@@ -1,8 +1,7 @@
 ---
 // Co gdyby — cookie consent (static Astro, vanilla JS).
-// One optional category: Analytics = PostHog (cookieless, EU servers, quiz and kit pages only).
-// Google Analytics and Microsoft Clarity were removed from cogdyby.pl (they were the UK
-// properties). Prawo komunikacji elektronicznej (art. 399) + RODO: nothing optional loads before
+// One optional category: Analytics = Google Analytics 4 + Microsoft Clarity (cookies) + PostHog
+// (cookieless, EU). All strictly blocked until consent (GoogleAnalytics, Clarity, PostHog .astro). Prawo komunikacji elektronicznej (art. 399) + RODO: nothing optional loads before
 // an active choice; "Odrzuć wszystko" is as visible as "Zaakceptuj wszystko"; no pre-ticked
 // boxes; settings reachable from the footer; versioned, re-asked every 12 months; Global
 // Privacy Control respected.
@@ -11,8 +10,8 @@
   <div class="cc-card">
     <h2 id="cc-title" class="cc-h">Pliki cookie w serwisie Co gdyby</h2>
     <p class="cc-p">
-      Za Twoją zgodą włączymy prostą analitykę bez plików cookie, która pokazuje nam,
-      jak działa quiz i kalkulator zapasów.
+      Za Twoją zgodą włączymy analitykę (Google Analytics i Microsoft Clarity), która pokazuje nam,
+      jak ludzie korzystają ze strony, quizu i kalkulatora zapasów.
       <a href="/polityka-prywatnosci/#cookies">Prywatność i pliki cookie</a>
     </p>
 
@@ -27,7 +26,7 @@
       <div class="cc-row">
         <div>
           <div class="cc-row-h">Analityka</div>
-          <p class="cc-row-p">Zbiorczy pomiar korzystania z quizu i kalkulatora przez PostHog, bez plików cookie, na serwerach w UE.</p>
+          <p class="cc-row-p">Pomiar ruchu przez Google Analytics, mapy kliknięć i nagrania sesji (z ukrytymi polami formularzy) przez Microsoft Clarity. Oba zapisują pliki cookie. Do tego PostHog bez plików cookie, na serwerach w UE.</p>
         </div>
         <button type="button" class="cc-toggle" role="switch" aria-checked="false" aria-label="Analityka" data-cat="analytics"><span></span></button>
       </div>
@@ -87,7 +86,7 @@
 
 <script is:inline>
   const KEY = 'pah_consent';
-  const VERSION = 2; // 2: analytics now means PostHog only (GA4 and Clarity removed)
+  const VERSION = 3; // 3: analytics now includes Google Analytics 4 and Microsoft Clarity, so earlier choices are asked again
   const REASK_DAYS = 365;
 
   // Where the consent record lives.
@@ -163,7 +162,7 @@
 
   function loadAnalytics() {
     if (hasGPC()) return; // Global Privacy Control = opt-out; never load.
-    // Tell consent-gated scripts (PostHog) they may start. The flag covers scripts that run later.
+    // Tell consent-gated scripts (Google Analytics, Clarity, PostHog) they may start. The flag covers scripts that run later.
     window.__cgAnalyticsConsent = true;
     window.dispatchEvent(new Event('cg:analytics-consent'));
   }

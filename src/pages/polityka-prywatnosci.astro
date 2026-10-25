@@ -53,17 +53,21 @@ const mail = `mailto:${SELLER.EMAIL}`;
           <li><strong>Payhip</strong> (Wielka Brytania): sprzedaż, płatności, dostarczanie plików i kursu, rozliczanie VAT. Płatności obsługują <strong>Stripe</strong> i <strong>PayPal</strong>, które przetwarzają dane płatnicze jako odrębni administratorzy.</li>
           <li><strong>MailerLite</strong> (Unia Europejska): wysyłka karty, wyników, list i newslettera.</li>
           <li><strong>Cloudflare</strong>: hosting i bezpieczeństwo strony.</li>
+          <li><strong>Google Ireland Limited</strong> (Google Analytics): statystyki ruchu na stronie, tylko za Twoją zgodą.</li>
+          <li><strong>Microsoft Ireland Operations Limited</strong> (Microsoft Clarity): mapy kliknięć i nagrania sesji, tylko za Twoją zgodą.</li>
           <li><strong>PostHog</strong> (serwery w UE): analityka quizu i kalkulatora, tylko za Twoją zgodą.</li>
           <li><strong>Namecheap (Private Email)</strong>: poczta e-mail, gdy do nas piszesz.</li>
         </ul>
 
         <h2>5. Przekazywanie danych poza Europejski Obszar Gospodarczy</h2>
-        <p>Działamy w Wielkiej Brytanii. Komisja Europejska uznała, że Wielka Brytania zapewnia odpowiedni poziom ochrony danych (decyzja stwierdzająca odpowiedni stopień ochrony, przedłużona w 2025 roku). Część dostawców (np. Cloudflare, Namecheap) może przetwarzać dane w USA. Odbywa się to na podstawie ram ochrony danych UE–USA (Data Privacy Framework) albo standardowych klauzul umownych zatwierdzonych przez Komisję Europejską. Na prośbę przekażemy informacje o zastosowanych zabezpieczeniach.</p>
+        <p>Działamy w Wielkiej Brytanii. Komisja Europejska uznała, że Wielka Brytania zapewnia odpowiedni poziom ochrony danych (decyzja stwierdzająca odpowiedni stopień ochrony, przedłużona w 2025 roku). Część dostawców (np. Cloudflare, Namecheap, Google, Microsoft) może przetwarzać dane w USA. Odbywa się to na podstawie ram ochrony danych UE–USA (Data Privacy Framework) albo standardowych klauzul umownych zatwierdzonych przez Komisję Europejską. Na prośbę przekażemy informacje o zastosowanych zabezpieczeniach.</p>
 
         <h2 id="cookies">6. Pliki cookie i analityka</h2>
         <p>Przy pierwszej wizycie baner pyta, czy zgadzasz się na analitykę. Zanim wybierzesz, nie wczytujemy żadnych narzędzi analitycznych. Zdanie możesz zmienić w każdej chwili przez <strong>Ustawienia cookie</strong> w stopce.</p>
-        <p>Nie używamy Google Analytics ani innych narzędzi, które ustawiają analityczne pliki cookie. Na stronach quizu i kalkulatora, tylko za Twoją zgodą, działa <strong>PostHog</strong> w trybie bez plików cookie. Nie zapisuje niczego na Twoim urządzeniu, nie przechowuje adresu IP i usuwa z adresu strony kod Twoich odpowiedzi, zanim cokolwiek wyśle. Nie nagrywamy sesji, a Twój adres e-mail nigdy nie trafia do PostHog.</p>
-        <p>Jeśli odmówisz albo Twoja przeglądarka wysyła sygnał Global Privacy Control, PostHog nie wczytuje się wcale. Bez zgody zapisujemy tylko Twój wybór (datę, numer wersji i informację o zgodzie) na 12 miesięcy, w pamięci przeglądarki albo w pliku cookie <strong>pah_consent</strong>. Payhip może ustawić pliki cookie niezbędne do obsługi płatności, gdy przejdziesz do zakupu.</p>
+        <p>Za Twoją zgodą korzystamy z <strong>Google Analytics</strong> (Google Ireland Limited), żeby wiedzieć, ile osób odwiedza stronę, skąd przychodzą i które poradniki są przydatne. Google Analytics zapisuje na Twoim urządzeniu pliki cookie <strong>_ga</strong> i <strong>_ga_*</strong> na 13 miesięcy. Wyłączyliśmy funkcje reklamowe i Google Signals, a z adresu strony usuwamy kod Twoich odpowiedzi z quizu, zanim cokolwiek trafi do Google. Google nie przechowuje pełnego adresu IP.</p>
+        <p>Za Twoją zgodą korzystamy też z <strong>Microsoft Clarity</strong> (Microsoft Ireland Operations Limited). Clarity pokazuje, gdzie ludzie klikają i jak przewijają stronę, i zapisuje anonimowe nagrania sesji, dzięki którym poprawiamy wygląd i działanie serwisu. Treść wpisywana w pola formularzy jest ukrywana i nie trafia do Microsoftu. Clarity nie działa na stronie z wynikiem quizu. Zapisuje pliki cookie <strong>_clck</strong> (do 12 miesięcy) i <strong>_clsk</strong> (1 dzień).</p>
+        <p>Na stronach quizu i kalkulatora, również tylko za Twoją zgodą, działa <strong>PostHog</strong> w trybie bez plików cookie. Nie zapisuje niczego na Twoim urządzeniu, nie przechowuje adresu IP i także usuwa z adresu strony kod Twoich odpowiedzi. Twój adres e-mail nigdy nie trafia do Google, Microsoftu ani PostHog.</p>
+        <p>Jeśli odmówisz albo Twoja przeglądarka wysyła sygnał Global Privacy Control, Google Analytics, Microsoft Clarity ani PostHog nie wczytują się wcale. Bez zgody zapisujemy tylko Twój wybór (datę, numer wersji i informację o zgodzie) na 12 miesięcy, w pamięci przeglądarki albo w pliku cookie <strong>pah_consent</strong>. Payhip może ustawić pliki cookie niezbędne do obsługi płatności, gdy przejdziesz do zakupu.</p>
 
         <h2>7. Jak długo przechowujemy dane</h2>
         <ul>
@@ -72,6 +76,8 @@ const mail = `mailto:${SELLER.EMAIL}`;
           <li>Karta, wynik quizu i lista zapasów wysłane e-mailem: do 12 miesięcy od wysyłki, chyba że zapiszesz się też na newsletter.</li>
           <li>Wiadomości i zapytania: do 2 lat od zakończenia korespondencji.</li>
           <li>Zapis wyboru dotyczącego cookie: 12 miesięcy.</li>
+          <li>Pliki cookie Google Analytics: 13 miesięcy, a dane statystyczne w Google Analytics: 14 miesięcy.</li>
+          <li>Pliki cookie Microsoft Clarity: do 12 miesięcy, a nagrania i statystyki w Clarity: do 13 miesięcy.</li>
         </ul>
 
         <h2>8. Twoje prawa</h2>

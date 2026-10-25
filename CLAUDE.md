@@ -19,8 +19,10 @@ Author: Martin (Marcin Lewandowski), a product designer. He has a sharp eye; "lo
   sale (`eaPhase()` in `src/config/earlyAccess.ts`: date not passed, not sold out, Payhip link set).
 - **Checkout:** the Payhip links in `src/config/pack.ts` / `src/config/earlyAccess.ts` must point at Polish
   products priced in PLN. Never point them at the UK (English, GBP) products.
-- **No affiliate links** and **no Google Analytics / Clarity**. The only optional analytics is PostHog
-  (cookieless, EU), loaded only after consent (`cg:analytics-consent`).
+- **No affiliate links.** Analytics = Google Analytics 4 (`G-9Z5M267864`, `GoogleAnalytics.astro`) +
+  Microsoft Clarity (`z36pb30qkh`, `Clarity.astro`, never on /quiz/wynik/) + optional PostHog (cookieless, EU).
+  All load ONLY after consent (`cg:analytics-consent`); quiz-results query string stripped from GA, ads signals off. If analytics changes, bump
+  `VERSION` in CookieConsent.astro and update section 6 of /polityka-prywatnosci/.
 - **Local pages:** 16 voivodeships in `src/content/local/`. `npm run check:similarity` must stay under 30%.
 
 ## The rule that would have saved the most time

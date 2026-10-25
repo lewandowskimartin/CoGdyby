@@ -4,6 +4,8 @@ import Seo from '../components/Seo.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import CookieConsent from '../components/CookieConsent.astro';
+import GoogleAnalytics from '../components/GoogleAnalytics.astro';
+import Clarity from '../components/Clarity.astro';
 import Animations from '../components/Animations.astro';
 import EarlyAccessPromo from '../components/EarlyAccessPromo.astro';
 
@@ -22,6 +24,8 @@ const { title, description, canonical, image, type } = Astro.props;
   <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=IBM+Plex+Mono:wght@400;500&display=swap" /></noscript>
   <Seo title={title} description={description} canonical={canonical} image={image} type={type} />
   <link rel="alternate" type="application/rss+xml" title="Co gdyby — Poradniki" href="/rss.xml" />
+  <GoogleAnalytics />
+  <Clarity />
   <slot name="head" />
 </head>
 <body>

@@ -1,0 +1,46 @@
+---
+// Google Analytics 4 for cogdyby.pl. Consent-gated with strict blocking: gtag.js is not even
+// requested until the visitor accepts analytics in the cookie banner (CookieConsent fires
+// 'cg:analytics-consent'; it never fires with Global Privacy Control on). GA sets cookies (_ga),
+// so art. 399 Prawa komunikacji elektronicznej + RODO require that consent first.
+// Consent Mode v2 defaults are all "denied"; on consent only analytics_storage is granted.
+// Ads signals stay off: no ad_storage, ad_user_data, ad_personalization, no Google signals.
+// The quiz results URL carries the answers, so its query string never reaches GA.
+// Measurement ID: PUBLIC_GA_ID overrides the default below; set it to "off" to disable GA.
+const envId = import.meta.env.PUBLIC_GA_ID;
+const id = envId === 'off' ? '' : envId || 'G-9Z5M267864';
+---
+{id && (
+  <script is:inline define:vars={{ id }}>
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+    });
+    const startGA = () => {
+      if (window.__gaStarted) return;
+      window.__gaStarted = true;
+      gtag('consent', 'update', { analytics_storage: 'granted' });
+      gtag('js', new Date());
+      // The quiz results URL carries the answers: drop its query string. Everywhere else keep it,
+      // so utm_ campaign tags still reach GA.
+      const quizResults = location.pathname.startsWith('/quiz/wynik');
+      gtag('config', id, {
+        page_location: quizResults ? location.origin + location.pathname : location.href,
+        page_referrer: document.referrer.split('?')[0],
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        cookie_expires: 395 * 24 * 60 * 60, // 13 months, not GA's default 2 years
+      });
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
+      document.head.appendChild(s);
+    };
+    if (window.__cgAnalyticsConsent) startGA();
+    else window.addEventListener('cg:analytics-consent', startGA, { once: true });
+  </script>
+)}

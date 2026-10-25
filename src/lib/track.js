@@ -1,5 +1,5 @@
-// Site analytics. Sends events to PostHog only, and only if PUBLIC_POSTHOG_KEY is set and the
-// visitor accepted analytics in the cookie banner (see components/PostHog.astro).
+// Site analytics. Sends events to Google Analytics 4 and PostHog, each only after the visitor
+// accepted analytics in the cookie banner (components/GoogleAnalytics.astro, PostHog.astro).
 // Never pass personal data: only score, band and area ids.
 
 const phQueue = [];
@@ -66,8 +66,19 @@ export function readEaSource() {
   }
 }
 
+// GA4: gtag queues events in dataLayer until gtag.js arrives, so only the consent flag matters.
+function sendGA(event, props, beacon) {
+  if (!window.__gaStarted || typeof window.gtag !== 'function') return;
+  window.gtag('event', event, beacon ? { ...props, transport_type: 'beacon' } : props);
+}
+
 export function track(event, props = {}, { beacon = false } = {}) {
   if (typeof window === 'undefined') return;
+  try {
+    sendGA(event, props, beacon);
+  } catch {
+    /* analytics must never break the page */
+  }
   try {
     sendPostHog(event, props, beacon);
   } catch {

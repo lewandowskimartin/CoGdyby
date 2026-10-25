@@ -1,0 +1,31 @@
+---
+// Microsoft Clarity (heatmaps and session recordings) for cogdyby.pl. Consent-gated with strict
+// blocking, like GoogleAnalytics.astro: the Clarity script is not requested until the visitor
+// accepts analytics (CookieConsent fires 'cg:analytics-consent'; never with Global Privacy Control).
+// Clarity sets cookies (_clck, _clsk), so art. 399 Prawa komunikacji elektronicznej + RODO apply.
+// Not loaded on the quiz results page: its URL carries the visitor's answers, and Clarity has no
+// way to strip query strings before sending the page URL.
+// Project ID: PUBLIC_CLARITY_ID overrides the default below; set it to "off" to disable Clarity.
+const envId = import.meta.env.PUBLIC_CLARITY_ID;
+const id = envId === 'off' ? '' : envId || 'z36pb30qkh';
+---
+{id && (
+  <script is:inline define:vars={{ id }}>
+    (() => {
+      if (location.pathname.startsWith('/quiz/wynik')) return;
+      const startClarity = () => {
+        if (window.__clarityStarted) return;
+        window.__clarityStarted = true;
+        (function (c, l, a, r, i, t, y) {
+          c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+          t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+          y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, 'clarity', 'script', id);
+        // The visitor has just consented to analytics; ads stay denied.
+        window.clarity('consentv2', { ad_Storage: 'denied', analytics_Storage: 'granted' });
+      };
+      if (window.__cgAnalyticsConsent) startClarity();
+      else window.addEventListener('cg:analytics-consent', startClarity, { once: true });
+    })();
+  </script>
+)}
