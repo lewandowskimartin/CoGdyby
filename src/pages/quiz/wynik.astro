@@ -6,6 +6,7 @@ import { QUIZ_PATH, EMAIL_FORM, PACK, TIERS, MANAGE, AREAS_HEADING } from '../..
 import PreparednessGauge from '../../components/PreparednessGauge.astro';
 import EarlyAccessPromo from '../../components/EarlyAccessPromo.astro';
 import { EA, eaPhase } from '../../config/earlyAccess';
+import { publishedAreas } from '../../lib/local.js';
 import '../../styles/quiz.css';
 
 const title = 'Twój wynik w quizie gotowości domu | Co gdyby';
@@ -17,6 +18,9 @@ const shareUrl = new URL(QUIZ_PATH, Astro.site).href + '?src=share';
 
 // Tier labels come from the data, so the heading and the scoring never drift apart.
 const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
+
+// Live local pages (slug → name). The household card links to one only if it's published.
+const localPages = Object.fromEntries((await publishedAreas()).map((e) => [e.id, e.data?.name ?? e.id]));
 ---
 <BaseLayout title={title} description="Twój wynik w quizie gotowości, najważniejsze braki i bezpłatny sposób na każdy z nich.">
   <Fragment slot="head">
@@ -28,7 +32,7 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
     <!-- Shown when ?a= is missing or invalid -->
     <div data-results-error hidden>
       <h1>Nie udało się odczytać tych wyników</h1>
-      <p>Link może być niepełny. Przejdź quiz jeszcze raz, a zobaczysz swój wynik. To zajmuje około 2 minut.</p>
+      <p>Link może być niepełny. Przejdź quiz jeszcze raz, a zobaczysz swój wynik. To zajmuje kilka minut.</p>
       <p><a class="btn btn-accent" href={QUIZ_PATH}>Przejdź quiz</a></p>
     </div>
 
@@ -42,7 +46,7 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
       <h1>Twój wynik gotowości domu</h1>
       <PreparednessGauge />
 
-      <p class="q-manage">{MANAGE.lead} <strong data-manage-text></strong>.<span class="q-manage__note" data-manage-note></span></p>
+      <p class="q-manage"><span data-manage-lead>{MANAGE.lead}</span> <strong data-manage-text></strong>.<span class="q-manage__note" data-manage-note></span></p>
       <p class="q-manage__sub">{MANAGE.sub} <a href="/kit/" data-kit-cta="quiz-manage">{MANAGE.kitLabel}</a></p>
 
       <p data-summary></p>
@@ -54,7 +58,7 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
       </section>
 
       <div class="q-share" data-share data-share-url={shareUrl}>
-        <p class="q-share__lead">Znasz kogoś, komu też przydadzą się te dwie minuty?</p>
+        <p class="q-share__lead">Znasz kogoś, komu ten quiz też się przyda?</p>
         <div class="q-share__row">
           <button type="button" class="btn btn-outline" data-share-btn>Udostępnij wynik</button>
           <span class="q-share__status" role="status" aria-live="polite" data-share-status></span>
@@ -92,6 +96,13 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
             <p class="q-tier__cta">Kurs „{EA.NAME}” przeprowadzi Cię przez cały plan, jeden krok w tygodniu. <a href="/early-access/" data-ea-cta="quiz-tier-longer">Zobacz kurs</a></p>
           )}
         </section>
+      </div>
+
+      <div class="q-card q-home" data-home-card data-local={JSON.stringify(localPages)} hidden>
+        <span class="eyebrow">Twój dom</span>
+        <h2>Przydatne dla Twojego domu</h2>
+        <p class="q-home__profile" data-home-profile></p>
+        <ul class="q-home__links" data-home-links></ul>
       </div>
 
       <EarlyAccessPromo variant="results" />
@@ -159,19 +170,22 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
 </BaseLayout>
 
 <script>
-  import { parseAnswers, scoreAnswers } from '../../lib/quizScore.js';
-  import { PACK, AREAS, BENCHMARK } from '../../data/quiz.js';
+  import { parseAnswers, scoreAnswers, parseProfile, encodeProfile, profileFlags } from '../../lib/quizScore.js';
+  import { PACK, AREAS, BENCHMARK, MANAGE, PROFILE_STEPS, PROFILE_LINKS, REGIONS } from '../../data/quiz.js';
   import { GAP_KITS, SCENARIOS, kitHref } from '../../data/kit.js';
   import { track } from '../../lib/track.js';
 
   const $ = (sel) => document.querySelector(sel);
-  const answers = parseAnswers(new URLSearchParams(location.search).get('a'));
+  const params = new URLSearchParams(location.search);
+  const answers = parseAnswers(params.get('a'));
+  const profile = parseProfile(params.get('p'), params.get('r'));
+  const flags = profileFlags(profile);
 
   if (!answers) {
     $('[data-results-error]').hidden = false;
     track('quiz_results_invalid');
   } else {
-    const r = scoreAnswers(answers);
+    const r = scoreAnswers(answers, { profile });
     // Preparedness gauge — animate reveal (falls back to plain text if the gauge isn't present)
     $('[data-band]').textContent = r.band.label;
     const gaugeCard = document.querySelector('[data-gauge-card]');
@@ -209,6 +223,7 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
 
     // "You'd manage…" — the food and water answers, in the words the visitor picked. The note
     // only appears on the top band, where GOV.UK's "a few days" framing applies.
+    if (flags.alone) $('[data-manage-lead]').textContent = MANAGE.leadAlone;
     $('[data-manage-text]').textContent = r.manage.text;
     const manageNote = $('[data-manage-note]');
     if (r.manage.note) manageNote.textContent = r.manage.note;
@@ -249,7 +264,7 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
 
     // Ticked actions are stored against this exact set of answers, so retaking the quiz and
     // answering differently starts from a clean list instead of inheriting stale ticks.
-    const storeKey = 'pah_plan_' + answers.join('');
+    const storeKey = 'pah_plan_' + params.get('a') + (params.get('p') ?? '');
     let ticked;
     try {
       ticked = new Set(JSON.parse(localStorage.getItem(storeKey) || '[]'));
@@ -361,6 +376,44 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
       $('[data-kit-tier-cta]').hidden = false;
     }
 
+    // ---- Matched to your home ----
+    const homeCard = $('[data-home-card]');
+    if (homeCard) {
+      const step = (id) => PROFILE_STEPS.find((s) => s.id === id);
+      const parts = [];
+      if (profile.home) parts.push(step('home').options.find((o) => o.id === profile.home).short);
+      if (profile.people) {
+        const n = profile.people;
+        parts.push(n >= 6 ? '6 lub więcej osób' : n === 1 ? '1 osoba' : n <= 4 ? `${n} osoby` : `${n} osób`);
+      }
+      const who = step('who').options.filter((o) => profile.who.includes(o.id)).map((o) => o.short);
+      if (who.length) parts.push(who.join(', '));
+      const region = REGIONS.find((x) => x.id === profile.region);
+      if (region) parts.push(region.label);
+
+      const links = PROFILE_LINKS.filter((l) => flags[l.flag]).map((l) => ({ ...l }));
+      const live = JSON.parse(homeCard.dataset.local || '{}');
+      if (region && live[region.id]) {
+        links.unshift({ href: `/local/${region.id}/`, label: `Województwo ${region.label}: lokalne zagrożenia i ważne numery` });
+      }
+
+      if (parts.length) {
+        $('[data-home-profile]').textContent = `${parts.join(' · ')}. Pytania i porady są dopasowane do tych odpowiedzi.`;
+      }
+      const ul = $('[data-home-links]');
+      for (const l of links) {
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.href = l.href;
+        a.textContent = l.label;
+        a.addEventListener('click', () => track('quiz_home_link', { href: l.href }, { beacon: true }));
+        li.append(a);
+        ul.append(li);
+      }
+      // Only worth a card when there's somewhere to go from it.
+      homeCard.hidden = links.length === 0;
+    }
+
     // Pack offer: headline by band, plus the pack pages that fix this visitor's gaps.
     const n = r.gaps.length;
     $('[data-offer-heading]').textContent =
@@ -405,7 +458,7 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
     // goes to the quiz, never to this page's answers.
     const shareBox = $('[data-share]');
     if (shareBox) {
-      const shareText = `Mój wynik: ${r.total}/100. Sprawdź, jak przygotowany jest Twój dom na sytuacje kryzysowe. Quiz zajmuje dwie minuty i nie wymaga zapisu:`;
+      const shareText = `Mój wynik: ${r.total}/100. Sprawdź, jak przygotowany jest Twój dom na sytuacje kryzysowe. Quiz zajmuje kilka minut i nie wymaga zapisu:`;
       const shareLink = shareBox.dataset.shareUrl;
       const status = shareBox.querySelector('[data-share-status]');
       const shared = (method) =>
@@ -443,7 +496,11 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
     if (emailForm) {
       emailForm.querySelector('[data-field="band"]').value = r.band.id;
       emailForm.querySelector('[data-field="weakest"]').value = r.weakest ?? '';
-      emailForm.querySelector('[data-field="url"]').value = location.origin + location.pathname + '?a=' + answers.join('');
+      const emailParams = new URLSearchParams({ a: params.get('a') });
+      const emailProfile = encodeProfile(profile, { drop: ['s', 'c'] });
+      if (emailProfile) emailParams.set('p', emailProfile);
+      if (profile.region) emailParams.set('r', profile.region);
+      emailForm.querySelector('[data-field="url"]').value = location.origin + location.pathname + '?' + emailParams;
       const consent = emailForm.querySelector('[data-consent]');
       const consentField = emailForm.querySelector('[data-field="consent"]');
       consent.addEventListener('change', () => (consentField.value = consent.checked ? 'yes' : 'no'));

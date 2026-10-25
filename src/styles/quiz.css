@@ -43,6 +43,24 @@
 .q-option input:checked + span { border-color: var(--action); background: var(--panel); }
 .q-option input:checked + span::before { border: 6px solid var(--action); }
 .q-option input:focus-visible + span { outline: 2px solid var(--action); outline-offset: 3px; }
+.q-hint { margin: -8px 0 18px; font-size: 15px; line-height: 1.5; color: var(--ink-soft); text-wrap: pretty; }
+/* "Who lives here" allows several answers, so it gets square boxes with a tick, not radio dots. */
+.q-option input[type="checkbox"] + span::before { border-radius: 5px; }
+.q-option input[type="checkbox"]:checked + span::before {
+  border: 2px solid var(--action); background: var(--action) center / 14px no-repeat
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3.2 3L13 4.5' fill='none' stroke='%23FBF7F0' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+/* Household size: six short answers as a 3 × 2 grid of tiles. */
+.q-step--grid .q-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.q-step--grid .q-option { margin: 0; }
+.q-step--grid .q-option span { justify-content: center; padding: 12px 8px; text-align: center; text-wrap: balance; }
+.q-step--grid .q-option span::before { display: none; }
+.q-select { display: block; }
+.q-select select {
+  display: block; width: 100%; min-height: 52px; padding: 12px 16px; border: 1px solid var(--hair);
+  border-radius: var(--r-sm); background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px;
+}
+.q-select select:focus-visible { outline: 2px solid var(--action); outline-offset: 3px; }
 .q-nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 24px; }
 .q-nav .btn { white-space: nowrap; }
 .q-nav .btn:disabled { opacity: .45; cursor: not-allowed; transform: none; box-shadow: none; }
@@ -173,6 +191,11 @@
 .q-free { margin-top: 24px; }
 .q-free h2 { font-size: 22px; margin: 0 0 8px; text-wrap: balance; }
 .q-free p { color: var(--ink-soft); }
+.q-home { margin-top: 24px; }
+.q-home h2 { margin: 8px 0 8px; font-size: 22px; text-wrap: balance; }
+.q-home__profile { color: var(--ink-soft); }
+.q-home__links { margin: 12px 0 0; padding-left: 1.2em; }
+.q-home__links li + li { margin-top: 8px; }
 
 /* Helpers */
 

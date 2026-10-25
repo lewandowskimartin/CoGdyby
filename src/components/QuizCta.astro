@@ -4,15 +4,14 @@
 // - variant="band": a compact section on landing pages (home, families, elderly parents).
 //   Deliberately lighter than the .final pack CTA (smaller heading, outline button) so the pack stays the main ask.
 // data-quiz-cta feeds the quiz_cta_clicked event (BaseLayout.astro), so each placement can be compared.
-import { QUIZ_PATH, QUESTIONS } from '../data/quiz.js';
-const n = QUESTIONS.length;
+import { QUIZ_PATH } from '../data/quiz.js';
 const {
   variant = 'article',
   location = 'article',
   eyebrow = 'Zanim cokolwiek kupisz',
   title = 'Jak przygotowany jest Twój dom?',
-  text = `${n} krótkich pytań na podstawie rządowego Poradnika bezpieczeństwa. Dostajesz wynik w skali 0–100, trzy najważniejsze braki i bezpłatny sposób na każdy z nich.`,
-  cta = 'Przejdź quiz (2 minuty)',
+  text = 'Pytania na podstawie rządowego Poradnika bezpieczeństwa, dopasowane do Twojego domu. Dostajesz wynik w skali 0–100, najważniejsze braki i bezpłatny sposób na każdy z nich.',
+  cta = 'Przejdź quiz (4 minuty)',
   // { href, label } — an optional second, quieter link under the quiz button. Used to offer
   // the kit builder alongside the quiz without a second band competing for the same space.
   secondary,
@@ -46,7 +45,7 @@ const {
 ) : (
   <div class="article-cta" style="padding-bottom:0">
     <div class="box">
-      <p>Jak przygotowany jest Twój dom? Sprawdź w 2 minuty.</p>
+      <p>Jak przygotowany jest Twój dom? Sprawdź w 4 minuty.</p>
       <a class="btn btn-outline" href={QUIZ_PATH} data-quiz-cta={location}>Przejdź quiz</a>
     </div>
   </div>

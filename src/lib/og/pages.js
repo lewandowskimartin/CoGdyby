@@ -73,10 +73,10 @@ export const STATIC_PAGES = {
   },
 
   'quiz': {
-    eyebrow: 'Quiz w 2 minuty',
+    eyebrow: 'Quiz w 4 minuty',
     headline: 'Jak przygotowany jest Twój dom?',
     sub: '10 krótkich pytań, wynik w skali 0–100 i bezpłatny sposób na każdy brak.',
-    chip: { label: 'Za darmo', caption: 'Zajmuje 2 minuty', variant: 'outline' },
+    chip: { label: 'Za darmo', caption: 'Zajmuje 4 minuty', variant: 'outline' },
   },
 
   'quiz/wynik': {

@@ -1,10 +1,11 @@
 ---
-// Quiz stepper. The server renders every question; the script shows one at a time.
-import { QUESTIONS, RESULTS_PATH } from '../data/quiz.js';
-const total = QUESTIONS.length;
+// Quiz stepper. The server renders every step (profile first, then the scored questions); the
+// script shows one at a time, skips steps that don't apply to this household, and rewrites each
+// question's wording for the household before showing it.
+import { QUESTIONS, PROFILE_STEPS, REGIONS, RESULTS_PATH, QUIZ_MINUTES } from '../data/quiz.js';
 ---
 <div class="q-intro" data-quiz-intro>
-  <p class="q-lede">{total} pytań, około 2 minut. Na podstawie rządowego <a href="https://www.gov.pl/poradnikbezpieczenstwa" rel="noopener">Poradnika bezpieczeństwa</a>.</p>
+  <p class="q-lede">Najpierw kilka pytań o Twój dom, potem pytania oparte na rządowym <a href="https://www.gov.pl/poradnikbezpieczenstwa" rel="noopener">Poradniku bezpieczeństwa</a>. Zajmuje to {QUIZ_MINUTES}.</p>
   <p class="q-muted">Bez zakładania konta. Odpowiedzi zostają w Twojej przeglądarce, nie zapisujemy ich.</p>
   <button type="button" class="btn btn-accent" data-quiz-start hidden>Zacznij quiz</button>
   <noscript>
@@ -12,24 +13,51 @@ const total = QUESTIONS.length;
   </noscript>
 </div>
 
-<form class="q-card" data-quiz-form data-results-path={RESULTS_PATH} data-total={total} hidden novalidate>
+<form class="q-card" data-quiz-form data-results-path={RESULTS_PATH} hidden novalidate>
   <div class="q-progress">
     <div class="q-progress__bar" aria-hidden="true"><div class="q-progress__fill" data-quiz-fill></div></div>
-    <span class="q-progress__text" data-quiz-progress aria-live="polite">Pytanie 1 z {total}</span>
+    <span class="q-progress__text" data-quiz-progress aria-live="polite"></span>
   </div>
 
   <!-- Every step sits in the same grid cell, so the card keeps the tallest question's height and
        Back/Next don't move between questions. -->
   <div class="q-steps">
-    {QUESTIONS.map((q, i) => (
-      <fieldset class="q-step" data-quiz-step={i} hidden={i !== 0}>
-        <legend tabindex="-1">{q.text}</legend>
-        {q.options.map((label, points) => (
-          <label class="q-option">
-            <input type="radio" name={q.id} value={points} />
-            <span>{label}</span>
+    {PROFILE_STEPS.map((s, i) => (
+      <fieldset class={s.layout === 'grid' ? 'q-step q-step--grid' : 'q-step'} data-quiz-step={`p:${s.id}`} data-kind={s.type} hidden={i !== 0}>
+        <legend tabindex="-1">{s.text}</legend>
+        {s.hint && <p class="q-hint">{s.hint}</p>}
+        {s.type === 'select' ? (
+          <label class="q-select">
+            <span class="visually-hidden">Województwo</span>
+            <select name={`p-${s.id}`}>
+              <option value="">{s.placeholder}</option>
+              {REGIONS.map((r) => <option value={r.id}>{r.label}</option>)}
+            </select>
           </label>
-        ))}
+        ) : (
+          <div class="q-options">
+            {s.options.map((o) => (
+              <label class="q-option">
+                <input type={s.type} name={`p-${s.id}`} value={o.id} data-exclusive={o.exclusive ? '' : undefined} />
+                <span data-p-label={o.id}>{o.label}</span>
+              </label>
+            ))}
+          </div>
+        )}
+      </fieldset>
+    ))}
+    {QUESTIONS.map((q) => (
+      <fieldset class="q-step" data-quiz-step={`q:${q.id}`} data-kind="question" hidden>
+        <legend tabindex="-1" data-q-text>{q.text}</legend>
+        <p class="q-hint" data-q-hint hidden={!q.hint}>{q.hint}</p>
+        <div class="q-options">
+          {q.options.map((label, points) => (
+            <label class="q-option">
+              <input type="radio" name={q.id} value={points} />
+              <span data-q-option>{label}</span>
+            </label>
+          ))}
+        </div>
       </fieldset>
     ))}
   </div>
@@ -42,36 +70,96 @@ const total = QUESTIONS.length;
 
 <script>
   import { track } from '../lib/track.js';
+  import { QUESTIONS, PROFILE_STEPS } from '../data/quiz.js';
+  import {
+    EMPTY_PROFILE,
+    profileFlags,
+    profileStepAsked,
+    isAsked,
+    resolveQuestion,
+    encodeAnswers,
+    encodeProfile,
+  } from '../lib/quizScore.js';
 
   const intro = document.querySelector('[data-quiz-intro]');
   const start = document.querySelector('[data-quiz-start]');
   const form = document.querySelector('[data-quiz-form]');
 
   if (intro && start && form) {
-    const steps = [...form.querySelectorAll('[data-quiz-step]')];
-    const total = steps.length;
-    const answers = new Array(total).fill(null);
+    const stepEls = Object.fromEntries(
+      [...form.querySelectorAll('[data-quiz-step]')].map((el) => [el.dataset.quizStep, el]),
+    );
     const backBtn = form.querySelector('[data-quiz-back]');
     const nextBtn = form.querySelector('[data-quiz-next]');
     const progress = form.querySelector('[data-quiz-progress]');
     const fill = form.querySelector('[data-quiz-fill]');
     const resultsPath = form.dataset.resultsPath;
-    let current = 0;
+
+    const raw = { home: null, people: null, water: null, who: [], region: null };
+    const answers = {}; // question id → points
+    let currentKey = `p:${PROFILE_STEPS[0].id}`;
     let advanceTimer = 0;
 
     start.hidden = false;
 
-    function show(i, { focus = true } = {}) {
+    // The profile as it stands: water only counts for a house, so switching back to a flat
+    // after answering it doesn't leave a stale "well" behind.
+    function profile() {
+      const p = { ...EMPTY_PROFILE, ...raw, who: [...raw.who] };
+      if (!profileFlags(p).house) p.water = null;
+      return p;
+    }
+
+    function sequence() {
+      const p = profile();
+      return [
+        ...PROFILE_STEPS.filter((s) => profileStepAsked(s, p)).map((s) => `p:${s.id}`),
+        ...QUESTIONS.filter((q) => isAsked(q, p)).map((q) => `q:${q.id}`),
+      ];
+    }
+
+    function answered(key) {
+      const [kind, id] = key.split(':');
+      if (kind === 'q') return answers[id] !== undefined;
+      const step = PROFILE_STEPS.find((s) => s.id === id);
+      if (step.type === 'checkbox') return stepEls[key].querySelector('input:checked') !== null;
+      if (step.type !== 'radio') return true; // the region is optional
+      return id === 'water' ? raw.water !== null || form.querySelector('[name="p-water"]:checked') !== null : raw[id] !== null;
+    }
+
+    // Put this household's wording on a question before it's shown.
+    function personalise(key) {
+      const [kind, id] = key.split(':');
+      if (key === 'p:who') {
+        // The "none of these" answer reads "Only me" for someone living alone.
+        const none = PROFILE_STEPS.find((s) => s.id === 'who').options.find((o) => o.exclusive);
+        const span = stepEls[key].querySelector(`[data-p-label="${none.id}"]`);
+        span.textContent = raw.people === 1 && none.labelAlone ? none.labelAlone : none.label;
+      }
+      if (kind !== 'q') return;
+      const q = resolveQuestion(QUESTIONS.find((x) => x.id === id), profile());
+      const el = stepEls[key];
+      el.querySelector('[data-q-text]').textContent = q.text;
+      const hint = el.querySelector('[data-q-hint]');
+      hint.textContent = q.hint ?? '';
+      hint.hidden = !q.hint;
+      el.querySelectorAll('[data-q-option]').forEach((span, i) => (span.textContent = q.options[i]));
+    }
+
+    function show(key, { focus = true } = {}) {
       clearTimeout(advanceTimer);
-      current = i;
-      steps.forEach((s, n) => (s.hidden = n !== i));
-      progress.textContent = `Pytanie ${i + 1} z ${total}`;
-      fill.style.width = `${((i + 1) / total) * 100}%`;
-      backBtn.disabled = false;
-      backBtn.textContent = i === 0 ? 'Wróć do początku' : 'Wstecz';
-      nextBtn.disabled = answers[i] === null;
-      nextBtn.textContent = i === total - 1 ? 'Zobacz mój wynik' : 'Dalej';
-      if (focus) reveal(steps[i].querySelector('legend'));
+      const seq = sequence();
+      if (!seq.includes(key)) key = seq[0];
+      currentKey = key;
+      const pos = seq.indexOf(key);
+      personalise(key);
+      for (const [k, el] of Object.entries(stepEls)) el.hidden = k !== key;
+      progress.textContent = `Pytanie ${pos + 1} z ${seq.length}`;
+      fill.style.width = `${((pos + 1) / seq.length) * 100}%`;
+      backBtn.textContent = pos === 0 ? 'Wróć do początku' : 'Wstecz';
+      nextBtn.disabled = !answered(key);
+      nextBtn.textContent = pos === seq.length - 1 ? 'Zobacz mój wynik' : 'Dalej';
+      if (focus) reveal(stepEls[key].querySelector('legend'));
     }
 
     // Bring the card back into view when a step changes. Only scroll when its top has gone under
@@ -84,53 +172,88 @@ const total = QUESTIONS.length;
     }
 
     function finish() {
-      if (answers.some((a) => a === null)) {
-        show(answers.indexOf(null));
+      const seq = sequence();
+      const missing = seq.find((k) => !answered(k));
+      if (missing) {
+        show(missing);
         return;
       }
-      const a = answers.join('');
+      const p = profile();
+      const a = encodeAnswers(QUESTIONS.map((q) => (isAsked(q, p) ? answers[q.id] : null)));
+      const params = new URLSearchParams({ a });
+      const code = encodeProfile(p);
+      if (code) params.set('p', code);
+      if (p.region) params.set('r', p.region);
       track('quiz_completed', {}, { beacon: true });
-      window.location.assign(`${resultsPath}?a=${a}`);
+      window.location.assign(`${resultsPath}?${params}`);
     }
 
     function next() {
-      if (answers[current] === null) return;
-      if (current === total - 1) finish();
-      else show(current + 1);
+      if (!answered(currentKey)) return;
+      const seq = sequence();
+      const pos = seq.indexOf(currentKey);
+      if (pos === seq.length - 1) finish();
+      else show(seq[pos + 1]);
     }
 
     start.addEventListener('click', () => {
       intro.hidden = true;
       form.hidden = false;
-      show(0);
+      show(sequence()[0]);
       track('quiz_started');
     });
 
     backBtn.addEventListener('click', () => {
-      if (current === 0) {
+      const seq = sequence();
+      const pos = seq.indexOf(currentKey);
+      if (pos <= 0) {
         form.hidden = true;
         intro.hidden = false;
         start.focus();
       } else {
-        show(current - 1);
+        show(seq[pos - 1]);
       }
     });
 
     nextBtn.addEventListener('click', next);
 
-    // Pointer taps move on automatically after a short pause. Keyboard users press Next,
-    // so arrow keys can move between options without skipping the question.
+    // Pointer taps on single-choice steps move on automatically after a short pause. Keyboard
+    // users press Next, so arrow keys can move between options without skipping the question.
+    // Checkboxes and the region never auto-advance: there's more than one thing to pick.
     let lastPointer = 0;
     form.addEventListener('pointerdown', () => (lastPointer = Date.now()));
 
     form.addEventListener('change', (e) => {
       const input = e.target;
-      if (!(input instanceof HTMLInputElement) || input.type !== 'radio') return;
-      const i = Number(input.closest('[data-quiz-step]').dataset.quizStep);
-      answers[i] = Number(input.value);
-      if (i !== current) return;
-      nextBtn.disabled = false;
-      if (Date.now() - lastPointer < 1000) {
+      const stepEl = input.closest?.('[data-quiz-step]');
+      if (!stepEl) return;
+      const [kind, id] = stepEl.dataset.quizStep.split(':');
+
+      if (kind === 'q') answers[id] = Number(input.value);
+      else if (input.type === 'checkbox') {
+        // "None of these" and the rest exclude each other.
+        if (input.checked) {
+          const clearOthers = input.hasAttribute('data-exclusive');
+          stepEl.querySelectorAll('input[type="checkbox"]').forEach((box) => {
+            if (box !== input && box.hasAttribute('data-exclusive') === !clearOthers) box.checked = false;
+          });
+        }
+        raw.who = [...stepEl.querySelectorAll('input:checked:not([data-exclusive])')].map((i) => i.value);
+      } else if (input instanceof HTMLSelectElement) {
+        raw.region = input.value || null;
+      } else if (id === 'people') {
+        raw.people = Number(input.value);
+      } else if (id === 'water') {
+        raw.water = input.value === '-' ? null : input.value;
+      } else {
+        raw[id] = input.value;
+      }
+
+      if (stepEl.dataset.quizStep !== currentKey) return;
+      nextBtn.disabled = !answered(currentKey);
+      // The step count can change (a house adds the water question), so refresh the counter.
+      show(currentKey, { focus: false });
+      if (input.type === 'radio' && Date.now() - lastPointer < 1000) {
         clearTimeout(advanceTimer);
         advanceTimer = window.setTimeout(next, 350);
       }
