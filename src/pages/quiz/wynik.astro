@@ -65,7 +65,8 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
       </div>
 
       <div class="q-plan">
-        <h2>Twój plan</h2>
+        <span class="eyebrow">Twój plan</span>
+        <h2>Spokojnie, masz plan.</h2>
         <p class="q-plan__lead" data-plan-lead></p>
         <p class="q-plan__progress" data-plan-progress hidden>
           <span class="q-plan__count" data-plan-count></span>
@@ -95,31 +96,6 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
 
       <EarlyAccessPromo variant="results" />
 
-      <div class="q-card q-offer" id="pack">
-        <span class="eyebrow">Pakiet Co gdyby</span>
-        <h2 data-offer-heading>Uzupełnij braki w jeden weekend</h2>
-        <p data-offer-text></p>
-        <div class="q-offer__gaps" data-offer-gaps hidden>
-          <p>Strony w pakiecie, które odpowiadają Twoim brakom</p>
-          <ul data-offer-gap-list></ul>
-        </div>
-        <ul>
-          {PACK.includes.map((item) => <li>{item}</li>)}
-        </ul>
-        <div class="q-actions">
-          <BuyButton class="btn btn-accent" href={PACK.url} data-pack-link />
-        </div>
-        <p class="q-offer__reassure">{PACK.reassurance}</p>
-      </div>
-
-      <div class="q-card q-free">
-        <h2>Na razie wolisz coś prostszego? Zacznij od karty na lodówkę</h2>
-        <p>Bezpłatna karta do druku z najważniejszymi numerami i informacjami na wypadek sytuacji kryzysowej.</p>
-        <div class="q-actions">
-          <a class="btn btn-outline" href={PACK.fallbackUrl} data-free-link>{PACK.fallbackLabel}</a>
-        </div>
-      </div>
-
       {EMAIL_FORM.action && (
         <form class="q-card q-email" method="post" action={EMAIL_FORM.action} data-email-form>
           <h2>Wyślij mi mój plan e-mailem</h2>
@@ -140,6 +116,23 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
         </form>
       )}
 
+      <div class="q-card q-offer" id="pack">
+        <span class="eyebrow">Pakiet Co gdyby</span>
+        <h2 data-offer-heading>Uzupełnij braki w jeden weekend</h2>
+        <p data-offer-text></p>
+        <div class="q-offer__gaps" data-offer-gaps hidden>
+          <p>Strony w pakiecie, które odpowiadają Twoim brakom</p>
+          <ul data-offer-gap-list></ul>
+        </div>
+        <ul>
+          {PACK.includes.map((item) => <li>{item}</li>)}
+        </ul>
+        <div class="q-actions">
+          <BuyButton class="btn btn-accent" href={PACK.url} data-pack-link />
+        </div>
+        <p class="q-offer__reassure">{PACK.reassurance}</p>
+      </div>
+
       <h2>Gdyby coś się stało dziś wieczorem</h2>
       <ul class="q-list">
         <li>Przerwę w dostawie prądu zgłoś na pogotowie energetyczne pod numer <strong>991</strong>. Numeru 112 używaj tylko wtedy, gdy zagrożone jest czyjeś życie, zdrowie lub mienie.</li>
@@ -148,6 +141,14 @@ const tier = Object.fromEntries(TIERS.map((t) => [t.id, t]));
         <li>Jeśli poczujesz zapach gazu, nie włączaj światła ani urządzeń, otwórz okna, wyjdź z domu i zadzwoń na pogotowie gazowe <strong>992</strong>.</li>
         <li>Jeśli ktoś w domu korzysta ze sprzętu medycznego zasilanego prądem, warto mieć zapasową baterię i numer do dostawcy sprzętu. Więcej w <a href="/blog/sprzet-medyczny-a-przerwa-w-pradzie/">poradniku o sprzęcie medycznym na prąd</a>.</li>
       </ul>
+
+      <div class="q-card q-free">
+        <h2>Na razie wolisz coś prostszego? Zacznij od karty na lodówkę</h2>
+        <p>Bezpłatna karta do druku z najważniejszymi numerami i informacjami na wypadek sytuacji kryzysowej.</p>
+        <div class="q-actions">
+          <a class="btn btn-outline" href={PACK.fallbackUrl} data-free-link>{PACK.fallbackLabel}</a>
+        </div>
+      </div>
 
       <p class="q-muted" style="margin-top:2rem">
         Quiz to szybka samoocena, a nie profesjonalny audyt bezpieczeństwa. <a href={QUIZ_PATH}>Przejdź quiz jeszcze raz</a>

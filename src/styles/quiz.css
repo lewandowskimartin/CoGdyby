@@ -79,7 +79,7 @@
    rows inside: ten separate cards would bury the page, and anything built on --panel or a
    bare hairline disappears against the warm --paper background. */
 .q-plan { margin-top: 48px; }
-.q-plan h2 { margin-bottom: 10px; }
+.q-plan h2 { margin: 0 0 10px; } /* eyebrow sits above; .q-plan already carries the 48px section gap */
 .q-plan .q-plan__lead { font-size: 17px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 6px; }
 .q-plan .q-plan__progress { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin: 0 0 28px; }
 .q-plan__count { font-family: var(--mono); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--action); }

@@ -32,7 +32,7 @@ const KIT_PAGES = Object.fromEntries(
 export const STATIC_PAGES = {
   index: {
     eyebrow: 'Domowy plan na sytuacje kryzysowe',
-    headline: "Rodzinny plan awaryjny na każde „co gdyby”",
+    headline: "Rodzinny plan awaryjny na\u00A0każde „co\u00A0gdyby”",
     sub: '12 stron do druku A4 · na podstawie rządowego Poradnika bezpieczeństwa.',
     chip: PACK_CHIP,
   },
@@ -90,6 +90,13 @@ export const STATIC_PAGES = {
     eyebrow: 'Poradniki',
     headline: 'Spokojne, praktyczne poradniki dla polskich domów',
     sub: 'Przerwy w prądzie, wichury, powodzie i plecak ewakuacyjny. Na podstawie rządowego Poradnika bezpieczeństwa.',
+    chip: GUIDE_CHIP,
+  },
+
+  'co-gdyby': {
+    eyebrow: 'Pytania i odpowiedzi',
+    headline: 'Co gdyby zabrakło prądu, wody albo przyszła wichura?',
+    sub: 'Krótkie odpowiedzi na pytania o przygotowanie domu, każda z linkiem do poradnika.',
     chip: GUIDE_CHIP,
   },
 

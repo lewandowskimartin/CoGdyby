@@ -10,6 +10,13 @@ const blog = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     draft: z.boolean().default(false),
+    // "Co gdyby…?" questions: the box under the intro ({% cogdyby /%}), the short answers at
+    // the end, FAQPage JSON-LD and the /co-gdyby/ hub. `sekcja` is the exact text of the H2
+    // the question links to; the build fails if it is missing (src/lib/pytania.js).
+    pytania: z
+      .array(z.object({ pytanie: z.string(), odpowiedz: z.string(), sekcja: z.string() }))
+      .max(5)
+      .default([]),
   }),
 });
 

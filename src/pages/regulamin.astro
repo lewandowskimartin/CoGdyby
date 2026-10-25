@@ -20,7 +20,7 @@ const courseStart = courseOpen ? EA.COURSE_OPEN_LABEL : 'w dniu startu podanym n
       <p class="updated">Ostatnia aktualizacja: {updated}</p>
 
       <div class="legal">
-        <h2>1. Sprzedawca i usługodawca</h2>
+        <h2 id="sprzedawca">1. Sprzedawca i usługodawca</h2>
         <p>Serwis cogdyby.pl prowadzi i sprzedaje w nim produkty <strong>{SELLER.NAME}</strong>, przedsiębiorca jednoosobowy (ang. <em>sole trader</em>) działający pod nazwą <strong>{SELLER.TRADING_NAME}</strong>, z siedzibą w Wielkiej Brytanii. Przedsiębiorca jest zarejestrowany w brytyjskim urzędzie skarbowym HM Revenue &amp; Customs jako osoba samozatrudniona. W Wielkiej Brytanii nie prowadzi się publicznego rejestru takich przedsiębiorców, dlatego nie posiada on numeru NIP, REGON ani wpisu do CEIDG. Numer rejestracji w brytyjskim organie ochrony danych (ICO): {SELLER.ICO}.</p>
         <ul>
           {SELLER.ADDRESS && <li>Adres: {SELLER.ADDRESS}</li>}

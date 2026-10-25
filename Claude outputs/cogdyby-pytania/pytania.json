@@ -1,0 +1,117 @@
+{
+  "lista-na-blackout": [
+    ["Co gdyby nie było prądu przez trzy dni?", "Na trzy dni bez prądu najważniejsza jest woda: co najmniej 3 litry na osobę na dobę. Pompy w wodociągach i hydroforach też potrzebują prądu, więc woda w kranie może zniknąć razem ze światłem.", "Woda"],
+    ["Co gdyby blackout objął całe miasto?", "Tak było w 2008 roku w Szczecinie, gdzie bez prądu zostało ponad 500 tysięcy osób. Wtedy najważniejsze są komunikaty, a radio na baterie lub na korbkę działa nawet bez internetu i sieci komórkowej.", "Łączność"],
+    ["Co mieć w domu, gdyby zabrakło prądu?", "Wodę, konserwy i ręczny otwieracz, latarki z zapasowymi bateriami, power bank, radio, koce, termos i apteczkę ze stałymi lekami. Ilości dla swojej rodziny policzysz w kalkulatorze zapasów.", "Światło"]
+  ],
+  "czy-grozi-blackout": [
+    ["Co gdyby był blackout w Polsce?", "Blackout to rozległa awaria, która obejmuje duży obszar na wiele godzin lub dni. W Polsce jest mało prawdopodobny, a dużo częściej zdarzają się krótkie, lokalne przerwy w prądzie po wichurach.", "Czym jest blackout"],
+    ["Co gdyby tej zimy zabrakło prądu?", "Zimą przerwy w prądzie zdarzają się głównie po wichurach i przy oblodzeniu linii. Zwykle dotyczą kilku ulic, osiedla albo gminy i trwają kilka godzin.", "Jak to wygląda w Polsce"],
+    ["Co gdyby blackout trwał kilka dni?", "To mało prawdopodobne, choć w 2008 roku pod Szczecinem część osób była bez prądu dłużej niż dobę. Dom przygotowany na dzień bez prądu łatwo przygotować na dłużej, dokładając wodę i jedzenie bez gotowania.", "Na czym się skupić"]
+  ],
+  "co-robic-podczas-przerwy-w-pradzie": [
+    ["Co gdyby nagle zabrakło prądu?", "Sprawdź, czy światło mają sąsiedzi. Jeśli ciemno jest w całej okolicy, to awaria sieci: zadzwoń na 991, czyli pogotowie energetyczne, i sięgnij po latarkę zamiast świec.", "Zgłoś awarię"],
+    ["Co gdyby prądu nie było tylko u mnie?", "Zajrzyj do tablicy z bezpiecznikami. Czasem wystarczy podnieść wyłącznik, który zadziałał.", "Sprawdź, czy prądu nie ma tylko u Ciebie"],
+    ["Co z lodówką, gdyby nie było prądu?", "Zamknięta lodówka trzyma chłód przez około 4 godziny, a pełna zamrażarka nawet do 48 godzin. Każde otwarcie skraca ten czas, więc zaglądaj do nich jak najrzadziej.", "Nie otwieraj lodówki i zamrażarki"]
+  ],
+  "jak-przygotowac-dom-na-przerwe-w-pradzie": [
+    ["Co gdyby bez prądu przestało działać ogrzewanie?", "Piec gazowy potrzebuje prądu do pompy i sterowania, więc bez prądu kaloryfery stygną. Napełnij termos i termofory, póki czajnik działa, i przygotuj koce oraz ciepłe ubrania.", "Ciepło"],
+    ["Co gdyby po zmroku nie było światła?", "Trzymaj dwie latarki z zapasowymi bateriami w miejscu, które znajdziesz po ciemku. Są bezpieczniejsze niż świece, a dzieciom można dać małe latarki czołowe.", "Światło"],
+    ["Co gdyby nie dało się nic ugotować?", "Bez prądu płyta, piekarnik, mikrofalówka i czajnik przestają działać jednocześnie. Przygotuj jedzenie, które da się zjeść prosto z puszki lub opakowania.", "Jedzenie"]
+  ],
+  "telefon-i-internet-bez-pradu": [
+    ["Co z internetem, gdyby nie było prądu?", "Domowe Wi-Fi gaśnie razem z routerem, bo router trzeba podłączyć do gniazdka. Zostaje internet w telefonie komórkowym, dopóki telefon ma baterię, a najbliższy maszt zasilanie awaryjne.", "Co się dzieje, gdy zabraknie prądu"],
+    ["Co gdyby nie działał telefon stacjonarny?", "Telefon stacjonarny podłączony przez router bez prądu nie działa, nawet na numer alarmowy. Trzymaj naładowany power bank do komórki i numery alarmowe na papierze.", "Jak zadbać o łączność"],
+    ["Co gdyby teleopieka przestała działać bez prądu?", "Zapytaj dostawcę usługi, co się dzieje z teleopieką albo opaską z przyciskiem alarmowym przy braku prądu i jak długo urządzenie działa na baterii.", "Teleopieka i przyciski alarmowe"]
+  ],
+  "sprzet-medyczny-a-przerwa-w-pradzie": [
+    ["Co gdyby koncentrator tlenu został bez prądu?", "Sprawdź w instrukcji albo u dostawcy, jak długo koncentrator działa na wbudowanej baterii, i zapisz ten czas przy urządzeniu. Jeśli to możliwe, miej zapasową, naładowaną baterię.", "Bateria i czas pracy"],
+    ["Co gdyby wyłączono prąd, a w domu jest respirator?", "Zapisz się na bezpłatne powiadomienia o planowanych wyłączeniach u operatora sieci i ustal z dostawcą sprzętu, co robić przy dłuższej przerwie. Zgłoszenie u operatora nie gwarantuje szybszego przywrócenia prądu, więc plan B musi być w domu.", "Operator sieci"],
+    ["Co gdyby kończyła się bateria sprzętu medycznego?", "Miej spisane, co wtedy zrobić, do kogo dzwonić i dokąd można pojechać, na przykład do rodziny w innej części miasta. W nagłym zagrożeniu życia dzwoń na 112.", "Plan B na papierze"]
+  ],
+  "jak-przygotowac-dom-na-wichure": [
+    ["Co gdyby była wichura?", "Zostańcie w domu, z dala od okien, i nie podchodźcie do zerwanych linii energetycznych. Zanim zacznie wiać, schowaj lub przywiąż meble ogrodowe i zaparkuj samochód z dala od drzew.", "W trakcie wichury"],
+    ["Co gdyby wichura zerwała linie energetyczne?", "Przygotuj się jak na przerwę w prądzie: latarka, power bank, radio na baterie, pełny termos i koce. Zerwanej linii nie dotykaj i zgłoś ją pod numer 991.", "W domu, gdy zabraknie prądu"],
+    ["Co robić po wichurze, gdyby dom był uszkodzony?", "Szkody oglądaj za dnia i zrób zdjęcia dla ubezpieczyciela. Sprawdź też, czy starsi sąsiedzi czegoś nie potrzebują.", "Po wichurze"]
+  ],
+  "co-robic-podczas-powodzi": [
+    ["Co gdyby przyszła powódź?", "Zacznij od ostrzeżeń: Alert RCB przyjdzie SMS-em sam, a aplikacja RSO i IMGW pokażą ostrzeżenia dla powiatu. W Hydroportalu ISOK sprawdzisz, czy Twój adres leży na terenie zagrożonym zalaniem.", "Zanim przyjdzie woda"],
+    ["Co gdyby woda weszła do domu?", "Wyłącz prąd i zakręć gaz, zanim woda dojdzie do gniazdek, a dokumenty, leki i ładowarki przenieś wyżej. Jeśli służby zalecają ewakuację, nie zwlekaj.", "Gdy woda się zbliża"],
+    ["Co gdyby trzeba było wrócić do domu po powodzi?", "Wracaj dopiero wtedy, gdy służby uznają, że to bezpieczne, i sprzątaj w rękawicach, bo woda powodziowa jest skażona. Nie pij wody z kranu, dopóki wodociągi nie potwierdzą, że nadaje się do picia.", "Po powodzi"]
+  ],
+  "co-robic-gdy-czujesz-gaz": [
+    ["Co gdyby ulatniał się gaz w domu?", "Otwórz okna i drzwi, zakręć główny zawór gazu, jeśli możesz to zrobić bezpiecznie, i wyjdź z budynku. Nie dotykaj włączników światła i nie używaj ognia, bo iskra może zapalić gaz.", "Co zrobić od razu"],
+    ["Pod jaki numer dzwonić, gdyby czuć było gaz?", "Z zewnątrz budynku zadzwoń na pogotowie gazowe 992 lub na 112. Pogotowie gazowe działa całą dobę.", "Pod jaki numer dzwonić"],
+    ["Co gdyby zapiszczał czujnik czadu?", "Wyprowadź wszystkich na świeże powietrze i zadzwoń na 112. Czad nie ma zapachu ani koloru, a pierwsze objawy, takie jak ból głowy i senność, łatwo pomylić z przeziębieniem.", "Tlenek węgla, czyli czad"]
+  ],
+  "bezpieczenstwo-pozarowe-w-domu": [
+    ["Co gdyby w domu wybuchł pożar?", "Wyjdź, zamykając za sobą drzwi, i nie wracaj po rzeczy. Z bezpiecznego miejsca zadzwoń na 998 lub 112.", "Gdy wybuchnie pożar"],
+    ["Co gdyby w nocy zapiszczała czujka dymu?", "Głośny, ciągły alarm oznacza dym: obudź domowników i wyjdźcie tak, jak w planie wyjścia. Krótkie, pojedyncze piknięcia co jakiś czas zwykle oznaczają słabą baterię.", "Czujki dymu"],
+    ["Co gdyby trzeba było wyjść z domu w dymie?", "Pomaga plan ustalony wcześniej: dwie drogi wyjścia z każdego pomieszczenia i miejsce zbiórki przed domem. W dymie poruszaj się nisko, przy podłodze.", "Plan wyjścia z domu"]
+  ],
+  "domowe-umiejetnosci": [
+    ["Co gdyby trzeba było zakręcić wodę albo gaz?", "Warto zawczasu wiedzieć, gdzie jest główny zawór wody i zawór gazu, i sprawdzić, czy łatwo się zakręcają. Przy pękniętej rurze to ogranicza szkody, zanim przyjedzie fachowiec.", "Zawory i bezpieczniki"],
+    ["Co gdyby wysiadł bezpiecznik?", "Podnieś w tablicy wyłącznik, który zadziałał. Jeśli od razu wyłącza się znowu, odłącz ostatnio włączone urządzenie, a gdy to nie pomaga, wezwij elektryka.", "Zawory i bezpieczniki"],
+    ["Co gdyby obiad trzeba było zrobić z samych zapasów?", "Pomaga umiejętność przygotowania prostego posiłku z tego, co jest w szafce. Dzięki niej mniej się wyrzuca i spokojniej przeczekuje dni, kiedy nie da się wyjść do sklepu.", "Gotowanie z tego, co jest w szafce"]
+  ],
+  "ile-wody-trzymac-w-domu": [
+    ["Co gdyby z kranu przestała lecieć woda?", "Poradnik bezpieczeństwa zaleca zapas co najmniej 3 litrów wody pitnej na osobę na dobę, na minimum 3 dni. Bez prądu pompy w wodociągach mogą przestać działać, a brak wody zgłosisz pod numerem 994.", "Ile to naprawdę"],
+    ["Co gdyby zaczęło brakować wody butelkowanej?", "Wodę butelkowaną zostaw do picia, gotowania i mycia rąk. Do mycia wystarczy miska z wodą i mydłem, a deszczówka nadaje się do spłukiwania toalety, ale nie do picia.", "Gdy butelek zaczyna brakować"],
+    ["Co gdyby woda z kranu nie nadawała się do picia?", "Jeśli wodociągi zalecają przegotowywanie wody, rób to do czasu odwołania komunikatu. Do tego czasu pij wodę butelkowaną.", "Gdy woda wróci do kranu"]
+  ],
+  "zapas-jedzenia-na-sytuacje-kryzysowa": [
+    ["Co gdyby nie dało się zrobić zakupów przez kilka dni?", "Wystarczy zapas jedzenia, które da się zjeść na zimno: konserwy, pieczywo chrupkie, batony, orzechy i pasty kanapkowe. Kupuj to, co domownicy naprawdę jedzą, i pamiętaj o ręcznym otwieraczu.", "Co kupić"],
+    ["Co gdyby trzeba było nakarmić rodzinę przez 3 dni?", "Licz około trzech posiłków na osobę dziennie. Dla czteroosobowej rodziny to 36 posiłków, czyli mniej, niż się wydaje.", "Ile"],
+    ["Co gdyby zapasy się przeterminowały?", "Najstarsze produkty zużywaj na co dzień, a nowe odkładaj z tyłu półki. Daty ważności sprawdzaj dwa razy w roku, przy zmianie czasu.", "Wymiana zapasów"]
+  ],
+  "zestaw-awaryjny-lista-na-72-godziny": [
+    ["Co gdyby przez 72 godziny trzeba było radzić sobie samemu?", "Rządowy Poradnik bezpieczeństwa zaleca, żeby dom był przygotowany na co najmniej 3 dni bez prądu, wody w kranie i zakupów. Zacznij od wody, jedzenia bez gotowania, latarki, power banku, radia i stałych leków.", "Woda"],
+    ["Co gdyby pomoc nie dotarła od razu?", "Wtedy liczy się to, co jest w domu, także zapas stałych leków na kilka dni i apteczka z plastrami, bandażami i środkiem do dezynfekcji.", "Apteczka i leki"],
+    ["Co gdyby w sklepach nie działały terminale?", "Bez prądu terminale płatnicze nie działają, więc trzymaj trochę gotówki w drobnych nominałach. Obok niej połóż kopie ważnych dokumentów i kartkę z numerami.", "Kartka, nie tylko telefon"]
+  ],
+  "apteczka-domowa-lista": [
+    ["Co gdyby apteka była zamknięta przez kilka dni?", "Wtedy przydaje się domowa apteczka: jałowe opatrunki, plastry, bandaż, rękawiczki, środki do dezynfekcji, termometr i koc termiczny dla każdego domownika.", "Opatrunki i materiały"],
+    ["Co gdyby skończyły się leki brane na stałe?", "Trzymaj kilkudniowy zapas leków, które domownicy przyjmują na stałe. Większy zapas leków na receptę omów z lekarzem.", "Leki"],
+    ["Co gdyby dziecko dostało gorączki w czasie awarii?", "Przyda się termometr, który dziecko toleruje, i lek przeciwgorączkowy w dawce i formie dla jego wieku, np. syrop lub czopki. Dawkowanie sprawdzaj na ulotce albo zapytaj farmaceuty.", "Rzeczy dla dzieci"]
+  ],
+  "jak-tanio-przygotowac-dom": [
+    ["Co gdyby nie było budżetu na zapasy?", "Wiele rzeczy nic nie kosztuje: numery alarmowe na kartce, aplikacja RSO, ustalone miejsce spotkania i wiedza, gdzie są zawory i bezpieczniki.", "Rzeczy bezpłatne"],
+    ["Co gdyby zacząć od tego, co już jest w domu?", "Zbierz w jednym miejscu latarkę, radio, zapasowe baterie i koce. Często okazuje się, że połowa zestawu już jest.", "Zacznij od tego, co już masz"],
+    ["Co gdyby dokładać po jednej rzeczy przy zakupach?", "Rozłóż zakupy na kilka tygodni: najpierw woda, aż będzie jej po 3 litry na osobę na 3 dni, potem konserwy z otwieraczem, power bank, baterie, apteczka i zapas stałych leków.", "Dokładaj po trochu"]
+  ],
+  "plecak-ewakuacyjny-lista": [
+    ["Co gdyby trzeba było się ewakuować?", "Wtedy przydaje się plecak ewakuacyjny spakowany zawczasu i postawiony przy drzwiach. Poradnik bezpieczeństwa zaleca, żeby swój plecak miał każdy domownik.", "Kiedy się przydaje"],
+    ["Co gdyby na wyjście z domu było 10 minut?", "Spakowany plecak wystarczy podnieść. W środku: latarka, power bank, radio, woda, przekąski, apteczka ze stałymi lekami, kopie dokumentów, zapasowe klucze i gotówka.", "Dokumenty i drobiazgi"],
+    ["Co gdyby trzeba było zabrać psa albo kota?", "Do plecaka dołóż smycz lub transporter, karmę na kilka dni, miskę i leki, jeśli zwierzę je przyjmuje.", "Zwierzęta"]
+  ],
+  "plecak-ewakuacyjny-dla-dziecka": [
+    ["Co gdyby trzeba było ewakuować się z dzieckiem?", "Dziecko niesie tylko lekki plecak dopasowany do wieku: wodę, przekąski, kurtkę i kartkę z numerem do rodzica. Cięższe rzeczy, czyli wodę dla wszystkich, dokumenty i leki, niesie dorosły.", "Zasada: lekko i po swojemu"],
+    ["Co gdyby ewakuacja była z niemowlęciem?", "W plecaku rodzica: pieluchy i chusteczki na 2–3 dni, gotowe mleko modyfikowane w płynie, butelka, ubranka na zmianę, leki dziecka i termometr. Przyda się też nosidło lub chusta.", "Niemowlę i maluch (rzeczy w plecaku rodzica)"],
+    ["Co gdyby dziecko zapytało, po co ten plecak?", "Wystarczy krótko: „Ten plecak stoi w szafie na wszelki wypadek, tak jak gaśnica w samochodzie”. Najlepiej spakować go razem, jak na wycieczkę.", "Jak pakować bez straszenia"]
+  ],
+  "schrony-i-miejsca-ukrycia": [
+    ["Co gdyby trzeba było szukać schronu?", "Najbliższe miejsce sprawdzisz na mapie straży pożarnej pod adresem gdziesieukryc.pl. Warto też zapytać w gminie lub spółdzielni, czy w bloku jest wyznaczona piwnica i kto ma do niej klucze.", "Jak sprawdzić najbliższe miejsce"],
+    ["Co gdyby nie było czasu wyjść z domu?", "W bloku schroń się na klatce schodowej lub w korytarzu, z dala od okien, a w domu w pomieszczeniu bez okien, najlepiej na najniższej kondygnacji. Słuchaj komunikatów w radiu.", "Gdy nie ma czasu, żeby wyjść"],
+    ["Co gdyby najbliższy schron był daleko?", "W wielu miejscowościach najbliżej jest miejsce doraźnego schronienia, np. piwnica, przejście podziemne albo garaż podziemny. Daje tymczasową osłonę, na przykład przed odłamkami albo gwałtowną pogodą.", "Trzy rodzaje miejsc"]
+  ],
+  "syreny-alarmowe-sygnaly": [
+    ["Co gdyby zawyły syreny?", "Dźwięk, który faluje przez 3 minuty, oznacza ogłoszenie alarmu, a równy dźwięk przez 3 minuty jego odwołanie. Po syrenie słuchaj komunikatu słownego i włącz radio lub telewizję.", "Cztery sygnały, które warto znać"],
+    ["Co gdyby syrena zawyła w nocy?", "Postępuj tak samo jak w dzień: obudź domowników, włącz radio i stosuj się do komunikatów. Latarka i radio na baterie w stałym miejscu ułatwią to po ciemku.", "Co zrobić, gdy usłyszysz alarm"],
+    ["Co gdyby dzieci przestraszyły się syreny?", "Dzieci uspokaja to, że dorośli mają plan. Warto wcześniej powiedzieć, że syreny bywają włączane na próbę i że to nic złego.", "Jak powiedzieć o tym dzieciom"]
+  ],
+  "alert-rcb-jak-dziala": [
+    ["Co gdyby przyszedł Alert RCB?", "Przeczytaj wiadomość do końca i postępuj zgodnie z zaleceniami, a szczegóły sprawdź w radiu, telewizji albo w aplikacji RSO. Prawdziwy alert nigdy nie prosi o zapłatę ani o hasło.", "Co zrobić po otrzymaniu alertu"],
+    ["Co gdyby alert przyszedł w nocy?", "Alert może przyjść o każdej porze, więc warto, żeby przynajmniej jeden telefon w domu nie był całkiem wyciszony na noc. Po przeczytaniu wiadomości obudź domowników i sprawdź komunikaty w radiu.", "Co zrobić po otrzymaniu alertu"],
+    ["Co gdyby starsi rodzice nie dostali alertu?", "Alert trafia do wszystkich telefonów w rejonie, ale starsi rodzice mogą go nie zauważyć. Zadzwoń do nich, a wcześniej sprawdź, czy umieją odczytać SMS-a i wiedzą, że alert jest prawdziwy.", "Jak przygotować domowników"]
+  ],
+  "numery-alarmowe": [
+    ["Co gdyby trzeba było wezwać pomoc?", "Dzwoń na 112, gdy zagrożone jest czyjeś życie, zdrowie, mienie lub środowisko. Numer jest bezpłatny i działa też z telefonu bez karty SIM.", "112: numer alarmowy"],
+    ["Gdzie dzwonić, gdyby zabrakło ogrzewania albo wody?", "Brak ogrzewania miejskiego zgłosisz pod numerem 993, a awarię wodociągu albo brak wody pod numerem 994. Przerwę w prądzie zgłaszasz pod numerem 991.", "993 i 994: ciepło i woda"],
+    ["Co gdyby numery były zapisane tylko w telefonie?", "Gdy telefon się rozładuje albo zginie, zostaje kartka. Najlepiej trzymać numery w stałym, widocznym miejscu, na przykład na karcie na lodówce, żeby znalazł je każdy domownik.", "Gdzie trzymać numery"]
+  ],
+  "poradnik-bezpieczenstwa-w-pigulce": [
+    ["Co gdyby nie było czasu przeczytać całego Poradnika bezpieczeństwa?", "Najważniejsze zalecenia to woda i jedzenie na 3 dni, stałe leki, latarka, power bank i radio, gotówka, plecak ewakuacyjny, plan rodzinny i znajomość ostrzeżeń.", "Co to oznacza w praktyce"],
+    ["Co gdyby przygotowania trzeba było zacząć dziś?", "Nie trzeba robić wszystkiego naraz. Dobry pierwszy krok to karta na lodówkę z numerami i miejscem spotkania, a potem woda i zapasy.", "Od czego zacząć"],
+    ["Co gdyby kryzys trwał 3 dni?", "Na tyle Poradnik bezpieczeństwa zaleca przygotować dom: na co najmniej 72 godziny bez prądu, wody w kranie i zakupów. Tyle zwykle trwa, zanim służby opanują sytuację albo dotrze pomoc.", "Najważniejsza zasada: zapasy na minimum 3 dni"]
+  ]
+}

@@ -904,7 +904,9 @@ body.nav-open::after {
 /* ---- Footer ---- */
 .site-footer { max-width: var(--wrap); margin: 0 auto; padding: 56px var(--pad) 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 36px 24px; border-top: 1px solid var(--hair); }
 .site-footer .fbrand { grid-column: 1 / -1; }
-.site-footer .fbrand b { font-family: var(--disp); font-weight: 600; font-size: 19px; }
+.site-footer .fbrand-lockup { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.site-footer .fbrand-lockup img { display: block; width: 142px; height: auto; }
+.site-footer .fbrand-tag { font-family: var(--disp); font-weight: 500; font-size: 17px; line-height: 1.2; letter-spacing: -0.01em; color: var(--ink-soft); }
 .site-footer .fbrand p { margin: 12px 0 0; font-size: 13.5px; line-height: 1.6; color: var(--ink-soft); max-width: 300px; }
 .fcol { display: flex; flex-direction: column; gap: 10px; font-size: 13.5px; }
 .fcol b { font-family: var(--mono); text-transform: uppercase; letter-spacing: .1em; font-weight: 500; font-size: 11px; color: var(--muted); margin-bottom: 4px; }

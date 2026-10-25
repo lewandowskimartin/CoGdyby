@@ -1,0 +1,51 @@
+---
+// /co-gdyby/: every "Co gdyby…?" question from the guides, grouped like /blog/.
+// Each answer links to the section of the guide that covers it. No FAQPage JSON-LD here:
+// the same questions are marked up once, on their own guide.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import QuizCta from '../components/QuizCta.astro';
+import { getCollection } from 'astro:content';
+import { GUIDE_GROUPS, guideHref } from '../data/related.js';
+import { pytaniaFor, sierotki } from '../lib/pytania.js';
+
+const posts = await getCollection('blog', ({ data }) => !data.draft);
+const byId = new Map(posts.map((p) => [p.id, p]));
+const grouped = new Set(GUIDE_GROUPS.flatMap((g) => g.slugs));
+
+const groups = [
+  ...GUIDE_GROUPS.map((g) => ({ title: g.title, posts: g.slugs.map((s) => byId.get(s)).filter(Boolean) })),
+  { title: 'Więcej pytań', posts: posts.filter((p) => !grouped.has(p.id)) },
+]
+  .map((g) => ({ title: g.title, items: g.posts.flatMap((p) => pytaniaFor(p).map((q) => ({ ...q, post: p }))) }))
+  .filter((g) => g.items.length);
+---
+<BaseLayout
+  title="Co gdyby zabrakło prądu albo wody? Krótkie odpowiedzi | Co gdyby"
+  description="Co zrobić, gdy zabraknie prądu, wody albo przyjdzie wichura? Krótkie odpowiedzi na pytania o przygotowanie domu, każda z linkiem do pełnego poradnika.">
+  <main id="main">
+    <div class="page">
+      <span class="eyebrow">Pytania i odpowiedzi</span>
+      <h1>Co gdyby…?</h1>
+      <p class="page-sub">Krótkie odpowiedzi na pytania o przerwę w prądzie, wichurę, powódź i inne sytuacje kryzysowe w domu. Każda prowadzi do <a href="/blog/">poradnika</a> z pełną listą. Wszystkie opieramy na rządowym <a href="https://www.gov.pl/poradnikbezpieczenstwa">Poradniku bezpieczeństwa</a>.</p>
+
+      {groups.map((g) => (
+        <section class="faq-group">
+          <h2>{g.title}</h2>
+          {g.items.map((q) => (
+            <div class="faq-item">
+              <h3>{sierotki(q.pytanie)}</h3>
+              <p>{sierotki(q.odpowiedz)}</p>
+              <p class="cg-src">Poradnik: <a href={`${guideHref(q.post.id)}#${q.id}`}>{q.post.data.title}</a></p>
+            </div>
+          ))}
+        </section>
+      ))}
+    </div>
+
+    <QuizCta />
+  </main>
+</BaseLayout>
+
+<style>
+  .cg-src { font-size: 14.5px; }
+</style>

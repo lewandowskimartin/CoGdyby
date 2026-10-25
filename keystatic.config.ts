@@ -50,6 +50,18 @@ export default config({
           description: 'When on, the post is excluded from the live build.',
           defaultValue: false,
         }),
+        pytania: fields.array(
+          fields.object({
+            pytanie: fields.text({ label: 'Pytanie', description: 'Np. „Co gdyby nie było prądu przez trzy dni?”' }),
+            odpowiedz: fields.text({ label: 'Krótka odpowiedź', description: '1–2 zdania. Widać je na końcu wpisu i na stronie /co-gdyby/.', multiline: true }),
+            sekcja: fields.text({ label: 'Sekcja', description: 'Dokładny tekst nagłówka ## we wpisie, do którego prowadzi pytanie.' }),
+          }),
+          {
+            label: 'Pytania „Co gdyby…?”',
+            description: 'Około 3 pytań. Wpis musi mieć tag {% cogdyby /%} pod wstępem.',
+            itemLabel: (props) => props.fields.pytanie.value || 'Pytanie',
+          }
+        ),
         content: fields.markdoc({
           label: 'Content',
           options: {

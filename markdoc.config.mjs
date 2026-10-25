@@ -28,5 +28,11 @@ export default defineMarkdocConfig({
         cta: { type: String },
       },
     },
+    // 4. The `cogdyby` tag places the "Co gdyby…?" box right under a guide's intro:
+    //    {% cogdyby /%}
+    //    Questions come from the post's `pytania` field (see src/lib/pytania.js).
+    cogdyby: {
+      render: component('./src/components/CoGdybyBox.astro'),
+    },
   },
 });

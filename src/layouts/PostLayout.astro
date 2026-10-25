@@ -4,6 +4,8 @@ import BaseLayout from './BaseLayout.astro';
 import EarlyAccessPromo from '../components/EarlyAccessPromo.astro';
 import QuizCta from '../components/QuizCta.astro';
 import KitCta from '../components/KitCta.astro';
+import CoGdybyAnswers from '../components/CoGdybyAnswers.astro';
+import { pytaniaFor } from '../lib/pytania.js';
 import { POST_KITS } from '../data/kit.js';
 import { RELATED, guideHref } from '../data/related.js';
 import { PACK_CONFIG } from '../config/pack';
@@ -21,6 +23,22 @@ const endCta = postKit && !postKit.inline ? 'kit' : 'quiz';
 // Three related guides from data/related.js, in the order listed there.
 const posts = await getCollection('blog', ({ data }) => !data.draft);
 const related = (RELATED[slug] ?? []).map((id) => posts.find((p) => p.id === id)).filter(Boolean);
+
+// "Co gdyby…?" questions. The box under the intro comes from the {% cogdyby /%} tag in the
+// body; the short answers at the end and the FAQPage JSON-LD are added here.
+const post = posts.find((p) => p.id === slug);
+const pytania = post ? pytaniaFor(post) : [];
+const faqLd = pytania.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: pytania.map((p) => ({
+        '@type': 'Question',
+        name: p.pytanie,
+        acceptedAnswer: { '@type': 'Answer', text: p.odpowiedz },
+      })),
+    }
+  : null;
 
 const fmt = (d) =>
   d.toLocaleDateString('pl-PL', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -50,6 +68,7 @@ const crumbsLd = {
 <BaseLayout title={`${title} | Co gdyby`} description={description} type="article">
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} slot="head" />
   <script type="application/ld+json" set:html={JSON.stringify(crumbsLd)} slot="head" />
+  {faqLd && <script type="application/ld+json" set:html={JSON.stringify(faqLd)} slot="head" />}
 
   <main id="main">
     <div class="article">
@@ -61,6 +80,7 @@ const crumbsLd = {
       <div class="prose">
         <slot />
       </div>
+      {pytania.length > 0 && <CoGdybyAnswers pytania={pytania} />}
     </div>
 
     {endCta === 'kit'

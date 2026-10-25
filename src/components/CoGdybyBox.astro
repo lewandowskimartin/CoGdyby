@@ -1,0 +1,42 @@
+---
+// The "Co gdyby…?" box under a guide's intro, placed by the {% cogdyby /%} Markdoc tag.
+// Each question jumps to the section that answers it. Data: the post's `pytania` field.
+import { getEntry } from 'astro:content';
+import { pytaniaFor, sierotki } from '../lib/pytania.js';
+
+const slug = Astro.url.pathname.replace(/\/$/, '').split('/').pop();
+const post = await getEntry('blog', slug);
+const pytania = post ? pytaniaFor(post) : [];
+---
+{pytania.length > 0 && (
+  <nav class="cg-box" aria-labelledby="cg-box-h">
+    <p class="cg-box-h" id="cg-box-h">Co gdyby…?</p>
+    <ul>
+      {pytania.map((p) => (
+        <li>
+          <a href={`#${p.id}`} data-cogdyby-q={p.id}>
+            <span class="cg-q">{sierotki(p.pytanie)}</span>
+            <span class="cg-arrow" aria-hidden="true">↓</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </nav>
+)}
+
+<style>
+  /* Sits inside .prose, so it overrides the prose list and link styles. */
+  .cg-box { margin-top: 1.6em; background: var(--panel); border: 1px solid var(--hair); border-radius: var(--r-lg); padding: 20px 24px 6px; }
+  .cg-box-h { margin: 0 0 4px; font-family: var(--mono); font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: .14em; color: var(--action); }
+  .cg-box ul { list-style: none; margin: 0; padding: 0; }
+  .cg-box li { margin: 0; border-top: 1px solid var(--hair); }
+  .cg-box li:first-child { border-top: 0; }
+  .cg-box a { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; padding: 13px 0; color: var(--ink); text-decoration: none; font-family: var(--disp); font-weight: 500; font-size: 18.5px; line-height: 1.3; letter-spacing: -0.01em; }
+  .cg-box a:hover { color: var(--action); }
+  .cg-q { text-wrap: pretty; }
+  .cg-arrow { flex: none; color: var(--action); font-family: var(--body); }
+  @media (max-width: 560px) {
+    .cg-box { padding: 16px 18px 4px; }
+    .cg-box a { font-size: 17px; }
+  }
+</style>

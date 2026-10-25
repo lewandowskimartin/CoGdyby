@@ -1,0 +1,29 @@
+---
+// Short answers to the post's "Co gdyby…?" questions, at the end of the guide.
+// Visible text, mirrored in the FAQPage JSON-LD that PostLayout adds to <head>.
+import { sierotki } from '../lib/pytania.js';
+
+const { pytania = [] } = Astro.props;
+---
+<section class="cg-answers" aria-labelledby="cg-answers-h">
+  <h2 id="cg-answers-h">Co gdyby…? Krótkie odpowiedzi</h2>
+  {pytania.map((p) => (
+    <div class="cg-item">
+      <h3>{sierotki(p.pytanie)}</h3>
+      <p>{sierotki(p.odpowiedz)}</p>
+      <a class="cg-more" href={`#${p.id}`}>Więcej w części „{p.sekcja}”</a>
+    </div>
+  ))}
+  <a class="btn-ghost cg-all" href="/co-gdyby/">Wszystkie pytania „Co gdyby…?”</a>
+</section>
+
+<style>
+  .cg-answers { margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--hair); }
+  .cg-answers h2 { font-size: 27px; font-weight: 600; line-height: 1.18; letter-spacing: -0.02em; margin: 0 0 6px; text-wrap: balance; }
+  .cg-item { padding: 22px 0; border-bottom: 1px solid var(--hair); }
+  .cg-item h3 { font-size: 20px; font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; margin: 0 0 8px; text-wrap: balance; }
+  .cg-item p { margin: 0 0 10px; font-size: 16.5px; line-height: 1.65; color: var(--ink-soft); text-wrap: pretty; }
+  .cg-more { font-size: 14.5px; color: var(--ink); text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
+  .cg-more:hover { color: var(--action); }
+  .cg-all { margin-top: 24px; }
+</style>

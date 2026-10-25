@@ -8,6 +8,13 @@ import BuyButton from "./BuyButton.astro";
 // gets a correct, printable list for the page's default household rather than dead buttons.
 import { ITEMS, SCENARIOS, LIMITS, SOURCE, PACK, EMAIL_FORM } from '../data/kit.js';
 import { buildKit, encodeHousehold } from '../lib/kitBuild.js';
+import { getCollection } from 'astro:content';
+
+// Guide links under items read as the guide's own title (before the colon), not a generic
+// "read the guide", so the anchor text tells search engines what the target is about.
+const guideName = Object.fromEntries(
+  (await getCollection('blog')).map((p) => [`/blog/${p.id}/`, p.data.title.split(':')[0].replace(/\?$/, '')])
+);
 
 const { scenario = 'general' } = Astro.props;
 
@@ -156,7 +163,7 @@ const steppers = [
             </span>
           </label>
           {item.guide && (
-            <a class="kit-item__guide" href={item.guide} aria-label={`Przeczytaj poradnik: ${item.name}`}>Przeczytaj poradnik</a>
+            <a class="kit-item__guide" href={item.guide} data-guide>Poradnik: {guideName[item.guide] ?? 'czytaj'}</a>
           )}
         </li>
       ))}

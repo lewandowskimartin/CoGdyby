@@ -173,10 +173,12 @@ export function card(page) {
             },
             [
               el({ display: 'flex', flexDirection: 'column' }, [
-                text(
-                  { fontFamily: DISP, fontSize: 25, fontWeight: 600, color: C.ink },
-                  'Co gdyby'
-                ),
+                // Wordmark + brand line, the same lockup as the site footer.
+                el({ display: 'flex', flexDirection: 'row', alignItems: 'baseline' }, [
+                  text({ fontFamily: DISP, fontSize: 25, fontWeight: 600, color: C.ink }, 'Co gdyby'),
+                  text({ fontFamily: DISP, fontSize: 25, fontWeight: 500, color: C.muted, margin: '0 10px' }, '·'),
+                  text({ fontFamily: DISP, fontSize: 25, fontWeight: 500, color: C.inkSoft }, 'Spokojnie, mam plan'),
+                ]),
                 text(
                   {
                     fontFamily: MONO,
