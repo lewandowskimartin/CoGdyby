@@ -1,0 +1,176 @@
+diff --git a/src/components/CoGdybyAnswers.astro b/src/components/CoGdybyAnswers.astro
+index 7257ccb..c9c5a30 100644
+--- a/src/components/CoGdybyAnswers.astro
++++ b/src/components/CoGdybyAnswers.astro
+@@ -23,7 +23,7 @@ const { pytania = [] } = Astro.props;
+   .cg-item { padding: 22px 0; border-bottom: 1px solid var(--hair); }
+   .cg-item h3 { font-size: 20px; font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; margin: 0 0 8px; text-wrap: balance; }
+   .cg-item p { margin: 0 0 10px; font-size: 16.5px; line-height: 1.65; color: var(--ink-soft); text-wrap: pretty; }
+-  .cg-more { font-size: 14.5px; color: var(--ink); text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
++  .cg-more { padding-block: 13px; /* 44px tap target, inline so nothing moves */ font-size: 14.5px; color: var(--ink); text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
+   .cg-more:hover { color: var(--action); }
+   .cg-all { margin-top: 24px; }
+ </style>
+diff --git a/src/layouts/PostLayout.astro b/src/layouts/PostLayout.astro
+index 268917b..225138b 100644
+--- a/src/layouts/PostLayout.astro
++++ b/src/layouts/PostLayout.astro
+@@ -111,7 +111,7 @@ const crumbsLd = {
+ 
+ <style>
+   /* Breadcrumb keeps the eyebrow look; only the hover says it's a link. */
+-  .crumbs a { color: inherit; text-decoration: none; }
++  .crumbs a { color: inherit; text-decoration: none; padding-block: 15px; } /* 44px tap target; inline padding doesn't move anything */
+   .crumbs a:hover { text-decoration: underline; text-underline-offset: 3px; }
+   /* Sits under the pack box, in the same 720px column. Titles only, so it reads as
+      "keep reading" without competing with the pack CTA above it. */
+diff --git a/src/pages/darmowa-karta.astro b/src/pages/darmowa-karta.astro
+index 03a868d..27a903b 100644
+--- a/src/pages/darmowa-karta.astro
++++ b/src/pages/darmowa-karta.astro
+@@ -123,7 +123,7 @@ import EarlyAccessPromo from "../components/EarlyAccessPromo.astro";
+             <caption class="visually-hidden">Porównanie: rządowy Poradnik bezpieczeństwa i pakiet Co gdyby</caption>
+             <thead>
+               <tr>
+-                <th></th>
++                <th><span class="visually-hidden">Co zawiera</span></th>
+                 <th>Poradnik rządowy</th>
+                 <th class="highlight">Co gdyby</th>
+               </tr>
+diff --git a/src/pages/index.astro b/src/pages/index.astro
+index 5619070..427e45a 100644
+--- a/src/pages/index.astro
++++ b/src/pages/index.astro
+@@ -102,7 +102,7 @@ const homeGuides = HOME_GUIDES.map((id) => allPosts.find((p) => p.id === id)).fi
+   <section class="trust">
+     <div class="trust-inner">
+       <span class="eyebrow">Na podstawie</span>
+-      <span class="src"><a href="https://www.gov.pl/poradnikbezpieczenstwa" style="color:inherit;text-decoration:none">Poradnik bezpieczeństwa</a></span>
++      <span class="src"><a href="https://www.gov.pl/poradnikbezpieczenstwa" style="color:inherit;text-decoration:none;padding-block:12px">Poradnik bezpieczeństwa</a></span>
+       <span class="sep" aria-hidden="true"></span>
+       <span class="txt">Liczby i kroki pochodzą z rządowego poradnika przygotowanego przez MON, MSWiA i RCB. Rady są te same, tylko ułożone tak, żeby łatwo było z nich skorzystać.</span>
+     </div>
+diff --git a/src/pages/kit/[scenario].astro b/src/pages/kit/[scenario].astro
+index 1d5b48d..ac9dfc4 100644
+--- a/src/pages/kit/[scenario].astro
++++ b/src/pages/kit/[scenario].astro
+@@ -55,6 +55,7 @@ const others = SCENARIOS.filter((s) => s.id !== scenario.id && s.id !== DEFAULT_
+   .kit-guide-link { margin-top: 40px; font-size: 16px; }
+   .kit-more { margin-top: 40px; }
+   .kit-more h2 { font-size: 21px; }
+-  .kit-more ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
++  .kit-more ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; }
++  .kit-more a { display: block; padding-block: 11px; } /* whole row tappable, 44px tall */
+   .kit-more a { font-size: 16px; }
+ </style>
+diff --git a/src/pages/kit/index.astro b/src/pages/kit/index.astro
+index f93c2a9..9221335 100644
+--- a/src/pages/kit/index.astro
++++ b/src/pages/kit/index.astro
+@@ -46,6 +46,7 @@ const others = SCENARIOS.filter((s) => s.id !== DEFAULT_SCENARIO);
+   .kit-guide-link { margin-top: 40px; font-size: 16px; }
+   .kit-more { margin-top: 56px; }
+   .kit-more h2 { font-size: 21px; }
+-  .kit-more ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
++  .kit-more ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 0; }
++  .kit-more a { display: block; padding-block: 11px; } /* whole row tappable, 44px tall */
+   .kit-more a { font-size: 16px; }
+ </style>
+diff --git a/src/pages/local/[area].astro b/src/pages/local/[area].astro
+index 3bf5a28..2e62b83 100644
+--- a/src/pages/local/[area].astro
++++ b/src/pages/local/[area].astro
+@@ -159,7 +159,7 @@ const jsonLd = {
+         <a class="btn btn-primary" href="/darmowa-karta/">Pobierz darmową kartę na lodówkę</a>
+       </div>
+       <div class="box box-quiet">
+-        <p>Cały rodzinny plan na papierze: 12-stronicowy pakiet do wydruku.</p>
++        <p>Cały rodzinny plan na papierze: 12‑stronicowy pakiet do wydruku.</p>
+         <BuyButton class="btn btn-outline" href="/#get" data-pack-cta={`local-${entry.id}`} />
+       </div>
+     </div>
+@@ -204,7 +204,7 @@ const jsonLd = {
+ </BaseLayout>
+ 
+ <style>
+-  .crumbs a { color: inherit; text-decoration: none; }
++  .crumbs a { color: inherit; text-decoration: none; padding-block: 15px; } /* 44px tap target; inline padding doesn't move anything */
+   .crumbs a:hover { text-decoration: underline; text-underline-offset: 3px; }
+   .draft-flag { display: inline-block; margin: 0 0 14px; padding: 4px 10px; border-radius: 999px; background: rgba(10, 107, 74, .12); color: var(--action-hover); font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
+ 
+@@ -251,6 +251,7 @@ const jsonLd = {
+   .prose .plan p { margin: 6px 0 0; font-size: 16px; line-height: 1.6; }
+   .prose .plan .plan-local { color: var(--ink); background: var(--paper-2); border-radius: var(--r-sm); padding: 10px 14px; margin-top: 10px; }
+   .prose .plan .plan-link { font-size: 15px; }
++  .prose .plan .plan-link a { padding-block: 12px; } /* 44px tap target without changing the layout */
+ 
+   .article-cta .box + .box { margin-top: 16px; }
+   .box-quiet { background: transparent !important; }
+@@ -271,6 +272,12 @@ const jsonLd = {
+   .related .post-list a { padding: 20px 0; }
+   .related .post-list h3 { font-size: 21px; margin: 0; text-wrap: balance; }
+ 
++  /* Narrowest phones: a "BARDZO WYSOKIE" chip leaves ~70px for the name, so a long word
++     ("Pogłębiająca", "Sandomierzem") spilled past the panel. Stack chip over name instead. */
++  @media (max-width: 359px) {
++    .glance-list { grid-template-columns: 1fr; gap: 14px; }
++    .glance-list li { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
++  }
+   @media (max-width: 560px) {
+     .glance { padding: 20px; }
+     .answer { font-size: 18px; }
+diff --git a/src/styles/global.css b/src/styles/global.css
+index fdb47ca..b30dc45 100644
+--- a/src/styles/global.css
++++ b/src/styles/global.css
+@@ -221,6 +221,7 @@ h1, h2, h3 {
+   display: inline-flex;
+   align-items: center;
+   flex: none; /* never squash the wordmark */
++  min-height: 44px; /* tap target; the logo itself is only 22-26px tall on phones */
+ }
+ .brand-logo {
+   display: block;
+@@ -784,6 +785,12 @@ body.nav-open::after {
+ .final p { font-size: 17px; line-height: 1.6; color: var(--on-action); margin: 0 auto 32px; max-width: 460px; }
+ .final-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+ .final p { text-wrap: pretty; }
++.final h2 { overflow-wrap: break-word; }
++@media (max-width: 359px) {
++  /* Narrowest phones: at 38px a long word ("przygotowaniu", 253px) is wider than the panel (222px) */
++  .final-inner { padding-inline: 20px; }
++  .final h2 { font-size: 34px; }
++}
+ @media (max-width: 480px) {
+   /* Stacked CTAs: one shared width instead of two ragged centred pills */
+   .final-actions { flex-direction: column; align-items: stretch; max-width: 340px; margin: 0 auto; }
+@@ -975,9 +982,12 @@ body.nav-open::after {
+ .page { max-width: 760px; margin: 0 auto; padding: 64px var(--pad) 24px; }
+ .page .eyebrow { display: block; margin-bottom: 16px; }
+ .page h1 { font-size: clamp(48px, 8.5vw, 52px); font-weight: 500; line-height: 1.06; letter-spacing: -0.025em; margin-bottom: 12px; }
+-/* Smallest phones only (≤359px): step the big headline down a notch so long titles
+-   don't run to 8–9 lines. 375px and up keep the full 48px+. */
+-@media (max-width: 359px) { .article h1, .page h1 { font-size: 42px; } }
++/* Phones under 390px: scale the headline with the screen so the longest Polish words
++   ("Bezpieczeństwo", "Świętokrzyskie") fit the column. At a fixed 48px they ran ~22px past
++   the text column at 360px; 42px still overflowed at 320px. 12vw = 38px at 320, 43px at 360,
++   45px at 375; 390px and up keep the full 48px+. break-word is only a last-resort net. */
++.article h1, .page h1 { overflow-wrap: break-word; }
++@media (max-width: 389px) { .article h1, .page h1 { font-size: 12vw; } }
+ .page .page-sub { font-size: 17.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 8px; max-width: 640px; }
+ .page .page-sub a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
+ .page .page-sub a:hover { color: var(--action); }
+diff --git a/src/styles/quiz.css b/src/styles/quiz.css
+index df5221e..703cbd3 100644
+--- a/src/styles/quiz.css
++++ b/src/styles/quiz.css
+@@ -214,5 +214,9 @@
+   .q-option span::before { left: 14px; }
+   .q-step legend { font-size: 20px; }
+   .q-nav .btn { padding-inline: 18px; } /* "Back" + "See my score" on one row */
++  /* When both don't fit (320px: "Wróć do początku" + "Dalej", "Wstecz" + "Zobacz mój wynik"),
++     wrap instead of spilling out of the card: each button takes a full row, the main one below. */
++  .q-nav { flex-wrap: wrap; }
++  .q-nav .btn { flex: 1 1 auto; }
+   .q-actions .btn-outline { padding-inline: 12px; font-size: 14.5px; } /* "Download the free fridge card" on one line */
+ }

@@ -111,7 +111,7 @@ const crumbsLd = {
 
 <style>
   /* Breadcrumb keeps the eyebrow look; only the hover says it's a link. */
-  .crumbs a { color: inherit; text-decoration: none; }
+  .crumbs a { color: inherit; text-decoration: none; padding-block: 15px; } /* 44px tap target; inline padding doesn't move anything */
   .crumbs a:hover { text-decoration: underline; text-underline-offset: 3px; }
   /* Sits under the pack box, in the same 720px column. Titles only, so it reads as
      "keep reading" without competing with the pack CTA above it. */

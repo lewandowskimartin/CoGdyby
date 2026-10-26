@@ -159,7 +159,7 @@ const jsonLd = {
         <a class="btn btn-primary" href="/darmowa-karta/">Pobierz darmową kartę na lodówkę</a>
       </div>
       <div class="box box-quiet">
-        <p>Cały rodzinny plan na papierze: 12-stronicowy pakiet do wydruku.</p>
+        <p>Cały rodzinny plan na papierze: 12‑stronicowy pakiet do wydruku.</p>
         <BuyButton class="btn btn-outline" href="/#get" data-pack-cta={`local-${entry.id}`} />
       </div>
     </div>
@@ -204,7 +204,7 @@ const jsonLd = {
 </BaseLayout>
 
 <style>
-  .crumbs a { color: inherit; text-decoration: none; }
+  .crumbs a { color: inherit; text-decoration: none; padding-block: 15px; } /* 44px tap target; inline padding doesn't move anything */
   .crumbs a:hover { text-decoration: underline; text-underline-offset: 3px; }
   .draft-flag { display: inline-block; margin: 0 0 14px; padding: 4px 10px; border-radius: 999px; background: rgba(10, 107, 74, .12); color: var(--action-hover); font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .08em; }
 
@@ -251,6 +251,7 @@ const jsonLd = {
   .prose .plan p { margin: 6px 0 0; font-size: 16px; line-height: 1.6; }
   .prose .plan .plan-local { color: var(--ink); background: var(--paper-2); border-radius: var(--r-sm); padding: 10px 14px; margin-top: 10px; }
   .prose .plan .plan-link { font-size: 15px; }
+  .prose .plan .plan-link a { padding-block: 12px; } /* 44px tap target without changing the layout */
 
   .article-cta .box + .box { margin-top: 16px; }
   .box-quiet { background: transparent !important; }
@@ -271,6 +272,12 @@ const jsonLd = {
   .related .post-list a { padding: 20px 0; }
   .related .post-list h3 { font-size: 21px; margin: 0; text-wrap: balance; }
 
+  /* Narrowest phones: a "BARDZO WYSOKIE" chip leaves ~70px for the name, so a long word
+     ("Pogłębiająca", "Sandomierzem") spilled past the panel. Stack chip over name instead. */
+  @media (max-width: 359px) {
+    .glance-list { grid-template-columns: 1fr; gap: 14px; }
+    .glance-list li { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  }
   @media (max-width: 560px) {
     .glance { padding: 20px; }
     .answer { font-size: 18px; }

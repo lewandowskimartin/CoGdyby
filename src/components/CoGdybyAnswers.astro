@@ -23,7 +23,7 @@ const { pytania = [] } = Astro.props;
   .cg-item { padding: 22px 0; border-bottom: 1px solid var(--hair); }
   .cg-item h3 { font-size: 20px; font-weight: 600; line-height: 1.25; letter-spacing: -0.015em; margin: 0 0 8px; text-wrap: balance; }
   .cg-item p { margin: 0 0 10px; font-size: 16.5px; line-height: 1.65; color: var(--ink-soft); text-wrap: pretty; }
-  .cg-more { font-size: 14.5px; color: var(--ink); text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
+  .cg-more { padding-block: 13px; /* 44px tap target, inline so nothing moves */ font-size: 14.5px; color: var(--ink); text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
   .cg-more:hover { color: var(--action); }
   .cg-all { margin-top: 24px; }
 </style>

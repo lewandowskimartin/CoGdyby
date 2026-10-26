@@ -214,5 +214,9 @@
   .q-option span::before { left: 14px; }
   .q-step legend { font-size: 20px; }
   .q-nav .btn { padding-inline: 18px; } /* "Back" + "See my score" on one row */
+  /* When both don't fit (320px: "Wróć do początku" + "Dalej", "Wstecz" + "Zobacz mój wynik"),
+     wrap instead of spilling out of the card: each button takes a full row, the main one below. */
+  .q-nav { flex-wrap: wrap; }
+  .q-nav .btn { flex: 1 1 auto; }
   .q-actions .btn-outline { padding-inline: 12px; font-size: 14.5px; } /* "Download the free fridge card" on one line */
 }

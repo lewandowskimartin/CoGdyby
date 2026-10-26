@@ -221,6 +221,7 @@ h1, h2, h3 {
   display: inline-flex;
   align-items: center;
   flex: none; /* never squash the wordmark */
+  min-height: 44px; /* tap target; the logo itself is only 22-26px tall on phones */
 }
 .brand-logo {
   display: block;
@@ -784,6 +785,12 @@ body.nav-open::after {
 .final p { font-size: 17px; line-height: 1.6; color: var(--on-action); margin: 0 auto 32px; max-width: 460px; }
 .final-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
 .final p { text-wrap: pretty; }
+.final h2 { overflow-wrap: break-word; }
+@media (max-width: 359px) {
+  /* Narrowest phones: at 38px a long word ("przygotowaniu", 253px) is wider than the panel (222px) */
+  .final-inner { padding-inline: 20px; }
+  .final h2 { font-size: 34px; }
+}
 @media (max-width: 480px) {
   /* Stacked CTAs: one shared width instead of two ragged centred pills */
   .final-actions { flex-direction: column; align-items: stretch; max-width: 340px; margin: 0 auto; }
@@ -975,9 +982,12 @@ body.nav-open::after {
 .page { max-width: 760px; margin: 0 auto; padding: 64px var(--pad) 24px; }
 .page .eyebrow { display: block; margin-bottom: 16px; }
 .page h1 { font-size: clamp(48px, 8.5vw, 52px); font-weight: 500; line-height: 1.06; letter-spacing: -0.025em; margin-bottom: 12px; }
-/* Smallest phones only (≤359px): step the big headline down a notch so long titles
-   don't run to 8–9 lines. 375px and up keep the full 48px+. */
-@media (max-width: 359px) { .article h1, .page h1 { font-size: 42px; } }
+/* Phones under 390px: scale the headline with the screen so the longest Polish words
+   ("Bezpieczeństwo", "Świętokrzyskie") fit the column. At a fixed 48px they ran ~22px past
+   the text column at 360px; 42px still overflowed at 320px. 12vw = 38px at 320, 43px at 360,
+   45px at 375; 390px and up keep the full 48px+. break-word is only a last-resort net. */
+.article h1, .page h1 { overflow-wrap: break-word; }
+@media (max-width: 389px) { .article h1, .page h1 { font-size: 12vw; } }
 .page .page-sub { font-size: 17.5px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 8px; max-width: 640px; }
 .page .page-sub a { color: var(--ink); text-decoration: underline; text-decoration-color: var(--action); text-underline-offset: 3px; }
 .page .page-sub a:hover { color: var(--action); }
